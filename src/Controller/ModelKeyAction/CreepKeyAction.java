@@ -1,4 +1,15 @@
 package Controller.ModelKeyAction;
 
-public class CreepKeyAction {
+import javafx.scene.input.KeyCode;
+
+public class CreepKeyAction extends ModelKeyAction {
+    @Override
+    public void handle(KeyCode incomingKey) {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
 }

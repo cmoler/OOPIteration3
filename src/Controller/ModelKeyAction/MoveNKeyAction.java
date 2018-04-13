@@ -1,4 +1,15 @@
 package Controller.ModelKeyAction;
 
-public class MoveNKeyAction {
+import javafx.scene.input.KeyCode;
+
+public class MoveNKeyAction extends ModelKeyAction {
+    @Override
+    public void handle(KeyCode incomingKey) {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
 }

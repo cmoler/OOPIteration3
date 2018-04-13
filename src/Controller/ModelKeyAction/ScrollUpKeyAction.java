@@ -1,4 +1,15 @@
 package Controller.ModelKeyAction;
 
-public class ScrollUpKeyAction {
+import javafx.scene.input.KeyCode;
+
+public class ScrollUpKeyAction extends ModelKeyAction {
+    @Override
+    public void handle(KeyCode incomingKey) {
+
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
 }
