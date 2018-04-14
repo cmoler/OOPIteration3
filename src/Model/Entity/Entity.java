@@ -2,6 +2,7 @@ package Model.Entity;
 
 import Model.Entity.EntityAttributes.*;
 import Model.Level.Terrain;
+import Model.Level.Mount;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import java.util.HashMap;
@@ -29,10 +30,15 @@ public class Entity {
     private List<Terrain> compatableTerrain;
     private boolean sneaking;
     private boolean moveable;
+    private Mount mount;
 
     public Entity() {
         this.xpLevel = new XPLevel();
         this.health = new Health(100, 100);
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
     }
 
     public int getCurrentHealth() {
@@ -65,5 +71,12 @@ public class Entity {
 
     public void kill() {
         health.decreaseCurrentHealth(health.getMaxHealth());
+    }
+
+    public void mountVehicle(Mount mount){
+        this.mount = mount;
+        compatableTerrain.addAll(mount.getPassableTerrain());
+        mount.setOrientation(getOrientation());
+        speed.increaseSpeed(mount.getMovementSpeed());
     }
 }
