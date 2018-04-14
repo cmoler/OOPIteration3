@@ -12,4 +12,26 @@ public class Skill {
     private SendInfluenceEffectCommand sendInfluenceEffectCommand;
     private int accuracy;
     private int useCost;
+
+    public Skill() {
+        name = "NEED NAME HERE";
+        influenceEffect = null;
+        behavior = null;
+        accuracy = 0;
+        useCost = 0;
+    }
+
+    public Skill(String name, InfluenceEffect influenceEffect, Command behavior, SendInfluenceEffectCommand sendInfluenceEffectCommand,
+                 int accuracy, int useCost) {
+        this.name = name;
+        this.influenceEffect = influenceEffect;
+        this.behavior = behavior;
+        this.sendInfluenceEffectCommand = sendInfluenceEffectCommand;
+        this.accuracy = accuracy;
+        this.useCost = useCost;
+    }
+
+    public void fire() {
+        // TODO: write in logic once send influence command is finished
+    }
 }

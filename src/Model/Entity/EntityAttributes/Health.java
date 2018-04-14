@@ -5,6 +5,11 @@ public class Health {
     private int currentHealth;
     private int maxHealth;
 
+    public Health() {
+        currentHealth = 100;
+        maxHealth = 100;
+    }
+
     public Health(int currentHealth, int maxHealth)
     {
         this.currentHealth = currentHealth;
