@@ -155,6 +155,10 @@ public class Entity {
         return velocity;
     }
 
+    public void addVelocity(Vec3d add){
+        velocity.add(add);
+    }
+
     public void setVelocity(Vec3d velocity) {
         this.velocity = velocity;
     }
