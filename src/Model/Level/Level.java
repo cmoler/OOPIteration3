@@ -117,4 +117,8 @@ public class Level {
     public Map<Point3D, InfluenceEffect> getInfluencesMap() {
         return influenceEffectLocations;
     }
+    
+    public boolean hasItem(Item item) {
+        return itemLocations.containsValue(item);
+    }
 }

@@ -55,6 +55,30 @@ public class Entity {
         health.decreaseCurrentHealth(amt);
     }
 
+    public void increaseMana(int amt){
+        mana.increaseMana(amt);
+    }
+
+    public void decreaseMana(int amt){
+        mana.increaseMana(amt);
+    }
+
+    public void increaseNoiseLevel(int amt) {
+        noiseLevel.increaseNoise(amt);
+    }
+
+    public void decreaseNoiseLevel(int amt) {
+        noiseLevel.decreaseNoise(amt);
+    }
+
+    public void increaseSpeed(int amt) {
+        speed.increaseSpeed(amt);
+    }
+
+    public void decreaseSpeed(int amt){
+        speed.decreaseSpeed(amt);
+    }
+
     public void levelUp() {
         xpLevel.increaseLevel();
     }
@@ -66,4 +90,5 @@ public class Entity {
     public void kill() {
         health.decreaseCurrentHealth(health.getMaxHealth());
     }
+
 }
