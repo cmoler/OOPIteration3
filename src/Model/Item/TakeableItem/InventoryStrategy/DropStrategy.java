@@ -1,4 +1,29 @@
 package Model.Item.TakeableItem.InventoryStrategy;
 
-public class DropStrategy {
+import Model.Command.LevelCommand.DropItemCommand;
+import Model.Item.TakeableItem.TakeableItem;
+
+public class DropStrategy extends InventoryStrategy{
+
+    private TakeableItem item;
+    private DropItemCommand dropItemCommand;
+
+    public DropStrategy(TakeableItem item, DropItemCommand dropItemCommand) {
+        this.item = item;
+        this.dropItemCommand = dropItemCommand;
+    }
+
+    @Override
+    public void useStrategy() {
+        dropItemCommand.setItem(item);
+        dropItemCommand.execute(getEntity());
+    }
+
+    public void setItem(TakeableItem takeableItem){
+        this.item = takeableItem;
+    }
+
+    public TakeableItem getItem() {
+        return item;
+    }
 }
