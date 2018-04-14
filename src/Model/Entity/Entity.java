@@ -1,6 +1,10 @@
 package Model.Entity;
 
 import Model.Entity.EntityAttributes.*;
+import Model.Item.TakeableItem.ArmorItem;
+import Model.Item.TakeableItem.RingItem;
+import Model.Item.TakeableItem.TakeableItem;
+import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.Terrain;
 import Model.Level.Mount;
 import View.LevelView.LevelViewElement;
@@ -50,6 +54,18 @@ public class Entity {
         orientation = o;
     }
 
+    public void addItemToInventory(TakeableItem item) {
+        inventory.addItem(item);
+    }
+
+    public void removeItemFromInventory(TakeableItem item) {
+        inventory.removeItem(item);
+    }
+
+    public boolean hasItem(TakeableItem item) {
+        return inventory.hasItem(item);
+    }
+
     public int getCurrentHealth() {
         return health.getCurrentHealth();
     }
@@ -95,6 +111,30 @@ public class Entity {
         health.decreaseCurrentHealth(amt);
     }
 
+    public void increaseMana(int amt){
+        mana.increaseMana(amt);
+    }
+
+    public void decreaseMana(int amt){
+        mana.increaseMana(amt);
+    }
+
+    public void increaseNoiseLevel(int amt) {
+        noiseLevel.increaseNoise(amt);
+    }
+
+    public void decreaseNoiseLevel(int amt) {
+        noiseLevel.decreaseNoise(amt);
+    }
+
+    public void increaseSpeed(int amt) {
+        speed.increaseSpeed(amt);
+    }
+
+    public void decreaseSpeed(int amt){
+        speed.decreaseSpeed(amt);
+    }
+
     public void levelUp() {
         xpLevel.increaseLevel();
     }
@@ -107,6 +147,7 @@ public class Entity {
         health.decreaseCurrentHealth(health.getMaxHealth());
     }
 
+<<<<<<< HEAD
     public Boolean canMoveOnTerrain(Terrain T) {
         return compatableTerrain.contains(T);
     }
@@ -144,3 +185,33 @@ public class Entity {
         // notifyObservers(); Only if we want the sprite to change
     }
 }
+=======
+    public void equipArmor(ArmorItem armorItem) {
+        inventory.removeItem(armorItem);
+
+        if(equipment.hasArmor()) {
+            ArmorItem oldArmor = equipment.unequipArmor(this);
+
+            oldArmor.toggleEquipEffect(this);
+        }
+
+        equipment.equipArmor(armorItem, this);
+    }
+
+    public void equipRing(RingItem ringItem) {
+        inventory.removeItem(ringItem);
+
+        if(equipment.hasRing()) {
+            RingItem oldRing = equipment.unequipRing(this);
+
+            oldRing.toggleEquipEffect(this);
+        }
+
+        equipment.equipRing(ringItem, this);
+    }
+
+    public void equipWeapon(WeaponItem weaponItem) {
+        equipment.equipWeapon(weaponItem);
+    }
+}
+>>>>>>> master

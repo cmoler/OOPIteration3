@@ -1,4 +1,40 @@
 package Model.Item.TakeableItem;
 
-public class TakeableItem {
+import Model.Command.Command;
+import Model.Command.LevelCommand.DropItemCommand;
+import Model.Entity.Entity;
+import Model.Item.Item;
+import Model.Item.TakeableItem.InventoryStrategy.DropStrategy;
+import Model.Level.LevelMessenger;
+
+public abstract class TakeableItem extends Item {
+
+    private int price; // TODO: constructors/getters/setters for price of item
+    private DropStrategy dropStrategy;
+
+    protected TakeableItem(String name, Command command, LevelMessenger levelMessenger) {
+        super(name, command);
+
+        dropStrategy = new DropStrategy(this, new DropItemCommand(levelMessenger));
+    }
+
+    @Override
+    public void onTouch(Entity entity) {
+        entity.addItemToInventory(this);
+
+        if(entity.hasItem(this)) {
+            dropStrategy.setEntity(entity);
+            setToBeDeleted();
+        }
+    }
+
+    final public void dropItem(){
+        dropStrategy.useStrategy();
+    }
+
+    public void changeCurrentLevelMessenger(LevelMessenger levelMessenger) {
+        dropStrategy = new DropStrategy(this, new DropItemCommand(levelMessenger));
+    }
+
+    public abstract void select();
 }

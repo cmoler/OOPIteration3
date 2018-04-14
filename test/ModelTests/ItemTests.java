@@ -88,4 +88,6 @@ public class ItemTests {
 
         Assert.assertTrue(level.hasItem(interactiveItem));
     }
+
+    // TODO: NEED TESTS FOR EQUIPPING ARMORS, RINGS, WEAPONS, CONSUMABLES
 }

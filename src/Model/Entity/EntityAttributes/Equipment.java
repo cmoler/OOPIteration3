@@ -1,5 +1,6 @@
 package Model.Entity.EntityAttributes;
 
+import Model.Entity.Entity;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.RingItem;
 import Model.Item.TakeableItem.WeaponItem;
@@ -38,11 +39,31 @@ public class Equipment {
         this.equippedWeapon = equippedWeapon;
     }
 
-    public void equipArmor(ArmorItem equippedArmor) {
+    public void equipArmor(ArmorItem equippedArmor, Entity entity) {
         this.equippedArmor = equippedArmor;
+        this.equippedArmor.toggleEquipEffect(entity);
     }
 
-    public void equipRing(RingItem equippedRing) {
+    public ArmorItem unequipArmor(Entity entity) {
+        equippedArmor.toggleEquipEffect(entity);
+
+        ArmorItem oldArmor = equippedArmor;
+        equippedArmor = null;
+
+        return oldArmor;
+    }
+
+    public void equipRing(RingItem equippedRing, Entity entity) {
         this.equippedRing = equippedRing;
+        this.equippedRing.toggleEquipEffect(entity);
+    }
+
+    public RingItem unequipRing(Entity entity) {
+        equippedRing.toggleEquipEffect(entity);
+
+        RingItem oldRing = equippedRing;
+        equippedRing = null;
+
+        return oldRing;
     }
 }

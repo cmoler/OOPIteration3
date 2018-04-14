@@ -1,4 +1,17 @@
 package Model.Item.TakeableItem.InventoryStrategy;
 
-public class RingEquipStrategy {
+import Model.Item.TakeableItem.RingItem;
+
+public class RingEquipStrategy extends InventoryStrategy {
+
+    private RingItem ringItem;
+
+    public RingEquipStrategy(RingItem ringItem) {
+        this.ringItem = ringItem;
+    }
+
+    @Override
+    public void useStrategy() {
+        getEntity().equipRing(ringItem);
+    }
 }

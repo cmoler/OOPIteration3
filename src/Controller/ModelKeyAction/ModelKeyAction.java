@@ -4,6 +4,10 @@ import javafx.scene.input.KeyCode;
 
 public abstract class ModelKeyAction {
 
+    public ModelKeyAction(KeyCode keyCode){
+        this.keyCode = keyCode;
+    }
+
     KeyCode keyCode;
 
     public KeyCode getKeyCode() {

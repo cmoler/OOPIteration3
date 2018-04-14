@@ -21,13 +21,19 @@ public class Inventory {
     }
 
     public void addItem(TakeableItem item) {
-        inventory.add(item);
+        if(inventory.size() + 1 <= maxSize) {
+            inventory.add(item);
+        }
     }
 
     public void removeItem(TakeableItem item) {
         if(inventory.contains(item)) {
             inventory.remove(item);
         }
+    }
+
+    public boolean hasItem(TakeableItem item) {
+        return inventory.contains(item);
     }
 
     public void raiseItemLimit(int increase) {

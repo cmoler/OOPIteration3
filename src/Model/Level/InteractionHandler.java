@@ -49,6 +49,7 @@ public class InteractionHandler {
         processItems();
         processAreaEffects();
         processTraps();
+        processInfluenceEffects();
 
         deleteItems();
     }
@@ -100,6 +101,26 @@ public class InteractionHandler {
 
             if(item.isToBeDeleted()) {
                 itemLocations.remove(point, item);
+            }
+        }
+    }
+
+    private void processInfluenceEffects() {
+        List<Point3D> itemPoints = new ArrayList<>(influenceEffectLocations.keySet());
+
+        for(Point3D point : itemPoints) {
+
+            InfluenceEffect influenceEffect = influenceEffectLocations.get(point); //Get current influence effect
+            ArrayList<Point3D> influencePoints = influenceEffect.nextMove(point); //Get list of points its effecting
+            for(Point3D influencePoint : influencePoints) {//For each effected point
+                if(entityLocations.containsKey(influencePoint)) {//Check if there is an entity on that location
+                    Entity entity = entityLocations.get(influencePoint); //Get entity
+                    influenceEffect.hitEntity(entity); //Trigger command
+                }
+            }
+
+            if(influencePoints.size() == 0) {
+                influenceEffectLocations.remove(point, influenceEffect);
             }
         }
     }
