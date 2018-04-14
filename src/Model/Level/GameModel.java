@@ -4,6 +4,7 @@ import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Entity.Entity;
+import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,4 +36,10 @@ public class GameModel {
         }
         return null;
     }
+
+    public void moveEntity(Entity entity, Level sourceLevel, Level destinationLevel, Point3D destinationPoint) {
+        sourceLevel.removeEntityFrom(entity);
+        destinationLevel.addEntityTo(destinationPoint, entity);
+    }
+
 }
