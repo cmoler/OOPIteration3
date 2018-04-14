@@ -1,4 +1,5 @@
 package Model.Entity;
 
-public class Orientation {
+public enum Orientation {
+    NORTH, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST, SOUTH, NONE
 }
