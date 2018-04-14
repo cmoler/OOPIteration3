@@ -6,17 +6,19 @@ import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
 import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
+import Model.Level.*;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.LinearInfluenceEffect;
-import Model.Level.Level;
-import Model.Level.Trap;
 import View.LevelView.LevelViewElement;
+import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -76,6 +78,71 @@ public class LevelTests {
 
         assertEquals(85, entity3.getCurrentHealth(), 0);
 
+
+    }
+
+    @Test
+    public void testMovementInteractions(){
+        Map<Point3D,Terrain> terrainLocations = new HashMap<Point3D, Terrain>();
+        Map<Point3D, Obstacle> obstacleLocations = new HashMap<Point3D, Obstacle>();
+        Map<Point3D, Entity> entityLocations = new HashMap<Point3D, Entity>();
+        Map<Point3D, Mount> mountLocations = new HashMap<Point3D, Mount>();
+
+        MovementHandler MH = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations);
+
+        // Case 1: Attempting to move onto an impassable Terrain
+        terrainLocations.put(new Point3D(2,2,2),Terrain.WATER);
+
+        Entity ent = new Entity();
+        ent.setVelocity(new Vec3d(1,0,0));
+        entityLocations.put(new Point3D(1,2,2), ent);
+
+        MH.processMoves();
+        Assert.assertTrue(entityLocations.containsKey(new Point3D(1,2,2)));
+
+        entityLocations.clear();
+        terrainLocations.clear();
+
+        // Case 2: Attempting to move onto an obstacle
+        terrainLocations.put(new Point3D(2,2,2),Terrain.GRASS);
+        obstacleLocations.put(new Point3D(2,2,2),new Obstacle());
+
+        ent.setVelocity(new Vec3d(1,0,0));
+        entityLocations.put(new Point3D(1,2,2), ent);
+
+        MH.processMoves();
+        Assert.assertTrue(entityLocations.containsKey(new Point3D(1,2,2)));
+
+        entityLocations.clear();
+        obstacleLocations.clear();
+
+        // Case 3: Attempting to move on another entity
+        Entity ent1 = new Entity();
+        entityLocations.put(new Point3D(2,2,2), ent1);
+
+        ent.setVelocity(new Vec3d(1,0,0));
+        entityLocations.put(new Point3D(1,2,2), ent);
+
+        MH.processMoves();
+        Assert.assertTrue(entityLocations.get(new Point3D(1,2,2)).equals(ent));
+        Assert.assertEquals(new Vec3d(0, 0, 0),ent.getVelocity());
+
+        entityLocations.clear();
+
+       // Case 4: Normal Movement
+
+        terrainLocations.put(new Point3D(2,2,2),Terrain.GRASS);
+
+        ent.setVelocity(new Vec3d(1,0,0));
+        entityLocations.put(new Point3D(1,2,2), ent);
+
+        Assert.assertTrue(ent.isMoving());
+
+        MH.processMoves();
+        Assert.assertTrue(entityLocations.get(new Point3D(2,2,2)).equals(ent));
+        Assert.assertEquals(new Vec3d(0, 0, 0),ent.getVelocity());
+
+        entityLocations.clear();
 
     }
 
