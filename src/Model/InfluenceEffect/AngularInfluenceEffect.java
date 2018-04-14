@@ -16,7 +16,7 @@ public class AngularInfluenceEffect extends InfluenceEffect {
         if(getMovesRemaining() <= 0) { return new ArrayList<>(); }
 
         ArrayList<Point3D> newPoints = new ArrayList<>();
-        int distance = getRange()-getMovesRemaining();
+        int distance = getRange()-getMovesRemaining()+1;
         Point3D currentPoint = point;
         for(int i = 0; i < distance; i++) {//Find starting point based on distance
             currentPoint = getOrientation().getAdjacentPoint(currentPoint, getOrientation());

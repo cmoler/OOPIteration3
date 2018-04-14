@@ -43,7 +43,7 @@ public class AngularInfluenceEffectTest {
 
         Point3D startPoint = new Point3D(0, 0, 0);
 
-        influenceEffect.nextMove(startPoint);
+
         influenceEffect.nextMove(startPoint);
         influenceEffect.nextMove(startPoint);
         influenceEffect.nextMove(startPoint);

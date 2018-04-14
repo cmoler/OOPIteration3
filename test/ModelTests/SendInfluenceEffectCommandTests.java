@@ -1,7 +1,9 @@
 package ModelTests;
 
+import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
 import Model.Command.LevelCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
@@ -29,7 +31,7 @@ public class SendInfluenceEffectCommandTests {
         level.addEntityTo(new Point3D(0,0,0), entity);
         levelMessenger = new LevelMessenger(null, level);
         sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
-        influenceEffect = new InfluenceEffect();
+        influenceEffect = new InfluenceEffect(new RemoveHealthCommand(15), 6, 5, Orientation.NORTH);
     }
 
     @Test

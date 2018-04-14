@@ -20,7 +20,13 @@ public class LinearInfluenceEffect extends InfluenceEffect{
         if(getMovesRemaining() <= 0) { return new ArrayList<>(); }
 
         ArrayList<Point3D> newPos = new ArrayList<>();
-        newPos.add(getOrientation().getAdjacentPoint(point, getOrientation()));
+
+        int distance = getRange()-getMovesRemaining()+1;
+        Point3D newPoint = point;
+        for(int i = 0; i < distance; i++) {
+            newPoint = getOrientation().getAdjacentPoint(newPoint, getOrientation());
+        }
+        newPos.add(newPoint);
 
         decrementMovesRemaining();
         return newPos;
