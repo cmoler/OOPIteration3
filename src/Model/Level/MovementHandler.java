@@ -27,7 +27,7 @@ public class MovementHandler {
                     if (mountLocations.containsKey(contestedPoint)){
                         ent.mountVehicle(mountLocations.get(contestedPoint));
                     }
-                    if (entityLocations.containsKey(entry.getKey()) && (!entityLocations.get(entry.getKey()).equals(ent))){
+                    if (entityLocations.containsKey(contestedPoint)){
                        //@TODO: Figure out this use case.
                         System.out.println("Hello Entity!");
                     }
