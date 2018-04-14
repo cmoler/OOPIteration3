@@ -147,7 +147,6 @@ public class Entity {
         health.decreaseCurrentHealth(health.getMaxHealth());
     }
 
-<<<<<<< HEAD
     public Boolean canMoveOnTerrain(Terrain T) {
         return compatableTerrain.contains(T);
     }
@@ -184,8 +183,7 @@ public class Entity {
         this.mount = null;
         // notifyObservers(); Only if we want the sprite to change
     }
-}
-=======
+
     public void equipArmor(ArmorItem armorItem) {
         inventory.removeItem(armorItem);
 
@@ -214,4 +212,3 @@ public class Entity {
         equipment.equipWeapon(weaponItem);
     }
 }
->>>>>>> master
