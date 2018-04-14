@@ -1,21 +1,29 @@
 package Model.InfluenceEffect;
 
+import Model.Command.Command;
+import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.Orientation;
+import javafx.geometry.Point3D;
+
+import java.util.Map;
+
 public class InfluenceEffect {
     private Command command;
     private int movesRemaining;
-    private int distanceTravelled;
     private long nextMoveTime;
     private long speed;
     private Orientation orientation;
-    private Vector3D vector;
+
+    private boolean hasNotFired;
 
     public InfluenceEffect(Command command, int range, long speed, Orientation orientation) {
         this.command = command;
         this.movesRemaining = range;
-        this.distanceTravelled = 0;
+
         this.speed = speed;
         //TODO: make nextMoveTime based on speed
         this.orientation = orientation;
+        hasNotFired = true;
 
 
 
@@ -25,8 +33,12 @@ public class InfluenceEffect {
 
     }
 
+    //Passes entity into command
     public void hitEntity(Entity entity) {
-        command.execute(entity);
+        if(hasNotFired) {
+            command.execute(entity);
+            hasNotFired = false;
+        }
     }
 
 
@@ -38,11 +50,9 @@ public class InfluenceEffect {
         return movesRemaining;
     }
 
-    public int getDistanceTravelled() {
-        return distanceTravelled;
-    }
 
-    public void decrementDistanceTravelled() {
-        distanceTravelled--;
+
+    public void decrementMovesRemaining() {
+        movesRemaining--;
     }
 }
