@@ -44,11 +44,11 @@ public class InteractionHandler {
 
     public void processInteractions() {
         // TODO: item - entity interactions
-        // TODO: trap - entity interactions
         // TODO: mount - entity interactions
         // TODO: influenceEffect - entity interactions
 
         processAreaEffects();
+        processTraps();
     }
 
     private void processAreaEffects() {
@@ -60,6 +60,19 @@ public class InteractionHandler {
                 Entity entity = entityLocations.get(point);
 
                 effect.trigger(entity);
+            }
+        }
+    }
+
+    private void processTraps() {
+        List<Point3D> entityPoints = new ArrayList<>(entityLocations.keySet());
+
+        for(Point3D point : entityPoints) {
+            if(trapLocations.containsKey(point)) {
+                Trap trap = trapLocations.get(point);
+                Entity entity = entityLocations.get(point);
+
+                trap.fire(entity);
             }
         }
     }
