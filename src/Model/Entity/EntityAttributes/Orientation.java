@@ -26,4 +26,13 @@ public enum Orientation {
         if(orientation == NORTH || orientation == NORTHEAST) { return -1; }
         return 0;
     }
+
+    public int getIndexOfOrientation(Orientation orientation) {
+        for(int i = 0; i < values().length; i++) {
+            if(orientation == values()[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
