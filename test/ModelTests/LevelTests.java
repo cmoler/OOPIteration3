@@ -16,6 +16,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class LevelTests {
 
     @Test
@@ -36,26 +38,26 @@ public class LevelTests {
         level.addEntityTo(new Point3D(0 ,0 ,0), entity1);
         level.addEntityTo(new Point3D(1, 0 ,0), entity2);
 
-        Assert.assertEquals(100, entity1.getCurrentHealth(), 0);
-        Assert.assertEquals(100, entity2.getCurrentHealth(), 0);
+        assertEquals(100, entity1.getCurrentHealth(), 0);
+        assertEquals(100, entity2.getCurrentHealth(), 0);
 
         level.processInteractions();
 
-        Assert.assertEquals(100, entity1.getCurrentHealth(), 0);
-        Assert.assertEquals(100, entity2.getCurrentHealth(), 0);
+        assertEquals(100, entity1.getCurrentHealth(), 0);
+        assertEquals(100, entity2.getCurrentHealth(), 0);
 
         level.addAreaEffectTo(new Point3D(0,0 ,0), infiniteAreaEffect);
         level.addAreaEffectTo(new Point3D(1,0 ,0), oneshotAreaEffect);
 
         level.processInteractions();
 
-        Assert.assertEquals(85, entity1.getCurrentHealth(), 0);
-        Assert.assertEquals(85, entity2.getCurrentHealth(), 0);
+        assertEquals(85, entity1.getCurrentHealth(), 0);
+        assertEquals(85, entity2.getCurrentHealth(), 0);
 
         level.processInteractions();
 
-        Assert.assertEquals(70, entity1.getCurrentHealth(), 0);
-        Assert.assertEquals(85, entity2.getCurrentHealth(), 0);
+        assertEquals(70, entity1.getCurrentHealth(), 0);
+        assertEquals(85, entity2.getCurrentHealth(), 0);
     }
 
     @Test
@@ -75,24 +77,36 @@ public class LevelTests {
         level.addEntityTo(new Point3D(0 ,0 ,0), entity1);
         level.addEntityTo(new Point3D(1, 0 ,0), entity2);
 
-        Assert.assertEquals(100, entity1.getCurrentHealth(), 0);
-        Assert.assertEquals(100, entity2.getCurrentHealth(), 0);
+        assertEquals(100, entity1.getCurrentHealth(), 0);
+        assertEquals(100, entity2.getCurrentHealth(), 0);
 
         level.processInteractions();
 
-        Assert.assertEquals(100, entity1.getCurrentHealth(), 0);
-        Assert.assertEquals(100, entity2.getCurrentHealth(), 0);
+        assertEquals(100, entity1.getCurrentHealth(), 0);
+        assertEquals(100, entity2.getCurrentHealth(), 0);
 
         level.addTrapTo(new Point3D(0,0 ,0), trap);
 
         level.processInteractions();
 
-        Assert.assertEquals(85, entity1.getCurrentHealth(), 0);
-        Assert.assertEquals(100, entity2.getCurrentHealth(), 0);
+        assertEquals(85, entity1.getCurrentHealth(), 0);
+        assertEquals(100, entity2.getCurrentHealth(), 0);
 
         level.processInteractions();
 
-        Assert.assertEquals(85, entity1.getCurrentHealth(), 0);
-        Assert.assertEquals(100, entity2.getCurrentHealth(), 0);
+        assertEquals(85, entity1.getCurrentHealth(), 0);
+        assertEquals(100, entity2.getCurrentHealth(), 0);
+    }
+
+    @Test
+    public void testEntityIsFound() {
+        List<LevelViewElement> observers = new ArrayList<>();
+
+        Level level = new Level(observers);
+
+        Entity entity = new Entity();
+
+        level.addEntityTo(new Point3D(0,0,0), entity);
+        assertEquals(new Point3D(0,0,0), level.getEntityPoint(entity));
     }
 }

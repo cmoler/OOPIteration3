@@ -2,6 +2,7 @@ package Model.Entity.EntityAttributes;
 
 import Model.Command.Command;
 import Model.Command.LevelCommand.SendInfluenceEffectCommand;
+import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 
 public class Skill {
@@ -31,7 +32,10 @@ public class Skill {
         this.useCost = useCost;
     }
 
-    public void fire() {
+    public void fire(Entity entity) {
         // TODO: write in logic once send influence command is finished
+        sendInfluenceEffectCommand.setInfluenceEffect(influenceEffect);
+        sendInfluenceEffectCommand.execute(entity);
+        sendInfluenceEffectCommand.sendCommandToLevel();
     }
 }
