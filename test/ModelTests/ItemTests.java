@@ -7,7 +7,6 @@ import Model.Command.EntityCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.Item.InteractiveItem;
-import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.WeaponItem;
@@ -145,7 +144,7 @@ public class ItemTests {
     public void userCannotEquipItemIfSkillNotInsideTheirMapTest() {
         Skill oneHand = new Skill();
 
-        entity.addSkill(oneHand);
+        entity.addSkillsToMap(oneHand);
 
         WeaponItem equippableSword = new WeaponItem("Sword", new ToggleHealthCommand(20));
         equippableSword.setSkill(oneHand);

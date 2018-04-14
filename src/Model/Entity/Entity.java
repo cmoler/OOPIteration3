@@ -47,6 +47,8 @@ public class Entity {
         compatableTerrain.add(Terrain.GRASS);
         this.velocity = new Vec3d(0,0,0);
         skillLevelsMap = new HashMap<>();
+        weaponSkills = new ArrayList<>();
+        nonWeaponSkills = new ArrayList<>();
     }
 
     public Orientation getOrientation() {
@@ -252,9 +254,27 @@ public class Entity {
         return skillLevelsMap.containsKey(hostSkill);
     }
 
-    public void addSkill(Skill skill) {
-        if(!skillLevelsMap.containsKey(skill)) {
-            skillLevelsMap.put(skill, new SkillLevel(1));
+    public void addSkillsToMap(Skill... skill) {
+        for(Skill addingSkill: skill) {
+            if (!skillLevelsMap.containsKey(addingSkill)) {
+                skillLevelsMap.put(addingSkill, new SkillLevel(1));
+            }
+        }
+    }
+
+    public void addWeaponSkills(Skill... weaponSkills) {
+        for(Skill weaponSkill: weaponSkills) {
+            if(!this.weaponSkills.contains(weaponSkill)) {
+                this.weaponSkills.add(weaponSkill);
+            }
+        }
+    }
+
+    public void addNonWeaponSkills(Skill... nonWeaponSkills) {
+        for(Skill nonWeaponSkill: nonWeaponSkills) {
+            if(!this.nonWeaponSkills.contains(nonWeaponSkill)) {
+                this.nonWeaponSkills.add(nonWeaponSkill);
+            }
         }
     }
 
