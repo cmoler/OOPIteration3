@@ -2,7 +2,6 @@ package Model.Entity;
 
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,4 +25,29 @@ public class Entity {
     private Inventory inventory;
     private boolean sneaking;
     private boolean moveable;
+
+    public Entity() {
+        this.xpLevel = new XPLevel();
+        this.health = new Health(100, 100);
+    }
+
+    public int getCurrentHealth() {
+        return health.getCurrentHealth();
+    }
+
+    public int getMaxHealth() {
+        return health.getMaxHealth();
+    }
+
+    public boolean isDead() {
+        return health.getCurrentHealth() == 0;
+    }
+
+    public void increaseHealth(int amt) {
+        health.increaseCurrentHealth(amt);
+    }
+
+    public void decreaseHealth(int amt) {
+        health.decreaseCurrentHealth(amt);
+    }
 }
