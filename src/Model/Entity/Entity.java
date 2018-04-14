@@ -1,6 +1,7 @@
 package Model.Entity;
 
 import Model.Entity.EntityAttributes.*;
+import Model.Level.Terrain;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import java.util.HashMap;
@@ -24,6 +25,8 @@ public class Entity {
     private Defense defense;
     private Equipment equipment;
     private Inventory inventory;
+    private Orientation orientation;
+    private List<Terrain> compatableTerrain;
     private boolean sneaking;
     private boolean moveable;
 
