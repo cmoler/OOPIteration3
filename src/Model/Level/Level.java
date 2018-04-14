@@ -46,9 +46,18 @@ public class Level {
         this.observers = observers;
 
         this.movementHandler = new MovementHandler();
-        this.interactionHandler = new InteractionHandler();
+
+        this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
+                                                         trapLocations, mountLocations, influenceEffectLocations,
+                                                         observers);
 
         this.tilesSeenByPlayer = new ArrayList<>();
+    }
+
+    // TODO: process moves using movementHandler
+
+    public void processInteractions() {
+        interactionHandler.processInteractions();
     }
 
     public void addTerrainTo(Point3D point, Terrain terrain) {
