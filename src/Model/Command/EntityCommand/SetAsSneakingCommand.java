@@ -1,4 +1,4 @@
 package Model.Command.EntityCommand;
 
-public class ToggleSpeedCommand {
+public class SetAsSneakingCommand {
 }

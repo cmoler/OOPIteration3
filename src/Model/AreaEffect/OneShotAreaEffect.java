@@ -1,4 +1,19 @@
 package Model.AreaEffect;
 
-public class OneShotAreaEffect { // TODO: kevin implement (I made this comment so my branch on my desktop can be accessed by my laptop and I'm lazy
+import Model.Command.Command;
+import Model.Entity.Entity;
+
+public class OneShotAreaEffect implements AreaEffect {
+
+    private Command command;
+    private boolean hasFired;
+
+    public OneShotAreaEffect(Command command) {
+        this.command = command;
+        hasFired = false;
+    }
+
+    public void trigger(Entity entity) {
+        // TODO: implement
+    }
 }
