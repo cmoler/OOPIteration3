@@ -14,7 +14,7 @@ public class GameModelMessenger {
     }
 
     public void sendCommandToGameLoop(GameLoopCommand command) {
-        gameLoopMessenger.receiveCommand(command);
+        gameLoopMessenger.sendCommandToGameLoop(command);
     }
 
     public void sendCommandToGameModel(GameModelCommand command) {
