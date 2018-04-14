@@ -56,4 +56,10 @@ public class Mount {
     public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
+
+    public void notifyObservers(){
+        for (LevelViewElement o:observers) {
+            o.notifyViewElement();
+        }
+    }
 }

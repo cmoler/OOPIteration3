@@ -35,7 +35,7 @@ public class Speed {
             speed -= amount;
         }
     }
-    
+
     public void decreaseSpeed(Speed dec) {
         int amount = dec.getSpeed();
         if(speed - amount < 0) {

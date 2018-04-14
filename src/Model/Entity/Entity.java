@@ -73,10 +73,24 @@ public class Entity {
         health.decreaseCurrentHealth(health.getMaxHealth());
     }
 
+    public void notifyObservers(){
+        for (LevelViewElement o:observers) {
+            o.notifyViewElement();
+        }
+    }
+
     public void mountVehicle(Mount mount){
         this.mount = mount;
         compatableTerrain.addAll(mount.getPassableTerrain());
         mount.setOrientation(getOrientation());
         speed.increaseSpeed(mount.getMovementSpeed());
+        // notifyObservers(); Only if we want the sprite to change to a mounted sprite
+    }
+
+    public void dismountVehicle(){
+        speed.decreaseSpeed(mount.getMovementSpeed());
+        compatableTerrain.removeAll(mount.getPassableTerrain());
+        this.mount = null;
+        // notifyObservers(); Only if we want the sprite to change
     }
 }
