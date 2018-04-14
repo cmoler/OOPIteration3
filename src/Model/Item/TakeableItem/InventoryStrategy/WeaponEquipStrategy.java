@@ -12,6 +12,8 @@ public class WeaponEquipStrategy extends InventoryStrategy {
 
     @Override
     public void useStrategy() {
-        getEntity().equipWeapon(weaponItem);
+        if(getEntity().hasSkill(weaponItem.getHostSKill())) {
+            getEntity().equipWeapon(weaponItem);
+        }
     }
 }

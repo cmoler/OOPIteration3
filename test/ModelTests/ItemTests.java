@@ -5,20 +5,36 @@ import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.Skill;
 import Model.Item.InteractiveItem;
 import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.ArmorItem;
+import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.*;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
+
 public class ItemTests {
+
+    private Level level;
+    private Entity entity;
+    private List<LevelViewElement> observers;
+
+    @Before
+    public void init() {
+        observers = new ArrayList<>();
+        level = new Level(observers);
+        entity = new Entity();
+    }
 
     @Test
     public void testOneShotItemInteractions() {
@@ -125,4 +141,24 @@ public class ItemTests {
     }
 
     // TODO: NEED TESTS FOR EQUIPPING ARMORS, RINGS, WEAPONS, (USING) CONSUMABLES
+    @Test
+    public void userCannotEquipItemIfSkillNotInsideTheirMapTest() {
+        Skill oneHand = new Skill();
+
+        entity.addSkill(oneHand);
+
+        WeaponItem equippableSword = new WeaponItem("Sword", new ToggleHealthCommand(20));
+        equippableSword.setSkill(oneHand);
+        equippableSword.onTouch(entity);
+
+        WeaponItem nonEquippableSword = new WeaponItem("Sword", new ToggleHealthCommand(20));
+        nonEquippableSword.setSkill(new Skill());
+        nonEquippableSword.onTouch(entity);
+
+        equippableSword.select();
+        assertTrue(entity.getWeaponItem() == equippableSword);
+
+        nonEquippableSword.select();
+        assertTrue(entity.getWeaponItem() == equippableSword);
+    }
 }

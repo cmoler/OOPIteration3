@@ -17,7 +17,7 @@ public class WeaponItem extends TakeableItem{
     private int accuracy;
     private int useCost;
 
-    protected WeaponItem(String name, Command command) {
+    public WeaponItem(String name, Command command) {
         super(name, command);
 
         weaponEquipStrategy = new WeaponEquipStrategy(this);
@@ -38,5 +38,13 @@ public class WeaponItem extends TakeableItem{
             weaponEquipStrategy.setEntity(entity);
             setToBeDeleted();
         }
+    }
+
+    public Skill getHostSKill() {
+        return hostSKill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.hostSKill = skill;
     }
 }

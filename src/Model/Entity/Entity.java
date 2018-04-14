@@ -46,6 +46,7 @@ public class Entity {
         this.compatableTerrain = new ArrayList<Terrain>();
         compatableTerrain.add(Terrain.GRASS);
         this.velocity = new Vec3d(0,0,0);
+        skillLevelsMap = new HashMap<>();
     }
 
     public Orientation getOrientation() {
@@ -241,5 +242,19 @@ public class Entity {
            // WeaponItem weaponItem = equipment.unequipWeapon(this);
           //  inventory.addItem(ring);
         }
+    }
+
+    public boolean hasSkill(Skill hostSkill) {
+        return skillLevelsMap.containsKey(hostSkill);
+    }
+
+    public void addSkill(Skill skill) {
+        if(!skillLevelsMap.containsKey(skill)) {
+            skillLevelsMap.put(skill, new SkillLevel(1));
+        }
+    }
+
+    public WeaponItem getWeaponItem() {
+        return equipment.getEquippedWeapon();
     }
 }

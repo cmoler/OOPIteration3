@@ -71,4 +71,16 @@ public class Equipment {
 
         return oldRing;
     }
+
+    public WeaponItem getEquippedWeapon() {
+        return equippedWeapon;
+    }
+
+    public ArmorItem getEquippedArmor() {
+        return equippedArmor;
+    }
+
+    public RingItem getEquippedRing() {
+        return equippedRing;
+    }
 }
