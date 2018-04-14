@@ -1,5 +1,6 @@
 package Model.Entity;
 
+import Model.Entity.EntityAttributes.*;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import java.util.HashMap;
@@ -51,11 +52,15 @@ public class Entity {
         health.decreaseCurrentHealth(amt);
     }
 
-    public void increaseLevel() {
+    public void levelUp() {
         xpLevel.increaseLevel();
     }
 
     public int getLevel() {
         return xpLevel.getLevel();
+    }
+
+    public void kill() {
+        health.decreaseCurrentHealth(health.getMaxHealth());
     }
 }

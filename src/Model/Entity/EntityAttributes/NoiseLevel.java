@@ -1,4 +1,4 @@
-package Model.Entity;
+package Model.Entity.EntityAttributes;
 
 public class NoiseLevel {
 

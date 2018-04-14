@@ -1,4 +1,4 @@
-package Model.Entity;
+package Model.Entity.EntityAttributes;
 
 import Model.Command.Command;
 import Model.Command.LevelCommand.SendInfluenceEffectCommand;

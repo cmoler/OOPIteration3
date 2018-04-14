@@ -1,4 +1,4 @@
-package Model.Entity;
+package Model.Entity.EntityAttributes;
 
 import Model.Item.TakeableItem.TakeableItem;
 

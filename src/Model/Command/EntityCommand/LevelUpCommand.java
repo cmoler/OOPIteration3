@@ -1,4 +1,11 @@
 package Model.Command.EntityCommand;
 
-public class LevelUpCommand {
+import Model.Command.Command;
+import Model.Entity.Entity;
+
+public class LevelUpCommand implements Command {
+
+    public void execute(Entity entity) {
+        entity.levelUp();
+    }
 }
