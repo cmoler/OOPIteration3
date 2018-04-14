@@ -19,12 +19,22 @@ public class KeyBindingParser {
 
     }
 
-    public KeyCode parsePlayerKey(String keyName) throws Exception {
-        return parseKey("player", keyName);
+    public KeyCode parsePlayerKey(String keyName) {
+        try {
+            return parseKey("player", keyName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public KeyCode parseMenuKey(String keyName) throws Exception {
-        return parseKey("menu", keyName);
+    public KeyCode parseMenuKey(String keyName) {
+        try {
+            return parseKey("menu", keyName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private KeyCode parseKey(String fileName, String keyName) throws Exception {

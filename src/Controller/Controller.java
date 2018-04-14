@@ -2,6 +2,8 @@ package Controller;
 
 import Controller.Factories.ControllerSetFactory;
 import Controller.ModelKeyAction.ModelKeyAction;
+import Model.Entity.Entity;
+import Model.MenuModel.MenuModel;
 import javafx.scene.input.KeyCode;
 
 import java.util.List;
@@ -23,5 +25,17 @@ public class Controller {
 
     public void setKeyActionSet(List<ModelKeyAction> keyActionSet) {
         this.keyActionSet = keyActionSet;
+    }
+
+    public ControllerSetFactory getControllerSetFactory() {
+        return controllerSetFactory;
+    }
+
+    public void createTradeSet(MenuModel menuModel) {
+        controllerSetFactory.createTradeSet(menuModel);
+    }
+
+    public void createPlayerControlsSet(Entity player){
+        controllerSetFactory.createPlayerControlsSet(player);
     }
 }
