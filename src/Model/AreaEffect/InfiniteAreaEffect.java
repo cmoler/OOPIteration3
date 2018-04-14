@@ -12,6 +12,6 @@ public class InfiniteAreaEffect implements AreaEffect {
     }
 
     public void trigger(Entity entity) {
-        // TODO: implement
+        command.execute(entity);
     }
 }

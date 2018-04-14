@@ -6,14 +6,17 @@ import Model.Entity.Entity;
 public class OneShotAreaEffect implements AreaEffect {
 
     private Command command;
-    private boolean hasFired;
+    private boolean hasNotFired;
 
     public OneShotAreaEffect(Command command) {
         this.command = command;
-        hasFired = false;
+        hasNotFired = true;
     }
 
     public void trigger(Entity entity) {
-        // TODO: implement
+        if(hasNotFired) {
+            command.execute(entity);
+            hasNotFired = false;
+        }
     }
 }
