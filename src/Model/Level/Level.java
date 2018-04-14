@@ -78,6 +78,16 @@ public class Level {
         entityLocations.put(point, entity);
     }
 
+    public void removeEntityFrom(Entity entity){
+        if(entityLocations.containsValue(entity)) {
+            for(Point3D point: entityLocations.keySet()) {
+                if(entityLocations.get(point) == entity) {
+                    entityLocations.remove(point);
+                }
+            }
+        }
+    }
+
     public void addAreaEffectTo(Point3D point, AreaEffect areaEffect) {
         areaEffectLocations.put(point, areaEffect);
     }
