@@ -12,11 +12,11 @@ public class NoiseLevel {
         this.noise = noise;
     }
 
-    public void increaseMana(int amount) {
+    public void increaseNoise(int amount) {
         noise += amount;
     }
 
-    public void decreaseMana(int amount) {
+    public void decreaseNoise(int amount) {
         if(noise - amount < 0) {
             noise = 0;
         }

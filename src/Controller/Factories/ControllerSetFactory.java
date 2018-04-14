@@ -2,6 +2,8 @@ package Controller.Factories;
 
 import Controller.Controller;
 import Controller.ModelKeyAction.*;
+import Model.Entity.Entity;
+import Model.MenuModel.MenuModel;
 
 import java.util.ArrayList;
 
@@ -14,14 +16,14 @@ public class ControllerSetFactory {
         keyBindingParser = new KeyBindingParser();
     }
 
-    public void createTradeSet() throws Exception {
+    public void createTradeSet(MenuModel menuModel) {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
-        newKeySet.add(new SelectKeyAction(keyBindingParser.parseMenuKey("select")));
-        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft")));
-        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight")));
-        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp")));
-        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown")));
+        newKeySet.add(new SelectKeyAction(keyBindingParser.parseMenuKey("select"), menuModel));
+        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), menuModel));
+        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), menuModel));
+        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), menuModel));
+        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), menuModel));
 
         controller.setKeyActionSet(newKeySet);
     }
@@ -30,23 +32,23 @@ public class ControllerSetFactory {
 
     }
 
-    public void createPlayerControlsSet() throws Exception {
+    public void createPlayerControlsSet(Entity player) {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
-        newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack")));
-        newKeySet.add(new RemoveTrapKeyAction(keyBindingParser.parsePlayerKey("removeTrap")));
-        newKeySet.add(new BindWoundsKeyAction(keyBindingParser.parsePlayerKey("bindWounds")));
-        newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN")));
-        newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE")));
-        newKeySet.add(new MoveSEKeyAction(keyBindingParser.parsePlayerKey("moveSE")));
-        newKeySet.add(new MoveSKeyAction(keyBindingParser.parsePlayerKey("moveS")));
-        newKeySet.add(new MoveSWKeyAction(keyBindingParser.parsePlayerKey("moveSW")));
-        newKeySet.add(new MoveNWKeyAction(keyBindingParser.parsePlayerKey("moveNW")));
-        newKeySet.add(new HotKey1KeyAction(keyBindingParser.parsePlayerKey("hotKey1")));
-        newKeySet.add(new HotKey2KeyAction(keyBindingParser.parsePlayerKey("hotKey2")));
-        newKeySet.add(new HotKey3KeyAction(keyBindingParser.parsePlayerKey("hotKey3")));
-        newKeySet.add(new HotKey4KeyAction(keyBindingParser.parsePlayerKey("hotKey4")));
-        newKeySet.add(new HotKey5KeyAction(keyBindingParser.parsePlayerKey("hotKey5")));
+        newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
+        newKeySet.add(new RemoveTrapKeyAction(keyBindingParser.parsePlayerKey("removeTrap"), player));
+        newKeySet.add(new BindWoundsKeyAction(keyBindingParser.parsePlayerKey("bindWounds"), player));
+        newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player));
+        newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player));
+        newKeySet.add(new MoveSEKeyAction(keyBindingParser.parsePlayerKey("moveSE"), player));
+        newKeySet.add(new MoveSKeyAction(keyBindingParser.parsePlayerKey("moveS"), player));
+        newKeySet.add(new MoveSWKeyAction(keyBindingParser.parsePlayerKey("moveSW"), player));
+        newKeySet.add(new MoveNWKeyAction(keyBindingParser.parsePlayerKey("moveNW"), player));
+        newKeySet.add(new HotKey1KeyAction(keyBindingParser.parsePlayerKey("hotKey1"), player));
+        newKeySet.add(new HotKey2KeyAction(keyBindingParser.parsePlayerKey("hotKey2"), player));
+        newKeySet.add(new HotKey3KeyAction(keyBindingParser.parsePlayerKey("hotKey3"), player));
+        newKeySet.add(new HotKey4KeyAction(keyBindingParser.parsePlayerKey("hotKey4"), player));
+        newKeySet.add(new HotKey5KeyAction(keyBindingParser.parsePlayerKey("hotKey5"), player));
 
         controller.setKeyActionSet(newKeySet);
     }
