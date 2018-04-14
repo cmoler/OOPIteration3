@@ -12,10 +12,8 @@ public abstract class TakeableItem extends Item {
     private int price; // TODO: constructors/getters/setters for price of item
     private DropStrategy dropStrategy;
 
-    protected TakeableItem(String name, Command command, LevelMessenger levelMessenger) {
+    protected TakeableItem(String name, Command command) {
         super(name, command);
-
-        dropStrategy = new DropStrategy(this, new DropItemCommand(levelMessenger));
     }
 
     @Override
@@ -32,7 +30,7 @@ public abstract class TakeableItem extends Item {
         dropStrategy.useStrategy();
     }
 
-    public void changeCurrentLevelMessenger(LevelMessenger levelMessenger) {
+    public void setCurrentLevelMessenger(LevelMessenger levelMessenger) {
         dropStrategy = new DropStrategy(this, new DropItemCommand(levelMessenger));
     }
 

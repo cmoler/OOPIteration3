@@ -41,6 +41,8 @@ public class Entity {
     public Entity() {
         this.xpLevel = new XPLevel();
         this.health = new Health(100, 100);
+        this.inventory = new Inventory();
+        this.equipment = new Equipment();
         this.compatableTerrain = new ArrayList<Terrain>();
         compatableTerrain.add(Terrain.GRASS);
         this.velocity = new Vec3d(0,0,0);
@@ -107,8 +109,16 @@ public class Entity {
         health.increaseCurrentHealth(amt);
     }
 
+    public void increaseMaxHealth(int amt) {
+        health.increaseMaxHealth(amt);
+    }
+
     public void decreaseHealth(int amt) {
         health.decreaseCurrentHealth(amt);
+    }
+
+    public void decreaseMaxHealth(int amt) {
+        health.decreaseMaxHealth(amt);
     }
 
     public void increaseMana(int amt){
@@ -193,11 +203,18 @@ public class Entity {
 
         if(equipment.hasArmor()) {
             ArmorItem oldArmor = equipment.unequipArmor(this);
-
+            // TODO: fix LoD violations here
             oldArmor.toggleEquipEffect(this);
         }
 
         equipment.equipArmor(armorItem, this);
+    }
+
+    public void unequipArmor() {
+        if(inventory.hasFreeSpace()) {
+            ArmorItem armor = equipment.unequipArmor(this);
+            inventory.addItem(armor);
+        }
     }
 
     public void equipRing(RingItem ringItem) {
@@ -205,14 +222,28 @@ public class Entity {
 
         if(equipment.hasRing()) {
             RingItem oldRing = equipment.unequipRing(this);
-
+            // TODO: fix LoD violations here
             oldRing.toggleEquipEffect(this);
         }
 
         equipment.equipRing(ringItem, this);
     }
 
+    public void unequipRing() {
+        if(inventory.hasFreeSpace()) {
+            RingItem ring = equipment.unequipRing(this);
+            inventory.addItem(ring);
+        }
+    }
+
     public void equipWeapon(WeaponItem weaponItem) {
         equipment.equipWeapon(weaponItem);
+    }
+
+    public void unequipWeapon() {
+        if(inventory.hasFreeSpace()) {            // TODO: fix LoD violations here
+           // WeaponItem weaponItem = equipment.unequipWeapon(this);
+          //  inventory.addItem(ring);
+        }
     }
 }

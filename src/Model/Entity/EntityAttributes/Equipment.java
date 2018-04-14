@@ -39,6 +39,11 @@ public class Equipment {
         this.equippedWeapon = equippedWeapon;
     }
 
+    public void unequipWeapon(Entity entity) {
+        this.equippedArmor = equippedArmor;
+        this.equippedArmor.toggleEquipEffect(entity);
+    }
+
     public void equipArmor(ArmorItem equippedArmor, Entity entity) {
         this.equippedArmor = equippedArmor;
         this.equippedArmor.toggleEquipEffect(entity);

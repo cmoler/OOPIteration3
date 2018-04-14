@@ -9,8 +9,8 @@ public class ConsumableItem extends TakeableItem {
 
     private ConsumeStrategy consumeStrategy;
 
-    protected ConsumableItem(String name, Command command, LevelMessenger levelMessenger) {
-        super(name, command, levelMessenger);
+    public ConsumableItem(String name, Command command) {
+        super(name, command);
 
         this.consumeStrategy = new ConsumeStrategy(this);
     }

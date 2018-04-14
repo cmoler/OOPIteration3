@@ -17,8 +17,8 @@ public class WeaponItem extends TakeableItem{
     private int accuracy;
     private int useCost;
 
-    protected WeaponItem(String name, Command command, LevelMessenger levelMessenger) {
-        super(name, command, levelMessenger);
+    protected WeaponItem(String name, Command command) {
+        super(name, command);
 
         weaponEquipStrategy = new WeaponEquipStrategy(this);
     }
