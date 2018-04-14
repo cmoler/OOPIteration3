@@ -6,6 +6,8 @@ import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
 import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.Orientation;
+import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.Level.Level;
 import Model.Level.Trap;
 import View.LevelView.LevelViewElement;
@@ -58,6 +60,23 @@ public class LevelTests {
 
         assertEquals(70, entity1.getCurrentHealth(), 0);
         assertEquals(85, entity2.getCurrentHealth(), 0);
+
+        //Influence effect tests
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(damageCommand, 5, 5, Orientation.NORTH);
+        Entity entity3 = new Entity();
+
+        level.addInfluenceEffectTo(new Point3D(-2, 0, 2), influenceEffect);
+        level.addEntityTo(new Point3D(-2, 2, 0), entity3);
+
+        level.processInteractions();
+
+        assertEquals(100, entity3.getCurrentHealth(), 0);
+
+        level.processInteractions();
+
+        assertEquals(85, entity3.getCurrentHealth(), 0);
+
+
     }
 
     @Test
