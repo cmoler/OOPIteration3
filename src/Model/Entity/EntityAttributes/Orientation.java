@@ -3,7 +3,7 @@ package Model.Entity.EntityAttributes;
 import javafx.geometry.Point3D;
 
 public enum Orientation {
-    NORTH, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST, SOUTH, NONE;
+    NORTH, NORTHEAST, SOUTHEAST, SOUTH, SOUTHWEST, NORTHWEST, NONE;
 
     public Point3D getAdjacentPoint(Point3D startingPos, Orientation orientation) {
         return new Point3D(startingPos.getX() + dx(orientation), startingPos.getY() + dy(orientation), startingPos.getZ() + dz(orientation));

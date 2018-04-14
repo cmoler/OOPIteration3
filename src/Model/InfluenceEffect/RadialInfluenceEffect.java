@@ -17,12 +17,25 @@ public class RadialInfluenceEffect extends InfluenceEffect{
         //Out of moves, return empty list
         if(getMovesRemaining() <= 0) { return new ArrayList<>(); }
 
-        ArrayList<Point3D> newPos = new ArrayList<>();
-        for (Orientation orientation : Orientation.values()) {
-            newPos.add(orientation.getAdjacentPoint(point, orientation));
+        ArrayList<Point3D> newPoints = new ArrayList<>();
+
+        int ringDistance = getRange()-getMovesRemaining();
+        Point3D currentPoint = point;
+        for(int i = 0; i < ringDistance; i++) {//Find starting point
+            currentPoint = getOrientation().getAdjacentPoint(currentPoint, Orientation.NORTH);
         }
+
+        //Generates ring of radius ringDistance
+        for(int i = 0; i < Orientation.values().length-1; i++) {
+            for(int j = 0; j < ringDistance; j++) {
+                newPoints.add(currentPoint);
+                currentPoint = getOrientation().getAdjacentPoint(currentPoint, Orientation.values()[(i+2)%6]);
+            }
+        }
+
+
         decrementMovesRemaining();
 
-        return newPos;
+        return newPoints;
     }
 }
