@@ -19,7 +19,7 @@ public class InteractionHandler {
     private Map<Point3D, Trap> trapLocations;
     private Map<Point3D, Mount> mountLocations;
     private Map<Point3D, InfluenceEffect> influenceEffectLocations;
-
+    private Map<Point3D, River> riverLocations;
     private List<LevelViewElement> observers;
 
     public  InteractionHandler(Map<Point3D, Item> itemLocations,
@@ -28,7 +28,7 @@ public class InteractionHandler {
                                Map<Point3D, Trap> trapLocations,
                                Map<Point3D, Mount> mountLocations,
                                Map<Point3D, InfluenceEffect> influenceEffectLocations,
-                               List<LevelViewElement> observers) {
+                               Map<Point3D, River> riverLocations, List<LevelViewElement> observers) {
 
         this.itemLocations = itemLocations;
         this.entityLocations = entityLocations;
@@ -36,6 +36,7 @@ public class InteractionHandler {
         this.trapLocations = trapLocations;
         this.mountLocations = mountLocations;
         this.influenceEffectLocations = influenceEffectLocations;
+        this.riverLocations = riverLocations;
 
         this.observers = observers;
     }
@@ -43,15 +44,22 @@ public class InteractionHandler {
     // TODO: add logic for notifying observers
 
     public void processInteractions() {
-        // TODO: mount - entity interactions
-        // TODO: influenceEffect - entity interactions
-
         processItems();
         processAreaEffects();
         processTraps();
         processInfluenceEffects();
-
+        processRivers();
         deleteItems();
+    }
+
+    private void processRivers() {
+        List<Point3D> entityPoints = new ArrayList<>(entityLocations.keySet());
+
+        for(Point3D point : entityPoints) {
+            if(riverLocations.containsKey(point)) {
+                entityLocations.get(point).addVelocity(riverLocations.get(point).getFlowrate());
+            }
+        }
     }
 
     private void processItems() {

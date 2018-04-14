@@ -1,7 +1,6 @@
 package Model.Level;
 
 import Model.AreaEffect.AreaEffect;
-import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
@@ -51,7 +50,7 @@ public class Level {
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
                                                          trapLocations, mountLocations, influenceEffectLocations,
-                                                         observers);
+                riverLocations, observers);
 
         this.tilesSeenByPlayer = new ArrayList<>();
     }
