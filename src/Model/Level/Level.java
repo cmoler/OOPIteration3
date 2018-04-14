@@ -99,4 +99,8 @@ public class Level {
     public void addDecalTo(Point3D point, Decal decal) {
         decalLocations.put(point, decal);
     }
+
+    public boolean hasItem(Item item) {
+        return itemLocations.containsValue(item);
+    }
 }

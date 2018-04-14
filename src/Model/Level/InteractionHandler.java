@@ -43,12 +43,27 @@ public class InteractionHandler {
     // TODO: add logic for notifying observers
 
     public void processInteractions() {
-        // TODO: item - entity interactions
         // TODO: mount - entity interactions
         // TODO: influenceEffect - entity interactions
 
+        processItems();
         processAreaEffects();
         processTraps();
+
+        deleteItems();
+    }
+
+    private void processItems() {
+        List<Point3D> entityPoints = new ArrayList<>(entityLocations.keySet());
+
+        for(Point3D point : entityPoints) {
+            if(itemLocations.containsKey(point)) {
+                Item item = itemLocations.get(point);
+                Entity entity = entityLocations.get(point);
+
+                item.onTouch(entity);
+            }
+        }
     }
 
     private void processAreaEffects() {
@@ -73,6 +88,18 @@ public class InteractionHandler {
                 Entity entity = entityLocations.get(point);
 
                 trap.fire(entity);
+            }
+        }
+    }
+
+    private void deleteItems() {
+        List<Point3D> itemPoints = new ArrayList<>(itemLocations.keySet());
+
+        for(Point3D point : itemPoints) {
+            Item item = itemLocations.get(point);
+
+            if(item.isToBeDeleted()) {
+                itemLocations.remove(point, item);
             }
         }
     }
