@@ -36,6 +36,7 @@ public class LinearInfluenceEffectTest {
 
         influenceEffect.hitEntity(entity1);
 
+
         Assert.assertEquals(entity1.getCurrentHealth(), 85, 0);
         //Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 

@@ -8,7 +8,7 @@ import javafx.geometry.Point3D;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class InfluenceEffect {
+public abstract class InfluenceEffect{
     private Command command;
     private int movesRemaining;
     private long nextMoveTime;
@@ -57,8 +57,17 @@ public class InfluenceEffect {
         return range;
     }
 
+    public long getSpeed() {
+        return speed;
+    }
 
     public void decrementMovesRemaining() {
         movesRemaining--;
     }
+
+    public Command getCommand() {
+        return command;
+    }
+
+    public abstract InfluenceEffect getClone();
 }
