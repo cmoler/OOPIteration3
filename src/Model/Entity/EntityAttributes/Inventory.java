@@ -32,6 +32,10 @@ public class Inventory {
         }
     }
 
+    public boolean hasItem(TakeableItem item) {
+        return inventory.contains(item);
+    }
+
     public void raiseItemLimit(int increase) {
         maxSize += increase;
     }

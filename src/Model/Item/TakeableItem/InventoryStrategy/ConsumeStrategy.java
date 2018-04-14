@@ -6,16 +6,12 @@ public class ConsumeStrategy extends InventoryStrategy{
 
     private ConsumableItem consumableItem;
 
-    @Override
-    public void useStrategy() {
-
-    }
-
-    public void setConsumableItem(ConsumableItem consumableItem) {
+    public ConsumeStrategy(ConsumableItem consumableItem) {
         this.consumableItem = consumableItem;
     }
 
-    public ConsumableItem getConsumableItem() {
-        return consumableItem;
+    @Override
+    public void useStrategy() {
+        consumableItem.consume(getEntity());
     }
 }

@@ -1,6 +1,10 @@
 package Model.Entity;
 
 import Model.Entity.EntityAttributes.*;
+import Model.Item.TakeableItem.ArmorItem;
+import Model.Item.TakeableItem.RingItem;
+import Model.Item.TakeableItem.TakeableItem;
+import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.Terrain;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
@@ -33,6 +37,18 @@ public class Entity {
     public Entity() {
         this.xpLevel = new XPLevel();
         this.health = new Health(100, 100);
+    }
+
+    public void addItemToInventory(TakeableItem item) {
+        inventory.addItem(item);
+    }
+
+    public void removeItemFromInventory(TakeableItem item) {
+        inventory.removeItem(item);
+    }
+
+    public boolean hasItem(TakeableItem item) {
+        return inventory.hasItem(item);
     }
 
     public int getCurrentHealth() {
@@ -91,4 +107,31 @@ public class Entity {
         health.decreaseCurrentHealth(health.getMaxHealth());
     }
 
+    public void equipArmor(ArmorItem armorItem) {
+        inventory.removeItem(armorItem);
+
+        if(equipment.hasArmor()) {
+            ArmorItem oldArmor = equipment.unequipArmor(this);
+
+            oldArmor.toggleEquipEffect(this);
+        }
+
+        equipment.equipArmor(armorItem, this);
+    }
+
+    public void equipRing(RingItem ringItem) {
+        inventory.removeItem(ringItem);
+
+        if(equipment.hasRing()) {
+            RingItem oldRing = equipment.unequipRing(this);
+
+            oldRing.toggleEquipEffect(this);
+        }
+
+        equipment.equipRing(ringItem, this);
+    }
+
+    public void equipWeapon(WeaponItem weaponItem) {
+        equipment.equipWeapon(weaponItem);
+    }
 }

@@ -6,17 +6,12 @@ public class ArmorEquipStrategy extends InventoryStrategy{
 
     private ArmorItem armorItem;
 
+    public ArmorEquipStrategy(ArmorItem armorItem) {
+        this.armorItem = armorItem;
+    }
+
     @Override
     public void useStrategy() {
-
-    }
-
-
-    public ArmorItem getArmorItem() {
-        return armorItem;
-    }
-
-    public void setArmorItem(ArmorItem armorItem) {
-        this.armorItem = armorItem;
+        getEntity().equipArmor(armorItem);
     }
 }

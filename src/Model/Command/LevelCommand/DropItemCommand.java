@@ -18,6 +18,7 @@ public class DropItemCommand extends LevelCommand {
     @Override
     public void execute(Entity entity) {
         this.entity = entity;
+
         sendCommandToLevel(this);
     }
 
@@ -26,6 +27,7 @@ public class DropItemCommand extends LevelCommand {
         Point3D entityPoint = level.getEntityPoint(entity);
 
         if(entityPoint != null) {
+            entity.removeItemFromInventory(this.item);
             //TODO: Make logic to not drop at same point as entity.
             level.addItemnTo(entityPoint, item);
         }

@@ -2,6 +2,7 @@ package Model.Item.TakeableItem.InventoryStrategy;
 
 import Model.Command.LevelCommand.DropItemCommand;
 import Model.Item.TakeableItem.TakeableItem;
+import Model.Level.LevelMessenger;
 
 public class DropStrategy extends InventoryStrategy{
 
@@ -17,13 +18,5 @@ public class DropStrategy extends InventoryStrategy{
     public void useStrategy() {
         dropItemCommand.setItem(item);
         dropItemCommand.execute(getEntity());
-    }
-
-    public void setItem(TakeableItem takeableItem){
-        this.item = takeableItem;
-    }
-
-    public TakeableItem getItem() {
-        return item;
     }
 }
