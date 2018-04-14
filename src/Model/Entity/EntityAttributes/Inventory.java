@@ -36,6 +36,10 @@ public class Inventory {
         return inventory.contains(item);
     }
 
+    public boolean hasFreeSpace() {
+        return inventory.size() != maxSize;
+    }
+
     public void raiseItemLimit(int increase) {
         maxSize += increase;
     }

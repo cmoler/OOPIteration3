@@ -10,8 +10,8 @@ public class RingItem extends TakeableItem{
 
     private RingEquipStrategy ringEquipStrategy;
 
-    protected RingItem(String name, ToggleableCommand command, LevelMessenger levelMessenger) {
-        super(name, command, levelMessenger);
+    public RingItem(String name, ToggleableCommand command) {
+        super(name, command);
 
         ringEquipStrategy = new RingEquipStrategy(this);
     }
