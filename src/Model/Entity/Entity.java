@@ -50,4 +50,12 @@ public class Entity {
     public void decreaseHealth(int amt) {
         health.decreaseCurrentHealth(amt);
     }
+
+    public void increaseLevel() {
+        xpLevel.increaseLevel();
+    }
+
+    public int getLevel() {
+        return xpLevel.getLevel();
+    }
 }
