@@ -45,7 +45,7 @@ public class Level {
 
         this.observers = observers;
 
-        this.movementHandler = new MovementHandler();
+        this.movementHandler = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations);
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
                                                          trapLocations, mountLocations, influenceEffectLocations,

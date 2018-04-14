@@ -5,6 +5,8 @@ import Model.Level.Terrain;
 import Model.Level.Mount;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,10 +37,17 @@ public class Entity {
     public Entity() {
         this.xpLevel = new XPLevel();
         this.health = new Health(100, 100);
+        this.compatableTerrain = new ArrayList<Terrain>();
+        compatableTerrain.add(Terrain.GRASS);
+        this.velocity = new Vec3d(0,0,0);
     }
 
     public Orientation getOrientation() {
         return orientation;
+    }
+
+    public void setOrientation(Orientation o){
+        orientation = o;
     }
 
     public int getCurrentHealth() {
@@ -52,6 +61,31 @@ public class Entity {
     public boolean isDead() {
         return health.getCurrentHealth() == 0;
     }
+
+    public void decrementVelocity(){
+        double newX = velocity.x;
+        double newY = velocity.y;
+        double newZ = velocity.z;
+
+        if (Math.abs(velocity.x) > 0) {
+            if (newX > 0) { newX = newX - 1; }
+            else { newX = newX + 1; }
+        }
+
+        if (Math.abs(velocity.y) > 0) {
+            if (newY > 0) { newY = newY - 1; }
+            else { newY = newY + 1; }
+        }
+
+        if (Math.abs(velocity.z) > 0) {
+            if (newZ > 0) { newZ = newZ - 1; }
+            else { newZ = newZ + 1; }
+        }
+
+        velocity = new Vec3d(newX,newY,newZ);
+    }
+
+    public boolean isMounted() { return (mount != null);}
 
     public void increaseHealth(int amt) {
         health.increaseCurrentHealth(amt);
@@ -73,10 +107,26 @@ public class Entity {
         health.decreaseCurrentHealth(health.getMaxHealth());
     }
 
+    public Boolean canMoveOnTerrain(Terrain T) {
+        return compatableTerrain.contains(T);
+    }
+
+    public Vec3d getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vec3d velocity) {
+        this.velocity = velocity;
+    }
+
     public void notifyObservers(){
         for (LevelViewElement o:observers) {
             o.notifyViewElement();
         }
+    }
+
+    public Boolean isMoving(){
+        return (velocity.length() >= 1);
     }
 
     public void mountVehicle(Mount mount){
