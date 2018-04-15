@@ -53,7 +53,8 @@ public class WeaponItem extends TakeableItem{
             //TODO: figure out what else to put here
             int modifier = skillLevel.getSkillLevel();
             int damage = (attackDamage * modifier) / accuracy;
-            influenceEffect = new InfluenceEffect(new RemoveHealthCommand(damage), range, attackSpeed, entity.getOrientation());
+            RemoveHealthCommand attack = new RemoveHealthCommand(damage);
+            influenceEffect.amendCommand(attack);
             hostSKill.setInfluence(influenceEffect);
             hostSKill.fire(entity);
         }
