@@ -38,4 +38,9 @@ public class RadialInfluenceEffect extends InfluenceEffect{
 
         return newPoints;
     }
+
+    @Override
+    public InfluenceEffect getClone() {
+        return new RadialInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation());
+    }
 }

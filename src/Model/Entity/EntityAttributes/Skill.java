@@ -36,7 +36,6 @@ public class Skill {
         // TODO: write in logic once send influence command is finished
         sendInfluenceEffectCommand.setInfluenceEffect(influenceEffect);
         sendInfluenceEffectCommand.execute(entity);
-        sendInfluenceEffectCommand.sendCommandToGameModel();
     }
 
     public void setInfluence(InfluenceEffect influence) {

@@ -21,8 +21,4 @@ public class GameModelMessenger {
     public void sendCommandToGameModel(GameModelCommand command) {
         gameModel.receiveGameModelCommand(command);
     }
-
-    public void sendLevelCommandToGameModel(LevelCommand levelCommand) {
-        gameModel.receiveLevelCommand(levelCommand);
-    }
 }

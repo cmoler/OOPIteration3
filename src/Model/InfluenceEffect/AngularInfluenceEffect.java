@@ -40,4 +40,9 @@ public class AngularInfluenceEffect extends InfluenceEffect {
         decrementMovesRemaining();
         return newPoints;
     }
+
+    @Override
+    public InfluenceEffect getClone() {
+        return new AngularInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation());
+    }
 }

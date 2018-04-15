@@ -31,4 +31,10 @@ public class LinearInfluenceEffect extends InfluenceEffect{
         decrementMovesRemaining();
         return newPos;
     }
+
+    public InfluenceEffect getClone() {
+        return new LinearInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation());
+    }
+
+
 }

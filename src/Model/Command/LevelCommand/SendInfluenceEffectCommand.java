@@ -16,22 +16,17 @@ public class SendInfluenceEffectCommand extends LevelCommand {
         super(levelMessenger);
     }
 
-    @Override
-    public void receiveGameModel(GameModel gameModel) {
-        Level level = gameModel.getCurrentLevel();
+    public void recieveLevel(Level level) {
         Point3D entityPoint = level.getEntityPoint(entity);
         if(entityPoint != null) {
             level.addInfluenceEffectTo(entityPoint, influenceEffect);
         }
     }
 
-    public void sendCommandToGameModel() {
-        super.sendCommandToGameModel(this);
-    }
-
     @Override
     public void execute(Entity entity) {
         this.entity = entity;
+        sendSelfToLevel();
     }
 
     public void setInfluenceEffect(InfluenceEffect influenceEffect) {

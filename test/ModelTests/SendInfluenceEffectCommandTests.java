@@ -5,6 +5,7 @@ import Model.Command.LevelCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.InfluenceEffect;
+import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
 import javafx.geometry.Point3D;
@@ -31,14 +32,13 @@ public class SendInfluenceEffectCommandTests {
         level.addEntityTo(new Point3D(0,0,0), entity);
         levelMessenger = new LevelMessenger(null, level);
         sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
-        influenceEffect = new InfluenceEffect(new RemoveHealthCommand(15), 6, 5, Orientation.NORTH);
+        influenceEffect = new LinearInfluenceEffect(new RemoveHealthCommand(15), 6, 5, Orientation.NORTH);
     }
 
     @Test
     public void influenceEffectsAddsToLevelTest() {
         sendInfluenceEffectCommand.setInfluenceEffect(influenceEffect);
         sendInfluenceEffectCommand.execute(entity);
-        sendInfluenceEffectCommand.sendCommandToGameModel();
 
         Map<Point3D,InfluenceEffect> influencesMap = level.getInfluencesMap();
         assertTrue(influencesMap.containsValue(influenceEffect));
