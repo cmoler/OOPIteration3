@@ -2,6 +2,7 @@ package Model.Level;
 
 import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Command.GameModelCommand.GameModelCommand;
+import Model.Command.LevelCommand.LevelCommand;
 
 public class GameModelMessenger {
 
@@ -19,5 +20,9 @@ public class GameModelMessenger {
 
     public void sendCommandToGameModel(GameModelCommand command) {
         gameModel.receiveGameModelCommand(command);
+    }
+
+    public void sendLevelCommandToGameModel(LevelCommand levelCommand) {
+        gameModel.receiveLevelCommand(levelCommand);
     }
 }

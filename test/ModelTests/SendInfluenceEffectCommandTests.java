@@ -38,7 +38,7 @@ public class SendInfluenceEffectCommandTests {
     public void influenceEffectsAddsToLevelTest() {
         sendInfluenceEffectCommand.setInfluenceEffect(influenceEffect);
         sendInfluenceEffectCommand.execute(entity);
-        sendInfluenceEffectCommand.sendCommandToLevel();
+        sendInfluenceEffectCommand.sendCommandToGameModel();
 
         Map<Point3D,InfluenceEffect> influencesMap = level.getInfluencesMap();
         assertTrue(influencesMap.containsValue(influenceEffect));

@@ -35,27 +35,33 @@ public class Equipment {
         return equippedRing != null;
     }
 
-    public void equipWeapon(WeaponItem equippedWeapon) {
-        this.equippedWeapon = equippedWeapon;
+    public void equipWeapon(WeaponItem newWeapon, Entity entity) {
+        equippedWeapon = newWeapon;
     }
 
     public void unequipWeapon(Entity entity) {
-        this.equippedArmor = equippedArmor;
-        this.equippedArmor.toggleEquipEffect(entity);
+        if(hasWeapon()) {
+            if (entity.hasFreeSpaceInInventory()) {
+                entity.addItemToInventory(equippedWeapon);
+
+                equippedWeapon = null;
+            }
+        }
     }
 
-    public void equipArmor(ArmorItem equippedArmor, Entity entity) {
-        this.equippedArmor = equippedArmor;
-        this.equippedArmor.toggleEquipEffect(entity);
-    }
-
-    public ArmorItem unequipArmor(Entity entity) {
+    public void equipArmor(ArmorItem newArmor, Entity entity) {
+        equippedArmor = newArmor;
         equippedArmor.toggleEquipEffect(entity);
+    }
 
-        ArmorItem oldArmor = equippedArmor;
-        equippedArmor = null;
+    public void unequipArmor(Entity entity) {
+        if(hasArmor()) {
+            entity.addItemToInventory(equippedArmor);
 
-        return oldArmor;
+            equippedArmor.toggleEquipEffect(entity);
+
+            equippedArmor = null;
+        }
     }
 
     public void equipRing(RingItem equippedRing, Entity entity) {
@@ -63,13 +69,14 @@ public class Equipment {
         this.equippedRing.toggleEquipEffect(entity);
     }
 
-    public RingItem unequipRing(Entity entity) {
-        equippedRing.toggleEquipEffect(entity);
+    public void unequipRing(Entity entity) {
+        if (hasRing()) {
+            entity.addItemToInventory(equippedRing);
 
-        RingItem oldRing = equippedRing;
-        equippedRing = null;
+            equippedRing.toggleEquipEffect(entity);
 
-        return oldRing;
+            equippedRing = null;
+        }
     }
 
     public WeaponItem getEquippedWeapon() {

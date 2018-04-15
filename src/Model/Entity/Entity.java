@@ -67,7 +67,7 @@ public class Entity {
         inventory.removeItem(item);
     }
 
-    public boolean hasItem(TakeableItem item) {
+    public boolean hasItemInInventory(TakeableItem item) {
         return inventory.hasItem(item);
     }
 
@@ -201,52 +201,45 @@ public class Entity {
         // notifyObservers(); Only if we want the sprite to change
     }
 
+    public void equipWeapon(WeaponItem weaponItem) {
+        inventory.removeItem(weaponItem);
+
+        equipment.unequipWeapon(this);
+
+        equipment.equipWeapon(weaponItem, this);
+    }
+
+    public void unequipWeapon() {
+        if(inventory.hasFreeSpace()) {
+            equipment.unequipWeapon(this);
+        }
+    }
+
     public void equipArmor(ArmorItem armorItem) {
         inventory.removeItem(armorItem);
 
-        if(equipment.hasArmor()) {
-            ArmorItem oldArmor = equipment.unequipArmor(this);
-            // TODO: fix LoD violations here
-            oldArmor.toggleEquipEffect(this);
-        }
+        equipment.unequipArmor(this);
 
         equipment.equipArmor(armorItem, this);
     }
 
     public void unequipArmor() {
         if(inventory.hasFreeSpace()) {
-            ArmorItem armor = equipment.unequipArmor(this);
-            inventory.addItem(armor);
+            equipment.unequipArmor(this);
         }
     }
 
     public void equipRing(RingItem ringItem) {
         inventory.removeItem(ringItem);
 
-        if(equipment.hasRing()) {
-            RingItem oldRing = equipment.unequipRing(this);
-            // TODO: fix LoD violations here
-            oldRing.toggleEquipEffect(this);
-        }
+        equipment.unequipRing(this);
 
         equipment.equipRing(ringItem, this);
     }
 
     public void unequipRing() {
         if(inventory.hasFreeSpace()) {
-            RingItem ring = equipment.unequipRing(this);
-            inventory.addItem(ring);
-        }
-    }
-
-    public void equipWeapon(WeaponItem weaponItem) {
-        equipment.equipWeapon(weaponItem);
-    }
-
-    public void unequipWeapon() {
-        if(inventory.hasFreeSpace()) {            // TODO: fix LoD violations here
-           // WeaponItem weaponItem = equipment.unequipWeapon(this);
-          //  inventory.addItem(ring);
+            equipment.unequipRing(this);
         }
     }
 
@@ -281,17 +274,21 @@ public class Entity {
     public WeaponItem getWeaponItem() {
         return equipment.getEquippedWeapon();
     }
-
+    
     public void attack() {
         getWeaponItem().attack(this);
     }
 
     public SkillLevel getSkillLevel(Skill weaponSkill) {
-        if(skillLevelsMap.containsKey(weaponSkill)) {
+        if (skillLevelsMap.containsKey(weaponSkill)) {
             return skillLevelsMap.get(weaponSkill);
         }
 
         else
             return null;
+    }
+
+    public boolean hasFreeSpaceInInventory() {
+        return inventory.hasFreeSpace();
     }
 }

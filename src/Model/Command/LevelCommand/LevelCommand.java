@@ -1,7 +1,7 @@
 package Model.Command.LevelCommand;
 
 import Model.Command.Command;
-import Model.Level.Level;
+import Model.Level.GameModel;
 import Model.Level.LevelMessenger;
 
 public abstract class LevelCommand implements Command {
@@ -12,9 +12,9 @@ public abstract class LevelCommand implements Command {
         this.levelMessenger = levelMessenger;
     }
 
-    public void sendCommandToLevel(LevelCommand levelCommand) {
-        levelMessenger.sendCommandToLevel(levelCommand);
+    public void sendCommandToGameModel(LevelCommand levelCommand) {
+        levelMessenger.sendLevelCommandToGameModel(levelCommand);
     }
 
-    public abstract void receiveLevel(Level level);
+    public abstract void receiveGameModel(GameModel gameModel);
 }
