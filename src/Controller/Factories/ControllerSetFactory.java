@@ -32,10 +32,16 @@ public class ControllerSetFactory {
 
     }
 
+    public void createScrollingViewPortSet(){
+
+    }
+
     public void createPlayerControlsSet(Entity player) {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
+
+        newKeySet.add(new ToggleLockViewPortKeyAction(keyBindingParser.parsePlayerKey("toggleLockView"), player,this, false));
 
         newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player));
         newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player));
