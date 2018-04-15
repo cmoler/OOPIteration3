@@ -79,6 +79,8 @@ public class Entity {
         return health.getMaxHealth();
     }
 
+    public int getNoise() { return noiseLevel.getNoise(); }
+
     public boolean isDead() {
         return health.getCurrentHealth() == 0;
     }
@@ -290,5 +292,9 @@ public class Entity {
 
     public boolean hasFreeSpaceInInventory() {
         return inventory.hasFreeSpace();
+    }
+
+    public void setNoiseLevel(NoiseLevel noiseLevel) {
+        this.noiseLevel = noiseLevel;
     }
 }

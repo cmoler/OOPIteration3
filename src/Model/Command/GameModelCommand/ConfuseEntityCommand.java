@@ -19,7 +19,7 @@ public class ConfuseEntityCommand extends GameModelCommand {
     public void receiveGameModel(GameModel gameModel) {
         AIController aiController = gameModel.getAIForEntity(entity);
         AIState previousState = aiController.getActiveState();
-        aiController.setActiveState(new ConfusedAI(aiController, previousState));    }
+        aiController.setActiveState(new ConfusedAI(previousState.getEntity(), aiController, previousState));    }
 
     @Override
     public void execute(Entity entity) {

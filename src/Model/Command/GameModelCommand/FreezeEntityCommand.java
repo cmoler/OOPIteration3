@@ -19,7 +19,7 @@ public class FreezeEntityCommand extends GameModelCommand {
     public void receiveGameModel(GameModel gameModel) {
         AIController aiController = gameModel.getAIForEntity(entity);
         AIState previousState = aiController.getActiveState();
-        aiController.setActiveState(new FrozenAI(aiController, previousState));
+        aiController.setActiveState(new FrozenAI(previousState.getEntity(), aiController, previousState));
     }
 
     @Override

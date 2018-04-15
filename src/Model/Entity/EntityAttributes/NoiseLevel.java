@@ -25,4 +25,12 @@ public class NoiseLevel {
             noise -= amount;
         }
     }
+
+    public int getNoise() {
+        return noise;
+    }
+
+    public void setNoise(int noise) {
+        this.noise = noise;
+    }
 }
