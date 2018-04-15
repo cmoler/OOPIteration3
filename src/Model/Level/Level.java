@@ -130,4 +130,8 @@ public class Level {
     public boolean hasItem(Item item) {
         return itemLocations.containsValue(item);
     }
+
+    public void processMoves() {
+        movementHandler.processMoves();
+    }
 }

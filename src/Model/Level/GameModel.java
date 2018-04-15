@@ -51,4 +51,8 @@ public class GameModel {
         destinationLevel.addEntityTo(destinationPoint, entity);
     }
 
+    public void advance() {
+        currentLevel.processMoves();
+        currentLevel.processInteractions();
+    }
 }
