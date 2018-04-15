@@ -1,9 +1,101 @@
 package Model.Level;
 
+import Model.AI.AIController;
 import Model.Command.GameModelCommand.GameModelCommand;
+import Model.Command.GameModelCommand.TeleportEntityCommand;
+import Model.Entity.Entity;
+import javafx.geometry.Point3D;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 public class GameModel {
 
+    private Level currentLevel;
+    private LevelMessenger currentLevelMessenger;
+    private List<Level> levels;
+    private Entity player;
+    private Map<Level, List<AIController>> aiMap;
+    private Queue<TeleportTuple> teleportTupleQueue;
+
     public void receiveGameModelCommand(GameModelCommand command) {
+        command.receiveGameModel(this);
+    }
+
+    public Level getCurrentLevel(){
+        return currentLevel;
+    }
+
+    public AIController getAIForEntity(Entity entity) {
+        ArrayList<AIController> ais = (ArrayList)aiMap.get(currentLevel);
+        for(int i = 0; i < ais.size(); ++i){
+            if(ais.get(i).getEntity() == entity){
+                return ais.get(i);
+            }
+        }
+        try {
+            throw new Exception("couldnt find ai for that entity");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void addToTeleportQueue(TeleportEntityCommand teleportEntityCommand) {
+        TeleportTuple tuple = new TeleportTuple(teleportEntityCommand.getEntity(), teleportEntityCommand.getSourceLevel(),
+                                                teleportEntityCommand.getDestinationLevel(), teleportEntityCommand.getDestinationPoint());
+
+        teleportTupleQueue.add(tuple);
+    }
+
+    private class TeleportTuple {
+        private Entity entity;
+        private Level sourceLevel;
+        private Level destLevel;
+        private Point3D destinationPoint;
+
+        public TeleportTuple(Entity entity, Level sourceLevel, Level destLevel, Point3D destinationPoint) {
+            this.entity = entity;
+            this.sourceLevel = sourceLevel;
+            this.destLevel = destLevel;
+            this.destinationPoint = destinationPoint;
+        }
+
+        public Entity getEntity() {
+            return entity;
+        }
+
+        public Level getSourceLevel() {
+            return sourceLevel;
+        }
+
+        public Level getDestLevel() {
+            return destLevel;
+        }
+
+        public Point3D getDestinationPoint() {
+            return destinationPoint;
+        }
+    }
+
+    public void processTeleportQueue() {
+        for(TeleportTuple tuple : teleportTupleQueue) {
+            changeLevels(tuple.getEntity(), tuple.getSourceLevel(), tuple.getDestLevel(), tuple.getDestinationPoint());
+        }
+
+        teleportTupleQueue.clear();
+    }
+
+    private void changeLevels(Entity entity, Level sourceLevel, Level destinationLevel, Point3D destinationPoint) {
+        sourceLevel.removeEntityFrom(entity);
+
+        destinationLevel.addEntityTo(destinationPoint, entity);
+
+        if(entity.equals(player)) {
+            currentLevel = destinationLevel;
+            currentLevelMessenger.setLevel(currentLevel);
+        }
     }
 }

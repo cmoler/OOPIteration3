@@ -1,6 +1,7 @@
 package Model.InfluenceEffect;
 
 import Model.Command.Command;
+import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
@@ -65,9 +66,15 @@ public abstract class InfluenceEffect{
         movesRemaining--;
     }
 
+
     public Command getCommand() {
         return command;
     }
 
     public abstract InfluenceEffect getClone();
+
+    public void amendCommand(Command command) {
+        this.command = command;
+    }
+
 }

@@ -15,6 +15,10 @@ public class LevelMessenger {
         this.level = level;
     }
 
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
     public void sendCommandToGameLoop(GameLoopCommand command) {
         gameModelMessenger.sendCommandToGameLoop(command);
     }
@@ -24,6 +28,6 @@ public class LevelMessenger {
     }
 
     public void sendCommandToLevel(LevelCommand levelCommand) {
-        levelCommand.receiveLevel(level);
+        levelCommand.recieveLevel(level);
     }
 }

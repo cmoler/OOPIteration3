@@ -1,31 +1,37 @@
 package Model.Item.TakeableItem;
 
-import Model.Command.Command;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.InventoryStrategy.ArmorEquipStrategy;
 
-public class ArmorItem extends TakeableItem{
+public class ArmorItem extends TakeableItem {
 
     private ArmorEquipStrategy armorEquipStrategy;
     private int defense;
 
-    protected ArmorItem(String name, Command command) {
+    public ArmorItem(String name, ToggleableCommand command) {
         super(name, command);
+
+        armorEquipStrategy = new ArmorEquipStrategy(this);
+        this.defense = 0;
     }
 
     @Override
     public void select() {
-
-    }
-
-    @Override
-    public void dropItem(Entity entity) {
-
+        armorEquipStrategy.useStrategy();
     }
 
     @Override
     public void onTouch(Entity entity) {
+        entity.addItemToInventory(this);
 
+        if (entity.hasItemInInventory(this)) {
+            armorEquipStrategy.setEntity(entity);
+            setToBeDeleted();
+        }
+    }
+
+    public void toggleEquipEffect(Entity entity) {
+        executeCommand(entity);
     }
 }

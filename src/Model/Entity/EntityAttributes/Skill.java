@@ -36,6 +36,9 @@ public class Skill {
         // TODO: write in logic once send influence command is finished
         sendInfluenceEffectCommand.setInfluenceEffect(influenceEffect);
         sendInfluenceEffectCommand.execute(entity);
-        sendInfluenceEffectCommand.sendCommandToLevel();
+    }
+
+    public void setInfluence(InfluenceEffect influence) {
+        this.influenceEffect = influence;
     }
 }

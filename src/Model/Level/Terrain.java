@@ -1,4 +1,5 @@
 package Model.Level;
 
-public class Terrain {
+public enum Terrain {
+    GRASS, WATER, MOUNTAINS;
 }

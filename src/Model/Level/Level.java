@@ -1,7 +1,6 @@
 package Model.Level;
 
 import Model.AreaEffect.AreaEffect;
-import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
@@ -47,11 +46,11 @@ public class Level {
 
         this.observers = observers;
 
-        this.movementHandler = new MovementHandler();
+        this.movementHandler = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations);
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
                                                          trapLocations, mountLocations, influenceEffectLocations,
-                                                         observers);
+                riverLocations, observers);
 
         this.tilesSeenByPlayer = new ArrayList<>();
     }
@@ -76,6 +75,16 @@ public class Level {
 
     public void addEntityTo(Point3D point, Entity entity) {
         entityLocations.put(point, entity);
+    }
+
+    public void removeEntityFrom(Entity entity){
+        if(entityLocations.containsValue(entity)) {
+            for(Point3D point: entityLocations.keySet()) {
+                if(entityLocations.get(point) == entity) {
+                    entityLocations.remove(point);
+                }
+            }
+        }
     }
 
     public void addAreaEffectTo(Point3D point, AreaEffect areaEffect) {
