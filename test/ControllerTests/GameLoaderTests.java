@@ -1,4 +1,4 @@
-package ModelTests;
+package ControllerTests;
 
 import Controller.GameLoader;
 import Model.Level.Level;
@@ -27,7 +27,7 @@ public class GameLoaderTests {
     public void testTerrainsLoad() throws ParserConfigurationException, SAXException, IOException {
         String fileName = "SAVEFILE.xml";
         gameLoader.loadGame(fileName);
-        Level testedLevel = gameLoader.getLevel();
+        Level testedLevel = gameLoader.getCurrentLevel();
         Map<Point3D, Terrain> testedMap = testedLevel.getTerrainMap();
 
         assertTrue(testedMap.containsKey(new Point3D(0,0,0)));
@@ -37,5 +37,12 @@ public class GameLoaderTests {
         assertTrue(testedMap.containsValue(Terrain.GRASS));
         assertTrue(testedMap.containsValue(Terrain.WATER));
         assertTrue(testedMap.containsValue(Terrain.MOUNTAINS));
+    }
+
+    @Test
+    public void testMulitpleLevelsLoad() throws ParserConfigurationException, SAXException, IOException {
+        String fileName = "SAVEFILE.xml";
+        gameLoader.loadGame(fileName);
+        assertTrue(gameLoader.getWorld().size() != 1);
     }
 }
