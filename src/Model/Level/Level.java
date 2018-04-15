@@ -134,4 +134,8 @@ public class Level {
     public void processMoves() {
         movementHandler.processMoves();
     }
+
+    public Map<Point3D, Terrain> getTerrainMap() {
+        return terrainLocations;
+    }
 }
