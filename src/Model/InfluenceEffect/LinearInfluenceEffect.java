@@ -13,6 +13,10 @@ public class LinearInfluenceEffect extends InfluenceEffect{
         super(command, range, speed, orientation);
     }
 
+    public LinearInfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+        super(command, range, speed, orientation, movesRemaining);
+    }
+
     //Defines logic for moving in a straight line in its orientation
     //TODO: restrict movement based on movement speed
     public ArrayList<Point3D> nextMove(Point3D point) {
@@ -30,5 +34,9 @@ public class LinearInfluenceEffect extends InfluenceEffect{
 
         decrementMovesRemaining();
         return newPos;
+    }
+
+    public InfluenceEffect cloneInfluenceEffect() {
+        return new LinearInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
     }
 }

@@ -9,7 +9,7 @@ import javafx.geometry.Point3D;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class InfluenceEffect {
+public abstract class InfluenceEffect{
     private Command command;
     private int movesRemaining;
     private long nextMoveTime;
@@ -17,7 +17,6 @@ public class InfluenceEffect {
     private Orientation orientation;
     private int range;
 
-    private boolean hasNotFired;
 
     public InfluenceEffect(Command command, int range, long speed, Orientation orientation) {
         this.command = command;
@@ -27,27 +26,33 @@ public class InfluenceEffect {
         this.speed = speed;
         //TODO: make nextMoveTime based on speed
         this.orientation = orientation;
-        hasNotFired = true;
-
-
-
     }
 
-    public ArrayList<Point3D> nextMove(Point3D point) {
-        return new ArrayList<>();
+    public InfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+        this.command = command;
+        this.movesRemaining = movesRemaining;
+        this.range = range;
+
+        this.speed = speed;
+        //TODO: make nextMoveTime based on speed
+        this.orientation = orientation;
     }
+
+    public abstract ArrayList<Point3D> nextMove(Point3D point);
+
+    public abstract InfluenceEffect cloneInfluenceEffect();
 
     //Passes entity into command
     public void hitEntity(Entity entity) {
-        if(hasNotFired) {
-            command.execute(entity);
-            hasNotFired = false;
-        }
+        command.execute(entity);
     }
-
 
     public Orientation getOrientation() {
         return orientation;
+    }
+
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
     }
 
     public int getMovesRemaining() {
@@ -58,12 +63,20 @@ public class InfluenceEffect {
         return range;
     }
 
+    public long getSpeed() {
+        return speed;
+    }
 
     public void decrementMovesRemaining() {
         movesRemaining--;
     }
 
-    public void amendCommand(Command command) {
+    public Command getCommand() {
+        return command;
+    }
+
+    public void setCommand(Command command) {
         this.command = command;
     }
+
 }

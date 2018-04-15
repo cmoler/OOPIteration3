@@ -12,6 +12,10 @@ public class AngularInfluenceEffect extends InfluenceEffect {
         super(command, range, speed, orientation);
     }
 
+    public AngularInfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+        super(command, range, speed, orientation, movesRemaining);
+    }
+
     public ArrayList<Point3D> nextMove(Point3D point) {
         if(getMovesRemaining() <= 0) { return new ArrayList<>(); }
 
@@ -39,5 +43,10 @@ public class AngularInfluenceEffect extends InfluenceEffect {
 
         decrementMovesRemaining();
         return newPoints;
+    }
+
+    @Override
+    public InfluenceEffect cloneInfluenceEffect() {
+        return new AngularInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
     }
 }
