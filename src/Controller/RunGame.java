@@ -1,8 +1,10 @@
 package Controller;
 
+import View.LevelView.EntityView;
 import View.LevelView.TerrainView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -11,6 +13,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import Model.Entity.EntityAttributes.Orientation;
 
 
 public class RunGame extends Application{
@@ -26,7 +29,7 @@ public class RunGame extends Application{
 
         //Initialization Shit
         mainStage = primaryStage;
-        mainStage.setTitle("HYPEDMEANPENGUINSBACKFORDAVESMALLDAVEMEDIUMDAVELARGEDAVEMORE");
+        mainStage.setTitle("HYPED MEAN PENGUINS BACK FOR DAVE SMALL DAVE MEDIUM DAVE LARGE DAVE MORE");
 
         Group root = new Group();
         mainScene = new Scene(root);
@@ -40,16 +43,18 @@ public class RunGame extends Application{
         canvas.setFocusTraversable(true);
 
 
-        TerrainView tv1 = new TerrainView(new Point3D(0, 0, 0));
-        TerrainView tv2 = new TerrainView(new Point3D(1, 0, -1));
-        TerrainView tv3 = new TerrainView(new Point3D(1, -1, 0));
-        TerrainView tv4 = new TerrainView(new Point3D(2, -1, -1));
+        TerrainView tv1 = new TerrainView(new Point3D(0, 0, 0), 100);
+        TerrainView tv2 = new TerrainView(new Point3D(1, 0, -1), 100);
+        TerrainView tv3 = new TerrainView(new Point3D(1, -1, 0), 100);
+        TerrainView tv4 = new TerrainView(new Point3D(2, -1, -1), 100);
+        EntityView ev = new EntityView(new Point3D(0, 0, 0), 100, Orientation.SOUTHEAST);
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 tv1.render(gc);
                 tv2.render(gc);
                 tv3.render(gc);
                 tv4.render(gc);
+                ev.render(gc);
             }
         }.start();
 

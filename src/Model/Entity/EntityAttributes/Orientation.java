@@ -35,4 +35,9 @@ public enum Orientation {
         }
         return -1;
     }
+
+    public int getDegreeOfOrientation(Orientation orientation) {
+        int index = getIndexOfOrientation(orientation);
+        return (index*60)-90;
+    }
 }
