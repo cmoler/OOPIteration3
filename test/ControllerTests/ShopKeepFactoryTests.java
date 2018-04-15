@@ -42,26 +42,6 @@ public class ShopKeepFactoryTests {
     }
 
     @Test
-    public void testControllerIsMade(){
-        ShopKeeperFactory shopKeeperFactory = new ShopKeeperFactory(skillsFactory);
-
-        Entity shopKeep = shopKeeperFactory.buildEntity();
-        AIController aiController = shopKeeperFactory.getController();
-
-        assertTrue(aiController != null);
-    }
-
-    @Test
-    public void testControllerIsPet(){
-        ShopKeeperFactory shopKeeperFactory = new ShopKeeperFactory(skillsFactory);
-
-        Entity shopKeep = shopKeeperFactory.buildEntity();
-        AIController aiController = shopKeeperFactory.getController();
-
-        assertTrue(aiController.getActiveState() instanceof FriendlyAI);
-    }
-
-    @Test
     public void testBuildPetWithInventory(){
         ShopKeeperFactory shopKeeperFactory = new ShopKeeperFactory(skillsFactory);
 
