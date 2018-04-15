@@ -15,7 +15,7 @@ public class ScrollUpKeyAction extends ModelKeyAction {
     @Override
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
-
+            menuModel.scrollUp();
         }
     }
 

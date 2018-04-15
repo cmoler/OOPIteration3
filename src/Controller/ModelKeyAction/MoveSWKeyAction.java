@@ -1,6 +1,7 @@
 package Controller.ModelKeyAction;
 
 import Model.Entity.Entity;
+import com.sun.javafx.geom.Vec3d;
 import javafx.scene.input.KeyCode;
 
 public class MoveSWKeyAction extends ModelKeyAction {
@@ -15,7 +16,7 @@ public class MoveSWKeyAction extends ModelKeyAction {
     @Override
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
-
+            entity.addVelocity(new Vec3d(-1, 0 , 1));
         }
     }
 

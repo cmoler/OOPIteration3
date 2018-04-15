@@ -17,8 +17,11 @@ import java.util.List;
 public class Entity {
 
     private List<LevelViewElement> observers;
+
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
+    private int currentlySelectedSkill = 0;
+
     private HashMap<Skill, SkillLevel> skillLevelsMap;
     private Vec3d velocity;
     private NoiseLevel noiseLevel;
@@ -277,6 +280,27 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
+    }
+
+    public void useSkill(int index){
+        if(nonWeaponSkills.size() - 1 < index || index < 0) return;
+        else{
+            nonWeaponSkills.get(index).fire(this);
+        }
+    }
+
+    public void useSkill(){
+        nonWeaponSkills.get(currentlySelectedSkill).fire(this);
+    }
+
+    public void scrollLeft(){
+        if(currentlySelectedSkill <= 0) currentlySelectedSkill = nonWeaponSkills.size() - 1;
+        else currentlySelectedSkill --;
+    }
+
+    public void scrollRight(){
+        if(currentlySelectedSkill >= nonWeaponSkills.size() - 1) currentlySelectedSkill = 0;
+        else currentlySelectedSkill ++;
     }
 
     public SkillLevel getSkillLevel(Skill weaponSkill) {
