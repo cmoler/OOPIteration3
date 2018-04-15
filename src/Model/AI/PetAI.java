@@ -73,7 +73,10 @@ public class PetAI extends AIState {
             }
             else {
                 Random rand = new Random();
-                ArrayList<double> holder = new ArrayList<double>(pDist,iDist,eDist);
+                ArrayList<Double> holder = new ArrayList<Double>();
+                holder.add(pDist);
+                holder.add(iDist);
+                holder.add(eDist);
             }
         }
         return Math.min(pDist,Math.min(iDist,eDist));

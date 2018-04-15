@@ -22,12 +22,16 @@ public class SlowedAI extends AIState {
     }
 
 
-    @Override
     public void nextMove(Entity player, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
         if(currentTick > delay) aiController.setActiveState(aiState);
         else if(currentTick % 20 ==0 ){
-            aiState.nextMove(player,terrainMap,entityMap,obstacleMap);
+            aiState.nextMove();
         }
         currentTick++;
+    }
+
+    @Override
+    public void nextMove() {
+
     }
 }
