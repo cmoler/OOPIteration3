@@ -33,7 +33,7 @@ public class DropItemCommand extends LevelCommand {
     public void execute(Entity entity) {
         this.entity = entity;
 
-        sendCommandToLevel(this);
+        sendCommandToGameModel(this);
     }
 
     public void setItem(TakeableItem item) {
