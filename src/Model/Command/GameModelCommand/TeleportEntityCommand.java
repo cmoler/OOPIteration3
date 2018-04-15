@@ -20,9 +20,25 @@ public class TeleportEntityCommand extends GameModelCommand {
         this.destinationPoint = destinationPoint;
     }
 
+    public Level getSourceLevel() {
+        return sourceLevel;
+    }
+
+    public Level getDestinationLevel() {
+        return destinationLevel;
+    }
+
+    public Point3D getDestinationPoint() {
+        return destinationPoint;
+    }
+
+    public Entity getEntity() {
+        return entity;
+    }
+
     @Override
     public void receiveGameModel(GameModel gameModel) {
-        gameModel.moveEntity(entity, sourceLevel, destinationLevel, destinationPoint);
+        gameModel.addToTeleportQueue(this);
     }
 
     @Override

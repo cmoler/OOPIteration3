@@ -13,17 +13,14 @@ public class DisarmTrapCommand extends LevelCommand {
         super(levelMessenger);
     }
 
-    @Override
-    public void receiveGameModel(GameModel gameModel) {
-        Level level = gameModel.getCurrentLevel();
-
+    public void recieveLevel(Level level) {
 
     }
 
     @Override
     public void execute(Entity entity) {
         this.entity = entity;
-        sendCommandToGameModel(this);
+        sendSelfToLevel();
     }
 
 }
