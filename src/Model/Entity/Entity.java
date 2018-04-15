@@ -281,4 +281,17 @@ public class Entity {
     public WeaponItem getWeaponItem() {
         return equipment.getEquippedWeapon();
     }
+
+    public void attack() {
+        getWeaponItem().attack(this);
+    }
+
+    public SkillLevel getSkillLevel(Skill weaponSkill) {
+        if(skillLevelsMap.containsKey(weaponSkill)) {
+            return skillLevelsMap.get(weaponSkill);
+        }
+
+        else
+            return null;
+    }
 }

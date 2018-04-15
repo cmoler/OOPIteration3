@@ -23,4 +23,8 @@ public class SkillLevel {
             skillLevel++;
         }
     }
+
+    public int getSkillLevel() {
+        return skillLevel;
+    }
 }
