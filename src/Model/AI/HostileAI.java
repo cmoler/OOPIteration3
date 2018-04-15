@@ -9,13 +9,21 @@ import java.util.*;
 
 
 public class HostileAI extends AIState{
+    private Map<Point3D, Terrain> terrainMap;
+    private Map<Point3D, Entity> entityMap;
+    private Map<Point3D, Obstacle> obstacleMap;
+    private Entity player;
 
-    public HostileAI(Entity entity){
-        super(entity);
+    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
+        super(ent);
+        this.terrainMap = terrainMap;
+        this.entityMap = entityMap;
+        this.obstacleMap = obstacleMap;
+        this.player = player;
     }
 
     @Override
-    public void nextMove(Entity player, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
+    public void nextMove() {
         Point3D position = getEntityPoint(super.getEntity(), entityMap);
         Point3D goal = getEntityPoint(player, entityMap);
 
@@ -23,7 +31,7 @@ public class HostileAI extends AIState{
             moveAlongPatrol();
         }
         else {
-            moveToGoal(position, goal, terrainMap,entityMap,obstacleMap);
+            moveToGoal(position, goal);
         }
     }
 
@@ -34,8 +42,8 @@ public class HostileAI extends AIState{
         super.getEntity().addVelocity(new Vec3d(rand.nextInt(1),rand.nextInt(1),rand.nextInt(1)));
     }
 
-    private void moveToGoal(Point3D start, Point3D goal, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap){
-        ArrayList<Point3D> path = getPath(start, goal, terrainMap, entityMap, obstacleMap);
+    private void moveToGoal(Point3D start, Point3D goal){
+        ArrayList<Point3D> path = getPath(start, goal);
         Point3D firstStep = path.get(0);
         super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
@@ -51,7 +59,7 @@ public class HostileAI extends AIState{
         return new Point3D(0,0,0);
     }
 
-    private ArrayList<Point3D> getPath(Point3D start, Point3D goal, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
+    private ArrayList<Point3D> getPath(Point3D start, Point3D goal) {
         ArrayList<Point3D> path = new ArrayList<>();
 
         Queue<Point3D> queue = new LinkedList<>();
