@@ -25,8 +25,8 @@ public class SendInfluenceEffectCommand extends LevelCommand {
         }
     }
 
-    public void sendCommandToLevel() {
-        super.sendCommandToLevel(this);
+    public void sendCommandToGameModel() {
+        super.sendCommandToGameModel(this);
     }
 
     @Override

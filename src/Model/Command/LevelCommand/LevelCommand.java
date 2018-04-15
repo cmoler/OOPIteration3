@@ -12,7 +12,7 @@ public abstract class LevelCommand implements Command {
         this.levelMessenger = levelMessenger;
     }
 
-    public void sendCommandToLevel(LevelCommand levelCommand) {
+    public void sendCommandToGameModel(LevelCommand levelCommand) {
         levelMessenger.sendLevelCommandToGameModel(levelCommand);
     }
 
