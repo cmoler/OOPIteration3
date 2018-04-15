@@ -49,6 +49,7 @@ public class Entity {
         skillLevelsMap = new HashMap<>();
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
+        observers = new ArrayList<>();
     }
 
     public Orientation getOrientation() {
@@ -180,6 +181,10 @@ public class Entity {
         for (LevelViewElement o:observers) {
             o.notifyViewElement();
         }
+    }
+
+    public void addObserver(LevelViewElement observer) {
+        observers.add(observer);
     }
 
     public Boolean isMoving(){

@@ -123,6 +123,8 @@ public class Level {
         return null;
     }
 
+
+
     public Map<Point3D, InfluenceEffect> getInfluencesMap() {
         return influenceEffectLocations;
     }
