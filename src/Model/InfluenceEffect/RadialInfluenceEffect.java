@@ -11,6 +11,10 @@ public class RadialInfluenceEffect extends InfluenceEffect{
         super(command, range, speed, orientation);
     }
 
+    public RadialInfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+        super(command, range, speed, orientation, movesRemaining);
+    }
+
     //Defines logic for moving in every direction
     //TODO: restrict movement based on movement speed
     public ArrayList<Point3D> nextMove(Point3D point) {
@@ -40,7 +44,7 @@ public class RadialInfluenceEffect extends InfluenceEffect{
     }
 
     @Override
-    public InfluenceEffect getClone() {
-        return new RadialInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation());
+    public InfluenceEffect cloneInfluenceEffect() {
+        return new RadialInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
     }
 }

@@ -32,10 +32,7 @@ public class LinearInfluenceEffectTest {
         Assert.assertEquals(entity1.getMaxHealth(), entity1.getCurrentHealth(), 0);
         Assert.assertEquals(entity2.getMaxHealth(), entity2.getCurrentHealth(), 0);
 
-
-
         influenceEffect.hitEntity(entity1);
-
 
         Assert.assertEquals(entity1.getCurrentHealth(), 85, 0);
         //Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
@@ -45,6 +42,5 @@ public class LinearInfluenceEffectTest {
         Point3D expectedPoint = new Point3D(5, 6, 4);
 
         Assert.assertEquals(adjacentPoint.equals(expectedPoint), true);
-
     }
 }

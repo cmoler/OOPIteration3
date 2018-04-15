@@ -30,6 +30,8 @@ public class WeaponItem extends TakeableItem{
         this.accuracy = accuracy;
         this.useCost = useCost;
         this.range = range;
+
+        this.influenceEffect.setCommand(command);
     }
 
     public WeaponItem(String name, Command command) {
@@ -50,11 +52,11 @@ public class WeaponItem extends TakeableItem{
 
         if(skillLevel != null) {
             //TODO: figure out what else to put here
-            int modifier = skillLevel.getSkillLevel();
-            int damage = (attackDamage * modifier) / accuracy;
-            RemoveHealthCommand attack = new RemoveHealthCommand(damage);
-            influenceEffect.amendCommand(attack);
+            // TODO: figure out how to get skills to modify stats for stuff like attacks
+            //int modifier = skillLevel.getSkillLevel();
+            //int damage = (attackDamage * modifier) / accuracy;
             hostSKill.setInfluence(influenceEffect);
+            hostSKill.setBehavior(getCommand());
             hostSKill.fire(entity);
         }
     }

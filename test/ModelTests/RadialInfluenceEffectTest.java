@@ -33,8 +33,6 @@ public class RadialInfluenceEffectTest {
         Assert.assertEquals(entity1.getMaxHealth(), entity1.getCurrentHealth(), 0);
         Assert.assertEquals(entity2.getMaxHealth(), entity2.getCurrentHealth(), 0);
 
-
-
         influenceEffect.hitEntity(entity1);
 
         Assert.assertEquals(entity1.getCurrentHealth(), 85, 0);
@@ -51,6 +49,5 @@ public class RadialInfluenceEffectTest {
             System.out.println(adjacentPoints.get(i).toString());
         }
         Assert.assertEquals(adjacentPoints.size(), 12, 0);
-
     }
 }
