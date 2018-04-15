@@ -279,6 +279,13 @@ public class Entity {
         getWeaponItem().attack(this);
     }
 
+    public void useSkill(int index){
+        if(nonWeaponSkills.size() - 1 < index || index < 0) return;
+        else{
+            nonWeaponSkills.get(index).fire(this);
+        }
+    }
+
     public SkillLevel getSkillLevel(Skill weaponSkill) {
         if (skillLevelsMap.containsKey(weaponSkill)) {
             return skillLevelsMap.get(weaponSkill);

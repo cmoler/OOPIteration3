@@ -15,7 +15,7 @@ public class HotKey1KeyAction extends ModelKeyAction {
     @Override
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
-
+            entity.useSkill(1);
         }
     }
 
