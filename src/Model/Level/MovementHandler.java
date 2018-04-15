@@ -69,9 +69,10 @@ public class MovementHandler {
         for(Point3D point : influenceEffectPoints) {
 
             InfluenceEffect influenceEffect = influenceEffectLocations.get(point); //Get current influence effect
-            ArrayList<Point3D> nextEffectPoints = influenceEffect.nextMove(point); //Get list of points to move effect to
 
-            if(nextEffectPoints.isEmpty()) {
+            ArrayList<Point3D> nextEffectPoints = influenceEffect.nextMove(point); //Get list of points to move effect to
+// TODO: modify influence effect movement and interaction
+            if (nextEffectPoints.isEmpty()) {
                 influenceEffectLocations.remove(influenceEffect);
             } else {
                 for (Point3D influencePoint : nextEffectPoints) {
