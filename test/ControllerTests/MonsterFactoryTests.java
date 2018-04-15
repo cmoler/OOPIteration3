@@ -40,26 +40,6 @@ public class MonsterFactoryTests {
     }
 
     @Test
-    public void testControllerIsMade(){
-        MonsterFactory monsterFactory = new MonsterFactory(skillsFactory);
-
-        Entity monster = monsterFactory.buildEntity();
-        AIController aiController = monsterFactory.getController();
-
-        assertTrue(aiController != null);
-    }
-
-    @Test
-    public void testControllerIsHostile(){
-        MonsterFactory monsterFactory = new MonsterFactory(skillsFactory);
-
-        Entity monster = monsterFactory.buildEntity();
-        AIController aiController = monsterFactory.getController();
-
-        assertTrue(aiController.getActiveState() instanceof HostileAI);
-    }
-
-    @Test
     public void testBuildMonsterWithInventory(){
         MonsterFactory monsterFactory = new MonsterFactory(skillsFactory);
 

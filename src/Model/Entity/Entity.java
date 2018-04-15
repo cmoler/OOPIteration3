@@ -54,6 +54,14 @@ public class Entity {
         nonWeaponSkills = new ArrayList<>();
     }
 
+    public boolean isMoveable() {
+        return moveable;
+    }
+
+    public void setMoveable(boolean moveable) {
+        this.moveable = moveable;
+    }
+
     public Orientation getOrientation() {
         return orientation;
     }

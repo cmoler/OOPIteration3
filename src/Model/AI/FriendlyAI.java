@@ -1,10 +1,8 @@
 package Model.AI;
 
 import Model.Entity.Entity;
-import Model.Level.Obstacle;
-import Model.Level.Terrain;
-import javafx.geometry.Point3D;
-import java.util.Map;
+
+import java.util.Random;
 
 public class FriendlyAI extends AIState{
 
@@ -13,7 +11,11 @@ public class FriendlyAI extends AIState{
     }
 
     @Override
-    public void nextMove(Entity player, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
-
+    public void nextMove() {
+        if (getEntity().isMoveable()) {
+            Random rand = new Random();
+            super.getEntity().addVelocity(super.generateRandomVelcity());
+        }
     }
+
 }

@@ -38,26 +38,6 @@ public class PetFactoryTests {
     }
 
     @Test
-    public void testControllerIsMade(){
-        PetFactory petFactory = new PetFactory(skillsFactory);
-
-        Entity pet = petFactory.buildEntity();
-        AIController aiController = petFactory.getController();
-
-        assertTrue(aiController != null);
-    }
-
-    @Test
-    public void testControllerIsPet(){
-        PetFactory petFactory = new PetFactory(skillsFactory);
-
-        Entity pet = petFactory.buildEntity();
-        AIController aiController = petFactory.getController();
-
-        assertTrue(aiController.getActiveState() instanceof PetAI);
-    }
-
-    @Test
     public void testBuildPetWithInventory(){
         PetFactory petFactory = new PetFactory(skillsFactory);
 
