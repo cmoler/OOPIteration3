@@ -3,7 +3,6 @@ package Model.Item.TakeableItem;
 import Model.Command.Command;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.InventoryStrategy.ConsumeStrategy;
-import Model.Level.LevelMessenger;
 
 public class ConsumableItem extends TakeableItem {
 
@@ -24,7 +23,7 @@ public class ConsumableItem extends TakeableItem {
     public void onTouch(Entity entity) {
         entity.addItemToInventory(this);
 
-        if (entity.hasItem(this)) {
+        if (entity.hasItemInInventory(this)) {
             consumeStrategy.setEntity(entity);
             setToBeDeleted();
         }

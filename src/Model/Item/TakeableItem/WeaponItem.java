@@ -5,7 +5,6 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.TakeableItem.InventoryStrategy.WeaponEquipStrategy;
-import Model.Level.LevelMessenger;
 
 public class WeaponItem extends TakeableItem{
 
@@ -34,7 +33,7 @@ public class WeaponItem extends TakeableItem{
     public void onTouch(Entity entity) {
         entity.addItemToInventory(this);
 
-        if (entity.hasItem(this)) {
+        if (entity.hasItemInInventory(this)) {
             weaponEquipStrategy.setEntity(entity);
             setToBeDeleted();
         }
