@@ -7,12 +7,12 @@ public class HexMathHelper {
 
     }
 
-//    public int getXCoord(Point3D point) {
-//        int x = 0;
-//
-//    }
-//
-//    public int getYCoord(Point3D point) {
-//
-//    }
+    public int getXCoord(Point3D point) {
+        return -(int)(point.getY() + point.getZ());
+
+    }
+
+    public int getYCoord(Point3D point) {
+        return -(int) (2*point.getY() + point.getX());
+    }
 }

@@ -43,11 +43,13 @@ public class RunGame extends Application{
         TerrainView tv1 = new TerrainView(new Point3D(0, 0, 0));
         TerrainView tv2 = new TerrainView(new Point3D(1, 0, -1));
         TerrainView tv3 = new TerrainView(new Point3D(1, -1, 0));
+        TerrainView tv4 = new TerrainView(new Point3D(2, -1, -1));
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 tv1.render(gc);
                 tv2.render(gc);
                 tv3.render(gc);
+                tv4.render(gc);
             }
         }.start();
 
