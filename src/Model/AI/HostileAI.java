@@ -1,3 +1,5 @@
+//TODO: Have enemies also attack pets
+
 package Model.AI;
 
 import Model.Entity.Entity;
