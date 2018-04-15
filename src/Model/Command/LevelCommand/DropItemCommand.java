@@ -17,9 +17,7 @@ public class DropItemCommand extends LevelCommand {
     }
 
     @Override
-    public void receiveGameModel(GameModel gameModel) {
-        Level level = gameModel.getCurrentLevel();
-
+    public void recieveLevel(Level level) {
         Point3D entityPoint = level.getEntityPoint(entity);
 
         if(entityPoint != null) {
@@ -33,7 +31,7 @@ public class DropItemCommand extends LevelCommand {
     public void execute(Entity entity) {
         this.entity = entity;
 
-        sendCommandToGameModel(this);
+        sendSelfToLevel();
     }
 
     public void setItem(TakeableItem item) {
