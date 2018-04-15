@@ -36,14 +36,19 @@ public class ControllerSetFactory {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
-        newKeySet.add(new RemoveTrapKeyAction(keyBindingParser.parsePlayerKey("removeTrap"), player));
-        newKeySet.add(new BindWoundsKeyAction(keyBindingParser.parsePlayerKey("bindWounds"), player));
+
         newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player));
         newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player));
         newKeySet.add(new MoveSEKeyAction(keyBindingParser.parsePlayerKey("moveSE"), player));
         newKeySet.add(new MoveSKeyAction(keyBindingParser.parsePlayerKey("moveS"), player));
         newKeySet.add(new MoveSWKeyAction(keyBindingParser.parsePlayerKey("moveSW"), player));
         newKeySet.add(new MoveNWKeyAction(keyBindingParser.parsePlayerKey("moveNW"), player));
+
+        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parsePlayerKey("scrollLeft"), player));
+        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parsePlayerKey("scrollRight"), player));
+        newKeySet.add(new SelectKeyAction(keyBindingParser.parsePlayerKey("select"), player));
+
+
         newKeySet.add(new HotKey1KeyAction(keyBindingParser.parsePlayerKey("hotKey1"), player));
         newKeySet.add(new HotKey2KeyAction(keyBindingParser.parsePlayerKey("hotKey2"), player));
         newKeySet.add(new HotKey3KeyAction(keyBindingParser.parsePlayerKey("hotKey3"), player));
