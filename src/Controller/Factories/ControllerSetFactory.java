@@ -36,8 +36,6 @@ public class ControllerSetFactory {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
-        newKeySet.add(new RemoveTrapKeyAction(keyBindingParser.parsePlayerKey("removeTrap"), player));
-        newKeySet.add(new BindWoundsKeyAction(keyBindingParser.parsePlayerKey("bindWounds"), player));
         newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player));
         newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player));
         newKeySet.add(new MoveSEKeyAction(keyBindingParser.parsePlayerKey("moveSE"), player));
