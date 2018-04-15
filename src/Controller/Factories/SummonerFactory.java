@@ -21,14 +21,17 @@ public class SummonerFactory extends EntityFactory {
                 getSkillsFactory().getStaffSkill()
         );
 
-        summoner.addWeaponSkills(getSkillsFactory().getStaffSkill());
-
-        summoner.addNonWeaponSkills(getSkillsFactory().getBargainSkill(),
-                getSkillsFactory().getObserveSkill(),
-                getSkillsFactory().getBindWounds(),
+        summoner.addWeaponSkills(
+                getSkillsFactory().getStaffSkill(),
                 getSkillsFactory().getBaneSkill(),
                 getSkillsFactory().getBoonSkill(),
                 getSkillsFactory().getEnchantSkill()
+        );
+
+        summoner.addNonWeaponSkills(
+                getSkillsFactory().getBargainSkill(),
+                getSkillsFactory().getObserveSkill(),
+                getSkillsFactory().getBindWounds()
         );
 
         return summoner;

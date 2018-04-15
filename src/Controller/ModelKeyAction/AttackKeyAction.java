@@ -15,7 +15,7 @@ public class AttackKeyAction extends ModelKeyAction {
     @Override
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
-
+            entity.attack();
         }
     }
 

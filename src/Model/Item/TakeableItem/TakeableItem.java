@@ -20,7 +20,7 @@ public abstract class TakeableItem extends Item {
     public void onTouch(Entity entity) {
         entity.addItemToInventory(this);
 
-        if(entity.hasItem(this)) {
+        if(entity.hasItemInInventory(this)) {
             dropStrategy.setEntity(entity);
             setToBeDeleted();
         }

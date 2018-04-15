@@ -1,10 +1,8 @@
 package Model.Item.TakeableItem;
 
-import Model.Command.Command;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.InventoryStrategy.ArmorEquipStrategy;
-import Model.Level.LevelMessenger;
 
 public class ArmorItem extends TakeableItem {
 
@@ -27,7 +25,7 @@ public class ArmorItem extends TakeableItem {
     public void onTouch(Entity entity) {
         entity.addItemToInventory(this);
 
-        if (entity.hasItem(this)) {
+        if (entity.hasItemInInventory(this)) {
             armorEquipStrategy.setEntity(entity);
             setToBeDeleted();
         }

@@ -17,8 +17,11 @@ import java.util.List;
 public class Entity {
 
     private List<LevelViewElement> observers;
+
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
+    private int currentlySelectedSkill = 0;
+
     private HashMap<Skill, SkillLevel> skillLevelsMap;
     private Vec3d velocity;
     private NoiseLevel noiseLevel;
@@ -68,7 +71,7 @@ public class Entity {
         inventory.removeItem(item);
     }
 
-    public boolean hasItem(TakeableItem item) {
+    public boolean hasItemInInventory(TakeableItem item) {
         return inventory.hasItem(item);
     }
 
@@ -79,6 +82,8 @@ public class Entity {
     public int getMaxHealth() {
         return health.getMaxHealth();
     }
+
+    public int getNoise() { return noiseLevel.getNoise(); }
 
     public boolean isDead() {
         return health.getCurrentHealth() == 0;
@@ -206,52 +211,45 @@ public class Entity {
         // notifyObservers(); Only if we want the sprite to change
     }
 
+    public void equipWeapon(WeaponItem weaponItem) {
+        inventory.removeItem(weaponItem);
+
+        equipment.unequipWeapon(this);
+
+        equipment.equipWeapon(weaponItem, this);
+    }
+
+    public void unequipWeapon() {
+        if(inventory.hasFreeSpace()) {
+            equipment.unequipWeapon(this);
+        }
+    }
+
     public void equipArmor(ArmorItem armorItem) {
         inventory.removeItem(armorItem);
 
-        if(equipment.hasArmor()) {
-            ArmorItem oldArmor = equipment.unequipArmor(this);
-            // TODO: fix LoD violations here
-            oldArmor.toggleEquipEffect(this);
-        }
+        equipment.unequipArmor(this);
 
         equipment.equipArmor(armorItem, this);
     }
 
     public void unequipArmor() {
         if(inventory.hasFreeSpace()) {
-            ArmorItem armor = equipment.unequipArmor(this);
-            inventory.addItem(armor);
+            equipment.unequipArmor(this);
         }
     }
 
     public void equipRing(RingItem ringItem) {
         inventory.removeItem(ringItem);
 
-        if(equipment.hasRing()) {
-            RingItem oldRing = equipment.unequipRing(this);
-            // TODO: fix LoD violations here
-            oldRing.toggleEquipEffect(this);
-        }
+        equipment.unequipRing(this);
 
         equipment.equipRing(ringItem, this);
     }
 
     public void unequipRing() {
         if(inventory.hasFreeSpace()) {
-            RingItem ring = equipment.unequipRing(this);
-            inventory.addItem(ring);
-        }
-    }
-
-    public void equipWeapon(WeaponItem weaponItem) {
-        equipment.equipWeapon(weaponItem);
-    }
-
-    public void unequipWeapon() {
-        if(inventory.hasFreeSpace()) {            // TODO: fix LoD violations here
-           // WeaponItem weaponItem = equipment.unequipWeapon(this);
-          //  inventory.addItem(ring);
+            equipment.unequipRing(this);
         }
     }
 
@@ -285,5 +283,47 @@ public class Entity {
 
     public WeaponItem getWeaponItem() {
         return equipment.getEquippedWeapon();
+    }
+    
+    public void attack() {
+        getWeaponItem().attack(this);
+    }
+
+    public void useSkill(int index){
+        if(nonWeaponSkills.size() - 1 < index || index < 0) return;
+        else{
+            nonWeaponSkills.get(index).fire(this);
+        }
+    }
+
+    public void useSkill(){
+        nonWeaponSkills.get(currentlySelectedSkill).fire(this);
+    }
+
+    public void scrollLeft(){
+        if(currentlySelectedSkill <= 0) currentlySelectedSkill = nonWeaponSkills.size() - 1;
+        else currentlySelectedSkill --;
+    }
+
+    public void scrollRight(){
+        if(currentlySelectedSkill >= nonWeaponSkills.size() - 1) currentlySelectedSkill = 0;
+        else currentlySelectedSkill ++;
+    }
+
+    public SkillLevel getSkillLevel(Skill weaponSkill) {
+        if (skillLevelsMap.containsKey(weaponSkill)) {
+            return skillLevelsMap.get(weaponSkill);
+        }
+
+        else
+            return null;
+    }
+
+    public boolean hasFreeSpaceInInventory() {
+        return inventory.hasFreeSpace();
+    }
+
+    public void setNoiseLevel(NoiseLevel noiseLevel) {
+        this.noiseLevel = noiseLevel;
     }
 }

@@ -19,7 +19,7 @@ public class SlowEntityCommand extends GameModelCommand {
     public void receiveGameModel(GameModel gameModel) {
         AIController aiController = gameModel.getAIForEntity(entity);
         AIState previousState = aiController.getActiveState();
-        aiController.setActiveState(new SlowedAI(aiController, previousState));
+        aiController.setActiveState(new SlowedAI(previousState.getEntity(),aiController, previousState));
     }
 
     @Override

@@ -2,8 +2,10 @@ package Controller;
 
 import Model.Entity.Entity;
 import Model.MenuModel.MenuModel;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 
-public class KeyEventImplementor {
+public class KeyEventImplementor implements EventHandler<KeyEvent> {
 
     Controller controller;
 
@@ -17,5 +19,10 @@ public class KeyEventImplementor {
 
     public void createPlayerControlsSet(Entity player){
         controller.createPlayerControlsSet(player);
+    }
+
+    @Override
+    public void handle(KeyEvent event) {
+        controller.triggerActionOnKeycode(event.getCode());
     }
 }
