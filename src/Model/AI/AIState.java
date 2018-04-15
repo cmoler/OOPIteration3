@@ -16,7 +16,7 @@ public abstract class AIState {
 
     private Entity entity;
 
-    public abstract void nextMove(Entity player, Map<Point3D,Terrain> terrainMap, Map<Point3D,Entity> entityMap, Map<Point3D,Obstacle> obstacleMap);
+    public abstract void nextMove();
 
     public Entity getEntity() {
         return entity;
