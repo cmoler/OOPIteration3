@@ -7,8 +7,6 @@ import Model.Item.TakeableItem.TakeableItem;
 
 public class ShopKeeperFactory extends  EntityFactory {
 
-    private AIController controller;
-
     public ShopKeeperFactory(SkillsFactory skillsFactory) {
         super(skillsFactory);
     }
@@ -21,9 +19,6 @@ public class ShopKeeperFactory extends  EntityFactory {
     public Entity buildEntity(TakeableItem... items) {
         Entity shopKeep = new Entity();
 
-        controller = new AIController();
-        controller.setActiveState(new FriendlyAI(shopKeep));
-
         if(items != null) {
             for (int i = 0; i < items.length; ++i) {
                 shopKeep.addItemToInventory(items[i]);
@@ -32,7 +27,4 @@ public class ShopKeeperFactory extends  EntityFactory {
         return shopKeep;
     }
 
-    public AIController getController(){
-        return controller;
-    }
 }

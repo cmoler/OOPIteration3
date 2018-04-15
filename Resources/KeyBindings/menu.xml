@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><class>
+    <Bind type="scrollLeft">
+        <key>37</key>
+    </Bind>
+    <Bind type="scrollRight">
+        <key>39</key>
+    </Bind>
+    <Bind type="scrollUp">
+        <key>38</key>
+    </Bind>
+    <Bind type="scrollDown">
+        <key>40</key>
+    </Bind>
+    <Bind type="select">
+        <key>10</key>
+    </Bind>
+</class>
