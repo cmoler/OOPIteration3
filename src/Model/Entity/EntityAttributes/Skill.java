@@ -38,4 +38,8 @@ public class Skill {
         sendInfluenceEffectCommand.execute(entity);
         sendInfluenceEffectCommand.sendCommandToGameModel();
     }
+
+    public void setInfluence(InfluenceEffect influence) {
+        this.influenceEffect = influence;
+    }
 }
