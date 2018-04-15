@@ -22,7 +22,7 @@ public class MonsterFactory extends EntityFactory {
         Entity monster = new Entity();
 
         controller = new AIController();
-        controller.setActiveState(new HostileAI());
+        controller.setActiveState(new HostileAI(monster));
 
         if(items != null) {
             for (int i = 0; i < items.length; ++i) {

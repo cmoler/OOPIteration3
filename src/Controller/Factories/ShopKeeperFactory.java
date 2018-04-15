@@ -22,7 +22,7 @@ public class ShopKeeperFactory extends  EntityFactory {
         Entity shopKeep = new Entity();
 
         controller = new AIController();
-        controller.setActiveState(new FriendlyAI());
+        controller.setActiveState(new FriendlyAI(shopKeep));
 
         if(items != null) {
             for (int i = 0; i < items.length; ++i) {
