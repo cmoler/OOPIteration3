@@ -24,7 +24,7 @@ public class FrozenAI extends AIState {
 
 
     @Override
-    public void nextMove(Entity player, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
+    public void nextMove() {
 
     }
 }
