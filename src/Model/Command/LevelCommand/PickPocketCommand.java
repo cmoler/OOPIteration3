@@ -1,7 +1,7 @@
 package Model.Command.LevelCommand;
 
 import Model.Entity.Entity;
-import Model.Level.Level;
+import Model.Level.GameModel;
 import Model.Level.LevelMessenger;
 
 public class PickPocketCommand extends LevelCommand {
@@ -11,12 +11,13 @@ public class PickPocketCommand extends LevelCommand {
     }
 
     @Override
-    public void execute(Entity entity) {
+    public void receiveGameModel(GameModel gameModel) {
 
     }
 
     @Override
-    public void receiveLevel(Level level) {
+    public void execute(Entity entity) {
 
     }
+
 }

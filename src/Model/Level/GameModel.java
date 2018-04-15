@@ -3,6 +3,7 @@ package Model.Level;
 import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.Command.GameModelCommand.GameModelCommand;
+import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
 import javafx.geometry.Point3D;
 
@@ -20,6 +21,14 @@ public class GameModel {
 
     public void receiveGameModelCommand(GameModelCommand command) {
         command.receiveGameModel(this);
+    }
+
+    public void receiveLevelCommand(LevelCommand levelCommand) {
+        levelCommand.receiveGameModel(this);
+    }
+
+    public Level getCurrentLevel(){
+        return currentLevel;
     }
 
     public AIController getAIForEntity(Entity entity) {
