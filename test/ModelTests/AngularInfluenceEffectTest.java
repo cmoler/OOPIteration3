@@ -34,15 +34,12 @@ public class AngularInfluenceEffectTest {
         Assert.assertEquals(entity1.getMaxHealth(), entity1.getCurrentHealth(), 0);
         Assert.assertEquals(entity2.getMaxHealth(), entity2.getCurrentHealth(), 0);
 
-
-
         influenceEffect.hitEntity(entity1);
 
         Assert.assertEquals(entity1.getCurrentHealth(), 85, 0);
         //Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 
         Point3D startPoint = new Point3D(0, 0, 0);
-
 
         influenceEffect.nextMove(startPoint);
         influenceEffect.nextMove(startPoint);
@@ -54,6 +51,5 @@ public class AngularInfluenceEffectTest {
             System.out.println(adjacentPoints.get(i).toString());
         }
         Assert.assertEquals(adjacentPoints.size(), 5, 0);
-
     }
 }

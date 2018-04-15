@@ -21,7 +21,7 @@ public class ToggleLockViewPortKeyAction extends ModelKeyAction {
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
             if(controllingPlayer){
-                controllerSetFactory.createScrollingViewPortSet();
+                controllerSetFactory.createScrollingViewPortSet(entity);
             }
             else{
                 controllerSetFactory.createPlayerControlsSet(entity);

@@ -96,6 +96,12 @@ public class GameModel {
         if(entity.equals(player)) {
             currentLevel = destinationLevel;
             currentLevelMessenger.setLevel(currentLevel);
+            // TODO: notify pets when player teleports, so we can teleport them as well
         }
+    }
+
+    public void advance() {
+        currentLevel.processMoves();
+        currentLevel.processInteractions();
     }
 }
