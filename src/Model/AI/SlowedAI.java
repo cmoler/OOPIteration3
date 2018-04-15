@@ -1,12 +1,6 @@
 package Model.AI;
 
 import Model.Entity.Entity;
-import Model.Level.Level;
-import Model.Level.Obstacle;
-import Model.Level.Terrain;
-import javafx.geometry.Point3D;
-
-import java.util.Map;
 
 public class SlowedAI extends AIState {
 
@@ -20,7 +14,6 @@ public class SlowedAI extends AIState {
         this.aiController = aiController;
         this.aiState = aiState;
     }
-
 
     @Override
     public void nextMove() {

@@ -41,7 +41,7 @@ public class HostileAI extends AIState{
         //@TODO: Make AI initialized by a path
         //Right now they just move randomly
         Random rand = new Random();
-        super.getEntity().addVelocity(new Vec3d(rand.nextInt(1),rand.nextInt(1),rand.nextInt(1)));
+        super.getEntity().addVelocity(super.generateRandomVelcity());
     }
 
     private void moveToGoal(Point3D start, Point3D goal){
