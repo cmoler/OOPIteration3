@@ -29,13 +29,34 @@ public class ControllerSetFactory {
     }
 
     public void createOptionsMenuSet(){
+        ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
+
+
+        controller.setKeyActionSet(newKeySet);
+    }
+
+    public void createScrollingViewPortSet(Entity player){
+        ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
+
+        newKeySet.add(new ToggleLockViewPortKeyAction(keyBindingParser.parsePlayerKey("toggleLockView"), player, this, true));
+        // TODO: figure out viewport scrolling
+        /*
+        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), ));
+        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), ));
+        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), ));
+        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), ));
+        */
+
+        controller.setKeyActionSet(newKeySet);
     }
 
     public void createPlayerControlsSet(Entity player) {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
+
+        newKeySet.add(new ToggleLockViewPortKeyAction(keyBindingParser.parsePlayerKey("toggleLockView"), player,this, false));
 
         newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player));
         newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player));

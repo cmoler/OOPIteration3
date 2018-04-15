@@ -14,6 +14,7 @@ public class FrozenAI extends AIState {
     private long duration = 7000;
     private AIController controller;
     private AIState previousState;
+    private int currentTick = 0;
 
     public FrozenAI(Entity entity, AIController controller, AIState aiState){
         super(entity);
@@ -24,7 +25,11 @@ public class FrozenAI extends AIState {
 
 
     @Override
-    public void nextMove(Entity player, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
-
+    public void nextMove() {
+        if(currentTick > duration) controller.setActiveState(previousState);
+        else if(currentTick % 20 ==0 ){
+            previousState.nextMove();
+        }
+        currentTick++;
     }
 }

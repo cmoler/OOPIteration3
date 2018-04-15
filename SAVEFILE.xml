@@ -1,42 +1,80 @@
 <?xml version="1.0"?>
-<LEVELLIST>
-    <LEVEL>
-        <LEVELMAP id="TERRAIN">
-            <KEY key="0,0,0"/>
-            <VALUE value="GRASS"/>
+<GAMEMODEL>
+    <CURRENTLEVEL>
+        <LEVEL>
+            <LEVELMAP id="TERRAIN">
+                <KEY key="0,0,0"/>
+                <VALUE value="GRASS"/>
+            </LEVELMAP>
+        </LEVEL>
+    </CURRENTLEVEL>
+    <LEVELLIST>
+        <LEVEL>
+            <LEVELMAP id="TERRAIN">
+                <KEY key="0,0,1"/>
+                <VALUE value="WATER"/>
+            </LEVELMAP>
 
-            <KEY key="0,0,1"/>
-            <VALUE value="WATER"/>
+            <LEVELMAP id="ITEM">
+            </LEVELMAP>
 
-            <KEY key="0,0,2"/>
-            <VALUE value="MOUNTAIN"/>
-        </LEVELMAP>
+            <LEVELMAP id="OBSTACLE">
+            </LEVELMAP>
 
-        <LEVELMAP>
-        </LEVELMAP>
+            <LEVELMAP id="ENTITY">
+            </LEVELMAP>
 
-        <LEVELMAP>
-        </LEVELMAP>
+            <LEVELMAP id="AREA_EFFECT">
+            </LEVELMAP>
 
-        <LEVELMAP>
-        </LEVELMAP>
+            <LEVELMAP id="TRAP">
+            </LEVELMAP>
 
-        <LEVELMAP>
-        </LEVELMAP>
+            <LEVELMAP id="RIVER">
+            </LEVELMAP>
 
-        <LEVELMAP>
-        </LEVELMAP>
+            <LEVELMAP id="MOUNT">
+            </LEVELMAP>
 
-        <LEVELMAP>
-        </LEVELMAP>
+            <LEVELMAP id="INFLUENCE_EFFECT">
+            </LEVELMAP>
 
-        <LEVELMAP>
-        </LEVELMAP>
+            <LEVELMAP id="DECAL">
+            </LEVELMAP>
+        </LEVEL>
 
-        <LEVELMAP>
-        </LEVELMAP>
+        <LEVEL>
+            <LEVELMAP id="TERRAIN">
+                <KEY key="0,0,2"/>
+                <VALUE value="MOUNTAIN"/>
+            </LEVELMAP>
 
-        <LEVELMAP>
-        </LEVELMAP>
-    </LEVEL>
-</LEVELLIST>
+            <LEVELMAP id="ITEM">
+            </LEVELMAP>
+
+            <LEVELMAP id="OBSTACLE">
+            </LEVELMAP>
+
+            <LEVELMAP id="ENTITY">
+            </LEVELMAP>
+
+            <LEVELMAP id="AREA_EFFECT">
+            </LEVELMAP>
+
+            <LEVELMAP id="TRAP">
+            </LEVELMAP>
+
+            <LEVELMAP id="RIVER">
+            </LEVELMAP>
+
+            <LEVELMAP id="MOUNT">
+            </LEVELMAP>
+
+            <LEVELMAP id="INFLUENCE_EFFECT">
+            </LEVELMAP>
+
+            <LEVELMAP id="DECAL">
+            </LEVELMAP>
+        </LEVEL>
+    </LEVELLIST>
+</GAMEMODEL>

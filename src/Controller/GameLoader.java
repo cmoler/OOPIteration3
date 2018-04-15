@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.Level.Terrain;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
@@ -23,11 +24,13 @@ public class GameLoader {
 
     private XMLDocumentParser parser;
     private DOMParser domParser;
-    private Level level;
+    private Level currentLevel;
+    private GameModel gameModel;
+    private List<Level> world;
 
     public GameLoader() {
         parser = new XMLDocumentParser();
-        level = new Level(new ArrayList<>());
+        world = new ArrayList<>();
     }
 
     public void loadGame(String fileName) throws IOException, SAXException, ParserConfigurationException {
@@ -36,10 +39,10 @@ public class GameLoader {
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document document = documentBuilder.parse(file);
 
-        loadLevelMaps(document);
+        loadGameModel(document);
     }
 
-    private void loadTerrains(NodeList nodeList) {
+    private void loadTerrains(NodeList nodeList, Level level) {
         for (int temp = 0; temp < nodeList.getLength(); temp++) {
             Node node = nodeList.item(temp);
 
@@ -94,12 +97,70 @@ public class GameLoader {
         }
     }
 
-    private void loadLevelMaps(Document document) {
-        NodeList nodeList = document.getElementsByTagName("LEVELMAP");
-        loadTerrains(nodeList);
+    private void loadGameModel(Document document) {
+        NodeList currentLevel = document.getElementsByTagName("CURRENTLEVEL");
+        NodeList levelList = document.getElementsByTagName("LEVELLIST");
+        this.currentLevel = loadLevel(currentLevel);
+        this.world = loadWorld(levelList);
     }
 
-    public Level getLevel() {
+    private ArrayList<Level> loadWorld(NodeList nodeList) {
+        ArrayList<Level> world = new ArrayList<>();
+
+        for(int i = 0; i < nodeList.getLength(); i++) {
+            Node levelNode = nodeList.item(i);
+            world = processLevelList(levelNode.getChildNodes());
+        }
+
+        return world;
+    }
+
+    private Level loadLevel(NodeList nodeList) {
+        Level level = new Level(new ArrayList<>());
+
+        for(int i = 0; i < nodeList.getLength(); i++) {
+            Node levelNode = nodeList.item(i);
+            processLevel(levelNode.getChildNodes(), level);
+        }
+
         return level;
+    }
+
+    private Level processLevel(NodeList nodeList, Level level) {
+        for(int i = 0; i < nodeList.getLength(); i++) {
+
+            Node node = nodeList.item(i);
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                loadTerrains(element.getChildNodes(), level);
+            }
+        }
+
+        return level;
+    }
+
+    private ArrayList<Level> processLevelList(NodeList nodeList) {
+        ArrayList<Level> levelList = new ArrayList<>();
+
+        for(int i = 0; i < nodeList.getLength(); i++) {
+
+            Node node = nodeList.item(i);
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Level level = new Level(new ArrayList<>());
+                Element element = (Element) node;
+                loadTerrains(element.getChildNodes(), level);
+                levelList.add(level);
+            }
+        }
+
+        return levelList;
+    }
+
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public List<Level> getWorld() {
+        return world;
     }
 }
