@@ -4,6 +4,10 @@ import Model.Entity.Entity;
 
 public class ToggleHealthCommand extends ToggleableCommand {
 
+    public ToggleHealthCommand(int amount, boolean hasFired) {
+        super(amount, hasFired);
+    }
+
     public ToggleHealthCommand(int amount) {
         setAmount(amount);
     }
