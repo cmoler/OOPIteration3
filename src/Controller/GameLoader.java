@@ -12,6 +12,11 @@ import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleSpeedCommand;
+import Model.Entity.EntityAttributes.Orientation;
+import Model.InfluenceEffect.AngularInfluenceEffect;
+import Model.InfluenceEffect.InfluenceEffect;
+import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.Level.Terrain;
@@ -34,14 +39,11 @@ import java.util.List;
 
 public class GameLoader {
 
-    private XMLDocumentParser parser;
-    private DOMParser domParser;
     private Level currentLevel;
     private GameModel gameModel;
     private List<Level> world;
 
     public GameLoader() {
-        parser = new XMLDocumentParser();
         world = new ArrayList<>();
     }
 
@@ -69,8 +71,67 @@ public class GameLoader {
                     case "areaeffect":
                         processAreaEffects(element, level);
                         break;
+
+                    case "influenceeffect":
+                        processInfluenceEffects(element, level);
+                        break;
                 }
             }
+        }
+    }
+
+    private void processInfluenceEffects(Element element, Level level) {
+        List<Point3D> pointsToAdd = new ArrayList<>();
+        List<InfluenceEffect> influencesToAdd = new ArrayList<>();
+        Command command;
+        int nextMoveTime;
+        long speed;
+        Orientation orientation;
+        int range;
+
+        NodeList influenceKeys = element.getElementsByTagName("KEY");
+        for(int i = 0; i < influenceKeys.getLength(); i++) {
+            String key = influenceKeys.item(i).getAttributes().item(0).getTextContent();
+            String[] point = key.split(",");
+            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
+            pointsToAdd.add(keyPoint);
+        }
+
+        NodeList influenceValues = element.getElementsByTagName("VALUE");
+        for(int i = 0; i < influenceValues.getLength(); i++) {
+            NodeList influenceNodes = influenceValues.item(i).getChildNodes();
+
+            for(int j = 0; j < influenceNodes.getLength(); j++) {
+                Node influenceNode = influenceNodes.item(j);
+                if(influenceNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(influenceNode.getChildNodes());
+
+                    if(command != null) {
+                        nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("nextMoveTime").getTextContent());
+                        speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
+                        range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
+                        orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
+
+                        switch (influenceNode.getNodeName().toLowerCase()) {
+                            case "angularinfluenceeffect":
+                                influencesToAdd.add(new AngularInfluenceEffect(command, range, speed, orientation, nextMoveTime));
+                                break;
+
+                            case "linearinfluenceeffect":
+                                influencesToAdd.add(new LinearInfluenceEffect(command, range, speed, orientation, nextMoveTime));
+                                break;
+
+                            case "radialinfluenceeffect":
+                                influencesToAdd.add(new RadialInfluenceEffect(command, range, speed, orientation, nextMoveTime));
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addInfluenceEffectTo(pointsToAdd.get(i), influencesToAdd.get(i));
         }
     }
 
@@ -154,6 +215,42 @@ public class GameLoader {
 
                     case "setassneakingcommand":
                         return new SetAsSneakingCommand();
+
+                     /* Game Loop Commands */
+                    case "bartercommand":
+                        break;
+
+                    case "dialogcommand":
+                        break;
+
+                    case "observeentitycommand":
+                        break;
+
+                    /* Game Model Commands */
+                    case "confuseentitycommand":
+                        break;
+
+                    case "freezeentitycommand":
+                        break;
+
+                    case "slowentitycommand":
+                        break;
+
+                    case "teleportentitycommand":
+                        break;
+
+                    /* Level Commands */
+                    case "disarmtrapcommand":
+                        break;
+
+                    case "dropitemcommand":
+                        break;
+
+                    case "pickpocketcommand":
+                        break;
+
+                    case "sendinfluencecommand":
+                        break;
                 }
             }
         }

@@ -22,6 +22,29 @@
                     </INFINITEAREA>
                 </VALUE>
             </LEVELMAP>
+
+            <LEVELMAP id="INFLUENCEEFFECT">
+                <KEY key="0,0,0"/>
+                <VALUE>
+                    <ANGULARINFLUENCEEFFECT nextMoveTime="2" speed="4" range="4" orientation="north">
+                        <ADDHEALTHCOMMAND amount="5"/>
+                    </ANGULARINFLUENCEEFFECT>
+                </VALUE>
+
+                <KEY key="0,0,1"/>
+                <VALUE>
+                    <LINEARINFLUENCEEFFECT nextMoveTime="2" speed="4" range="4" orientation="north">
+                        <ADDHEALTHCOMMAND amount="5"/>
+                    </LINEARINFLUENCEEFFECT>
+                </VALUE>
+
+                <KEY key="0,0,2"/>
+                <VALUE>
+                    <RADIALINFLUENCEEFFECT nextMoveTime="2" speed="4" range="4" orientation="north">
+                        <ADDHEALTHCOMMAND amount="5"/>
+                    </RADIALINFLUENCEEFFECT>
+                </VALUE>
+            </LEVELMAP>
         </LEVEL>
     </CURRENTLEVEL>
     <LEVELLIST>

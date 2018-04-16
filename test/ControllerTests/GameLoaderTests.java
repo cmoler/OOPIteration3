@@ -4,6 +4,10 @@ import Controller.GameLoader;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
+import Model.InfluenceEffect.AngularInfluenceEffect;
+import Model.InfluenceEffect.InfluenceEffect;
+import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Level.Level;
 import Model.Level.Terrain;
 import javafx.geometry.Point3D;
@@ -54,5 +58,17 @@ public class GameLoaderTests {
         assertTrue(testedAreaEffects.size() == 2);
         assertTrue(testedAreaEffects.get(new Point3D(0,0,0)) instanceof OneShotAreaEffect);
         assertTrue(testedAreaEffects.get(new Point3D(0,0,1)) instanceof InfiniteAreaEffect);
+    }
+
+    @Test
+    public void testInfluencesLoad() throws ParserConfigurationException, SAXException, IOException {
+        gameLoader.loadGame(fileName);
+        Level currentLevel = gameLoader.getCurrentLevel();
+        Map<Point3D, InfluenceEffect> testedInfluences = currentLevel.getInfluencesMap();
+
+        assertTrue(testedInfluences.size() == 3);
+        assertTrue(testedInfluences.get(new Point3D(0,0,0)) instanceof AngularInfluenceEffect);
+        assertTrue(testedInfluences.get(new Point3D(0,0,1)) instanceof LinearInfluenceEffect);
+        assertTrue(testedInfluences.get(new Point3D(0,0,2)) instanceof RadialInfluenceEffect);
     }
 }
