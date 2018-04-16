@@ -1,9 +1,11 @@
 package Model.MenuModel;
 
-public class StatsMenu extends MenuState {
+import Model.Entity.Entity;
 
-    public StatsMenu(MenuModel menuModel) {
-        super(menuModel);
+public class StatsMenu extends InGameMenuState {
+
+    public StatsMenu(MenuModel menuModel, Entity player) {
+        super(menuModel, player);
     }
 
     @Override

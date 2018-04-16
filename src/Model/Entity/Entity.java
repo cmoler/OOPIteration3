@@ -18,6 +18,8 @@ public class Entity {
 
     private List<LevelViewElement> observers;
 
+    private ItemHotBar hotBar;
+
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
     private int currentlySelectedSkill = 0;
@@ -52,6 +54,7 @@ public class Entity {
         skillLevelsMap = new HashMap<>();
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
+        hotBar = new ItemHotBar(this);
     }
 
     public boolean isMoveable() {
@@ -292,6 +295,14 @@ public class Entity {
         getWeaponItem().attack(this);
     }
 
+    public void addItemToHotBar(TakeableItem takeableItem, int index){
+        hotBar.addItem(takeableItem, index);
+    }
+
+    public void useHotBar(int index){
+        hotBar.use(index);
+    }
+
     public void useSkill(int index){
         if(nonWeaponSkills.size() - 1 < index || index < 0) return;
         else{
@@ -328,5 +339,9 @@ public class Entity {
 
     public void setNoiseLevel(NoiseLevel noiseLevel) {
         this.noiseLevel = noiseLevel;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }

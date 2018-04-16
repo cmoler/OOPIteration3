@@ -1,9 +1,11 @@
 package Model.MenuModel;
 
-public class ExitGameMenu extends MenuState{
+import Model.Entity.Entity;
 
-    public ExitGameMenu(MenuModel menuModel) {
-        super(menuModel);
+public class ExitGameMenu extends InGameMenuState {
+
+    public ExitGameMenu(MenuModel menuModel, Entity player) {
+        super(menuModel, player);
     }
 
     @Override
@@ -20,7 +22,7 @@ public class ExitGameMenu extends MenuState{
                 menuModel.setActiveState(new MainMenuState(menuModel));
                 break;
             case 1:
-                menuModel.setActiveState(new InGameMainMenu(menuModel));
+                menuModel.setActiveState(new InGameMainMenu(menuModel, player));
                 break;
             case 2:
                 System.exit(1);

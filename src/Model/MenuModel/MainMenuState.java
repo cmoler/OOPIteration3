@@ -9,8 +9,8 @@ public class MainMenuState extends MenuState {
     @Override
     public void correctParameters() {
         if(selectedLeftRight != 0) selectedLeftRight = 0;
-        if(selectedUpDown < 0) selectedUpDown = 4;
-        if(selectedUpDown > 4) selectedUpDown = 0;
+        if(selectedUpDown < 0) selectedUpDown = 3;
+        if(selectedUpDown > 3) selectedUpDown = 0;
     }
 
     @Override
@@ -20,15 +20,12 @@ public class MainMenuState extends MenuState {
                 menuModel.setActiveState(new NewGameMenu(menuModel));
                 break;
             case 1:
-                menuModel.setActiveState(new SaveGameMenu(menuModel));
-                break;
-            case 2:
                 menuModel.setActiveState(new LoadGameMenu(menuModel));
                 break;
-            case 3:
+            case 2:
                 menuModel.setActiveState(new OptionsMenu(menuModel));
                 break;
-            case 4:
+            case 3:
                 System.exit(1);
                 break;
         }

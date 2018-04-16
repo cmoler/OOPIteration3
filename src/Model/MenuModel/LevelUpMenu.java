@@ -1,9 +1,11 @@
 package Model.MenuModel;
 
-public class LevelUpMenu extends MenuState {
+import Model.Entity.Entity;
 
-    public LevelUpMenu(MenuModel menuModel) {
-        super(menuModel);
+public class LevelUpMenu extends InGameMenuState {
+
+    public LevelUpMenu(MenuModel menuModel, Entity player) {
+        super(menuModel, player);
     }
 
     @Override
