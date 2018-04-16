@@ -1,6 +1,13 @@
 package Controller;
 
+import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Entity.Entity;
+import Model.InfluenceEffect.AngularInfluenceEffect;
+import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Level.Level;
 import View.LevelView.EntityView;
+import View.LevelView.LevelViewElement;
 import View.LevelView.TerrainView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -14,6 +21,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import Model.Entity.EntityAttributes.Orientation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class RunGame extends Application{
@@ -42,18 +52,32 @@ public class RunGame extends Application{
 
         canvas.setFocusTraversable(true);
 
+        List<LevelViewElement> observers = new ArrayList<>();
+        Level level = new Level(observers);
 
-        TerrainView tv1 = new TerrainView(new Point3D(0, 0, 0), 100);
-        TerrainView tv2 = new TerrainView(new Point3D(1, 0, -1), 100);
-        TerrainView tv3 = new TerrainView(new Point3D(1, -1, 0), 100);
-        TerrainView tv4 = new TerrainView(new Point3D(2, -1, -1), 100);
-        EntityView ev = new EntityView(new Point3D(0, 0, 0), 100, Orientation.SOUTHEAST);
+        Entity entity = new Entity();
+        EntityView ev = new EntityView(new Point3D(0, 0, 0), 60, Orientation.NORTH);
+        entity.addObserver(ev);
+
+        level.addEntityTo(new Point3D(0, 0, 0), entity);
+
+        ArrayList<LevelViewElement> terrains = new ArrayList<>();
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+
+        for(int i = 0; i < 8; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
+            for(int j = 0; j < points.size(); j++) {
+                terrains.add(new TerrainView(points.get(j), 75));
+            }
+        }
+
+
+
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
-                tv1.render(gc);
-                tv2.render(gc);
-                tv3.render(gc);
-                tv4.render(gc);
+                for(int i = 0; i < terrains.size(); i++) {
+                    terrains.get(i).render(gc);
+                }
                 ev.render(gc);
             }
         }.start();

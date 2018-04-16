@@ -123,6 +123,9 @@ public class Level {
         return null;
     }
 
+    public List<LevelViewElement> getObservers() {
+        return observers;
+    }
 
 
     public Map<Point3D, InfluenceEffect> getInfluencesMap() {
