@@ -59,8 +59,16 @@ public abstract class InfluenceEffect{
         return movesRemaining;
     }
 
+    public boolean noMovesRemaining() {
+        return movesRemaining == 0;
+    }
+
     public int getRange() {
         return range;
+    }
+
+    public boolean rangeIsZero() {
+        return range == 0;
     }
 
     public long getSpeed() {
@@ -78,5 +86,4 @@ public abstract class InfluenceEffect{
     public void setCommand(Command command) {
         this.command = command;
     }
-
 }

@@ -40,6 +40,7 @@ public class GameLoaderTests {
         Map<Point3D, Terrain> testedMap = testedLevel.getTerrainMap();
 
         assertTrue(testedMap.containsKey(new Point3D(0,0,0)));
+
         assertTrue(testedMap.containsValue(Terrain.GRASS));
     }
 

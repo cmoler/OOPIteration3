@@ -14,7 +14,7 @@ public class DisarmTrapCommand extends LevelCommand {
     }
 
     public void recieveLevel(Level level) {
-
+        level.disarmTrapFromEntity(entity);
     }
 
     @Override
@@ -22,5 +22,4 @@ public class DisarmTrapCommand extends LevelCommand {
         this.entity = entity;
         sendSelfToLevel();
     }
-
 }

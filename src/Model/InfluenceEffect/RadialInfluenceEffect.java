@@ -19,24 +19,28 @@ public class RadialInfluenceEffect extends InfluenceEffect{
     //TODO: restrict movement based on movement speed
     public ArrayList<Point3D> nextMove(Point3D point) {
         //Out of moves, return empty list
-        if(getMovesRemaining() <= 0) { return new ArrayList<>(); }
+        if(noMovesRemaining()) { return new ArrayList<>(); }
 
         ArrayList<Point3D> newPoints = new ArrayList<>();
+
+        if(rangeIsZero()) {
+            newPoints.add(point);
+            return newPoints;
+        }
 
         int ringDistance = getRange()-getMovesRemaining();
         Point3D currentPoint = point;
         for(int i = 0; i < ringDistance; i++) {//Find starting point
-            currentPoint = getOrientation().getAdjacentPoint(currentPoint, Orientation.NORTH);
+            currentPoint = Orientation.getAdjacentPoint(currentPoint, Orientation.NORTH);
         }
 
         //Generates ring of radius ringDistance
         for(int i = 0; i < Orientation.values().length-1; i++) {
             for(int j = 0; j < ringDistance; j++) {
                 newPoints.add(currentPoint);
-                currentPoint = getOrientation().getAdjacentPoint(currentPoint, Orientation.values()[(i+2)%6]);
+                currentPoint = Orientation.getAdjacentPoint(currentPoint, Orientation.values()[(i+2)%6]);
             }
         }
-
 
         decrementMovesRemaining();
 

@@ -13,7 +13,7 @@ public abstract class LevelCommand implements Command {
         this.levelMessenger = levelMessenger;
     }
 
-    public void sendSelfToLevel() {
+    protected void sendSelfToLevel() {
         levelMessenger.sendCommandToLevel(this);
     }
 
