@@ -28,35 +28,24 @@ public class ControllerSetFactory {
         controller.setKeyActionSet(newKeySet);
     }
 
-    public void createOptionsMenuSet(){
+    public void createMenuSet(MenuModel menuModel){
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
-
+        newKeySet.add(new SelectKeyAction(keyBindingParser.parseMenuKey("select"), menuModel));
+        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), menuModel));
+        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), menuModel));
+        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), menuModel));
+        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), menuModel));
 
         controller.setKeyActionSet(newKeySet);
     }
 
-    public void createScrollingViewPortSet(Entity player){
+    public void createPlayerControlsSet(Entity player, MenuModel menuModel) {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
-        newKeySet.add(new ToggleLockViewPortKeyAction(keyBindingParser.parsePlayerKey("toggleLockView"), player, this, true));
-        // TODO: figure out viewport scrolling
-        /*
-        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), ));
-        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), ));
-        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), ));
-        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), ));
-        */
-
-        controller.setKeyActionSet(newKeySet);
-    }
-
-    public void createPlayerControlsSet(Entity player) {
-        ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
+        newKeySet.add(new OpenMenuKeyAction(keyBindingParser.parseMenuKey("openMenu"), menuModel));
 
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
-
-        newKeySet.add(new ToggleLockViewPortKeyAction(keyBindingParser.parsePlayerKey("toggleLockView"), player,this, false));
 
         newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player));
         newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player));

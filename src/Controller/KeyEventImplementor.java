@@ -13,12 +13,16 @@ public class KeyEventImplementor implements EventHandler<KeyEvent> {
         this.controller = new Controller();
     }
 
+    public void createMenuSet(MenuModel menuModel){
+        controller.createMenuSet(menuModel);
+    }
+
     public void createTradeSet(MenuModel menuModel){
         controller.createTradeSet(menuModel);
     }
 
-    public void createPlayerControlsSet(Entity player){
-        controller.createPlayerControlsSet(player);
+    public void createPlayerControlsSet(Entity player, MenuModel menuModel){
+        controller.createPlayerControlsSet(player, menuModel);
     }
 
     @Override

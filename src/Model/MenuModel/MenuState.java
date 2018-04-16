@@ -2,16 +2,36 @@ package Model.MenuModel;
 
 public abstract class MenuState {
 
-    private int selectedLeftRight;
-    private int selectedUpDown;
+    protected int selectedLeftRight = 0;
+    protected int selectedUpDown = 0;
+    protected MenuModel menuModel;
 
-    public abstract void scrollLeft();
+    public MenuState(MenuModel menuModel) {
+        this.menuModel = menuModel;
+    }
 
-    public abstract void scrollRight();
 
-    public abstract void scrollUp();
+    public void scrollLeft(){
+        selectedLeftRight--;
+        correctParameters();
+    }
 
-    public abstract void scrollDown();
+    public void scrollRight(){
+        selectedLeftRight++;
+        correctParameters();
+    }
+
+    public void scrollUp(){
+        selectedUpDown++;
+        correctParameters();
+    }
+
+    public void scrollDown(){
+        selectedUpDown--;
+        correctParameters();
+    }
+
+    public abstract void correctParameters();
 
     public abstract void select();
 }

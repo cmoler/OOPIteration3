@@ -31,11 +31,15 @@ public class Controller {
         return controllerSetFactory;
     }
 
+    public void createMenuSet(MenuModel menuModel){
+        controllerSetFactory.createMenuSet(menuModel);
+    }
+
     public void createTradeSet(MenuModel menuModel) {
         controllerSetFactory.createTradeSet(menuModel);
     }
 
-    public void createPlayerControlsSet(Entity player){
-        controllerSetFactory.createPlayerControlsSet(player);
+    public void createPlayerControlsSet(Entity player, MenuModel menuModel){
+        controllerSetFactory.createPlayerControlsSet(player, menuModel);
     }
 }
