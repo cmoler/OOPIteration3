@@ -32,4 +32,8 @@ public abstract class Item {
     protected void executeCommand(Entity entity) {
         command.execute(entity);
     }
+
+    protected Command getCommand() {
+        return command;
+    }
 }

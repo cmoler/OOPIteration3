@@ -56,7 +56,8 @@ public class RunGame extends Application{
         Level level = new Level(observers);
 
         Entity entity = new Entity();
-        EntityView ev = new EntityView(new Point3D(0, 0, 0), 60, Orientation.NORTH);
+        entity.setOrientation(Orientation.NORTH);
+        EntityView ev = new EntityView(entity);
         entity.addObserver(ev);
 
         level.addEntityTo(new Point3D(0, 0, 0), entity);
@@ -67,7 +68,7 @@ public class RunGame extends Application{
         for(int i = 0; i < 8; i++) {
             ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
             for(int j = 0; j < points.size(); j++) {
-                terrains.add(new TerrainView(points.get(j), 75));
+                terrains.add(new TerrainView(points.get(j), 100));
             }
         }
 

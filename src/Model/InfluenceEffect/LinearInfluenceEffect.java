@@ -13,28 +13,34 @@ public class LinearInfluenceEffect extends InfluenceEffect{
         super(command, range, speed, orientation);
     }
 
-    //Defines logic for moving in a straight line in its orientation
+    public LinearInfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+        super(command, range, speed, orientation, movesRemaining);
+    }
+
+    //Defines logic for moving in a straight line in the direction of its orientation
     //TODO: restrict movement based on movement speed
     public ArrayList<Point3D> nextMove(Point3D point) {
         //Out of moves, return empty list
-        if(getMovesRemaining() <= 0) { return new ArrayList<>(); }
+        if(noMovesRemaining()) {
+            return new ArrayList<>();
+        }
 
         ArrayList<Point3D> newPos = new ArrayList<>();
 
-        int distance = getRange()-getMovesRemaining()+1;
-        Point3D newPoint = point;
-        for(int i = 0; i < distance; i++) {
-            newPoint = getOrientation().getAdjacentPoint(newPoint, getOrientation());
+        if(rangeIsZero()) {
+            newPos.add(point);
+            return newPos;
         }
+
+        Point3D newPoint = Orientation.getAdjacentPoint(point, getOrientation());
+
         newPos.add(newPoint);
 
         decrementMovesRemaining();
         return newPos;
     }
 
-    public InfluenceEffect getClone() {
-        return new LinearInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation());
+    public InfluenceEffect cloneInfluenceEffect() {
+        return new LinearInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
     }
-
-
 }

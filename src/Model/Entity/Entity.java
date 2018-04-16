@@ -55,6 +55,14 @@ public class Entity {
         observers = new ArrayList<>();
     }
 
+    public boolean isMoveable() {
+        return moveable;
+    }
+
+    public void setMoveable(boolean moveable) {
+        this.moveable = moveable;
+    }
+
     public Orientation getOrientation() {
         return orientation;
     }

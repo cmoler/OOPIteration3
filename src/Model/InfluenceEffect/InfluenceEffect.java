@@ -17,7 +17,6 @@ public abstract class InfluenceEffect{
     private Orientation orientation;
     private int range;
 
-    private boolean hasNotFired;
 
     public InfluenceEffect(Command command, int range, long speed, Orientation orientation) {
         this.command = command;
@@ -27,35 +26,49 @@ public abstract class InfluenceEffect{
         this.speed = speed;
         //TODO: make nextMoveTime based on speed
         this.orientation = orientation;
-        hasNotFired = true;
-
-
-
     }
 
-    public ArrayList<Point3D> nextMove(Point3D point) {
-        return new ArrayList<>();
+    public InfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+        this.command = command;
+        this.movesRemaining = movesRemaining;
+        this.range = range;
+
+        this.speed = speed;
+        //TODO: make nextMoveTime based on speed
+        this.orientation = orientation;
     }
+
+    public abstract ArrayList<Point3D> nextMove(Point3D point);
+
+    public abstract InfluenceEffect cloneInfluenceEffect();
 
     //Passes entity into command
     public void hitEntity(Entity entity) {
-        if(hasNotFired) {
-            command.execute(entity);
-            hasNotFired = false;
-        }
+        command.execute(entity);
     }
-
 
     public Orientation getOrientation() {
         return orientation;
+    }
+
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
     }
 
     public int getMovesRemaining() {
         return movesRemaining;
     }
 
+    public boolean noMovesRemaining() {
+        return movesRemaining == 0;
+    }
+
     public int getRange() {
         return range;
+    }
+
+    public boolean rangeIsZero() {
+        return range == 0;
     }
 
     public long getSpeed() {
@@ -66,15 +79,11 @@ public abstract class InfluenceEffect{
         movesRemaining--;
     }
 
-
     public Command getCommand() {
         return command;
     }
 
-    public abstract InfluenceEffect getClone();
-
-    public void amendCommand(Command command) {
+    public void setCommand(Command command) {
         this.command = command;
     }
-
 }

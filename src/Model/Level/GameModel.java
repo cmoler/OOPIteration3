@@ -20,6 +20,19 @@ public class GameModel {
     private Map<Level, List<AIController>> aiMap;
     private Queue<TeleportTuple> teleportTupleQueue;
 
+    public GameModel() {
+
+    }
+
+    public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
+                     Map<Level, List<AIController>> aiMap) {
+        this.currentLevel = currentLevel;
+        this.currentLevelMessenger = currentLevelMessenger;
+        this.levels = levels;
+        this.player = player;
+        this.aiMap = aiMap;
+    }
+
     public void receiveGameModelCommand(GameModelCommand command) {
         command.receiveGameModel(this);
     }
@@ -96,6 +109,12 @@ public class GameModel {
         if(entity.equals(player)) {
             currentLevel = destinationLevel;
             currentLevelMessenger.setLevel(currentLevel);
+            // TODO: notify pets when player teleports, so we can teleport them as well
         }
+    }
+
+    public void advance() {
+        currentLevel.processMoves();
+        currentLevel.processInteractions();
     }
 }

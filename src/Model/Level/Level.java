@@ -2,6 +2,7 @@ package Model.Level;
 
 import Model.AreaEffect.AreaEffect;
 import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
 import View.LevelView.LevelViewElement;
@@ -46,7 +47,7 @@ public class Level {
 
         this.observers = observers;
 
-        this.movementHandler = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations);
+        this.movementHandler = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations, influenceEffectLocations);
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
                                                          trapLocations, mountLocations, influenceEffectLocations,
@@ -55,7 +56,45 @@ public class Level {
         this.tilesSeenByPlayer = new ArrayList<>();
     }
 
-    // TODO: process moves using movementHandler
+    public Map<Point3D, Terrain> getTerrainLocations() {
+        return terrainLocations;
+    }
+
+    public Map<Point3D, Item> getItemLocations() {
+        return itemLocations;
+    }
+
+    public Map<Point3D, Obstacle> getObstacleLocations() {
+        return obstacleLocations;
+    }
+
+    public Map<Point3D, Entity> getEntityLocations() {
+        return entityLocations;
+    }
+
+    public Map<Point3D, AreaEffect> getAreaEffectLocations() {
+        return areaEffectLocations;
+    }
+
+    public Map<Point3D, Trap> getTrapLocations() {
+        return trapLocations;
+    }
+
+    public Map<Point3D, River> getRiverLocations() {
+        return riverLocations;
+    }
+
+    public Map<Point3D, Mount> getMountLocations() {
+        return mountLocations;
+    }
+
+    public Map<Point3D, InfluenceEffect> getInfluenceEffectLocations() {
+        return influenceEffectLocations;
+    }
+
+    public Map<Point3D, Decal> getDecalLocations() {
+        return decalLocations;
+    }
 
     public void processInteractions() {
         interactionHandler.processInteractions();
@@ -134,5 +173,54 @@ public class Level {
     
     public boolean hasItem(Item item) {
         return itemLocations.containsValue(item);
+    }
+
+    public void processMoves() {
+        movementHandler.processMoves();
+    }
+
+    public Map<Point3D, Terrain> getTerrainMap() {
+        return terrainLocations;
+    }
+
+    public void disarmTrapFromEntity(Entity entity) {
+        for(Point3D point : entityLocations.keySet()) {
+            if(entityLocations.get(point).equals(entity)) {
+                disarmTrapsAtPoint(point);
+            }
+        }
+    }
+
+    private void disarmTrapsAtPoint(Point3D originPoint) {
+        Point3D northPoint = Orientation.getAdjacentPoint(originPoint, Orientation.NORTH);
+        Point3D northeastPoint = Orientation.getAdjacentPoint(originPoint, Orientation.NORTHEAST);
+        Point3D northWestPoint = Orientation.getAdjacentPoint(originPoint, Orientation.NORTHWEST);
+        Point3D southPoint = Orientation.getAdjacentPoint(originPoint, Orientation.SOUTH);
+        Point3D southeastPoint = Orientation.getAdjacentPoint(originPoint, Orientation.SOUTHEAST);
+        Point3D southwestPoint = Orientation.getAdjacentPoint(originPoint, Orientation.SOUTHWEST);
+
+        if(trapLocations.get(northPoint) != null) {
+            trapLocations.get(northPoint).disarm();
+        }
+
+        if(trapLocations.get(northeastPoint) != null) {
+            trapLocations.get(northeastPoint).disarm();
+        }
+
+        if(trapLocations.get(northWestPoint) != null) {
+            trapLocations.get(northWestPoint).disarm();
+        }
+
+        if(trapLocations.get(southPoint) != null) {
+            trapLocations.get(southPoint).disarm();
+        }
+
+        if(trapLocations.get(southeastPoint) != null) {
+            trapLocations.get(southeastPoint).disarm();
+        }
+
+        if(trapLocations.get(southwestPoint) != null) {
+            trapLocations.get(southwestPoint).disarm();
+        }
     }
 }

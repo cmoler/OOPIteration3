@@ -29,6 +29,8 @@ public class EntityView implements LevelViewElement{
         entitySize = 75;
 
         hexMathHelper = new HexMathHelper();
+
+        entityLocation = new Point3D(0, 0, 0);
     }
     @Override
     public void notifyViewElement() {

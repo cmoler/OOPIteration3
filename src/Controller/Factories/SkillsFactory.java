@@ -31,6 +31,8 @@ public class SkillsFactory {
         this.levelMessenger = levelMessenger;
     }
 
+    // TODO: parameterize allllll the Skills with alllllll the stuff
+
     public Skill getObserveSkill() {
         if(observeSkill == null) {
             observeSkill = new Skill("Observe", null, null, null, 1, 1);
@@ -121,7 +123,7 @@ public class SkillsFactory {
 
     public Skill getDisarmAndRemoveSkill() {
         if(disarmAndRemoveSkill == null) {
-            disarmAndRemoveSkill = new Skill("Disarm and Remove Trap", null, null, null, 1, 1);
+            disarmAndRemoveSkill = new Skill("Detect and Remove Trap", null, null, null, 1, 1);
         }
 
         return disarmAndRemoveSkill;

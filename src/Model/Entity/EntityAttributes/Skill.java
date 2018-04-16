@@ -34,11 +34,21 @@ public class Skill {
 
     public void fire(Entity entity) {
         // TODO: write in logic once send influence command is finished
-        sendInfluenceEffectCommand.setInfluenceEffect(influenceEffect);
+        // TODO: figure out how to get skills to modify stats for stuff like trap disarm or pickpocket, etc.
+        influenceEffect.setOrientation(entity.getOrientation());
+
+        InfluenceEffect newInstance = influenceEffect.cloneInfluenceEffect();
+        newInstance.setCommand(behavior);
+
+        sendInfluenceEffectCommand.setInfluenceEffect(newInstance);
         sendInfluenceEffectCommand.execute(entity);
     }
 
     public void setInfluence(InfluenceEffect influence) {
         this.influenceEffect = influence;
+    }
+
+    public void setBehavior(Command command) {
+        behavior = command;
     }
 }

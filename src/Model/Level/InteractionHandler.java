@@ -114,20 +114,16 @@ public class InteractionHandler {
     }
 
     private void processInfluenceEffects() {
-        List<Point3D> itemPoints = new ArrayList<>(influenceEffectLocations.keySet());
+        List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
-        for(Point3D point : itemPoints) {
-
+        for(Point3D point : influenceEffectPoints) {
             InfluenceEffect influenceEffect = influenceEffectLocations.get(point); //Get current influence effect
-            ArrayList<Point3D> influencePoints = influenceEffect.nextMove(point); //Get list of points its effecting
-            for(Point3D influencePoint : influencePoints) {//For each effected point
-                if(entityLocations.containsKey(influencePoint)) {//Check if there is an entity on that location
-                    Entity entity = entityLocations.get(influencePoint); //Get entity
-                    influenceEffect.hitEntity(entity); //Trigger command
-                }
-            }
 
-            if(influencePoints.size() == 0) {
+            if(entityLocations.containsKey(point)) {//Check if there is an entity on that location
+                Entity entity = entityLocations.get(point); //Get entity
+                influenceEffect.hitEntity(entity); //Trigger command
+                influenceEffectLocations.remove(point, influenceEffect); // remove influence effect if it hit the entity
+            } else if(influenceEffect.noMovesRemaining()) { // remove influence effect if it has no moves left and didn't hit an entity
                 influenceEffectLocations.remove(point, influenceEffect);
             }
         }

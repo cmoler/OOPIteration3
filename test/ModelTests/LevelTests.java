@@ -4,8 +4,15 @@ import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
+import Model.Command.EntityCommand.SettableEntityCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.LevelCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.Skill;
+import Model.InfluenceEffect.AngularInfluenceEffect;
+import Model.InfluenceEffect.InfluenceEffect;
+import Model.Item.TakeableItem.InventoryStrategy.WeaponEquipStrategy;
+import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.*;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.LinearInfluenceEffect;
@@ -62,23 +69,47 @@ public class LevelTests {
 
         assertEquals(70, entity1.getCurrentHealth(), 0);
         assertEquals(85, entity2.getCurrentHealth(), 0);
+    }
 
-        //Influence effect tests
+    @Test
+    public void testLinearInfluenceEffect() {
+        List<LevelViewElement> observers = new ArrayList<>();
+
+        Level level = new Level(observers);
+
+        Command damageCommand = new RemoveHealthCommand(15);
+
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(damageCommand, 5, 5, Orientation.NORTH);
+        Entity entity = new Entity();
+
+        Entity entity2 = new Entity();
+
         Entity entity3 = new Entity();
 
         level.addInfluenceEffectTo(new Point3D(-2, 0, 2), influenceEffect);
-        level.addEntityTo(new Point3D(-2, 2, 0), entity3);
+        level.addEntityTo(new Point3D(-2, 2, 0), entity);
+        level.addEntityTo(new Point3D(-2, 3, 0), entity2);
+        level.addEntityTo(new Point3D(-2, 4, 0), entity3);
 
+        level.processMoves();
         level.processInteractions();
 
+        assertEquals(100, entity.getCurrentHealth(), 0);
+
+        level.processMoves();
+        level.processInteractions();
+
+        assertEquals(85, entity.getCurrentHealth(), 0);
+
+        level.processMoves();
+        level.processInteractions();
+
+        level.processMoves();
+        level.processInteractions();
+
+        assertEquals(85, entity.getCurrentHealth(), 0);
+        assertEquals(100, entity2.getCurrentHealth(), 0);
         assertEquals(100, entity3.getCurrentHealth(), 0);
-
-        level.processInteractions();
-
-        assertEquals(85, entity3.getCurrentHealth(), 0);
-
-
     }
 
     @Test
@@ -87,8 +118,9 @@ public class LevelTests {
         Map<Point3D, Obstacle> obstacleLocations = new HashMap<Point3D, Obstacle>();
         Map<Point3D, Entity> entityLocations = new HashMap<Point3D, Entity>();
         Map<Point3D, Mount> mountLocations = new HashMap<Point3D, Mount>();
+        Map<Point3D, InfluenceEffect> influenceEffectLocations = new HashMap<Point3D, InfluenceEffect>();
 
-        MovementHandler MH = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations);
+        MovementHandler MH = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations, influenceEffectLocations);
 
         // Case 1: Attempting to move onto an impassable Terrain
         terrainLocations.put(new Point3D(2,2,2),Terrain.WATER);
@@ -195,4 +227,61 @@ public class LevelTests {
         level.addEntityTo(new Point3D(0,0,0), entity);
         assertEquals(new Point3D(0,0,0), level.getEntityPoint(entity));
     }
+
+    @Test
+    public void testInfluenceEffectCloningOnAttack() {
+        Command damageCommand = new RemoveHealthCommand(20);
+        Command damageCommand2 = new RemoveHealthCommand(40);
+
+        List<LevelViewElement> observers = new ArrayList<>();
+
+        Level level = new Level(observers);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+
+        Entity entity = new Entity();
+        Entity dummy = new Entity();
+
+        InfluenceEffect linear1 = new LinearInfluenceEffect(new RemoveHealthCommand(10), 5,1, Orientation.SOUTHWEST);
+        InfluenceEffect linear2 = new LinearInfluenceEffect(new RemoveHealthCommand(2130), 5,1, Orientation.SOUTHEAST);
+
+        Skill swordSkill = new Skill("Sword Skill", null, new AddHealthCommand(10), new SendInfluenceEffectCommand(levelMessenger), 1, 0);
+        WeaponItem sword = new WeaponItem("Sword", damageCommand, null, swordSkill,
+                linear1, 10, 10, 10, 10, 5);
+
+        WeaponItem sword2 = new WeaponItem("Sword", damageCommand2, null, swordSkill,
+                linear2, 10,10, 10, 10, 5);
+
+        level.addEntityTo(new Point3D(0,0 ,0), entity);
+        level.addEntityTo(new Point3D(0, 1, -1), dummy);
+
+        Assert.assertEquals(100, entity.getCurrentHealth(), 0);
+        Assert.assertEquals(100, dummy.getCurrentHealth(), 0);
+
+        entity.addSkillsToMap(swordSkill);
+        entity.addWeaponSkills(swordSkill);
+        entity.equipWeapon(sword);
+        entity.addItemToInventory(sword2);
+        entity.setOrientation(Orientation.NORTH);
+        entity.attack();
+
+        level.processMoves();
+        level.processInteractions();
+
+        Assert.assertEquals(5, linear1.getMovesRemaining(), 0);
+
+        Assert.assertEquals(100, entity.getCurrentHealth(), 0);
+        Assert.assertEquals(80, dummy.getCurrentHealth(), 0);
+
+        entity.equipWeapon(sword2);
+        entity.attack();
+
+        level.processMoves();
+        level.processInteractions();
+
+        Assert.assertEquals(5, linear1.getMovesRemaining(), 0);
+        Assert.assertEquals(5, linear2.getMovesRemaining(), 0);
+
+        Assert.assertEquals(100, entity.getCurrentHealth(), 0);
+        Assert.assertEquals(40, dummy.getCurrentHealth(), 0);
+    } // TODO: get view portion of influence effects working, it is hard to test where they are moving to coordinates-wise
 }
