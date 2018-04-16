@@ -67,6 +67,10 @@ public abstract class InfluenceEffect{
         return range;
     }
 
+    public boolean rangeIsZero() {
+        return range == 0;
+    }
+
     public long getSpeed() {
         return speed;
     }

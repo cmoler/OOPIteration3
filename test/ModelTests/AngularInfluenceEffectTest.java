@@ -48,7 +48,7 @@ public class AngularInfluenceEffectTest {
         Point3D expectedPoint = new Point3D(5, 6, 4);
 
         for(int i = 0; i < adjacentPoints.size(); i++) {
-            System.out.println(adjacentPoints.get(i).toString());
+            System.out.println("ANGULAR POINTS: "+adjacentPoints.get(i).toString());
         }
         Assert.assertEquals(adjacentPoints.size(), 5, 0);
     }

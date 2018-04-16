@@ -45,7 +45,7 @@ public class MovementHandler {
                     }
                     if (entityLocations.containsKey(contestedPoint)){
                        //@TODO: Figure out this use case.
-                        System.out.println("Hello Entity!");
+                        System.out.println("Hello Entity! I, another Entity, is interacting with you!");
                     }
                     else {
                         entityLocations.remove(entry.getKey());
@@ -71,13 +71,11 @@ public class MovementHandler {
 
             List<Point3D> nextEffectPoints = influenceEffect.nextMove(oldPoint); // Get list of points to move effect to
 
-            influenceEffectLocations.remove(oldPoint, influenceEffect);
-
             if (!nextEffectPoints.isEmpty()) {
-                for (Point3D newPoint : nextEffectPoints) {
-                    System.out.println("ADDED EFFECT AT PT "+newPoint.toString());
+                influenceEffectLocations.remove(oldPoint, influenceEffect); // remove all old positions of the influence effect
 
-                    influenceEffectLocations.put(newPoint, influenceEffect);
+                for (Point3D newPoint : nextEffectPoints) {
+                    influenceEffectLocations.put(newPoint, influenceEffect); // put influence effect at its new position
                 }
             }
         }

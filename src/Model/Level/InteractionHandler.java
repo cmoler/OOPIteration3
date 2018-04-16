@@ -119,15 +119,12 @@ public class InteractionHandler {
         for(Point3D point : influenceEffectPoints) {
             InfluenceEffect influenceEffect = influenceEffectLocations.get(point); //Get current influence effect
 
-            System.out.println("PROCESSING EFFECT AT PT " + point.toString());
-
             if(entityLocations.containsKey(point)) {//Check if there is an entity on that location
-
-                System.out.println("HIT!");
-
                 Entity entity = entityLocations.get(point); //Get entity
                 influenceEffect.hitEntity(entity); //Trigger command
-                influenceEffectLocations.remove(point); // remove influence effect if it hit the entity
+                influenceEffectLocations.remove(point, influenceEffect); // remove influence effect if it hit the entity
+            } else if(influenceEffect.noMovesRemaining()) { // remove influence effect if it has no moves left and didn't hit an entity
+                influenceEffectLocations.remove(point, influenceEffect);
             }
         }
     }

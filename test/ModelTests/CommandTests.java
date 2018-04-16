@@ -67,6 +67,7 @@ public class CommandTests {
 
         entity.useSkill(0);
 
+        level.processMoves();
         level.processInteractions();
 
         Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
@@ -89,6 +90,7 @@ public class CommandTests {
 
         entity.useSkill(0);
 
+        level.processMoves();
         level.processInteractions();
 
         Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());

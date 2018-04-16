@@ -23,6 +23,11 @@ public class RadialInfluenceEffect extends InfluenceEffect{
 
         ArrayList<Point3D> newPoints = new ArrayList<>();
 
+        if(rangeIsZero()) {
+            newPoints.add(point);
+            return newPoints;
+        }
+
         int ringDistance = getRange()-getMovesRemaining();
         Point3D currentPoint = point;
         for(int i = 0; i < ringDistance; i++) {//Find starting point
@@ -36,7 +41,7 @@ public class RadialInfluenceEffect extends InfluenceEffect{
                 currentPoint = Orientation.getAdjacentPoint(currentPoint, Orientation.values()[(i+2)%6]);
             }
         }
-        
+
         decrementMovesRemaining();
 
         return newPoints;

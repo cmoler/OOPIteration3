@@ -82,8 +82,14 @@ public class LevelTests {
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(damageCommand, 5, 5, Orientation.NORTH);
         Entity entity = new Entity();
 
+        Entity entity2 = new Entity();
+
+        Entity entity3 = new Entity();
+
         level.addInfluenceEffectTo(new Point3D(-2, 0, 2), influenceEffect);
         level.addEntityTo(new Point3D(-2, 2, 0), entity);
+        level.addEntityTo(new Point3D(-2, 3, 0), entity2);
+        level.addEntityTo(new Point3D(-2, 4, 0), entity3);
 
         level.processMoves();
         level.processInteractions();
@@ -94,6 +100,16 @@ public class LevelTests {
         level.processInteractions();
 
         assertEquals(85, entity.getCurrentHealth(), 0);
+
+        level.processMoves();
+        level.processInteractions();
+
+        level.processMoves();
+        level.processInteractions();
+
+        assertEquals(85, entity.getCurrentHealth(), 0);
+        assertEquals(100, entity2.getCurrentHealth(), 0);
+        assertEquals(100, entity3.getCurrentHealth(), 0);
     }
 
     @Test
