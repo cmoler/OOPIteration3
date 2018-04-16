@@ -59,6 +59,10 @@ public abstract class InfluenceEffect{
         return movesRemaining;
     }
 
+    public boolean noMovesRemaining() {
+        return movesRemaining == 0;
+    }
+
     public int getRange() {
         return range;
     }
@@ -78,5 +82,4 @@ public abstract class InfluenceEffect{
     public void setCommand(Command command) {
         this.command = command;
     }
-
 }

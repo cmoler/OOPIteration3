@@ -179,9 +179,6 @@ public class Level {
     }
 
     public void disarmTrapFromEntity(Entity entity) {
-
-        System.out.println("hi");
-
         for(Point3D point : entityLocations.keySet()) {
             if(entityLocations.get(point).equals(entity)) {
                 disarmTrapsAtPoint(point);
@@ -190,14 +187,12 @@ public class Level {
     }
 
     private void disarmTrapsAtPoint(Point3D originPoint) {
-
         Point3D northPoint = Orientation.getAdjacentPoint(originPoint, Orientation.NORTH);
         Point3D northeastPoint = Orientation.getAdjacentPoint(originPoint, Orientation.NORTHEAST);
         Point3D northWestPoint = Orientation.getAdjacentPoint(originPoint, Orientation.NORTHWEST);
         Point3D southPoint = Orientation.getAdjacentPoint(originPoint, Orientation.SOUTH);
         Point3D southeastPoint = Orientation.getAdjacentPoint(originPoint, Orientation.SOUTHEAST);
         Point3D southwestPoint = Orientation.getAdjacentPoint(originPoint, Orientation.SOUTHWEST);
-
 
         if(trapLocations.get(northPoint) != null) {
             trapLocations.get(northPoint).disarm();
