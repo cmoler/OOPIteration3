@@ -17,9 +17,7 @@ import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
-import Model.Level.GameModel;
-import Model.Level.Level;
-import Model.Level.Terrain;
+import Model.Level.*;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import com.sun.org.apache.xerces.internal.parsers.XMLDocumentParser;
 import javafx.geometry.Point3D;
@@ -75,27 +73,96 @@ public class GameLoader {
                     case "influenceeffect":
                         processInfluenceEffects(element, level);
                         break;
+
+                    case "item":
+                        processItems(element, level);
+                        break;
+
+                    case "entity":
+                        processEntities(element, level);
+                        break;
+
+                    case "trap":
+                        processTraps(element, level);
+                        break;
+
+                    case "river":
+                        processRivers(element, level);
+                        break;
+
+                    case "mount":
+                        processMounts(element, level);
+                        break;
+
+                    case "obstacle":
+                        processObstacles(element, level);
+                        break;
+
+                    case "decal":
+                        processDecals(element, level);
+                        break;
                 }
             }
         }
     }
 
+    private void processDecals(Element element, Level level) {
+    }
+
+    private void processObstacles(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addObstacleTo(pointsToAdd.get(i), new Obstacle());
+        }
+    }
+
+    private void processMounts(Element element, Level level) {
+    }
+
+    private void processRivers(Element element, Level level) {
+    }
+
+    private void processTraps(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+        List<Trap> traps = new ArrayList<>();
+        Command command;
+        boolean isVisible;
+        boolean isDisarmed;
+
+        NodeList trapValues = element.getElementsByTagName("VALUE");
+        for(int i = 0; i < trapValues.getLength(); i++) {
+            NodeList trapNodes = trapValues.item(i).getChildNodes();
+
+            for(int j = 0; j < trapNodes.getLength(); j++) {
+                Node trapNode = trapNodes.item(j);
+                if(trapNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(trapNode.getChildNodes());
+
+                    if(command != null) {
+                        isVisible = Boolean.parseBoolean(trapNode.getAttributes().getNamedItem("isVisible").getTextContent());
+                        isDisarmed = Boolean.parseBoolean(trapNode.getAttributes().getNamedItem("isDisarmed").getTextContent());
+                        //TODO: Add list of level view elements
+                    }
+                }
+            }
+        }
+    }
+
+    private void processEntities(Element element, Level level) {
+    }
+
+    private void processItems(Element element, Level level) {
+    }
+
     private void processInfluenceEffects(Element element, Level level) {
-        List<Point3D> pointsToAdd = new ArrayList<>();
+        List<Point3D> pointsToAdd = getKeyPoints(element);
         List<InfluenceEffect> influencesToAdd = new ArrayList<>();
         Command command;
         int nextMoveTime;
         long speed;
         Orientation orientation;
         int range;
-
-        NodeList influenceKeys = element.getElementsByTagName("KEY");
-        for(int i = 0; i < influenceKeys.getLength(); i++) {
-            String key = influenceKeys.item(i).getAttributes().item(0).getTextContent();
-            String[] point = key.split(",");
-            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
-            pointsToAdd.add(keyPoint);
-        }
 
         NodeList influenceValues = element.getElementsByTagName("VALUE");
         for(int i = 0; i < influenceValues.getLength(); i++) {
@@ -136,17 +203,9 @@ public class GameLoader {
     }
 
     private void processAreaEffects(Element element, Level level) {
-        List<Point3D> pointsToAdd = new ArrayList<>();
+        List<Point3D> pointsToAdd = getKeyPoints(element);
         List<AreaEffect> effectsToAdd = new ArrayList<>();
         Command command;
-
-        NodeList effectKeys = element.getElementsByTagName("KEY");
-        for(int i = 0; i < effectKeys.getLength(); i++) {
-            String key = effectKeys.item(i).getAttributes().item(0).getTextContent();
-            String[] point = key.split(",");
-            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
-            pointsToAdd.add(keyPoint);
-        }
 
         NodeList effectValues = element.getElementsByTagName("VALUE");
         for(int i = 0; i < effectValues.getLength(); i++) {
@@ -259,16 +318,8 @@ public class GameLoader {
     }
 
     private void processTerrains(Element element, Level level) {
-        List<Point3D> pointsToAdd = new ArrayList<>();
+        List<Point3D> pointsToAdd = getKeyPoints(element);
         List<Terrain> terrainsToAdd = new ArrayList<>();
-
-        NodeList terrainKeys = element.getElementsByTagName("KEY");
-        for(int terrainIter = 0; terrainIter < terrainKeys.getLength(); terrainIter++) {
-            String key = terrainKeys.item(terrainIter).getAttributes().item(0).getTextContent();
-            String[] point = key.split(",");
-            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
-            pointsToAdd.add(keyPoint);
-        }
 
         NodeList terrainValues = element.getElementsByTagName("VALUE");
         for(int terrainIter = 0; terrainIter < terrainValues.getLength(); terrainIter++) {
@@ -357,6 +408,20 @@ public class GameLoader {
         }
 
         return levelList;
+    }
+
+    private ArrayList<Point3D> getKeyPoints(Element element) {
+        ArrayList<Point3D> pointsToAdd = new ArrayList<>();
+
+        NodeList terrainKeys = element.getElementsByTagName("KEY");
+        for(int terrainIter = 0; terrainIter < terrainKeys.getLength(); terrainIter++) {
+            String key = terrainKeys.item(terrainIter).getAttributes().item(0).getTextContent();
+            String[] point = key.split(",");
+            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
+            pointsToAdd.add(keyPoint);
+        }
+
+        return pointsToAdd;
     }
 
     public Level getCurrentLevel() {

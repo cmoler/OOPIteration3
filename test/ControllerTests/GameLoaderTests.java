@@ -9,6 +9,7 @@ import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Level.Level;
+import Model.Level.Obstacle;
 import Model.Level.Terrain;
 import javafx.geometry.Point3D;
 import org.junit.Before;
@@ -71,5 +72,15 @@ public class GameLoaderTests {
         assertTrue(testedInfluences.get(new Point3D(0,0,0)) instanceof AngularInfluenceEffect);
         assertTrue(testedInfluences.get(new Point3D(0,0,1)) instanceof LinearInfluenceEffect);
         assertTrue(testedInfluences.get(new Point3D(0,0,2)) instanceof RadialInfluenceEffect);
+    }
+
+    @Test
+    public void testObstaclesLoad() throws ParserConfigurationException, SAXException, IOException {
+        gameLoader.loadGame(fileName);
+        Level currentLevel = gameLoader.getCurrentLevel();
+        Map<Point3D, Obstacle> testedObstacles = currentLevel.getObstacleLocations();
+
+        assertTrue(testedObstacles.size() == 1);
+        assertTrue(testedObstacles.get(new Point3D(0,0,0)) instanceof Obstacle);
     }
 }

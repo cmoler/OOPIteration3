@@ -45,6 +45,10 @@
                     </RADIALINFLUENCEEFFECT>
                 </VALUE>
             </LEVELMAP>
+
+            <LEVELMAP id="OBSTACLE">
+                <KEY key="0,0,0"/>
+            </LEVELMAP>
         </LEVEL>
     </CURRENTLEVEL>
     <LEVELLIST>
