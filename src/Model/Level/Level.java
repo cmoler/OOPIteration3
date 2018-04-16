@@ -138,4 +138,6 @@ public class Level {
     public Map<Point3D, Terrain> getTerrainMap() {
         return terrainLocations;
     }
+
+    public Map<Point3D, AreaEffect> getAreaEffectLocations() { return areaEffectLocations; }
 }

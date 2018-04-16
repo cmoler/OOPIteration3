@@ -6,6 +6,22 @@
                 <KEY key="0,0,0"/>
                 <VALUE value="GRASS"/>
             </LEVELMAP>
+
+            <LEVELMAP id="AREAEFFECT">
+                <KEY key="0,0,0"/>
+                <VALUE>
+                    <ONESHOTAREA>
+                        <REMOVEHEALTHCOMMAND amount="5"/>
+                    </ONESHOTAREA>
+                </VALUE>
+
+                <KEY key="0,0,1"/>
+                <VALUE>
+                    <INFINITEAREA>
+                        <REMOVEHEALTHCOMMAND amount="5"/>
+                    </INFINITEAREA>
+                </VALUE>
+            </LEVELMAP>
         </LEVEL>
     </CURRENTLEVEL>
     <LEVELLIST>
@@ -24,7 +40,7 @@
             <LEVELMAP id="ENTITY">
             </LEVELMAP>
 
-            <LEVELMAP id="AREA_EFFECT">
+            <LEVELMAP id="AREAEFFECT">
             </LEVELMAP>
 
             <LEVELMAP id="TRAP">

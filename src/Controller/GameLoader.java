@@ -1,5 +1,17 @@
 package Controller;
 
+import Model.AreaEffect.AreaEffect;
+import Model.AreaEffect.InfiniteAreaEffect;
+import Model.AreaEffect.OneShotAreaEffect;
+import Model.Command.Command;
+import Model.Command.EntityCommand.InstaDeathCommand;
+import Model.Command.EntityCommand.LevelUpCommand;
+import Model.Command.EntityCommand.SetAsSneakingCommand;
+import Model.Command.EntityCommand.SettableEntityCommand.AddHealthCommand;
+import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.ToggleableCommand.ToggleHealthCommand;
+import Model.Command.EntityCommand.ToggleableCommand.ToggleManaCommand;
+import Model.Command.EntityCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.Level.Terrain;
@@ -42,58 +54,152 @@ public class GameLoader {
         loadGameModel(document);
     }
 
-    private void loadTerrains(NodeList nodeList, Level level) {
+    private void loadMaps(NodeList nodeList, Level level) {
         for (int temp = 0; temp < nodeList.getLength(); temp++) {
             Node node = nodeList.item(temp);
 
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element)node;
-                switch(element.getAttribute("id")) {
-                    case "TERRAIN":
-                        List<Point3D> pointsToAdd = new ArrayList<>();
-                        List<Terrain> terrainsToAdd = new ArrayList<>();
 
-                        NodeList terrainKeys = element.getElementsByTagName("KEY");
-                        for(int terrainIter = 0; terrainIter < terrainKeys.getLength(); terrainIter++) {
-                            String key = terrainKeys.item(terrainIter).getAttributes().item(0).getTextContent();
-                            String[] point = key.split(",");
-                            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
-                            pointsToAdd.add(keyPoint);
-                        }
-
-                        NodeList terrainValues = element.getElementsByTagName("VALUE");
-                        for(int terrainIter = 0; terrainIter < terrainValues.getLength(); terrainIter++) {
-                            String value = terrainValues.item(terrainIter).getAttributes().item(0).getTextContent();
-                            Terrain valueTerrain;
-
-                            switch (value.toLowerCase()) {
-                                case "grass":
-                                    valueTerrain = Terrain.GRASS;
-                                    break;
-
-                                case "water":
-                                    valueTerrain = Terrain.WATER;
-                                    break;
-
-                                case "mountain":
-                                    valueTerrain = Terrain.MOUNTAINS;
-                                    break;
-
-                                default:
-                                    valueTerrain = Terrain.NONE;
-                            }
-
-                            terrainsToAdd.add(valueTerrain);
-                        }
-
-                        for(int pointIter = 0; pointIter < pointsToAdd.size(); pointIter++) {
-                            level.addTerrainTo(pointsToAdd.get(pointIter), terrainsToAdd.get(pointIter));
-                        }
+                switch (element.getAttribute("id").toLowerCase()) {
+                    case "terrain":
+                        processTerrains(element, level);
                         break;
 
-                    default:
+                    case "areaeffect":
+                        processAreaEffects(element, level);
+                        break;
                 }
             }
+        }
+    }
+
+    private void processAreaEffects(Element element, Level level) {
+        List<Point3D> pointsToAdd = new ArrayList<>();
+        List<AreaEffect> effectsToAdd = new ArrayList<>();
+        Command command;
+
+        NodeList effectKeys = element.getElementsByTagName("KEY");
+        for(int i = 0; i < effectKeys.getLength(); i++) {
+            String key = effectKeys.item(i).getAttributes().item(0).getTextContent();
+            String[] point = key.split(",");
+            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
+            pointsToAdd.add(keyPoint);
+        }
+
+        NodeList effectValues = element.getElementsByTagName("VALUE");
+        for(int i = 0; i < effectValues.getLength(); i++) {
+            NodeList effectNodes = effectValues.item(i).getChildNodes();
+
+            for(int j = 0; j < effectNodes.getLength(); j++) {
+                Node effectNode = effectNodes.item(j);
+                if(effectNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(effectNode.getChildNodes());
+
+                    if(command != null) {
+                        switch (effectNode.getNodeName().toLowerCase()) {
+                            case "oneshotarea":
+                                effectsToAdd.add(new OneShotAreaEffect(command));
+                                break;
+
+                            case "infinitearea":
+                                effectsToAdd.add(new InfiniteAreaEffect(command));
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addAreaEffectTo(pointsToAdd.get(i), effectsToAdd.get(i));
+        }
+    }
+
+    private Command processCommand(NodeList childNodes) {
+        int amount;
+        boolean hasFired;
+        for(int i = 0; i < childNodes.getLength(); i++) {
+            Node commandNode = childNodes.item(i);
+
+            if(commandNode.getNodeType() == Node.ELEMENT_NODE) {
+                switch (commandNode.getNodeName().toLowerCase()) {
+                    case "addhealthcommand":
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        return new AddHealthCommand(amount);
+                    case "removehealthcommand":
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        return new RemoveHealthCommand(amount);
+
+                    case "togglehealthcommand":
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
+                        return new ToggleHealthCommand(amount, hasFired);
+
+                    case "togglemanacommand":
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
+                        return new ToggleManaCommand(amount, hasFired);
+
+                    case "togglespeedcommand":
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
+                        return new ToggleSpeedCommand(amount, hasFired);
+
+                    case "instadeathcommand":
+                        return new InstaDeathCommand();
+
+                    case "levelupcommand":
+                        return new LevelUpCommand();
+
+                    case "setassneakingcommand":
+                        return new SetAsSneakingCommand();
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private void processTerrains(Element element, Level level) {
+        List<Point3D> pointsToAdd = new ArrayList<>();
+        List<Terrain> terrainsToAdd = new ArrayList<>();
+
+        NodeList terrainKeys = element.getElementsByTagName("KEY");
+        for(int terrainIter = 0; terrainIter < terrainKeys.getLength(); terrainIter++) {
+            String key = terrainKeys.item(terrainIter).getAttributes().item(0).getTextContent();
+            String[] point = key.split(",");
+            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
+            pointsToAdd.add(keyPoint);
+        }
+
+        NodeList terrainValues = element.getElementsByTagName("VALUE");
+        for(int terrainIter = 0; terrainIter < terrainValues.getLength(); terrainIter++) {
+            String value = terrainValues.item(terrainIter).getAttributes().item(0).getTextContent();
+            Terrain valueTerrain;
+
+            switch (value.toLowerCase()) {
+                case "grass":
+                    valueTerrain = Terrain.GRASS;
+                    break;
+
+                case "water":
+                    valueTerrain = Terrain.WATER;
+                    break;
+
+                case "mountain":
+                    valueTerrain = Terrain.MOUNTAINS;
+                    break;
+
+                default:
+                    valueTerrain = Terrain.NONE;
+            }
+
+            terrainsToAdd.add(valueTerrain);
+        }
+
+        for(int pointIter = 0; pointIter < pointsToAdd.size(); pointIter++) {
+            level.addTerrainTo(pointsToAdd.get(pointIter), terrainsToAdd.get(pointIter));
         }
     }
 
@@ -132,7 +238,7 @@ public class GameLoader {
             Node node = nodeList.item(i);
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                loadTerrains(element.getChildNodes(), level);
+                loadMaps(element.getChildNodes(), level);
             }
         }
 
@@ -148,7 +254,7 @@ public class GameLoader {
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Level level = new Level(new ArrayList<>());
                 Element element = (Element) node;
-                loadTerrains(element.getChildNodes(), level);
+                loadMaps(element.getChildNodes(), level);
                 levelList.add(level);
             }
         }
