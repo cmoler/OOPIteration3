@@ -49,6 +49,43 @@
             <LEVELMAP id="OBSTACLE">
                 <KEY key="0,0,0"/>
             </LEVELMAP>
+
+            <LEVELMAP id="ITEM">
+                <KEY key="0,0,0"/>
+                <VALUE>
+                    <RINGITEM name="ring">
+                        <TOGGLEHEALTHCOMMAND amount="5" hasFired="false"/>
+                    </RINGITEM>
+                </VALUE>
+
+                <KEY key="0,0,1"/>
+                <VALUE>
+                    <ARMORITEM name="helmet" defense="10">
+                        <ADDHEALTHCOMMAND amount="5"/>
+                    </ARMORITEM>
+                </VALUE>
+
+                <KEY key="0,0,2"/>
+                <VALUE>
+                    <CONSUMABLEITEM name="potion">
+                        <ADDHEALTHCOMMAND amount="5"/>
+                    </CONSUMABLEITEM>
+                </VALUE>
+
+                <KEY key="0,0,3"/>
+                <VALUE>
+                    <ONESHOTITEM name="bomb">
+                        <REMOVEHEALTHCOMMAND amount="5"/>
+                    </ONESHOTITEM>
+                </VALUE>
+
+                <KEY key="0,0,4"/>
+                <VALUE>
+                    <INTERACTIVEITEM name="door">
+                        <LEVELUPCOMMAND/>
+                    </INTERACTIVEITEM>
+                </VALUE>
+            </LEVELMAP>
         </LEVEL>
     </CURRENTLEVEL>
     <LEVELLIST>

@@ -6,6 +6,7 @@ import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
 import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
 import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
@@ -18,6 +19,13 @@ import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.InteractiveItem;
+import Model.Item.Item;
+import Model.Item.OneShotItem;
+import Model.Item.TakeableItem.ArmorItem;
+import Model.Item.TakeableItem.ConsumableItem;
+import Model.Item.TakeableItem.RingItem;
+import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.*;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
@@ -152,6 +160,56 @@ public class GameLoader {
     }
 
     private void processItems(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+        List<Item> itemsToAdd = new ArrayList<>();
+        Command command;
+        String name;
+
+        NodeList itemValues = element.getElementsByTagName("VALUE");
+        for (int i = 0; i < itemValues.getLength(); i++) {
+            NodeList itemNodes = itemValues.item(i).getChildNodes();
+
+            for(int j = 0; j < itemNodes.getLength(); j++) {
+                Node itemNode = itemNodes.item(j);
+                if(itemNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(itemNode.getChildNodes());
+
+                    if(command != null) {
+                        name = itemNode.getAttributes().getNamedItem("name").getTextContent();
+                        switch (itemNode.getNodeName().toLowerCase()) {
+                            case "oneshotitem":
+                                itemsToAdd.add(new OneShotItem(name, command));
+                                break;
+
+                            case "interactiveitem":
+                                itemsToAdd.add(new InteractiveItem(name, command));
+                                break;
+
+                            case "armoritem":
+                                int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
+                                itemsToAdd.add(new ArmorItem(name, command, defense));
+                                break;
+
+                            case "consumableitem":
+                                itemsToAdd.add(new ConsumableItem(name, command));
+                                break;
+
+                            case "ringitem":
+                                itemsToAdd.add(new RingItem(name, (ToggleableCommand) command));
+                                break;
+
+                            case "weaponitem": //TODO: this needs to be changed
+                                itemsToAdd.add(new WeaponItem(name, (SettableCommand) command));
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addItemnTo(pointsToAdd.get(i), itemsToAdd.get(i));
+        }
     }
 
     private void processInfluenceEffects(Element element, Level level) {
