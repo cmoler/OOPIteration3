@@ -1,7 +1,7 @@
 package ModelTests;
 
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Level.Trap;
 import View.LevelView.LevelViewElement;
@@ -21,7 +21,7 @@ public class TrapTests {
 
         List<LevelViewElement> observers = new ArrayList<>();
 
-        Trap trap = new Trap(observers, damageCommand);
+        Trap trap = new Trap(observers, damageCommand, 0);
 
         Entity entity1 = new Entity();
         Entity entity2 = new Entity();

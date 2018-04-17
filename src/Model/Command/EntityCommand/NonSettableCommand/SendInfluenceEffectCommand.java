@@ -1,13 +1,14 @@
-package Model.Command.LevelCommand;
+package Model.Command.EntityCommand.NonSettableCommand;
 
+import Model.Command.Command;
+import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
-import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
 import javafx.geometry.Point3D;
 
-public class SendInfluenceEffectCommand extends LevelCommand {
+public class SendInfluenceEffectCommand extends LevelCommand implements Command {
 
     private InfluenceEffect influenceEffect;
     private Entity entity;
@@ -16,17 +17,16 @@ public class SendInfluenceEffectCommand extends LevelCommand {
         super(levelMessenger);
     }
 
-    public void recieveLevel(Level level) {
+    public void receiveLevel(Level level) {
         Point3D entityPoint = level.getEntityPoint(entity);
         if(entityPoint != null) {
             level.addInfluenceEffectTo(entityPoint, influenceEffect);
         }
     }
 
-    @Override
     public void execute(Entity entity) {
         this.entity = entity;
-        sendSelfToLevel();
+        sendCommandToLevel();
     }
 
     public void setInfluenceEffect(InfluenceEffect influenceEffect) {

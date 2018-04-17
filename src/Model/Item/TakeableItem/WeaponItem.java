@@ -1,7 +1,7 @@
 package Model.Item.TakeableItem;
 
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.Entity.EntityAttributes.SkillLevel;
@@ -19,7 +19,7 @@ public class WeaponItem extends TakeableItem{
     private int useCost;
     private int range; // I think we need this?
 
-    public WeaponItem(String name, Command command, WeaponEquipStrategy weaponEquipStrategy, Skill hostSKill,
+    public WeaponItem(String name, SettableCommand command, WeaponEquipStrategy weaponEquipStrategy, Skill hostSKill,
                       InfluenceEffect influenceEffect, int attackDamage, int attackSpeed, int accuracy, int useCost, int range) {
         super(name, command);
         this.weaponEquipStrategy = weaponEquipStrategy;
@@ -34,7 +34,7 @@ public class WeaponItem extends TakeableItem{
         this.influenceEffect.setCommand(command);
     }
 
-    public WeaponItem(String name, Command command) {
+    public WeaponItem(String name, SettableCommand command) {
         super(name, command);
         weaponEquipStrategy = new WeaponEquipStrategy(this);
     }
@@ -56,7 +56,7 @@ public class WeaponItem extends TakeableItem{
             //int modifier = skillLevel.getSkillLevel();
             //int damage = (attackDamage * modifier) / accuracy;
             hostSKill.setInfluence(influenceEffect);
-            hostSKill.setBehavior(getCommand());
+            hostSKill.setBehavior((SettableCommand) getCommand());  // TODO: is this POOP? even if it is casting, I would say that it does not violate OCP (as we know that weaponItems will always take in a SettableCommand)
             hostSKill.fire(entity);
         }
     }

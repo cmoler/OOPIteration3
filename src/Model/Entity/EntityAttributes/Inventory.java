@@ -4,6 +4,7 @@ import Model.Item.TakeableItem.TakeableItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Inventory {
 
@@ -52,5 +53,23 @@ public class Inventory {
         if(inventory.size() < selectedItem - 1 && selectedItem > 0)
             return inventory.get(selectedItem);
         return null;
+    }
+
+    public TakeableItem takeRandomItem() {
+        Random random = new Random();
+
+        if(inventory.isEmpty()) {
+            return null;
+        }
+
+        TakeableItem item;
+
+        int randomSlot = random.nextInt(maxSize);
+
+        while(inventory.get(randomSlot) == null) {
+            randomSlot = random.nextInt(maxSize);
+        }
+
+        return inventory.get(randomSlot);
     }
 }

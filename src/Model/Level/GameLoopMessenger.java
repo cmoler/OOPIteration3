@@ -7,7 +7,11 @@ public class GameLoopMessenger {
 
     private GameLoop gameLoop;
 
+    public GameLoopMessenger(GameLoop gameLoop) {
+        this.gameLoop = gameLoop;
+    }
+
     public void sendCommandToGameLoop(GameLoopCommand command) {
-        gameLoop.receiveGameLoopCommand(command);
+        command.receiveGameLoop(gameLoop);
     }
 }

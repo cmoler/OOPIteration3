@@ -1,17 +1,17 @@
 package ModelTests;
 
+import Controller.GameLoop;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.AddHealthCommand;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
-import Model.Command.LevelCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
-import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
-import Model.Item.TakeableItem.InventoryStrategy.WeaponEquipStrategy;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.*;
 import Model.Entity.EntityAttributes.Orientation;
@@ -77,7 +77,7 @@ public class LevelTests {
 
         Level level = new Level(observers);
 
-        Command damageCommand = new RemoveHealthCommand(15);
+        SettableCommand damageCommand = new RemoveHealthCommand(15);
 
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(damageCommand, 5, 5, Orientation.NORTH);
         Entity entity = new Entity();
@@ -99,7 +99,7 @@ public class LevelTests {
         level.processMoves();
         level.processInteractions();
 
-        assertEquals(85, entity.getCurrentHealth(), 0);
+        assertEquals(95, entity.getCurrentHealth(), 0);
 
         level.processMoves();
         level.processInteractions();
@@ -107,7 +107,7 @@ public class LevelTests {
         level.processMoves();
         level.processInteractions();
 
-        assertEquals(85, entity.getCurrentHealth(), 0);
+        assertEquals(95, entity.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
         assertEquals(100, entity3.getCurrentHealth(), 0);
     }
@@ -190,7 +190,7 @@ public class LevelTests {
 
         Command damageCommand = new RemoveHealthCommand(15);
 
-        Trap trap = new Trap(observers, damageCommand);
+        Trap trap = new Trap(observers, damageCommand, 0);
 
         level.addEntityTo(new Point3D(0 ,0 ,0), entity1);
         level.addEntityTo(new Point3D(1, 0 ,0), entity2);
@@ -230,13 +230,13 @@ public class LevelTests {
 
     @Test
     public void testInfluenceEffectCloningOnAttack() {
-        Command damageCommand = new RemoveHealthCommand(20);
-        Command damageCommand2 = new RemoveHealthCommand(40);
+        SettableCommand damageCommand = new RemoveHealthCommand(20);
+        SettableCommand damageCommand2 = new RemoveHealthCommand(40);
 
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         Entity entity = new Entity();
         Entity dummy = new Entity();
@@ -270,7 +270,7 @@ public class LevelTests {
         Assert.assertEquals(5, linear1.getMovesRemaining(), 0);
 
         Assert.assertEquals(100, entity.getCurrentHealth(), 0);
-        Assert.assertEquals(80, dummy.getCurrentHealth(), 0);
+        Assert.assertEquals(75, dummy.getCurrentHealth(), 0);
 
         entity.equipWeapon(sword2);
         entity.attack();
@@ -282,6 +282,6 @@ public class LevelTests {
         Assert.assertEquals(5, linear2.getMovesRemaining(), 0);
 
         Assert.assertEquals(100, entity.getCurrentHealth(), 0);
-        Assert.assertEquals(40, dummy.getCurrentHealth(), 0);
+        Assert.assertEquals(30, dummy.getCurrentHealth(), 0);
     } // TODO: get view portion of influence effects working, it is hard to test where they are moving to coordinates-wise
 }

@@ -1,13 +1,15 @@
-package Model.Command.LevelCommand;
+package Model.Command.EntityCommand.NonSettableCommand;
 
+import Model.Command.Command;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
-import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
 import javafx.geometry.Point3D;
 
-public class DropItemCommand extends LevelCommand {
+public class DropItemCommand extends LevelCommand implements Command {
 
     private Entity entity;
     private TakeableItem item;
@@ -16,8 +18,7 @@ public class DropItemCommand extends LevelCommand {
         super(levelMessenger);
     }
 
-    @Override
-    public void recieveLevel(Level level) {
+    public void receiveLevel(Level level) {
         Point3D entityPoint = level.getEntityPoint(entity);
 
         if(entityPoint != null) {
@@ -27,11 +28,10 @@ public class DropItemCommand extends LevelCommand {
         }
     }
 
-    @Override
     public void execute(Entity entity) {
         this.entity = entity;
 
-        sendSelfToLevel();
+        sendCommandToLevel();
     }
 
     public void setItem(TakeableItem item) {

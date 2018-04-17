@@ -1,9 +1,12 @@
 package ModelTests;
 
+import Controller.GameLoop;
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
-import Model.Command.EntityCommand.ToggleableCommand.ToggleHealthCommand;
-import Model.Command.EntityCommand.ToggleableCommand.ToggleableCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.Item.InteractiveItem;
@@ -114,13 +117,13 @@ public class ItemTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         Entity entity = new Entity();
 
         level.addEntityTo(new Point3D(0, 0, 0), entity);
 
-        ToggleableCommand heal = new ToggleHealthCommand(20);
+        SettableCommand heal = new AddHealthCommand(20);
         WeaponItem weapon = new WeaponItem("weapon", heal);
         weapon.setCurrentLevelMessenger(levelMessenger);
 
@@ -142,7 +145,7 @@ public class ItemTests {
         Assert.assertTrue(entity.hasItemInInventory(weapon));
         Assert.assertEquals(100, entity.getMaxHealth(), 0);
 
-        ToggleableCommand heal2 = new ToggleHealthCommand(55);
+        SettableCommand heal2 = new AddHealthCommand(55);
 
         WeaponItem weapon2 = new WeaponItem("weapon", heal2);
 
@@ -180,7 +183,7 @@ public class ItemTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         Entity entity = new Entity();
 
@@ -246,7 +249,7 @@ public class ItemTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         Entity entity = new Entity();
 
@@ -313,11 +316,11 @@ public class ItemTests {
 
         entity.addSkillsToMap(oneHand);
 
-        WeaponItem equippableSword = new WeaponItem("Sword", new ToggleHealthCommand(20));
+        WeaponItem equippableSword = new WeaponItem("Sword", new AddHealthCommand(20));
         equippableSword.setSkill(oneHand);
         equippableSword.onTouch(entity);
 
-        WeaponItem nonEquippableSword = new WeaponItem("Sword", new ToggleHealthCommand(20));
+        WeaponItem nonEquippableSword = new WeaponItem("Sword", new AddHealthCommand(20));
         nonEquippableSword.setSkill(new Skill());
         nonEquippableSword.onTouch(entity);
 
