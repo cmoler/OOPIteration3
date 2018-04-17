@@ -1,4 +1,4 @@
-package Model.Command.EntityCommand.ToggleableCommand;
+package Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand;
 
 import Model.Entity.Entity;
 

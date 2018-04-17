@@ -1,8 +1,7 @@
 package Model.Item.TakeableItem.InventoryStrategy;
 
-import Model.Command.LevelCommand.DropItemCommand;
+import Model.Command.EntityCommand.NonSettableCommand.DropItemCommand;
 import Model.Item.TakeableItem.TakeableItem;
-import Model.Level.LevelMessenger;
 
 public class DropStrategy extends InventoryStrategy{
 

@@ -1,6 +1,7 @@
-package Model.Command.LevelCommand;
+package Model.Command.EntityCommand.SettableCommand;
 
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
@@ -16,7 +17,7 @@ public class DisarmTrapCommand extends LevelCommand implements SettableCommand {
         this.disarmStrength = 0;
     }
 
-    public void recieveLevel(Level level) {
+    public void receiveLevel(Level level) {
         level.disarmTrapFromEntity(entity, disarmStrength);
     }
 

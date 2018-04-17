@@ -30,10 +30,6 @@ public class GameLoop {
         };
     }
 
-    public void receiveGameLoopCommand(GameLoopCommand command) {
-        command.receiveGameLoop(this);
-    }
-
     public void openBarterWindow(Entity player, Entity npcTradingWith) {
 
     }

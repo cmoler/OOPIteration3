@@ -1,7 +1,7 @@
 package ModelTests;
 
-import Model.Command.EntityCommand.RemoveHealthCommand;
-import Model.Command.LevelCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;

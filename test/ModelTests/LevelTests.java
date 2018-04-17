@@ -1,13 +1,14 @@
 package ModelTests;
 
+import Controller.GameLoop;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
-import Model.Command.EntityCommand.AddHealthCommand;
-import Model.Command.EntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
-import Model.Command.LevelCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.InfluenceEffect;
@@ -235,7 +236,7 @@ public class LevelTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         Entity entity = new Entity();
         Entity dummy = new Entity();

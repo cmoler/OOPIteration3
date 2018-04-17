@@ -17,7 +17,7 @@ public class SneakFactory extends EntityFactory{
                 getSkillsFactory().getBindWounds(),
                 getSkillsFactory().getPickpocket(),
                 getSkillsFactory().getSneakSkill(),
-                getSkillsFactory().getDisarmAndRemoveSkill(),
+                getSkillsFactory().DisarmTrapSkill(),
                 getSkillsFactory().getRangeSkill()
         );
 
@@ -28,7 +28,7 @@ public class SneakFactory extends EntityFactory{
                 getSkillsFactory().getBindWounds(),
                 getSkillsFactory().getPickpocket(),
                 getSkillsFactory().getSneakSkill(),
-                getSkillsFactory().getDisarmAndRemoveSkill()
+                getSkillsFactory().DisarmTrapSkill()
         );
 
         return sneak;

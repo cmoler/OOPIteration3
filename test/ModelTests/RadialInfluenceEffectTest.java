@@ -1,7 +1,6 @@
 package ModelTests;
 
-import Model.Command.Command;
-import Model.Command.EntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;

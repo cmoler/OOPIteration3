@@ -331,4 +331,8 @@ public class Entity {
     public void setNoiseLevel(NoiseLevel noiseLevel) {
         this.noiseLevel = noiseLevel;
     }
+
+    public TakeableItem takeRandomItemFromInventory() {
+        return inventory.takeRandomItem();
+    }
 }

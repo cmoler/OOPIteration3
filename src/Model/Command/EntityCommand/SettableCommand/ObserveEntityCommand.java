@@ -1,8 +1,11 @@
-package Model.Command.GameLoopCommand;
+package Model.Command.EntityCommand.SettableCommand;
 
 import Controller.GameLoop;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Entity.Entity;
+import Model.Level.GameModel;
+import Model.Level.Level;
 import Model.Level.LevelMessenger;
 
 public class ObserveEntityCommand extends GameLoopCommand implements SettableCommand {
@@ -21,9 +24,19 @@ public class ObserveEntityCommand extends GameLoopCommand implements SettableCom
     }
 
     @Override
+    public void receiveGameModel(GameModel gameModel) {
+
+    }
+
+    @Override
+    public void receiveLevel(Level level) {
+
+    }
+
+    @Override
     public void execute(Entity entity) {
         this.entity = entity;
-        sendCommandToGameLoop(this);
+        sendCommandToGameLoop();
     }
 
     public void setAmount(int amount) {

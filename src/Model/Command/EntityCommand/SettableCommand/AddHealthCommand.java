@@ -1,4 +1,4 @@
-package Model.Command.EntityCommand;
+package Model.Command.EntityCommand.SettableCommand;
 
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;

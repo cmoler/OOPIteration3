@@ -1,6 +1,6 @@
 package Model.Item.TakeableItem;
 
-import Model.Command.EntityCommand.ToggleableCommand.ToggleableCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.InventoryStrategy.ArmorEquipStrategy;
 

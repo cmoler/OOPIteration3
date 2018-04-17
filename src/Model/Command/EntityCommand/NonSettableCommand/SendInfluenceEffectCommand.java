@@ -1,6 +1,7 @@
-package Model.Command.LevelCommand;
+package Model.Command.EntityCommand.NonSettableCommand;
 
 import Model.Command.Command;
+import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Level.Level;
@@ -16,7 +17,7 @@ public class SendInfluenceEffectCommand extends LevelCommand implements Command 
         super(levelMessenger);
     }
 
-    public void recieveLevel(Level level) {
+    public void receiveLevel(Level level) {
         Point3D entityPoint = level.getEntityPoint(entity);
         if(entityPoint != null) {
             level.addInfluenceEffectTo(entityPoint, influenceEffect);

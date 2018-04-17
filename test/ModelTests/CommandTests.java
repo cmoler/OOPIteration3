@@ -1,8 +1,9 @@
 package ModelTests;
 
-import Model.Command.EntityCommand.RemoveHealthCommand;
-import Model.Command.LevelCommand.DisarmTrapCommand;
-import Model.Command.LevelCommand.SendInfluenceEffectCommand;
+import Controller.GameLoop;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.DisarmTrapCommand;
+import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
@@ -24,7 +25,7 @@ public class CommandTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         InfluenceEffect linear1 = new LinearInfluenceEffect(new RemoveHealthCommand(10), 0,1, Orientation.SOUTHWEST);
 
@@ -119,7 +120,7 @@ public class CommandTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         InfluenceEffect linear1 = new LinearInfluenceEffect(new RemoveHealthCommand(10), 0,1, Orientation.SOUTHWEST);
 
@@ -147,5 +148,15 @@ public class CommandTests {
         Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
 
         Assert.assertEquals(50, entity.getCurrentHealth());
+    }
+
+    @Test
+    public void testPickPocketSuccess() {
+        Assert.fail();
+    }
+
+    @Test
+    public void testPickPocketFailure() {
+        Assert.fail();
     }
 }

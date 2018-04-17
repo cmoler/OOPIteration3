@@ -1,22 +1,23 @@
-package Model.Command.GameModelCommand;
+package Model.Command.EntityCommand.SettableCommand;
 
 import Model.AI.AIController;
 import Model.AI.AIState;
-import Model.AI.SlowedAI;
+import Model.AI.FrozenAI;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Entity.Entity;
 import Model.Level.GameModel;
+import Model.Level.Level;
 import Model.Level.LevelMessenger;
 
-public class SlowEntityCommand extends GameModelCommand implements SettableCommand {
-
-    // TODO: implement me pls thnx
+public class FreezeEntityCommand extends GameModelCommand implements SettableCommand {
 
     private Entity entity;
 
+    // TODO: implement pls
     private int amount;
 
-    public SlowEntityCommand(LevelMessenger levelMessenger) {
+    public FreezeEntityCommand(LevelMessenger levelMessenger) {
         super(levelMessenger);
     }
 
@@ -24,13 +25,17 @@ public class SlowEntityCommand extends GameModelCommand implements SettableComma
     public void receiveGameModel(GameModel gameModel) {
         AIController aiController = gameModel.getAIForEntity(entity);
         AIState previousState = aiController.getActiveState();
-        aiController.setActiveState(new SlowedAI(previousState.getEntity(),aiController, previousState));
+        aiController.setActiveState(new FrozenAI(previousState.getEntity(), aiController, previousState));
     }
 
-    @Override
+    public void receiveLevel(Level level) {
+
+    }
+
+
     public void execute(Entity entity) {
         this.entity = entity;
-        sendCommandToGameModel(this);
+        sendCommandToGameModel();
     }
 
     public void setAmount(int amount) {
@@ -40,5 +45,4 @@ public class SlowEntityCommand extends GameModelCommand implements SettableComma
     public int getAmount() {
         return amount;
     }
-
 }

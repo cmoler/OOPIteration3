@@ -1,11 +1,12 @@
 package ModelTests;
 
+import Controller.GameLoop;
 import Model.Command.Command;
-import Model.Command.EntityCommand.AddHealthCommand;
-import Model.Command.EntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
-import Model.Command.EntityCommand.ToggleableCommand.ToggleHealthCommand;
-import Model.Command.EntityCommand.ToggleableCommand.ToggleableCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.Item.InteractiveItem;
@@ -116,7 +117,7 @@ public class ItemTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         Entity entity = new Entity();
 
@@ -182,7 +183,7 @@ public class ItemTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         Entity entity = new Entity();
 
@@ -248,7 +249,7 @@ public class ItemTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
 
         Entity entity = new Entity();
 

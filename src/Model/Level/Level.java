@@ -162,6 +162,14 @@ public class Level {
         return null;
     }
 
+    public Entity getEntityAtPoint(Point3D point) {
+        if (entityLocations.containsKey(point)) {
+            return entityLocations.get(point);
+        } else {
+            return null;
+        }
+    }
+
     public Map<Point3D, InfluenceEffect> getInfluencesMap() {
         return influenceEffectLocations;
     }

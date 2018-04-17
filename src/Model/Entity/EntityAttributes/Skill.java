@@ -1,8 +1,7 @@
 package Model.Entity.EntityAttributes;
 
-import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
-import Model.Command.LevelCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 

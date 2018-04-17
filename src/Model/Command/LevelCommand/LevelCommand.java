@@ -17,5 +17,5 @@ public abstract class LevelCommand {
         levelMessenger.sendCommandToLevel(this);
     }
 
-    public abstract void recieveLevel(Level level);
+    public abstract void receiveLevel(Level level);
 }
