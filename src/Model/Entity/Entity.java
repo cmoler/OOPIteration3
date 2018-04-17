@@ -259,6 +259,10 @@ public class Entity {
         }
     }
 
+    public HashMap<Skill, SkillLevel> getSkillLevelsMap() {
+        return skillLevelsMap;
+    }
+
     public boolean hasSkill(Skill hostSkill) {
         return skillLevelsMap.containsKey(hostSkill);
     }
@@ -343,5 +347,9 @@ public class Entity {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public void setSkillLevels(HashMap<Skill, SkillLevel> skillLevels) {
+        this.skillLevelsMap = skillLevels;
     }
 }

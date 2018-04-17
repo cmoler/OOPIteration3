@@ -23,8 +23,8 @@ public class InventoryMenu extends InGameMenuState {
             if (selectedUpDown > 3) selectedUpDown = 0;
         }
         if(selectedLeftRight == 1) {
-            if (selectedUpDown < 0) selectedUpDown = inventory.size();
-            if (selectedUpDown > inventory.size()) selectedUpDown = 0;
+            if (selectedUpDown < 0) selectedUpDown = inventory.size() - 1;
+            if (selectedUpDown > inventory.size() - 1) selectedUpDown = 0;
         }
         if(selectedLeftRight == 2){
             if (selectedUpDown < 0) selectedUpDown = 2;
