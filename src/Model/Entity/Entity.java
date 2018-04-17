@@ -371,4 +371,16 @@ public class Entity {
     public int getCurrentGold() {
         return gold.getGold();
     }
+
+    public SightRadius getSightRadius() {
+        return sightRadius;
+    }
+
+    public void setSightRadius(SightRadius sightRadius) {
+        this.sightRadius = sightRadius;
+    }
+
+    public int getSight(){
+        return sightRadius.getSight();
+    }
 }

@@ -25,4 +25,12 @@ public class SightRadius {
             sight -= amount;
         }
     }
+
+    public int getSight() {
+        return sight;
+    }
+
+    public void setSight(int sight) {
+        this.sight = sight;
+    }
 }
