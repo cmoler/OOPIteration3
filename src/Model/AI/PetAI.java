@@ -20,6 +20,7 @@ public class PetAI extends AIState {
     private PetPriority priority;
     private PathingAlgorithm pathCalculator;
 
+
     public PetAI(Entity ent, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player) {
         super(ent);
         this.terrainMap = terrainMap;
