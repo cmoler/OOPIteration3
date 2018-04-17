@@ -1,11 +1,14 @@
 package Controller.Factories;
 
-import Model.Command.EntityCommand.SettableCommand.DisarmTrapCommand;
-import Model.Command.EntityCommand.SettableCommand.PickPocketCommand;
+import Model.Command.EntityCommand.SettableCommand.*;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
+import Model.InfluenceEffect.AngularInfluenceEffect;
+import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Level.LevelMessenger;
 
 public class SkillsFactory {
@@ -36,91 +39,125 @@ public class SkillsFactory {
         this.sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
     }
 
-    // TODO: parameterize allllll the Skills with alllllll the stuff
+    // TODO tweak speeds, costs, accuracy, etc. for Skills
 
-    public Skill getObserveSkill() { // TODO: me
+    public Skill getObserveSkill() {
         if(observeSkill == null) {
-            observeSkill = new Skill("Observe", null, null, null, 1, 1);
+            ObserveEntityCommand observeEntityCommand = new ObserveEntityCommand(levelMessenger);
+            RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(observeEntityCommand, 5, 1, Orientation.NORTH);
+
+            observeSkill = new Skill("Observe", radialInfluenceEffect, observeEntityCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return observeSkill;
     }
 
-    public Skill getBindWounds() {  // TODO: me 2
+    public Skill getBindWounds() {
         if(bindWounds == null) {
-            bindWounds = new Skill("Bind Wounds", null, null, null, 1, 1);
+            AddHealthCommand addHealthCommand = new AddHealthCommand(10);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(addHealthCommand, 0, 1, Orientation.NORTH);
+
+            bindWounds = new Skill("Bind Wounds", linearInfluenceEffect, addHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return bindWounds;
     }
 
-    public Skill getBargainSkill() {  // TODO: me 2 2
+    public Skill getBargainSkill() {
         if(bargainSkill == null) {
-            bargainSkill = new Skill("Bargain", null, null, null, 1, 1);
+            BarterCommand bargainCommand = new BarterCommand(levelMessenger);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(bargainCommand, 1, 1, Orientation.NORTH);
+
+            bargainSkill = new Skill("Bargain", linearInfluenceEffect, bargainCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return bargainSkill;
     }
 
-    public Skill getOneHandedSkill() {  // TODO: me 2 2 2
+    public Skill getOneHandedSkill() {
         if(oneHandedSkill == null) {
-            oneHandedSkill = new Skill("One-Handed", null, null, null, 1, 1);
+            RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
+
+            oneHandedSkill = new Skill("One-Handed", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return oneHandedSkill;
     }
 
-    public Skill getTwoHandedSkill() {  // TODO: me 2 2 2 2
+    public Skill getTwoHandedSkill() {
         if(twoHandedSkill == null) {
-            twoHandedSkill = new Skill("Two-Handed", null, null, null, 1, 1);
+            RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 2, 1, Orientation.NORTH);
+
+            twoHandedSkill = new Skill("Two-Handed", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return twoHandedSkill;
     }
 
-    public Skill getBrawlerSkill() { // TODO: me 2 2 2 2 2
+    public Skill getBrawlerSkill() {
         if(brawlerSkill == null) {
-            brawlerSkill = new Skill("Brawler", null, null, null, 1, 1);
+            RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 2, 1, Orientation.NORTH);
+
+            brawlerSkill = new Skill("Brawler", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return brawlerSkill;
     }
 
-    public Skill getEnchantSkill() { // TODO: me 2 2 2 2 2 2
+    public Skill getEnchantSkill() {
         if(enchantSkill == null) {
-            enchantSkill = new Skill("Enchant", null, null, null, 1, 1);
+            FreezeEntityCommand freezeEntityCommand = new FreezeEntityCommand(levelMessenger);
+            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(freezeEntityCommand, 2, 1, Orientation.NORTH);
+
+            enchantSkill = new Skill("Enchant", angularInfluenceEffect, freezeEntityCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return enchantSkill;
     }
 
-    public Skill getBoonSkill() { // TODO: me 2 2 2 2 2 2 2
+    public Skill getBoonSkill() {
         if(boonSkill == null) {
-            boonSkill = new Skill("Boon", null, null, null, 1, 1);
+            AddHealthCommand addHealthCommand = new AddHealthCommand(10);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(addHealthCommand, 0, 1, Orientation.NORTH);
+
+            boonSkill = new Skill("Boon", linearInfluenceEffect, addHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return boonSkill;
     }
 
-    public Skill getBaneSkill() { // TODO: me 2 2 2 2 2 2 2 2
+    public Skill getBaneSkill() {
         if(baneSkill == null) {
-            baneSkill = new Skill("Bane", null, null, null, 1, 1);
+            RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
+            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(removeHealthCommand, 3, 1, Orientation.NORTH);
+
+            baneSkill = new Skill("Bane", angularInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return baneSkill;
     }
 
-    public Skill getStaffSkill() { // TODO: me 2 2 2 2 2 2 2 2 2
+    public Skill getStaffSkill() {
         if(staffSkill == null) {
-            staffSkill = new Skill("Staff", null, null, null, 1, 1);
+            RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
+
+            staffSkill = new Skill("Staff", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return staffSkill;
     }
 
-    public Skill getSneakSkill() { // TODO: me 2 2 2 2 2 2 2 2 2 2
+    public Skill getSneakSkill() {
         if (sneakSkill == null) {
-            sneakSkill = new Skill("Sneak", null, null, null, 1, 1);
+            ToggleSneaking sneakCommand = new ToggleSneaking(5);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(sneakCommand, 0, 1, Orientation.NORTH);
+
+
+            sneakSkill = new Skill("Sneak", linearInfluenceEffect, sneakCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return sneakSkill;
@@ -139,7 +176,6 @@ public class SkillsFactory {
 
     public Skill getPickpocket() {
         if(pickpocketSkill == null) {
-
             PickPocketCommand pickPocketCommand = new PickPocketCommand(levelMessenger);
             LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 0, 1, Orientation.NORTH);
 
@@ -149,9 +185,12 @@ public class SkillsFactory {
         return pickpocketSkill;
     }
 
-    public Skill getRangeSkill() { // TODO: me 2 2 2 2 2 2 2 2 2 2 2
+    public Skill getRangeSkill() {
         if(rangeSkill == null) {
-            rangeSkill = new Skill("Range", null, null, null, 1, 1);
+            RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 7, 1, Orientation.NORTH);
+
+            rangeSkill = new Skill("Range", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
         return rangeSkill;
