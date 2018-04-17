@@ -35,6 +35,7 @@ public class ArmorItem extends TakeableItem {
 
         if (entity.hasItemInInventory(this)) {
             armorEquipStrategy.setEntity(entity);
+            setDropStrategyEntity(entity);
             setToBeDeleted();
         }
     }

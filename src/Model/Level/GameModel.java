@@ -13,7 +13,6 @@ import java.util.*;
 public class GameModel implements Visitable {
 
     private GameModelMessenger gameModelMessenger;
-
     private Level currentLevel;
     private LevelMessenger currentLevelMessenger;
     private List<Level> levels;
@@ -140,11 +139,14 @@ public class GameModel implements Visitable {
     public void setCurrentLevel(Level level) {
         currentLevel = level;
 
-        if(gameModelMessenger == null) {
-            throw new RuntimeException("Model messenger not set! Can't add level!");
+        if(currentLevelMessenger != null) {
+            currentLevelMessenger.setLevel(currentLevel);
+        } else {
+            if(gameModelMessenger == null) {
+                throw new RuntimeException("GameModel's messenger not set!");
+            }
+            currentLevelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
         }
-
-        currentLevelMessenger = new LevelMessenger(gameModelMessenger, level);
     }
 
     public void setGameModelMessenger(GameModelMessenger gameModelMessenger) {

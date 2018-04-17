@@ -25,6 +25,7 @@ public class RingItem extends TakeableItem{
 
         if (entity.hasItemInInventory(this)) {
             ringEquipStrategy.setEntity(entity);
+            setDropStrategyEntity(entity);
             setToBeDeleted();
         }
     }

@@ -63,7 +63,7 @@ public class InventoryMenu extends InGameMenuState {
                 menuModel.setActiveState(new AssignItemMenu(menuModel, player, gameLoop, itemManipulating));
                 break;
             case 2:
-                itemManipulating.dropItem();
+                itemManipulating.drop();
                 break;
         }
     }

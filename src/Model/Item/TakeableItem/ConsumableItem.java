@@ -25,6 +25,7 @@ public class ConsumableItem extends TakeableItem {
 
         if (entity.hasItemInInventory(this)) {
             consumeStrategy.setEntity(entity);
+            setDropStrategyEntity(entity);
             setToBeDeleted();
         }
     }

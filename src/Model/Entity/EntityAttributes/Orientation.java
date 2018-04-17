@@ -2,11 +2,27 @@ package Model.Entity.EntityAttributes;
 
 import javafx.geometry.Point3D;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Orientation {
     NORTH, NORTHEAST, SOUTHEAST, SOUTH, SOUTHWEST, NORTHWEST, NONE;
 
     public static Point3D getAdjacentPoint(Point3D startingPos, Orientation orientation) {
         return new Point3D(startingPos.getX() + dx(orientation), startingPos.getY() + dy(orientation), startingPos.getZ() + dz(orientation));
+    }
+
+    public static List<Point3D> getAllAdjacentPoints(Point3D startingPos) {
+        List<Point3D> pointsList = new ArrayList<>();
+
+        pointsList.add(getAdjacentPoint(startingPos, NORTH));
+        pointsList.add(getAdjacentPoint(startingPos, NORTHEAST));
+        pointsList.add(getAdjacentPoint(startingPos, NORTHWEST));
+        pointsList.add(getAdjacentPoint(startingPos, SOUTH));
+        pointsList.add(getAdjacentPoint(startingPos, SOUTHEAST));
+        pointsList.add(getAdjacentPoint(startingPos, SOUTHWEST));
+
+        return pointsList;
     }
 
     public static int dx(Orientation orientation) {

@@ -7,6 +7,7 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
+import Model.Item.TakeableItem.TakeableItem;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 
@@ -110,6 +111,36 @@ public class Level {
         itemLocations.put(point, item);
     }
 
+    public void dropItemFromEntity(Entity entity, TakeableItem item) {
+        Point3D entityPoint = getEntityPoint(entity);
+
+        if(canDropItemAtPoint(item, Orientation.getAllAdjacentPoints(entityPoint))) {
+            dropItemAtPoint(entityPoint, item);
+
+            entity.removeItemFromInventory(item);
+        }
+    }
+
+    private boolean canDropItemAtPoint(Item item, List<Point3D> points) {
+        // get nearest point that does not have (1) another item, (2) an entity, (3) a mount, (4) obstacle, (5) no terrain
+
+        for(Point3D point : points) {
+            if(!itemLocations.containsKey(point) &&
+               !entityLocations.containsKey(point) &&
+               !mountLocations.containsKey(point) &&
+               !obstacleLocations.containsKey(point) &&
+               terrainLocations.containsKey(point)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void dropItemAtPoint(Point3D point3D, Item item) {
+        itemLocations.put(point3D, item);
+    }
+
     public void addObstacleTo(Point3D point, Obstacle obstacle) {
         obstacleLocations.put(point, obstacle);
     }
@@ -155,7 +186,7 @@ public class Level {
     public Point3D getEntityPoint(Entity entity) {
         if(entityLocations.containsValue(entity)) {
             for(Point3D point: entityLocations.keySet()) {
-                if(entityLocations.get(point) == entity) {
+                if(entityLocations.get(point).equals(entity)) {
                     return point;
                 }
             }

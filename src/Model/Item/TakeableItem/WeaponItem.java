@@ -72,6 +72,7 @@ public class WeaponItem extends TakeableItem{
 
         if (entity.hasItemInInventory(this)) {
             weaponEquipStrategy.setEntity(entity);
+            setDropStrategyEntity(entity);
             setToBeDeleted();
         }
     }

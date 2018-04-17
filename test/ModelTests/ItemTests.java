@@ -24,6 +24,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 public class ItemTests {
@@ -318,16 +319,20 @@ public class ItemTests {
 
         WeaponItem equippableSword = new WeaponItem("Sword", new AddHealthCommand(20));
         equippableSword.setSkill(oneHand);
+        equippableSword.setCurrentLevelMessenger(new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level));
         equippableSword.onTouch(entity);
 
         WeaponItem nonEquippableSword = new WeaponItem("Sword", new AddHealthCommand(20));
         nonEquippableSword.setSkill(new Skill());
+        nonEquippableSword.setCurrentLevelMessenger(new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level));
         nonEquippableSword.onTouch(entity);
 
         equippableSword.select();
-        assertTrue(entity.getWeaponItem() == equippableSword);
+        Assert.assertTrue(entity.getWeaponItem() == equippableSword);
+        Assert.assertFalse(entity.hasItemInInventory(equippableSword));
 
         nonEquippableSword.select();
-        assertTrue(entity.getWeaponItem() == equippableSword);
+        Assert.assertTrue(entity.getWeaponItem() == equippableSword);
+        Assert.assertTrue(entity.hasItemInInventory(nonEquippableSword));
     }
 }

@@ -248,4 +248,52 @@ public class CommandTests {
         Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity);
     }
 
+    // TODO: finish tests
+    @Test
+    public void testDropItemAllPointsFree() {
+
+    }
+
+    @Test
+    public void testDropItemSomePointsFree() {
+
+    }
+
+    @Test
+    public void testDropItemNoPointsFree() {
+        List<LevelViewElement> observers = new ArrayList<>();
+
+        Level level = new Level(observers);
+
+        Entity entity = new Entity();
+
+        GameLoop gameLoop = new GameLoop();
+        GameModel gameModel = new GameModel();
+        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+        GameModelMessenger gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
+        LevelMessenger messenger = new LevelMessenger(gameModelMessenger, level);
+
+        Point3D center = new Point3D(0,0,0);
+
+        ConsumableItem item = new ConsumableItem("thingie", new AddHealthCommand( 10));
+
+        level.addEntityTo(center, entity);
+        level.addItemnTo(center, item);
+        item.setCurrentLevelMessenger(messenger);
+
+        Assert.assertFalse(entity.hasItemInInventory(item));
+        Assert.assertTrue(level.hasItem(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+
+        level.processInteractions();
+
+        Assert.assertTrue(entity.hasItemInInventory(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+        Assert.assertFalse(level.hasItem(item));
+
+        item.drop();
+
+        Assert.assertTrue(entity.hasItemInInventory(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+    }
 }
