@@ -25,6 +25,9 @@ public class TitleScreenView extends MenuViewState{
 
     @Override
     public void render(GraphicsContext gc) {
+
+        gc.clearRect(0, 0, Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
+
         selectedX = menuModel.getSelectedHorizontal();
         selectedY = menuModel.getSelectedVertical();
 

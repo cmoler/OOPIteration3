@@ -102,7 +102,6 @@ public class RunGame extends Application{
         }.start();
 
 
-
         mainStage.show();
 
     }
