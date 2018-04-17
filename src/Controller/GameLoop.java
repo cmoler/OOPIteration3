@@ -21,7 +21,7 @@ public class GameLoop {
 
     public GameLoop() {
         //TODO: Add loading logic
-        controls = new KeyEventImplementor();
+        controls = new KeyEventImplementor(this);
         loopTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -54,5 +54,17 @@ public class GameLoop {
 
     public void pauseTimer() {
         loopTimer.stop();
+    }
+
+    public void loadGame(int i) {
+
+    }
+
+    public void saveGame(int i) {
+
+    }
+
+    public void newGame(int i) {
+
     }
 }

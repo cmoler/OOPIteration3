@@ -1,22 +1,41 @@
 package Controller.Factories;
 
 import Controller.Controller;
+import Controller.GameLoop;
 import Controller.ModelKeyAction.*;
 import Model.Entity.Entity;
 import Model.MenuModel.MenuModel;
+import Model.MenuModel.TradingMenu;
 
 import java.util.ArrayList;
 
 public class ControllerSetFactory {
 
-    Controller controller;
-    KeyBindingParser keyBindingParser;
-    public ControllerSetFactory(Controller controller){
+    private Controller controller;
+    private KeyBindingParser keyBindingParser;
+    private GameLoop gameLoop;
+
+    public ControllerSetFactory(Controller controller, GameLoop gameLoop){
         this.controller = controller;
+        this.gameLoop = gameLoop;
         keyBindingParser = new KeyBindingParser();
     }
 
-    public void createTradeSet(MenuModel menuModel) {
+    public void createTradeSet(MenuModel menuModel, Entity player, Entity npc) {
+        ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
+
+        menuModel.setActiveState(new TradingMenu(menuModel, gameLoop, player, npc));
+
+        newKeySet.add(new SelectKeyAction(keyBindingParser.parseMenuKey("select"), menuModel));
+        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), menuModel));
+        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), menuModel));
+        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), menuModel));
+        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), menuModel));
+
+        controller.setKeyActionSet(newKeySet);
+    }
+
+    public void createMenuSet(MenuModel menuModel){
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
         newKeySet.add(new SelectKeyAction(keyBindingParser.parseMenuKey("select"), menuModel));
@@ -28,35 +47,12 @@ public class ControllerSetFactory {
         controller.setKeyActionSet(newKeySet);
     }
 
-    public void createOptionsMenuSet(){
+    public void createPlayerControlsSet(Entity player, MenuModel menuModel) {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
-
-
-        controller.setKeyActionSet(newKeySet);
-    }
-
-    public void createScrollingViewPortSet(Entity player){
-        ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
-
-        newKeySet.add(new ToggleLockViewPortKeyAction(keyBindingParser.parsePlayerKey("toggleLockView"), player, this, true));
-        // TODO: figure out viewport scrolling
-        /*
-        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), ));
-        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), ));
-        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), ));
-        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), ));
-        */
-
-        controller.setKeyActionSet(newKeySet);
-    }
-
-    public void createPlayerControlsSet(Entity player) {
-        ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
+        newKeySet.add(new OpenMenuKeyAction(keyBindingParser.parseMenuKey("openMenu"), player, menuModel, gameLoop));
 
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
-
-        newKeySet.add(new ToggleLockViewPortKeyAction(keyBindingParser.parsePlayerKey("toggleLockView"), player,this, false));
 
         newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player));
         newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player));

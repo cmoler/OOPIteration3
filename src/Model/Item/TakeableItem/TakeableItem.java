@@ -35,4 +35,8 @@ public abstract class TakeableItem extends Item {
     }
 
     public abstract void select();
+
+    public int getPrice() {
+        return price;
+    }
 }
