@@ -352,4 +352,16 @@ public class Entity {
     public void setSkillLevels(HashMap<Skill, SkillLevel> skillLevels) {
         this.skillLevelsMap = skillLevels;
     }
+
+    public void addGold(int price) {
+        gold.increaseGold(price);
+    }
+
+    public void removeGold(int price) {
+        gold.decreaseGold(price);
+    }
+
+    public int getGold() {
+        return gold.getGoldAmount();
+    }
 }

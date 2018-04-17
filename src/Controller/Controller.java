@@ -35,8 +35,8 @@ public class Controller {
         controllerSetFactory.createMenuSet(menuModel);
     }
 
-    public void createTradeSet(MenuModel menuModel) {
-        controllerSetFactory.createTradeSet(menuModel);
+    public void createTradeSet(MenuModel menuModel, Entity player, Entity npc) {
+        controllerSetFactory.createTradeSet(menuModel, player, npc);
     }
 
     public void createPlayerControlsSet(Entity player, MenuModel menuModel){

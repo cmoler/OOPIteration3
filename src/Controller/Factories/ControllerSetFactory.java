@@ -5,6 +5,7 @@ import Controller.GameLoop;
 import Controller.ModelKeyAction.*;
 import Model.Entity.Entity;
 import Model.MenuModel.MenuModel;
+import Model.MenuModel.TradingMenu;
 
 import java.util.ArrayList;
 
@@ -20,8 +21,10 @@ public class ControllerSetFactory {
         keyBindingParser = new KeyBindingParser();
     }
 
-    public void createTradeSet(MenuModel menuModel) {
+    public void createTradeSet(MenuModel menuModel, Entity player, Entity npc) {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
+
+        menuModel.setActiveState(new TradingMenu(menuModel, gameLoop, player, npc));
 
         newKeySet.add(new SelectKeyAction(keyBindingParser.parseMenuKey("select"), menuModel));
         newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), menuModel));

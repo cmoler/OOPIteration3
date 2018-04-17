@@ -17,8 +17,8 @@ public class KeyEventImplementor implements EventHandler<KeyEvent> {
         controller.createMenuSet(menuModel);
     }
 
-    public void createTradeSet(MenuModel menuModel){
-        controller.createTradeSet(menuModel);
+    public void createTradeSet(MenuModel menuModel, Entity player, Entity npc){
+        controller.createTradeSet(menuModel, player, npc);
     }
 
     public void createPlayerControlsSet(Entity player, MenuModel menuModel){
