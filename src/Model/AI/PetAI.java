@@ -37,7 +37,7 @@ public class PetAI extends AIState {
         Point3D playerPoint = getPlayerPoint();
 
         Point3D goal = calculateGoal(petPoint, playerPoint, nearestItem, nearestEntity);
-
+        moveToGoal(petPoint,goal);
     }
 
     private ArrayList<Point3D> getPath(Point3D start, Point3D goal) {
@@ -194,10 +194,12 @@ public class PetAI extends AIState {
         double minDistance = Double.MAX_VALUE;
         double distance;
         for (Point3D point : entityPoints) {
-            distance = origin.distance(point);
-            if (distance < minDistance) {
-                minDistance = distance;
-                minLocation = point;
+            if (!entityMap.get(point).equals(player)) {
+                distance = origin.distance(point);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    minLocation = point;
+                }
             }
         }
         return minLocation;
