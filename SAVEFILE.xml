@@ -10,37 +10,37 @@
             <LEVELMAP id="AREAEFFECT">
                 <KEY key="0,0,0"/>
                 <VALUE>
-                    <ONESHOTAREA>
+                    <ONESHOTAREAEFFECT>
                         <REMOVEHEALTHCOMMAND damageAmount="5"/>
-                    </ONESHOTAREA>
+                    </ONESHOTAREAEFFECT>
                 </VALUE>
 
                 <KEY key="0,0,1"/>
                 <VALUE>
-                    <INFINITEAREA>
+                    <INFINITEAREAEFFECT>
                         <REMOVEHEALTHCOMMAND damageAmount="5"/>
-                    </INFINITEAREA>
+                    </INFINITEAREAEFFECT>
                 </VALUE>
             </LEVELMAP>
 
             <LEVELMAP id="INFLUENCEEFFECT">
                 <KEY key="0,0,0"/>
                 <VALUE>
-                    <ANGULARINFLUENCEEFFECT nextMoveTime="2" speed="4" range="4" orientation="north">
+                    <ANGULARINFLUENCEEFFECT movesRemaining="2" speed="4" range="4" orientation="north">
                         <ADDHEALTHCOMMAND healAmount="5"/>
                     </ANGULARINFLUENCEEFFECT>
                 </VALUE>
 
                 <KEY key="0,0,1"/>
                 <VALUE>
-                    <LINEARINFLUENCEEFFECT nextMoveTime="2" speed="4" range="4" orientation="north">
+                    <LINEARINFLUENCEEFFECT movesRemaining="2" speed="4" range="4" orientation="north">
                         <ADDHEALTHCOMMAND healAmount="5"/>
                     </LINEARINFLUENCEEFFECT>
                 </VALUE>
 
                 <KEY key="0,0,2"/>
                 <VALUE>
-                    <RADIALINFLUENCEEFFECT nextMoveTime="2" speed="4" range="4" orientation="north">
+                    <RADIALINFLUENCEEFFECT movesRemaining="2" speed="4" range="4" orientation="north">
                         <ADDHEALTHCOMMAND healAmount="5"/>
                     </RADIALINFLUENCEEFFECT>
                 </VALUE>
