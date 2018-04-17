@@ -32,16 +32,15 @@ public class Skill {
         this.useCost = useCost;
     }
 
-    public void fire(Entity entity) {
-        // TODO: write in logic once send influence command is finished
+    public void fire(Entity callingEntity) {
         // TODO: figure out how to get skills to modify stats for stuff like trap disarm or pickpocket, etc.
-        influenceEffect.setOrientation(entity.getOrientation());
+        influenceEffect.setOrientation(callingEntity.getOrientation());
 
         InfluenceEffect newInstance = influenceEffect.cloneInfluenceEffect();
         newInstance.setCommand(behavior);
 
         sendInfluenceEffectCommand.setInfluenceEffect(newInstance);
-        sendInfluenceEffectCommand.execute(entity);
+        sendInfluenceEffectCommand.execute(callingEntity);
     }
 
     public void setInfluence(InfluenceEffect influence) {

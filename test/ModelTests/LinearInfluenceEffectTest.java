@@ -1,11 +1,10 @@
 package ModelTests;
 
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.LinearInfluenceEffect;
-import Model.Level.Trap;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 import org.junit.Assert;

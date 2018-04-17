@@ -1,10 +1,11 @@
 package Model.Command.GameLoopCommand;
 
 import Controller.GameLoop;
+import Model.Command.Command;
 import Model.Entity.Entity;
 import Model.Level.LevelMessenger;
 
-public class DialogCommand extends GameLoopCommand {
+public class DialogCommand extends GameLoopCommand implements Command {
 
     private Entity entity;
 

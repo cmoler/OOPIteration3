@@ -1,6 +1,6 @@
 package ModelTests;
 
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.RemoveHealthCommand;
 import Model.Command.LevelCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;

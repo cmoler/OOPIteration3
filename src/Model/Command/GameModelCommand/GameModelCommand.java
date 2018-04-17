@@ -4,7 +4,7 @@ import Model.Command.Command;
 import Model.Level.GameModel;
 import Model.Level.LevelMessenger;
 
-public abstract class GameModelCommand implements Command {
+public abstract class GameModelCommand {
 
     protected LevelMessenger levelMessenger;
 

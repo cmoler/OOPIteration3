@@ -1,13 +1,11 @@
 package Model.InfluenceEffect;
 
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public abstract class InfluenceEffect{
     private Command command;
@@ -42,7 +40,6 @@ public abstract class InfluenceEffect{
 
     public abstract InfluenceEffect cloneInfluenceEffect();
 
-    //Passes entity into command
     public void hitEntity(Entity entity) {
         command.execute(entity);
     }

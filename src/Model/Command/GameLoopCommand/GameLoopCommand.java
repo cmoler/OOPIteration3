@@ -4,7 +4,7 @@ import Controller.GameLoop;
 import Model.Command.Command;
 import Model.Level.LevelMessenger;
 
-public abstract class GameLoopCommand implements Command {
+public abstract class GameLoopCommand {
 
     protected LevelMessenger levelMessenger;
 

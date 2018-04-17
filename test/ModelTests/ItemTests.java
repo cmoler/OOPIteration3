@@ -1,7 +1,7 @@
 package ModelTests;
 
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;

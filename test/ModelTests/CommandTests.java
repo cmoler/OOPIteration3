@@ -1,6 +1,6 @@
 package ModelTests;
 
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.RemoveHealthCommand;
 import Model.Command.LevelCommand.DisarmTrapCommand;
 import Model.Command.LevelCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
@@ -9,7 +9,6 @@ import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.Level.*;
-import View.LevelView.LevelView;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 import org.junit.Assert;

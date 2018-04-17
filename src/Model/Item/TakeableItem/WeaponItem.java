@@ -1,7 +1,6 @@
 package Model.Item.TakeableItem;
 
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.Entity.EntityAttributes.SkillLevel;

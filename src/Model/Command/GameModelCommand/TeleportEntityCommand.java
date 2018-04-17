@@ -1,12 +1,13 @@
 package Model.Command.GameModelCommand;
 
+import Model.Command.Command;
 import Model.Entity.Entity;
 import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
 import javafx.geometry.Point3D;
 
-public class TeleportEntityCommand extends GameModelCommand {
+public class TeleportEntityCommand extends GameModelCommand implements Command {
 
     private Level sourceLevel;
     private Level destinationLevel;
@@ -36,12 +37,10 @@ public class TeleportEntityCommand extends GameModelCommand {
         return entity;
     }
 
-    @Override
     public void receiveGameModel(GameModel gameModel) {
         gameModel.addToTeleportQueue(this);
     }
 
-    @Override
     public void execute(Entity entity) {
         this.entity = entity;
         sendCommandToGameModel(this);
