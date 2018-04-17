@@ -20,8 +20,8 @@ public class InventoryMenu extends InGameMenuState {
         if(selectedLeftRight < 0) selectedLeftRight = 3;
         if(selectedLeftRight > 3)selectedLeftRight = 0;
         if(selectedLeftRight == 0){
-            if (selectedUpDown < 0) selectedUpDown = 3;
-            if (selectedUpDown > 3) selectedUpDown = 0;
+            if (selectedUpDown < 0) selectedUpDown = inGameMenuBar.getMaxUp();
+            if (selectedUpDown > inGameMenuBar.getMaxUp()) selectedUpDown = 0;
         }
         if(selectedLeftRight == 1) {
             if (selectedUpDown < 0) selectedUpDown = inventory.size() - 1;
@@ -37,30 +37,13 @@ public class InventoryMenu extends InGameMenuState {
     public void select() {
         switch (selectedLeftRight){
             case 0:
-                menuPart();
+                inGameMenuBar.select(selectedUpDown);
                 break;
             case 1:
                 inventoryPart();
                 break;
             case 2:
                 itemPart();
-                break;
-        }
-    }
-
-    private void menuPart(){
-        switch (selectedUpDown){
-            case 0:
-                menuModel.setActiveState(new InventoryMenu(menuModel, player, gameLoop));
-                break;
-            case 1:
-                menuModel.setActiveState(new StatsMenu(menuModel, player, gameLoop));
-                break;
-            case 2:
-                menuModel.setActiveState(new LevelUpMenu(menuModel, player, gameLoop));
-                break;
-            case 3:
-                menuModel.setActiveState(new ExitGameMenu(menuModel, player, gameLoop));
                 break;
         }
     }

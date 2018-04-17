@@ -2,9 +2,8 @@ package Controller.ModelKeyAction;
 
 import Controller.GameLoop;
 import Model.Entity.Entity;
-import Model.MenuModel.InGameMainMenu;
-import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
+import Model.MenuModel.StatsMenu;
 import javafx.scene.input.KeyCode;
 
 public class OpenMenuKeyAction extends ModelKeyAction {
@@ -23,7 +22,7 @@ public class OpenMenuKeyAction extends ModelKeyAction {
     @Override
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
-            menuModel.setActiveState(new InGameMainMenu(menuModel, player, gameLoop));
+            menuModel.setActiveState(new StatsMenu(menuModel, player, gameLoop));
         }
     }
 

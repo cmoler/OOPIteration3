@@ -61,4 +61,8 @@ public class GameLoop {
     public void saveGame(int i) {
 
     }
+
+    public void newGame(int i) {
+
+    }
 }

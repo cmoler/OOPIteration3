@@ -33,15 +33,15 @@ public class LevelUpMenu extends InGameMenuState {
         }
 
         if(selectedLeftRight == 0) {
-            if (selectedUpDown < 0) selectedUpDown = 3;
-            if (selectedUpDown > 3) selectedUpDown = 0;
+            if (selectedUpDown < 0) selectedUpDown = inGameMenuBar.getMaxUp();
+            if (selectedUpDown > inGameMenuBar.getMaxUp()) selectedUpDown = 0;
         }
     }
 
     @Override
     public void select() {
         if(selectedLeftRight == 0){
-            menuSelection();
+            inGameMenuBar.select(selectedUpDown);
             return;
         }
         switch (selectedUpDown){

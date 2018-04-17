@@ -23,7 +23,7 @@ public class ExitGameMenu extends InGameMenuState {
                 menuModel.setActiveState(new MainMenuState(menuModel, gameLoop));
                 break;
             case 1:
-                menuModel.setActiveState(new InGameMainMenu(menuModel, player, gameLoop));
+                menuModel.setActiveState(new StatsMenu(menuModel, player, gameLoop));
                 break;
             case 2:
                 System.exit(1);

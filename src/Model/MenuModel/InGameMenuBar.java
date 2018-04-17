@@ -3,22 +3,26 @@ package Model.MenuModel;
 import Controller.GameLoop;
 import Model.Entity.Entity;
 
-public class InGameMainMenu extends InGameMenuState {
+public class InGameMenuBar {
 
-    public InGameMainMenu(MenuModel menuModel, Entity player, GameLoop gameLoop) {
-        super(menuModel, player, gameLoop);
+    private MenuModel menuModel;
+    private Entity player;
+    private GameLoop gameLoop;
+
+    private int maxUp = 4;
+
+    public InGameMenuBar(MenuModel menuModel, Entity player, GameLoop gameLoop) {
+        this.menuModel = menuModel;
+        this.player = player;
+        this.gameLoop = gameLoop;
     }
 
-    @Override
-    public void correctParameters() {
-        if(selectedLeftRight != 0) selectedLeftRight = 0;
-        if (selectedUpDown < 0) selectedUpDown = 3;
-        if (selectedUpDown > 3) selectedUpDown = 0;
+    public int getMaxUp(){
+        return maxUp;
     }
 
-    @Override
-    public void select() {
-        switch (selectedUpDown){
+    public void select(int selected) {
+        switch (selected){
             case 0:
                 menuModel.setActiveState(new InventoryMenu(menuModel, player, gameLoop));
                 break;
@@ -31,6 +35,8 @@ public class InGameMainMenu extends InGameMenuState {
             case 3:
                 menuModel.setActiveState(new ExitGameMenu(menuModel, player, gameLoop));
                 break;
+            case 4:
+                menuModel.setActiveState(new SaveGameMenu(menuModel, player, gameLoop));
         }
     }
 }
