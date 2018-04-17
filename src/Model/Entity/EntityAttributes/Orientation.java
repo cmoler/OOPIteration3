@@ -35,4 +35,29 @@ public enum Orientation {
         }
         return -1;
     }
+
+    public static Orientation toOrientation(String string) {
+        switch (string.toLowerCase()) {
+            case "north":
+                return NORTH;
+
+            case "south":
+                return SOUTH;
+
+            case "northeast":
+                return NORTHEAST;
+
+            case "southeast":
+                return SOUTHEAST;
+
+            case "northwest":
+                return NORTHWEST;
+
+            case "southwest":
+                return SOUTHWEST;
+
+            default:
+                return NONE;
+        }
+    }
 }

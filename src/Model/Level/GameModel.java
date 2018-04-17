@@ -2,7 +2,7 @@ package Model.Level;
 
 import Model.AI.AIController;
 import Model.Command.GameModelCommand.GameModelCommand;
-import Model.Command.GameModelCommand.TeleportEntityCommand;
+import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Entity.Entity;
 import javafx.geometry.Point3D;
 
@@ -33,10 +33,6 @@ public class GameModel {
         this.aiMap = aiMap;
     }
 
-    public void receiveGameModelCommand(GameModelCommand command) {
-        command.receiveGameModel(this);
-    }
-
     public Level getCurrentLevel(){
         return currentLevel;
     }
@@ -57,21 +53,23 @@ public class GameModel {
     }
 
     public void addToTeleportQueue(TeleportEntityCommand teleportEntityCommand) {
-        TeleportTuple tuple = new TeleportTuple(teleportEntityCommand.getEntity(), teleportEntityCommand.getSourceLevel(),
+        TeleportTuple tuple = new TeleportTuple(teleportEntityCommand.getEntity(),
                                                 teleportEntityCommand.getDestinationLevel(), teleportEntityCommand.getDestinationPoint());
 
         teleportTupleQueue.add(tuple);
     }
 
+    public boolean entityIsPlayer(Entity entity) {
+        return entity.equals(player);
+    }
+
     private class TeleportTuple {
         private Entity entity;
-        private Level sourceLevel;
         private Level destLevel;
         private Point3D destinationPoint;
 
-        public TeleportTuple(Entity entity, Level sourceLevel, Level destLevel, Point3D destinationPoint) {
+        public TeleportTuple(Entity entity, Level destLevel, Point3D destinationPoint) {
             this.entity = entity;
-            this.sourceLevel = sourceLevel;
             this.destLevel = destLevel;
             this.destinationPoint = destinationPoint;
         }
@@ -80,9 +78,6 @@ public class GameModel {
             return entity;
         }
 
-        public Level getSourceLevel() {
-            return sourceLevel;
-        }
 
         public Level getDestLevel() {
             return destLevel;
@@ -95,14 +90,13 @@ public class GameModel {
 
     public void processTeleportQueue() {
         for(TeleportTuple tuple : teleportTupleQueue) {
-            changeLevels(tuple.getEntity(), tuple.getSourceLevel(), tuple.getDestLevel(), tuple.getDestinationPoint());
+            changeLevels(tuple.getEntity(), tuple.getDestLevel(), tuple.getDestinationPoint());
         }
 
         teleportTupleQueue.clear();
     }
 
-    private void changeLevels(Entity entity, Level sourceLevel, Level destinationLevel, Point3D destinationPoint) {
-        sourceLevel.removeEntityFrom(entity);
+    private void changeLevels(Entity entity, Level destinationLevel, Point3D destinationPoint) {
 
         destinationLevel.addEntityTo(destinationPoint, entity);
 
@@ -116,5 +110,9 @@ public class GameModel {
     public void advance() {
         currentLevel.processMoves();
         currentLevel.processInteractions();
+    }
+
+    public boolean playerIsDead() {
+        return player.isDead();
     }
 }

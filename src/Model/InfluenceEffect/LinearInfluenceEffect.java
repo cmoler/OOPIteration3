@@ -1,6 +1,7 @@
 package Model.InfluenceEffect;
 
 import Model.Command.Command;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
 
@@ -9,11 +10,11 @@ import java.util.ArrayList;
 public class LinearInfluenceEffect extends InfluenceEffect{
 
 
-    public LinearInfluenceEffect(Command command, int range, long speed, Orientation orientation) {
+    public LinearInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation) {
         super(command, range, speed, orientation);
     }
 
-    public LinearInfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+    public LinearInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining) {
         super(command, range, speed, orientation, movesRemaining);
     }
 
@@ -37,6 +38,7 @@ public class LinearInfluenceEffect extends InfluenceEffect{
         newPos.add(newPoint);
 
         decrementMovesRemaining();
+
         return newPos;
     }
 

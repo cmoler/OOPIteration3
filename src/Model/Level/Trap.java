@@ -16,8 +16,11 @@ public class Trap {
 
     private Command command;
 
-    public Trap(List<LevelViewElement> observers, Command command) {
+    private int trapStrength;
+
+    public Trap(List<LevelViewElement> observers, Command command, int trapStrength) {
         this.observers = observers;
+        this.trapStrength = trapStrength;
 
         isVisible = false;
         isDisarmed = false;
@@ -38,17 +41,19 @@ public class Trap {
     }
 
 
-    public void disarm() {
-        // TODO: add logic for being able to fail a disarm based on skill level of entity that calls disarm trap skill
+    public void disarm(Entity entity, int disarmStrength) {
+        if(trapStrength < disarmStrength) {
+            if (!isVisible) {
+                isVisible = true;
+            } else if (!isDisarmed) {
+                isDisarmed = true;
+            }
 
-        if(!isVisible) {
-            isVisible = true;
-        } else if(!isDisarmed) {
-            isDisarmed = true;
-        }
-
-        for(LevelViewElement observer : observers) {
-            observer.notifyViewElement();
+            for (LevelViewElement observer : observers) {
+                observer.notifyViewElement();
+            }
+        } else { // TODO: make failure state for trap disarming more complex (right now it just triggers the trap on the entity if it fails the disarm)
+            this.fire(entity);
         }
     }
 

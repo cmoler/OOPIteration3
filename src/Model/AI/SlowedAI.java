@@ -6,13 +6,14 @@ public class SlowedAI extends AIState {
 
     private AIState aiState;
     private AIController aiController;
-    private int delay = 120;
+    private int delay;
     private int currentTick = 0;
 
-    public SlowedAI(Entity entity, AIController aiController, AIState aiState){
+    public SlowedAI(Entity entity, AIController aiController, AIState aiState, int delay){
         super(entity);
         this.aiController = aiController;
         this.aiState = aiState;
+        this.delay = delay;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package Model.Item.TakeableItem;
 
 import Model.Command.Command;
-import Model.Command.LevelCommand.DropItemCommand;
+import Model.Command.EntityCommand.NonSettableCommand.DropItemCommand;
 import Model.Entity.Entity;
 import Model.Item.Item;
 import Model.Item.TakeableItem.InventoryStrategy.DropStrategy;

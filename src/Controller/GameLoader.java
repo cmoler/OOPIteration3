@@ -4,19 +4,29 @@ import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
-import Model.Command.EntityCommand.InstaDeathCommand;
-import Model.Command.EntityCommand.LevelUpCommand;
-import Model.Command.EntityCommand.SetAsSneakingCommand;
-import Model.Command.EntityCommand.SettableEntityCommand.AddHealthCommand;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
-import Model.Command.EntityCommand.ToggleableCommand.ToggleHealthCommand;
-import Model.Command.EntityCommand.ToggleableCommand.ToggleManaCommand;
-import Model.Command.EntityCommand.ToggleableCommand.ToggleSpeedCommand;
-import Model.Level.GameModel;
-import Model.Level.Level;
-import Model.Level.Terrain;
-import com.sun.org.apache.xerces.internal.parsers.DOMParser;
-import com.sun.org.apache.xerces.internal.parsers.XMLDocumentParser;
+import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
+import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
+import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
+import Model.Entity.EntityAttributes.Orientation;
+import Model.InfluenceEffect.AngularInfluenceEffect;
+import Model.InfluenceEffect.InfluenceEffect;
+import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.InteractiveItem;
+import Model.Item.Item;
+import Model.Item.OneShotItem;
+import Model.Item.TakeableItem.ArmorItem;
+import Model.Item.TakeableItem.ConsumableItem;
+import Model.Item.TakeableItem.RingItem;
+import Model.Item.TakeableItem.WeaponItem;
+import Model.Level.*;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -34,14 +44,11 @@ import java.util.List;
 
 public class GameLoader {
 
-    private XMLDocumentParser parser;
-    private DOMParser domParser;
     private Level currentLevel;
     private GameModel gameModel;
     private List<Level> world;
 
     public GameLoader() {
-        parser = new XMLDocumentParser();
         world = new ArrayList<>();
     }
 
@@ -69,23 +76,193 @@ public class GameLoader {
                     case "areaeffect":
                         processAreaEffects(element, level);
                         break;
+
+                    case "influenceeffect":
+                        processInfluenceEffects(element, level);
+                        break;
+
+                    case "item":
+                        processItems(element, level);
+                        break;
+
+                    case "entity":
+                        processEntities(element, level);
+                        break;
+
+                    case "trap":
+                        processTraps(element, level);
+                        break;
+
+                    case "river":
+                        processRivers(element, level);
+                        break;
+
+                    case "mount":
+                        processMounts(element, level);
+                        break;
+
+                    case "obstacle":
+                        processObstacles(element, level);
+                        break;
+
+                    case "decal":
+                        processDecals(element, level);
+                        break;
                 }
             }
         }
     }
 
+    private void processDecals(Element element, Level level) {
+    }
+
+    private void processObstacles(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addObstacleTo(pointsToAdd.get(i), new Obstacle());
+        }
+    }
+
+    private void processMounts(Element element, Level level) {
+    }
+
+    private void processRivers(Element element, Level level) {
+    }
+
+    private void processTraps(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+        List<Trap> traps = new ArrayList<>();
+        Command command;
+        boolean isVisible;
+        boolean isDisarmed;
+
+        NodeList trapValues = element.getElementsByTagName("VALUE");
+        for(int i = 0; i < trapValues.getLength(); i++) {
+            NodeList trapNodes = trapValues.item(i).getChildNodes();
+
+            for(int j = 0; j < trapNodes.getLength(); j++) {
+                Node trapNode = trapNodes.item(j);
+                if(trapNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(trapNode.getChildNodes());
+
+                    if(command != null) {
+                        isVisible = Boolean.parseBoolean(trapNode.getAttributes().getNamedItem("isVisible").getTextContent());
+                        isDisarmed = Boolean.parseBoolean(trapNode.getAttributes().getNamedItem("isDisarmed").getTextContent());
+                        //TODO: Add list of level view elements
+                    }
+                }
+            }
+        }
+    }
+
+    private void processEntities(Element element, Level level) {
+    }
+
+    private void processItems(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+        List<Item> itemsToAdd = new ArrayList<>();
+        Command command;
+        String name;
+
+        NodeList itemValues = element.getElementsByTagName("VALUE");
+        for (int i = 0; i < itemValues.getLength(); i++) {
+            NodeList itemNodes = itemValues.item(i).getChildNodes();
+
+            for(int j = 0; j < itemNodes.getLength(); j++) {
+                Node itemNode = itemNodes.item(j);
+                if(itemNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(itemNode.getChildNodes());
+
+                    if(command != null) {
+                        name = itemNode.getAttributes().getNamedItem("name").getTextContent();
+                        switch (itemNode.getNodeName().toLowerCase()) {
+                            case "oneshotitem":
+                                itemsToAdd.add(new OneShotItem(name, command));
+                                break;
+
+                            case "interactiveitem":
+                                itemsToAdd.add(new InteractiveItem(name, command));
+                                break;
+
+                            case "armoritem":
+                                int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
+                                itemsToAdd.add(new ArmorItem(name, command, defense));
+                                break;
+
+                            case "consumableitem":
+                                itemsToAdd.add(new ConsumableItem(name, command));
+                                break;
+
+                            case "ringitem":
+                                itemsToAdd.add(new RingItem(name, (ToggleableCommand) command));
+                                break;
+
+                            case "weaponitem": //TODO: this needs to be changed
+                                itemsToAdd.add(new WeaponItem(name, (SettableCommand) command));
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addItemnTo(pointsToAdd.get(i), itemsToAdd.get(i));
+        }
+    }
+
+    private void processInfluenceEffects(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+        List<InfluenceEffect> influencesToAdd = new ArrayList<>();
+        Command command;
+        int nextMoveTime;
+        long speed;
+        Orientation orientation;
+        int range;
+
+        NodeList influenceValues = element.getElementsByTagName("VALUE");
+        for(int i = 0; i < influenceValues.getLength(); i++) {
+            NodeList influenceNodes = influenceValues.item(i).getChildNodes();
+
+            for(int j = 0; j < influenceNodes.getLength(); j++) {
+                Node influenceNode = influenceNodes.item(j);
+                if(influenceNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(influenceNode.getChildNodes());
+
+                    if(command != null) {
+                        nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("nextMoveTime").getTextContent());
+                        speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
+                        range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
+                        orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
+
+                        switch (influenceNode.getNodeName().toLowerCase()) {
+                            case "angularinfluenceeffect":
+                                influencesToAdd.add(new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
+                                break;
+
+                            case "linearinfluenceeffect":
+                                influencesToAdd.add(new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
+                                break;
+
+                            case "radialinfluenceeffect":
+                                influencesToAdd.add(new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addInfluenceEffectTo(pointsToAdd.get(i), influencesToAdd.get(i));
+        }
+    }
+
     private void processAreaEffects(Element element, Level level) {
-        List<Point3D> pointsToAdd = new ArrayList<>();
+        List<Point3D> pointsToAdd = getKeyPoints(element);
         List<AreaEffect> effectsToAdd = new ArrayList<>();
         Command command;
-
-        NodeList effectKeys = element.getElementsByTagName("KEY");
-        for(int i = 0; i < effectKeys.getLength(); i++) {
-            String key = effectKeys.item(i).getAttributes().item(0).getTextContent();
-            String[] point = key.split(",");
-            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
-            pointsToAdd.add(keyPoint);
-        }
 
         NodeList effectValues = element.getElementsByTagName("VALUE");
         for(int i = 0; i < effectValues.getLength(); i++) {
@@ -152,8 +329,44 @@ public class GameLoader {
                     case "levelupcommand":
                         return new LevelUpCommand();
 
-                    case "setassneakingcommand":
-                        return new SetAsSneakingCommand();
+                    case "setassneakingcommand": // TODO: save stealthAmount var
+                        return new ToggleSneaking(0);
+
+                     /* Game Loop Commands */
+                    case "bartercommand":
+                        break;
+
+                    case "dialogcommand":
+                        break;
+
+                    case "observeentitycommand":
+                        break;
+
+                    /* Game Model Commands */
+                    case "confuseentitycommand":
+                        break;
+
+                    case "freezeentitycommand":
+                        break;
+
+                    case "slowentitycommand":
+                        break;
+
+                    case "teleportentitycommand":
+                        break;
+
+                    /* Level Commands */
+                    case "disarmtrapcommand":
+                        break;
+
+                    case "dropitemcommand":
+                        break;
+
+                    case "pickpocketcommand":
+                        break;
+
+                    case "sendinfluencecommand":
+                        break;
                 }
             }
         }
@@ -162,16 +375,8 @@ public class GameLoader {
     }
 
     private void processTerrains(Element element, Level level) {
-        List<Point3D> pointsToAdd = new ArrayList<>();
+        List<Point3D> pointsToAdd = getKeyPoints(element);
         List<Terrain> terrainsToAdd = new ArrayList<>();
-
-        NodeList terrainKeys = element.getElementsByTagName("KEY");
-        for(int terrainIter = 0; terrainIter < terrainKeys.getLength(); terrainIter++) {
-            String key = terrainKeys.item(terrainIter).getAttributes().item(0).getTextContent();
-            String[] point = key.split(",");
-            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
-            pointsToAdd.add(keyPoint);
-        }
 
         NodeList terrainValues = element.getElementsByTagName("VALUE");
         for(int terrainIter = 0; terrainIter < terrainValues.getLength(); terrainIter++) {
@@ -260,6 +465,20 @@ public class GameLoader {
         }
 
         return levelList;
+    }
+
+    private ArrayList<Point3D> getKeyPoints(Element element) {
+        ArrayList<Point3D> pointsToAdd = new ArrayList<>();
+
+        NodeList terrainKeys = element.getElementsByTagName("KEY");
+        for(int terrainIter = 0; terrainIter < terrainKeys.getLength(); terrainIter++) {
+            String key = terrainKeys.item(terrainIter).getAttributes().item(0).getTextContent();
+            String[] point = key.split(",");
+            Point3D keyPoint = new Point3D(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
+            pointsToAdd.add(keyPoint);
+        }
+
+        return pointsToAdd;
     }
 
     public Level getCurrentLevel() {

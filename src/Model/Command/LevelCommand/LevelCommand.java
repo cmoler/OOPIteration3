@@ -5,7 +5,7 @@ import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
 
-public abstract class LevelCommand implements Command {
+public abstract class LevelCommand {
 
     private LevelMessenger levelMessenger;
 
@@ -13,9 +13,9 @@ public abstract class LevelCommand implements Command {
         this.levelMessenger = levelMessenger;
     }
 
-    protected void sendSelfToLevel() {
+    protected void sendCommandToLevel() {
         levelMessenger.sendCommandToLevel(this);
     }
 
-    public abstract void recieveLevel(Level level);
+    public abstract void receiveLevel(Level level);
 }

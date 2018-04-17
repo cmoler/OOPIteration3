@@ -1,13 +1,10 @@
 package ModelTests;
 
-import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.AngularInfluenceEffect;
-import Model.InfluenceEffect.LinearInfluenceEffect;
-import Model.InfluenceEffect.RadialInfluenceEffect;
-import Model.Level.Trap;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
@@ -22,7 +19,7 @@ public class AngularInfluenceEffectTest {
 
     @Test
     public void AngularInfluenceEffectTest() {
-        Command damageCommand = new RemoveHealthCommand(15);
+        SettableCommand damageCommand = new RemoveHealthCommand(15);
 
         List<LevelViewElement> observers = new ArrayList<>();
 
