@@ -19,7 +19,6 @@ public class FriendlyAI extends AIState{
     private PatrolPath patrolPath;
     private Point3D origin;
     private double moveRadius;
-    private Boolean moveToOrigin;
 
     public FriendlyAI(Entity ent, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
         super(ent);
@@ -36,21 +35,25 @@ public class FriendlyAI extends AIState{
     public void nextMove() {
         Point3D position = getEntityPoint(super.getEntity(), entityMap);
         if (getEntity().isMoveable()) {
-            boolean calcNeeded;
-            Point3D destination;
-            Vec3d randVelocity = super.generateRandomVelcity();
-            do {
-                destination = VectorToPointCalculator.calculateNewPoint(position, randVelocity);
-                if(destination.distance(origin) >= moveRadius){
-                    calcNeeded = true;
-                    randVelocity = super.generateRandomVelcity();
-                }
-                else{
-                    calcNeeded = false;
-                }
-            } while(calcNeeded);
+            if (patrolPath != null) {
+                super.getEntity().addVelocity(patrolPath.getNextMove());
+            }
+            else {
+                boolean calcNeeded;
+                Point3D destination;
+                Vec3d randVelocity = super.generateRandomVelcity();
+                do {
+                    destination = VectorToPointCalculator.calculateNewPoint(position, randVelocity);
+                    if (destination.distance(origin) >= moveRadius) {
+                        calcNeeded = true;
+                        randVelocity = super.generateRandomVelcity();
+                    } else {
+                        calcNeeded = false;
+                    }
+                } while (calcNeeded);
 
-            super.getEntity().addVelocity(randVelocity);
+                super.getEntity().addVelocity(randVelocity);
+            }
         }
     }
 
@@ -65,4 +68,7 @@ public class FriendlyAI extends AIState{
         return new Point3D(0,0,0);
     }
 
+    public void setPatrolPath(PatrolPath patrolPath) {
+        this.patrolPath = patrolPath;
+    }
 }
