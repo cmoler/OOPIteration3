@@ -45,7 +45,7 @@ public class RunGame extends Application{
         mainScene = new Scene(root);
         primaryStage.setScene( mainScene );
 
-        Canvas canvas = new Canvas(900, 900);
+        Canvas canvas = new Canvas(900, 500);
         root.getChildren().add(canvas);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -58,7 +58,6 @@ public class RunGame extends Application{
         Entity entity = new Entity();
         entity.setOrientation(Orientation.NORTH);
         EntityView ev = new EntityView(entity);
-        entity.addObserver(ev);
 
         level.addEntityTo(new Point3D(0, 0, 0), entity);
 

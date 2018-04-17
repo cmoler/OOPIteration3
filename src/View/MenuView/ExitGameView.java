@@ -1,4 +1,4 @@
-package View.TitleScreenView;
+package View.MenuView;
 
 public class ExitGameView {
 }
