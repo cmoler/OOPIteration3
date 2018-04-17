@@ -1,6 +1,7 @@
 package Model.Command.EntityCommand.NonSettableCommand;
 
 import Controller.GameLoop;
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Entity.Entity;
@@ -41,5 +42,10 @@ public class DialogCommand extends GameLoopCommand implements Command {
     public void execute(Entity entity) {
         this.invokingEntity = entity;
         sendCommandToGameLoop();
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitDialogCommand(this);
     }
 }

@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.AI.ConfusedAI;
@@ -40,5 +41,10 @@ public class ConfuseEntityCommand extends GameModelCommand implements SettableCo
 
     public int getAmount() {
         return confusionDuration;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitConfuseEntityCommand(this);
     }
 }

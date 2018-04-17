@@ -7,6 +7,12 @@ import Model.AI.HostileAI;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
+import Model.Command.EntityCommand.NonSettableCommand.*;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
+import Model.Command.EntityCommand.SettableCommand.*;
+import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Equipment;
 import Model.Entity.EntityAttributes.Inventory;
@@ -65,4 +71,41 @@ public interface Visitor {
 
     public void visitFrozenAI(FrozenAI frozenAI);
 
+    void visitRemoveHealthCommand(RemoveHealthCommand removeHealthCommand);
+
+    void visitLevelUpCommand(LevelUpCommand levelUpCommand);
+
+    void visitSendInfluenceEffectCommand(SendInfluenceEffectCommand sendInfluenceEffectCommand);
+
+    void visitDropItemCommand(DropItemCommand dropItemCommand);
+
+    void visitTeleportEntityCommand(TeleportEntityCommand teleportEntityCommand);
+
+    void visitDialogCommand(DialogCommand dialogCommand);
+
+    void visitInstaDeathCommand(InstaDeathCommand instaDeathCommand);
+
+    void visitToggleHealthCommand(ToggleHealthCommand toggleHealthCommand);
+
+    void visitToggleManaCommand(ToggleManaCommand toggleManaCommand);
+
+    void visitSpeedCommand(ToggleSpeedCommand toggleSpeedCommand);
+
+    void visitToggleSneaking(ToggleSneaking toggleSneaking);
+
+    void visitAddHealthCommand(AddHealthCommand addHealthCommand);
+
+    void visitBarterCommand(BarterCommand barterCommand);
+
+    void visitConfuseEntityCommand(ConfuseEntityCommand confuseEntityCommand);
+
+    void visitDisarmTrapCommand(DisarmTrapCommand disarmTrapCommand);
+
+    void visitFreezeEntityCommand(FreezeEntityCommand freezeEntityCommand);
+
+    void visitObserveEntityCommand(ObserveEntityCommand observeEntityCommand);
+
+    void visitPickPocketCommand(PickPocketCommand pickPocketCommand);
+
+    void visitSlowEntityCommand(SlowEntityCommand slowEntityCommand);
 }

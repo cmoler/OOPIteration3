@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.AI.ConfusedAI;
@@ -77,5 +78,10 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
 
     public int getAmount() {
         return pickPocketStrength;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitPickPocketCommand(this);
     }
 }

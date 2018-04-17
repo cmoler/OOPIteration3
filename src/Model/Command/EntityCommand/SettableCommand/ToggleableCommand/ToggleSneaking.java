@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand.ToggleableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
@@ -38,5 +39,10 @@ public class ToggleSneaking extends ToggleableCommand implements SettableCommand
 
     public int getAmount() {
         return stealthAmount;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitToggleSneaking(this);
     }
 }
