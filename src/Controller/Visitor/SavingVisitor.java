@@ -41,17 +41,15 @@ import java.util.Map;
 
 public class SavingVisitor implements Visitor {
 
-    private StringBuffer savedText;
-    private Document savedDocument;
     private BufferedWriter writer;
     private StringBuffer valueNode = new StringBuffer("<VALUE>");
     private StringBuffer currentLevel = new StringBuffer("<CURRENTLEVEL>");
     private StringBuffer levelString = new StringBuffer("<LEVEL>");
     private StringBuffer levelList = new StringBuffer("<LEVELLIST>");
     private StringBuffer gameModelString = new StringBuffer("<GAMEMODEL>\n");
+    private StringBuffer entityNode = new StringBuffer("<ENTITY>");
 
     public SavingVisitor(String fileName) throws IOException {
-        savedText = new StringBuffer();
         writer = new BufferedWriter(new FileWriter(fileName));
     }
 
@@ -190,6 +188,68 @@ public class SavingVisitor implements Visitor {
         return levelMapOpen;
     }
 
+    private StringBuffer processTraps(Map<Point3D, Trap> trapLocations) {
+        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"TRAP\">");
+        StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
+
+        for(Map.Entry<Point3D, Trap> entry: trapLocations.entrySet()) {
+            StringBuffer key = new StringBuffer("<KEY key=");
+
+            key.append("\"");
+            key.append(keyToString(entry.getKey()));
+            key.append("\"");
+            key.append("/>");
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+            levelMapOpen.append(key);
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+
+            entry.getValue().accept(this);
+
+            this.valueNode.append("</VALUE>");
+            levelMapOpen.append(this.valueNode);
+            this.valueNode = new StringBuffer("<VALUE>");
+        }
+
+        levelMapOpen.append("\n");
+        levelMapOpen.append(levelMapClosed);
+        return levelMapOpen;
+    }
+
+    private StringBuffer processObstacles(Map<Point3D, Obstacle> obstacleLocations) {
+        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"OBSTACLE\">");
+        StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
+
+        for(Map.Entry<Point3D, Obstacle> entry: obstacleLocations.entrySet()) {
+            StringBuffer key = new StringBuffer("<KEY key=");
+
+            key.append("\"");
+            key.append(keyToString(entry.getKey()));
+            key.append("\"");
+            key.append("/>");
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+            levelMapOpen.append(key);
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+
+            entry.getValue().accept(this);
+
+            this.valueNode.append("</VALUE>");
+            levelMapOpen.append(this.valueNode);
+            this.valueNode = new StringBuffer("<VALUE>");
+        }
+
+        levelMapOpen.append("\n");
+        levelMapOpen.append(levelMapClosed);
+        return levelMapOpen;
+    }
+
     @Override
     public void visitGameModel(GameModel gameModel) {
         try {
@@ -230,6 +290,14 @@ public class SavingVisitor implements Visitor {
 
             levelString.append("\n");
             levelString.append(processitems(itemLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processTraps(trapLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processObstacles(obstacleLocations));
             levelString.append("\n");
 
             levelString.append("</LEVEL>");
@@ -331,7 +399,18 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitTrap(Trap trap) {
+        StringBuffer trapString = new StringBuffer("<" + trap.getClass().getSimpleName()
+                + " isVisible=" + "\"" + trap.getIsVisible() + "\""
+                + " isDisarmed=" + "\"" + trap.getIsDisarmed() + "\""
+                + " trapStrength=" + "\"" + trap.getTrapStrength() + "\"" +">");
 
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(trapString);
+        trap.getCommand().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + trap.getClass().getSimpleName() + ">");
     }
 
     @Override
@@ -491,6 +570,16 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append("</" + influenceEffect.getClass().getSimpleName() + ">");
+    }
+
+    @Override
+    public void visitObstacle(Obstacle obstacle) {
+        StringBuffer obstacleString = new StringBuffer("<" + obstacle.getClass().getSimpleName() + "/>");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(obstacleString);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
     }
 
     public void saveCurrentLevel(Level currentLevel) throws IOException {

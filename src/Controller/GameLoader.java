@@ -136,6 +136,7 @@ public class GameLoader {
         Command command;
         boolean isVisible;
         boolean isDisarmed;
+        int trapStrength;
 
         NodeList trapValues = element.getElementsByTagName("VALUE");
         for(int i = 0; i < trapValues.getLength(); i++) {
@@ -149,10 +150,16 @@ public class GameLoader {
                     if(command != null) {
                         isVisible = Boolean.parseBoolean(trapNode.getAttributes().getNamedItem("isVisible").getTextContent());
                         isDisarmed = Boolean.parseBoolean(trapNode.getAttributes().getNamedItem("isDisarmed").getTextContent());
-                        //TODO: Add list of level view elements
+                        trapStrength = Integer.parseInt(trapNode.getAttributes().getNamedItem("trapStrength").getTextContent());
+
+                        traps.add(new Trap(null, command, isVisible, isDisarmed, trapStrength));
                     }
                 }
             }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addTrapTo(pointsToAdd.get(i), traps.get(i));
         }
     }
 

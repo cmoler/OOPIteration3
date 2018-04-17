@@ -20,10 +20,7 @@ import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.RingItem;
-import Model.Level.GameModel;
-import Model.Level.Level;
-import Model.Level.LevelMessenger;
-import Model.Level.Terrain;
+import Model.Level.*;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 import org.junit.Before;
@@ -66,6 +63,10 @@ public class SavingVisitorTests {
         level.addItemnTo(new Point3D(0,0,3), new RingItem("ring", new ToggleHealthCommand(10)));
         level.addItemnTo(new Point3D(0,0,4), new ConsumableItem("potion", new AddHealthCommand(10)));
 
+        level.addTrapTo(new Point3D(0,0,0), new Trap(null, new RemoveHealthCommand(0), false, false, 10));
+
+        level.addObstacleTo(new Point3D(0,0,5), new Obstacle());
+
         levels.add(level);
         levels.add(new Level(new ArrayList<LevelViewElement>()));
         gameModel = new GameModel(level, null, levels, null, null);
@@ -107,5 +108,19 @@ public class SavingVisitorTests {
         assertTrue(itemsToTest.get(new Point3D(0,0,2)) instanceof ArmorItem);
         assertTrue(itemsToTest.get(new Point3D(0,0,3)) instanceof RingItem);
         assertTrue(itemsToTest.get(new Point3D(0,0,4)) instanceof ConsumableItem);
+    }
+
+    @Test
+    public void testTrapsSave() {
+        Level levelToTest = gameLoader.getCurrentLevel();
+        Map<Point3D, Trap> trapsToTest = levelToTest.getTrapLocations();
+        assertTrue(trapsToTest.get(new Point3D(0,0,0)) instanceof Trap);
+    }
+
+    @Test
+    public void testObstaclesSave() {
+        Level levelToTest = gameLoader.getCurrentLevel();
+        Map<Point3D, Obstacle> testedObstacles = levelToTest.getObstacleLocations();
+        assertTrue(!testedObstacles.isEmpty());
     }
 }

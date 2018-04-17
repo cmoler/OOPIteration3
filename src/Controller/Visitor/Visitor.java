@@ -112,4 +112,6 @@ public interface Visitor {
     void visitSlowEntityCommand(SlowEntityCommand slowEntityCommand);
 
     void visitInfluenceEffect(InfluenceEffect linearInfluenceEffect);
+
+    void visitObstacle(Obstacle obstacle);
 }
