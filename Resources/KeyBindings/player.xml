@@ -41,4 +41,7 @@
     <Bind type="hotKey5">
         <key>53</key>
     </Bind>
+    <Bind type="hotKey5">
+        <key>27</key>
+    </Bind>
 </class>
