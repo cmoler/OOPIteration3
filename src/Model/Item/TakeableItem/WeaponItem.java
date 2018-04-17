@@ -1,5 +1,6 @@
 package Model.Item.TakeableItem;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
@@ -74,5 +75,10 @@ public class WeaponItem extends TakeableItem{
             weaponEquipStrategy.setEntity(entity);
             setToBeDeleted();
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitWeaponItem(this);
     }
 }

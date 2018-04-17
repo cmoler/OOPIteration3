@@ -21,7 +21,9 @@ import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.InteractiveItem;
 import Model.Item.Item;
+import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.RingItem;
@@ -96,7 +98,7 @@ public class SavingVisitor implements Visitor {
     }
 
     private StringBuffer processAreaEffects(Map<Point3D, AreaEffect> areaEffectLocations) {
-        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"AREAEFFECTS\">");
+        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"AREAEFFECT\">");
         StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
 
         for(Map.Entry<Point3D, AreaEffect> entry: areaEffectLocations.entrySet()) {
@@ -127,10 +129,41 @@ public class SavingVisitor implements Visitor {
     }
 
     private StringBuffer processInfluenceEffects(Map<Point3D, InfluenceEffect> influenceEffectLocations) {
-        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"INFLUENCEEFFECTS\">");
+        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"INFLUENCEEFFECT\">");
         StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
 
         for(Map.Entry<Point3D, InfluenceEffect> entry: influenceEffectLocations.entrySet()) {
+            StringBuffer key = new StringBuffer("<KEY key=");
+
+            key.append("\"");
+            key.append(keyToString(entry.getKey()));
+            key.append("\"");
+            key.append("/>");
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+            levelMapOpen.append(key);
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+
+            entry.getValue().accept(this);
+
+            this.valueNode.append("</VALUE>");
+            levelMapOpen.append(this.valueNode);
+            this.valueNode = new StringBuffer("<VALUE>");
+        }
+
+        levelMapOpen.append("\n");
+        levelMapOpen.append(levelMapClosed);
+        return levelMapOpen;
+    }
+
+    private StringBuffer processitems(Map<Point3D, Item> itemLocations) {
+        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"ITEM\">");
+        StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
+
+        for(Map.Entry<Point3D, Item> entry: itemLocations.entrySet()) {
             StringBuffer key = new StringBuffer("<KEY key=");
 
             key.append("\"");
@@ -195,6 +228,10 @@ public class SavingVisitor implements Visitor {
             levelString.append(processInfluenceEffects(influenceEffectLocations));
             levelString.append("\n");
 
+            levelString.append("\n");
+            levelString.append(processitems(itemLocations));
+            levelString.append("\n");
+
             levelString.append("</LEVEL>");
         } catch (IOException e) {
             e.printStackTrace();
@@ -250,17 +287,16 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitItem(Item item) {
-
-    }
-
-    @Override
-    public void visitInteractiveItem(Item item) {
-
-    }
-
-    @Override
-    public void visitOneShot(Item item) {
-
+        StringBuffer itemString = new StringBuffer("<" + item.getClass().getSimpleName()
+                + " name=" + "\"" + item.getName() + "\""
+                + " isToBeDeleted=" + "\"" + item.isToBeDeleted() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(itemString);
+        item.getCommand().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + item.getClass().getSimpleName() + ">");
     }
 
     @Override
@@ -270,7 +306,17 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitArmorItem(ArmorItem armorItem) {
-
+        StringBuffer itemString = new StringBuffer("<" + armorItem.getClass().getSimpleName()
+                + " name=" + "\"" + armorItem.getName() + "\""
+                + " isToBeDeleted=" + "\"" + armorItem.isToBeDeleted() + "\""
+                + " defense=" + "\"" + armorItem.getDefense() +"\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(itemString);
+        armorItem.getCommand().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + armorItem.getClass().getSimpleName() + ">");
     }
 
     @Override
@@ -363,7 +409,12 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitToggleHealthCommand(ToggleHealthCommand toggleHealthCommand) {
-
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("\t");
+        this.valueNode.append("<" + toggleHealthCommand.getClass().getSimpleName()
+                + " amount=" + "\"" + toggleHealthCommand.getAmount() + "\""
+                + " hasFired=" + "\"" + toggleHealthCommand.hasFired() + "\"" + "/>");
     }
 
     @Override

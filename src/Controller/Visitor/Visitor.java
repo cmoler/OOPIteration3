@@ -20,7 +20,9 @@ import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.InteractiveItem;
 import Model.Item.Item;
+import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.RingItem;
@@ -46,10 +48,6 @@ public interface Visitor {
     public void visitMount(Mount mount);
 
     public void visitItem(Item item);
-
-    public void visitInteractiveItem(Item item);
-
-    public void visitOneShot(Item item);
 
     public void visitWeaponItem(WeaponItem weaponItem);
 

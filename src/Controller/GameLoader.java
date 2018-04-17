@@ -176,6 +176,7 @@ public class GameLoader {
 
                     if(command != null) {
                         name = itemNode.getAttributes().getNamedItem("name").getTextContent();
+//                        System.out.println(itemNode.getNodeName().toLowerCase());
                         switch (itemNode.getNodeName().toLowerCase()) {
                             case "oneshotitem":
                                 itemsToAdd.add(new OneShotItem(name, command));
@@ -231,7 +232,7 @@ public class GameLoader {
                     command = processCommand(influenceNode.getChildNodes());
 
                     if(command != null) {
-                        nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("nextMoveTime").getTextContent());
+                        nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
                         speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
                         range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
                         orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
@@ -275,11 +276,11 @@ public class GameLoader {
 
                     if(command != null) {
                         switch (effectNode.getNodeName().toLowerCase()) {
-                            case "oneshotarea":
+                            case "oneshotareaeffect":
                                 effectsToAdd.add(new OneShotAreaEffect(command));
                                 break;
 
-                            case "infinitearea":
+                            case "infiniteareaeffect":
                                 effectsToAdd.add(new InfiniteAreaEffect(command));
                                 break;
                         }
@@ -302,10 +303,10 @@ public class GameLoader {
             if(commandNode.getNodeType() == Node.ELEMENT_NODE) {
                 switch (commandNode.getNodeName().toLowerCase()) {
                     case "addhealthcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("healAmount").getTextContent());
                         return new AddHealthCommand(amount);
                     case "removehealthcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("damageAmount").getTextContent());
                         return new RemoveHealthCommand(amount);
 
                     case "togglehealthcommand":

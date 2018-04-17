@@ -11,14 +11,14 @@
                 <KEY key="0,0,0"/>
                 <VALUE>
                     <ONESHOTAREA>
-                        <REMOVEHEALTHCOMMAND amount="5"/>
+                        <REMOVEHEALTHCOMMAND damageAmount="5"/>
                     </ONESHOTAREA>
                 </VALUE>
 
                 <KEY key="0,0,1"/>
                 <VALUE>
                     <INFINITEAREA>
-                        <REMOVEHEALTHCOMMAND amount="5"/>
+                        <REMOVEHEALTHCOMMAND damageAmount="5"/>
                     </INFINITEAREA>
                 </VALUE>
             </LEVELMAP>
@@ -27,21 +27,21 @@
                 <KEY key="0,0,0"/>
                 <VALUE>
                     <ANGULARINFLUENCEEFFECT nextMoveTime="2" speed="4" range="4" orientation="north">
-                        <ADDHEALTHCOMMAND amount="5"/>
+                        <ADDHEALTHCOMMAND healAmount="5"/>
                     </ANGULARINFLUENCEEFFECT>
                 </VALUE>
 
                 <KEY key="0,0,1"/>
                 <VALUE>
                     <LINEARINFLUENCEEFFECT nextMoveTime="2" speed="4" range="4" orientation="north">
-                        <ADDHEALTHCOMMAND amount="5"/>
+                        <ADDHEALTHCOMMAND healAmount="5"/>
                     </LINEARINFLUENCEEFFECT>
                 </VALUE>
 
                 <KEY key="0,0,2"/>
                 <VALUE>
                     <RADIALINFLUENCEEFFECT nextMoveTime="2" speed="4" range="4" orientation="north">
-                        <ADDHEALTHCOMMAND amount="5"/>
+                        <ADDHEALTHCOMMAND healAmount="5"/>
                     </RADIALINFLUENCEEFFECT>
                 </VALUE>
             </LEVELMAP>
@@ -61,21 +61,21 @@
                 <KEY key="0,0,1"/>
                 <VALUE>
                     <ARMORITEM name="helmet" defense="10">
-                        <ADDHEALTHCOMMAND amount="5"/>
+                        <ADDHEALTHCOMMAND healAmount="5"/>
                     </ARMORITEM>
                 </VALUE>
 
                 <KEY key="0,0,2"/>
                 <VALUE>
                     <CONSUMABLEITEM name="potion">
-                        <ADDHEALTHCOMMAND amount="5"/>
+                        <ADDHEALTHCOMMAND healAmount="5"/>
                     </CONSUMABLEITEM>
                 </VALUE>
 
                 <KEY key="0,0,3"/>
                 <VALUE>
                     <ONESHOTITEM name="bomb">
-                        <REMOVEHEALTHCOMMAND amount="5"/>
+                        <REMOVEHEALTHCOMMAND damageAmount="5"/>
                     </ONESHOTITEM>
                 </VALUE>
 
