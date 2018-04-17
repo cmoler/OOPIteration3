@@ -98,7 +98,7 @@ public class LevelTests {
         level.processMoves();
         level.processInteractions();
 
-        assertEquals(85, entity.getCurrentHealth(), 0);
+        assertEquals(95, entity.getCurrentHealth(), 0);
 
         level.processMoves();
         level.processInteractions();
@@ -106,7 +106,7 @@ public class LevelTests {
         level.processMoves();
         level.processInteractions();
 
-        assertEquals(85, entity.getCurrentHealth(), 0);
+        assertEquals(95, entity.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
         assertEquals(100, entity3.getCurrentHealth(), 0);
     }
@@ -189,7 +189,7 @@ public class LevelTests {
 
         Command damageCommand = new RemoveHealthCommand(15);
 
-        Trap trap = new Trap(observers, damageCommand);
+        Trap trap = new Trap(observers, damageCommand, 0);
 
         level.addEntityTo(new Point3D(0 ,0 ,0), entity1);
         level.addEntityTo(new Point3D(1, 0 ,0), entity2);
@@ -269,7 +269,7 @@ public class LevelTests {
         Assert.assertEquals(5, linear1.getMovesRemaining(), 0);
 
         Assert.assertEquals(100, entity.getCurrentHealth(), 0);
-        Assert.assertEquals(80, dummy.getCurrentHealth(), 0);
+        Assert.assertEquals(75, dummy.getCurrentHealth(), 0);
 
         entity.equipWeapon(sword2);
         entity.attack();
@@ -281,6 +281,6 @@ public class LevelTests {
         Assert.assertEquals(5, linear2.getMovesRemaining(), 0);
 
         Assert.assertEquals(100, entity.getCurrentHealth(), 0);
-        Assert.assertEquals(40, dummy.getCurrentHealth(), 0);
+        Assert.assertEquals(30, dummy.getCurrentHealth(), 0);
     } // TODO: get view portion of influence effects working, it is hard to test where they are moving to coordinates-wise
 }

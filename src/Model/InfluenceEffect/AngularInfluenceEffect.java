@@ -1,6 +1,5 @@
 package Model.InfluenceEffect;
 
-import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
@@ -48,6 +47,7 @@ public class AngularInfluenceEffect extends InfluenceEffect {
         }
 
         decrementMovesRemaining();
+
         return newPoints;
     }
 

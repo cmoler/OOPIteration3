@@ -44,7 +44,6 @@ public class RadialInfluenceEffect extends InfluenceEffect{
         }
 
         decrementMovesRemaining();
-
         return newPoints;
     }
 

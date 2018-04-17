@@ -21,7 +21,7 @@ public class TrapTests {
 
         List<LevelViewElement> observers = new ArrayList<>();
 
-        Trap trap = new Trap(observers, damageCommand);
+        Trap trap = new Trap(observers, damageCommand, 0);
 
         Entity entity1 = new Entity();
         Entity entity2 = new Entity();

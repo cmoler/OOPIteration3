@@ -38,6 +38,7 @@ public class LinearInfluenceEffect extends InfluenceEffect{
         newPos.add(newPoint);
 
         decrementMovesRemaining();
+
         return newPos;
     }
 

@@ -74,7 +74,24 @@ public abstract class InfluenceEffect{
     }
 
     public void decrementMovesRemaining() {
+
+
+
         movesRemaining--;
+    }
+
+    public void decreaseCommandAmount() {
+        // for each distance travelled, decrease command's strength by 5
+
+        int commandAmount = command.getAmount();
+
+        commandAmount -= 5;
+
+        if(commandAmount < 0) {
+            commandAmount = 0;
+        }
+
+        command.setAmount(commandAmount);
     }
 
     public SettableCommand getCommand() {

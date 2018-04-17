@@ -178,15 +178,15 @@ public class Level {
         return terrainLocations;
     }
 
-    public void disarmTrapFromEntity(Entity entity) {
+    public void disarmTrapFromEntity(Entity entity, int disarmStrength) {
         for(Point3D point : entityLocations.keySet()) {
             if(entityLocations.get(point).equals(entity)) {
-                disarmTrapsAtPoint(point);
+                disarmTrapsAtPoint(point, disarmStrength);
             }
         }
     }
 
-    private void disarmTrapsAtPoint(Point3D originPoint) {
+    private void disarmTrapsAtPoint(Point3D originPoint, int disarmStrength) {
         Point3D northPoint = Orientation.getAdjacentPoint(originPoint, Orientation.NORTH);
         Point3D northeastPoint = Orientation.getAdjacentPoint(originPoint, Orientation.NORTHEAST);
         Point3D northWestPoint = Orientation.getAdjacentPoint(originPoint, Orientation.NORTHWEST);
@@ -195,27 +195,27 @@ public class Level {
         Point3D southwestPoint = Orientation.getAdjacentPoint(originPoint, Orientation.SOUTHWEST);
 
         if(trapLocations.get(northPoint) != null) {
-            trapLocations.get(northPoint).disarm();
+            trapLocations.get(northPoint).disarm(entityLocations.get(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(northeastPoint) != null) {
-            trapLocations.get(northeastPoint).disarm();
+            trapLocations.get(northeastPoint).disarm(entityLocations.get(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(northWestPoint) != null) {
-            trapLocations.get(northWestPoint).disarm();
+            trapLocations.get(northWestPoint).disarm(entityLocations.get(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(southPoint) != null) {
-            trapLocations.get(southPoint).disarm();
+            trapLocations.get(southPoint).disarm(entityLocations.get(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(southeastPoint) != null) {
-            trapLocations.get(southeastPoint).disarm();
+            trapLocations.get(southeastPoint).disarm(entityLocations.get(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(southwestPoint) != null) {
-            trapLocations.get(southwestPoint).disarm();
+            trapLocations.get(southwestPoint).disarm(entityLocations.get(originPoint), disarmStrength);
         }
     }
 }

@@ -7,8 +7,6 @@ import Model.Level.LevelMessenger;
 
 public class DisarmTrapCommand extends LevelCommand implements SettableCommand {
 
-    // TODO: implement me better pls
-
     private Entity entity;
 
     int disarmStrength;
@@ -19,7 +17,7 @@ public class DisarmTrapCommand extends LevelCommand implements SettableCommand {
     }
 
     public void recieveLevel(Level level) {
-        level.disarmTrapFromEntity(entity);
+        level.disarmTrapFromEntity(entity, disarmStrength);
     }
 
     public void execute(Entity entity) {
@@ -28,7 +26,7 @@ public class DisarmTrapCommand extends LevelCommand implements SettableCommand {
     }
 
     public void setAmount(int amount) {
-        this.disarmStrength = amount; // TODO: make more complex formulas for disarmStrength calculations
+        this.disarmStrength = amount;
     }
 
     public int getAmount() {

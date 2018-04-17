@@ -272,6 +272,7 @@ public class Entity {
         for(Skill weaponSkill: weaponSkills) {
             if(!this.weaponSkills.contains(weaponSkill)) {
                 this.weaponSkills.add(weaponSkill);
+                addSkillsToMap(weaponSkills);
             }
         }
     }
@@ -280,6 +281,7 @@ public class Entity {
         for(Skill nonWeaponSkill: nonWeaponSkills) {
             if(!this.nonWeaponSkills.contains(nonWeaponSkill)) {
                 this.nonWeaponSkills.add(nonWeaponSkill);
+                addSkillsToMap(nonWeaponSkills);
             }
         }
     }

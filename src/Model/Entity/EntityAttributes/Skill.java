@@ -37,6 +37,14 @@ public class Skill {
         // TODO: figure out how to get skills to modify stats for stuff like trap disarm or pickpocket, etc.
         influenceEffect.setOrientation(callingEntity.getOrientation());
 
+        // for each skill level, get behaviors current value, add 10 to it
+        int skillLevel = callingEntity.getSkillLevel(this).getSkillLevel();
+
+        int behaviorAmount = behavior.getAmount();
+        behaviorAmount = behaviorAmount + skillLevel * 10;
+
+        behavior.setAmount(behaviorAmount);
+
         InfluenceEffect newInstance = influenceEffect.cloneInfluenceEffect();
         newInstance.setCommand(behavior);
 
