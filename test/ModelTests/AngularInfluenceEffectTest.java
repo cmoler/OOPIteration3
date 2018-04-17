@@ -2,6 +2,7 @@ package ModelTests;
 
 import Model.Command.Command;
 import Model.Command.EntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.AngularInfluenceEffect;
@@ -19,7 +20,7 @@ public class AngularInfluenceEffectTest {
 
     @Test
     public void AngularInfluenceEffectTest() {
-        Command damageCommand = new RemoveHealthCommand(15);
+        SettableCommand damageCommand = new RemoveHealthCommand(15);
 
         List<LevelViewElement> observers = new ArrayList<>();
 

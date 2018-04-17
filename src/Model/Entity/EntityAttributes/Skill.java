@@ -1,6 +1,7 @@
 package Model.Entity.EntityAttributes;
 
 import Model.Command.Command;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.LevelCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
@@ -9,7 +10,7 @@ public class Skill {
 
     private String name;
     private InfluenceEffect influenceEffect;
-    private Command behavior;
+    private SettableCommand behavior;
     private SendInfluenceEffectCommand sendInfluenceEffectCommand;
     private int accuracy;
     private int useCost;
@@ -22,7 +23,7 @@ public class Skill {
         useCost = 0;
     }
 
-    public Skill(String name, InfluenceEffect influenceEffect, Command behavior, SendInfluenceEffectCommand sendInfluenceEffectCommand,
+    public Skill(String name, InfluenceEffect influenceEffect, SettableCommand behavior, SendInfluenceEffectCommand sendInfluenceEffectCommand,
                  int accuracy, int useCost) {
         this.name = name;
         this.influenceEffect = influenceEffect;
@@ -47,7 +48,7 @@ public class Skill {
         this.influenceEffect = influence;
     }
 
-    public void setBehavior(Command command) {
+    public void setBehavior(SettableCommand command) {
         behavior = command;
     }
 }

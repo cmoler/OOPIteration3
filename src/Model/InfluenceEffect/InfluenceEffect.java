@@ -1,6 +1,7 @@
 package Model.InfluenceEffect;
 
 import Model.Command.Command;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
@@ -8,7 +9,7 @@ import javafx.geometry.Point3D;
 import java.util.ArrayList;
 
 public abstract class InfluenceEffect{
-    private Command command;
+    private SettableCommand command;
     private int movesRemaining;
     private long nextMoveTime;
     private long speed;
@@ -16,7 +17,7 @@ public abstract class InfluenceEffect{
     private int range;
 
 
-    public InfluenceEffect(Command command, int range, long speed, Orientation orientation) {
+    public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation) {
         this.command = command;
         this.movesRemaining = range;
         this.range = range;
@@ -26,7 +27,7 @@ public abstract class InfluenceEffect{
         this.orientation = orientation;
     }
 
-    public InfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+    public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining) {
         this.command = command;
         this.movesRemaining = movesRemaining;
         this.range = range;
@@ -76,11 +77,11 @@ public abstract class InfluenceEffect{
         movesRemaining--;
     }
 
-    public Command getCommand() {
+    public SettableCommand getCommand() {
         return command;
     }
 
-    public void setCommand(Command command) {
+    public void setCommand(SettableCommand command) {
         this.command = command;
     }
 }

@@ -6,6 +6,7 @@ import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
 import Model.Command.EntityCommand.AddHealthCommand;
 import Model.Command.EntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.LevelCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
@@ -75,7 +76,7 @@ public class LevelTests {
 
         Level level = new Level(observers);
 
-        Command damageCommand = new RemoveHealthCommand(15);
+        SettableCommand damageCommand = new RemoveHealthCommand(15);
 
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(damageCommand, 5, 5, Orientation.NORTH);
         Entity entity = new Entity();
@@ -228,8 +229,8 @@ public class LevelTests {
 
     @Test
     public void testInfluenceEffectCloningOnAttack() {
-        Command damageCommand = new RemoveHealthCommand(20);
-        Command damageCommand2 = new RemoveHealthCommand(40);
+        SettableCommand damageCommand = new RemoveHealthCommand(20);
+        SettableCommand damageCommand2 = new RemoveHealthCommand(40);
 
         List<LevelViewElement> observers = new ArrayList<>();
 

@@ -1,6 +1,7 @@
 package Model.InfluenceEffect;
 
 import Model.Command.Command;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
 
@@ -8,11 +9,11 @@ import java.util.ArrayList;
 
 public class AngularInfluenceEffect extends InfluenceEffect {
 
-    public AngularInfluenceEffect(Command command, int range, long speed, Orientation orientation) {
+    public AngularInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation) {
         super(command, range, speed, orientation);
     }
 
-    public AngularInfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+    public AngularInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining) {
         super(command, range, speed, orientation, movesRemaining);
     }
 

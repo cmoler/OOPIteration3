@@ -9,6 +9,7 @@ import Model.Command.EntityCommand.LevelUpCommand;
 import Model.Command.EntityCommand.SetAsSneakingCommand;
 import Model.Command.EntityCommand.AddHealthCommand;
 import Model.Command.EntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.ToggleableCommand.ToggleSpeedCommand;
@@ -179,15 +180,15 @@ public class GameLoader {
 
                         switch (influenceNode.getNodeName().toLowerCase()) {
                             case "angularinfluenceeffect":
-                                influencesToAdd.add(new AngularInfluenceEffect(command, range, speed, orientation, nextMoveTime));
+                                influencesToAdd.add(new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
                                 break;
 
                             case "linearinfluenceeffect":
-                                influencesToAdd.add(new LinearInfluenceEffect(command, range, speed, orientation, nextMoveTime));
+                                influencesToAdd.add(new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
                                 break;
 
                             case "radialinfluenceeffect":
-                                influencesToAdd.add(new RadialInfluenceEffect(command, range, speed, orientation, nextMoveTime));
+                                influencesToAdd.add(new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
                                 break;
                         }
                     }
