@@ -39,7 +39,6 @@ public class KeyBindingParser {
 
     private KeyCode parseKey(String fileName, String keyName) throws Exception {
         File entityKeyBindings = new File("resources/KeyBindings/" + fileName+ ".xml");
-
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = null;
         try {

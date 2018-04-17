@@ -1,14 +1,18 @@
 package Controller;
 
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Configs.Commons;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Level.Level;
+import Model.MenuModel.MainMenuState;
+import Model.MenuModel.MenuModel;
 import View.LevelView.EntityView;
 import View.LevelView.LevelViewElement;
 import View.LevelView.TerrainView;
+import View.MenuView.MenuView;
+import View.MenuView.TitleScreenView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 
@@ -45,13 +49,13 @@ public class RunGame extends Application{
         mainScene = new Scene(root);
         primaryStage.setScene( mainScene );
 
-        Canvas canvas = new Canvas(900, 500);
+        Canvas canvas = new Canvas(Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
         root.getChildren().add(canvas);
-
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         canvas.setFocusTraversable(true);
 
+        /*
         List<LevelViewElement> observers = new ArrayList<>();
         Level level = new Level(observers);
 
@@ -71,14 +75,29 @@ public class RunGame extends Application{
             }
         }
 
+*/
+        GameLoop gameLoop = new GameLoop();
+
+        MenuModel menuModel = new MenuModel(gameLoop);
+        gameLoop.getControls().createMenuSet(menuModel);
+        canvas.setOnKeyPressed(gameLoop.getControls());
+
+        menuModel.setActiveState(new MainMenuState(menuModel, gameLoop));
+        MenuView menuView = new MenuView();
+        menuView.setActiveState(new TitleScreenView(menuModel));
 
 
         new AnimationTimer() {
+            /*
             public void handle(long currentNanoTime) {
                 for(int i = 0; i < terrains.size(); i++) {
                     terrains.get(i).render(gc);
                 }
                 ev.render(gc);
+            }
+            */
+            public void handle(long currentNanoTime){
+                menuView.render(gc);
             }
         }.start();
 

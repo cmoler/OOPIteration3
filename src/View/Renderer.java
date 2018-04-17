@@ -1,6 +1,7 @@
 package View;
 
 import View.LevelView.LevelView;
+import View.MenuView.MenuView;
 import View.MenuView.TitleScreenView;
 import javafx.scene.canvas.GraphicsContext;
 

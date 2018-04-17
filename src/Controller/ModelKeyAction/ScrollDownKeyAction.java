@@ -14,6 +14,7 @@ public class ScrollDownKeyAction extends ModelKeyAction {
 
     @Override
     public void handle(KeyCode incomingKey) {
+        System.out.println(keyCode);
         if(incomingKey == keyCode){
             menuModel.scrollDown();
         }

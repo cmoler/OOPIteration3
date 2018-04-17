@@ -67,4 +67,8 @@ public class GameLoop {
     public void newGame(int i) {
 
     }
+
+    public KeyEventImplementor getControls() {
+        return controls;
+    }
 }
