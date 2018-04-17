@@ -2,9 +2,9 @@ package Model.MenuModel;
 
 import Controller.GameLoop;
 
-public class MainMenuState extends MenuState {
+public class LoadGameMenu extends MenuState {
 
-    public MainMenuState(MenuModel menuModel, GameLoop gameLoop) {
+    public LoadGameMenu(MenuModel menuModel, GameLoop gameLoop) {
         super(menuModel, gameLoop);
     }
 
@@ -19,16 +19,16 @@ public class MainMenuState extends MenuState {
     public void select() {
         switch (selectedUpDown){
             case 0:
-                menuModel.setActiveState(new NewGameMenu(menuModel, gameLoop));
+                gameLoop.loadGame(0);
                 break;
             case 1:
-                menuModel.setActiveState(new LoadGameMenu(menuModel, gameLoop));
+                gameLoop.loadGame(1);
                 break;
             case 2:
-                menuModel.setActiveState(new OptionsMenu(menuModel, gameLoop));
+                gameLoop.loadGame(2);
                 break;
             case 3:
-                System.exit(1);
+                gameLoop.loadGame(3);
                 break;
         }
     }

@@ -19,6 +19,8 @@ public class Entity {
 
     private List<LevelViewElement> observers;
 
+    private ItemHotBar hotBar;
+
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
     private int currentlySelectedSkill = 0;
@@ -52,6 +54,7 @@ public class Entity {
         skillLevelsMap = new HashMap<>();
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
+        hotBar = new ItemHotBar(this);
     }
 
     public boolean isMoveable() {
@@ -256,6 +259,10 @@ public class Entity {
         }
     }
 
+    public HashMap<Skill, SkillLevel> getSkillLevelsMap() {
+        return skillLevelsMap;
+    }
+
     public boolean hasSkill(Skill hostSkill) {
         return skillLevelsMap.containsKey(hostSkill);
     }
@@ -292,6 +299,14 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
+    }
+
+    public void addItemToHotBar(TakeableItem takeableItem, int index){
+        hotBar.addItem(takeableItem, index);
+    }
+
+    public void useHotBar(int index){
+        hotBar.use(index);
     }
 
     public void useSkill(int index){
@@ -332,6 +347,26 @@ public class Entity {
         this.noiseLevel = noiseLevel;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setSkillLevels(HashMap<Skill, SkillLevel> skillLevels) {
+        this.skillLevelsMap = skillLevels;
+    }
+
+    public void addGold(int price) {
+        gold.increaseGold(price);
+    }
+
+    public void removeGold(int price) {
+        gold.decreaseGold(price);
+    }
+
+    public int getGold() {
+        return gold.getGoldAmount();
+    }
+
     public TakeableItem takeRandomItemFromInventory() {
         return inventory.takeRandomItem();
     }
@@ -370,5 +405,17 @@ public class Entity {
 
     public int getCurrentGold() {
         return gold.getGold();
+    }
+
+    public SightRadius getSightRadius() {
+        return sightRadius;
+    }
+
+    public void setSightRadius(SightRadius sightRadius) {
+        this.sightRadius = sightRadius;
+    }
+
+    public int getSight(){
+        return sightRadius.getSight();
     }
 }

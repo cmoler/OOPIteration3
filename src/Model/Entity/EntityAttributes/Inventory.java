@@ -45,6 +45,16 @@ public class Inventory {
         maxSize += increase;
     }
 
+    public int size() {
+        return inventory.size();
+    }
+
+    public TakeableItem getItem(int selectedItem) {
+        if(inventory.size() < selectedItem - 1 && selectedItem > 0)
+            return inventory.get(selectedItem);
+        return null;
+    }
+
     public TakeableItem takeRandomItem() {
         Random random = new Random();
 

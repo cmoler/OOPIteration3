@@ -13,8 +13,8 @@ public class Controller {
     private List<ModelKeyAction> keyActionSet;
     private ControllerSetFactory controllerSetFactory;
 
-    public Controller(){
-        this.controllerSetFactory = new ControllerSetFactory(this);
+    public Controller(GameLoop gameLoop){
+        this.controllerSetFactory = new ControllerSetFactory(this, gameLoop);
     }
 
     public void triggerActionOnKeycode(KeyCode keyCode){
@@ -31,11 +31,15 @@ public class Controller {
         return controllerSetFactory;
     }
 
-    public void createTradeSet(MenuModel menuModel) {
-        controllerSetFactory.createTradeSet(menuModel);
+    public void createMenuSet(MenuModel menuModel){
+        controllerSetFactory.createMenuSet(menuModel);
     }
 
-    public void createPlayerControlsSet(Entity player){
-        controllerSetFactory.createPlayerControlsSet(player);
+    public void createTradeSet(MenuModel menuModel, Entity player, Entity npc) {
+        controllerSetFactory.createTradeSet(menuModel, player, npc);
+    }
+
+    public void createPlayerControlsSet(Entity player, MenuModel menuModel){
+        controllerSetFactory.createPlayerControlsSet(player, menuModel);
     }
 }
