@@ -13,10 +13,13 @@ import com.sun.javafx.geom.Vec3d;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Entity {
 
     private List<LevelViewElement> observers;
+
+    private ItemHotBar hotBar;
 
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
@@ -37,7 +40,6 @@ public class Entity {
     private Inventory inventory;
     private Orientation orientation;
     private List<Terrain> compatableTerrain;
-    private boolean sneaking;
     private boolean moveable;
     private Mount mount;
 
@@ -53,6 +55,7 @@ public class Entity {
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
         observers = new ArrayList<>();
+        hotBar = new ItemHotBar(this);
     }
 
     public boolean isMoveable() {
@@ -261,6 +264,10 @@ public class Entity {
         }
     }
 
+    public HashMap<Skill, SkillLevel> getSkillLevelsMap() {
+        return skillLevelsMap;
+    }
+
     public boolean hasSkill(Skill hostSkill) {
         return skillLevelsMap.containsKey(hostSkill);
     }
@@ -277,6 +284,7 @@ public class Entity {
         for(Skill weaponSkill: weaponSkills) {
             if(!this.weaponSkills.contains(weaponSkill)) {
                 this.weaponSkills.add(weaponSkill);
+                addSkillsToMap(weaponSkills);
             }
         }
     }
@@ -285,6 +293,7 @@ public class Entity {
         for(Skill nonWeaponSkill: nonWeaponSkills) {
             if(!this.nonWeaponSkills.contains(nonWeaponSkill)) {
                 this.nonWeaponSkills.add(nonWeaponSkill);
+                addSkillsToMap(nonWeaponSkills);
             }
         }
     }
@@ -295,6 +304,14 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
+    }
+
+    public void addItemToHotBar(TakeableItem takeableItem, int index){
+        hotBar.addItem(takeableItem, index);
+    }
+
+    public void useHotBar(int index){
+        hotBar.use(index);
     }
 
     public void useSkill(int index){
@@ -318,9 +335,9 @@ public class Entity {
         else currentlySelectedSkill ++;
     }
 
-    public SkillLevel getSkillLevel(Skill weaponSkill) {
-        if (skillLevelsMap.containsKey(weaponSkill)) {
-            return skillLevelsMap.get(weaponSkill);
+    public SkillLevel getSkillLevel(Skill skill) {
+        if (skillLevelsMap.containsKey(skill)) {
+            return skillLevelsMap.get(skill);
         }
 
         else
@@ -333,5 +350,77 @@ public class Entity {
 
     public void setNoiseLevel(NoiseLevel noiseLevel) {
         this.noiseLevel = noiseLevel;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setSkillLevels(HashMap<Skill, SkillLevel> skillLevels) {
+        this.skillLevelsMap = skillLevels;
+    }
+
+    public void addGold(int price) {
+        gold.increaseGold(price);
+    }
+
+    public void removeGold(int price) {
+        gold.decreaseGold(price);
+    }
+
+    public int getGold() {
+        return gold.getGoldAmount();
+    }
+
+    public TakeableItem takeRandomItemFromInventory() {
+        return inventory.takeRandomItem();
+    }
+
+    public String getRandomFacts(int observeStrength) { // TODO: make more complex random-ness for observe
+        Random random = new Random();
+
+        int randomAttribute = random.nextInt(5);
+
+        int error = 100 - observeStrength;
+
+        if(error < 0) {
+            error = 0;
+        }
+
+        switch (randomAttribute) {
+            case 0:
+                int currHPGuess = getCurrentHealth() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Current HP: " + currHPGuess;
+            case 1:
+                int manaGuess = getCurrentMana() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Current Mana: " + manaGuess;
+            case 2:
+                int goldGuess = getCurrentGold() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Current Gold: " + goldGuess;
+            case 3:
+                int maxHPGuess = getMaxHealth() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Max HP: " + maxHPGuess;
+            default: return "Nothing to report!";
+        }
+    }
+
+    public int getCurrentMana() {
+        return mana.getCurrentMana();
+    }
+
+    public int getCurrentGold() {
+        return gold.getGold();
+    }
+
+    public SightRadius getSightRadius() {
+        return sightRadius;
+    }
+
+    public void setSightRadius(SightRadius sightRadius) {
+        this.sightRadius = sightRadius;
+    }
+
+    public int getSight(){
+        return sightRadius.getSight();
     }
 }

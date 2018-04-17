@@ -34,4 +34,8 @@ public class Mana {
             manaPoints -= amount;
         }
     }
+
+    public int getCurrentMana() {
+        return manaPoints;
+    }
 }

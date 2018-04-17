@@ -1,16 +1,15 @@
 package Model.InfluenceEffect;
 
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableEntityCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public abstract class InfluenceEffect{
-    private Command command;
+    private SettableCommand command;
     private int movesRemaining;
     private long nextMoveTime;
     private long speed;
@@ -18,7 +17,7 @@ public abstract class InfluenceEffect{
     private int range;
 
 
-    public InfluenceEffect(Command command, int range, long speed, Orientation orientation) {
+    public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation) {
         this.command = command;
         this.movesRemaining = range;
         this.range = range;
@@ -28,7 +27,7 @@ public abstract class InfluenceEffect{
         this.orientation = orientation;
     }
 
-    public InfluenceEffect(Command command, int range, long speed, Orientation orientation, int movesRemaining) {
+    public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining) {
         this.command = command;
         this.movesRemaining = movesRemaining;
         this.range = range;
@@ -42,7 +41,6 @@ public abstract class InfluenceEffect{
 
     public abstract InfluenceEffect cloneInfluenceEffect();
 
-    //Passes entity into command
     public void hitEntity(Entity entity) {
         command.execute(entity);
     }
@@ -76,14 +74,31 @@ public abstract class InfluenceEffect{
     }
 
     public void decrementMovesRemaining() {
+
+
+
         movesRemaining--;
     }
 
-    public Command getCommand() {
+    public void decreaseCommandAmount() {
+        // for each distance travelled, decrease command's strength by 5
+
+        int commandAmount = command.getAmount();
+
+        commandAmount -= 5;
+
+        if(commandAmount < 0) {
+            commandAmount = 0;
+        }
+
+        command.setAmount(commandAmount);
+    }
+
+    public SettableCommand getCommand() {
         return command;
     }
 
-    public void setCommand(Command command) {
+    public void setCommand(SettableCommand command) {
         this.command = command;
     }
 }

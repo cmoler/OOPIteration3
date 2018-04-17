@@ -21,7 +21,7 @@ public class GameLoop {
 
     public GameLoop() {
         //TODO: Add loading logic
-        controls = new KeyEventImplementor();
+        controls = new KeyEventImplementor(this);
         loopTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -30,20 +30,22 @@ public class GameLoop {
         };
     }
 
-    public void receiveGameLoopCommand(GameLoopCommand command) {
-        command.receiveGameLoop(this);
+    public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
+        // TODO: implement
+        if(playerEntity == null || receivingEntity == null) {
+            // do nothing if either entity is null
+        }
     }
 
-    public void openBarterWindow(Entity player, Entity npcTradingWith) {
-
+    public void openDialogWindow(Entity playerEntity, Entity receivingEntity) {
+        // TODO: implement
+        if(playerEntity == null || receivingEntity == null) {
+            // do nothing if either entity is null
+        }
     }
 
-    public void openDialogWindow(Entity entity) {
-
-    }
-
-    public void createObservationWindow(Entity entity) {
-
+    public void createObservationWindow(String randomEntityFacts) {
+        // TODO: implement
     }
 
     public void startTimer() {
@@ -52,5 +54,17 @@ public class GameLoop {
 
     public void pauseTimer() {
         loopTimer.stop();
+    }
+
+    public void loadGame(int i) {
+
+    }
+
+    public void saveGame(int i) {
+
+    }
+
+    public void newGame(int i) {
+
     }
 }

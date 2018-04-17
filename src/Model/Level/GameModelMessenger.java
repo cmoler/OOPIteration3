@@ -15,10 +15,12 @@ public class GameModelMessenger {
     }
 
     public void sendCommandToGameLoop(GameLoopCommand command) {
+        command.receiveGameModel(gameModel);
+
         gameLoopMessenger.sendCommandToGameLoop(command);
     }
 
     public void sendCommandToGameModel(GameModelCommand command) {
-        gameModel.receiveGameModelCommand(command);
+        command.receiveGameModel(gameModel);
     }
 }

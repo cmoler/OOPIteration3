@@ -15,6 +15,10 @@ public class Gold {
         this.maxGold = maxGold;
     }
 
+    public int getGoldAmount(){
+        return goldAmount;
+    }
+
     public void increaseGold(int amount) {
         if(goldAmount + amount > maxGold) {
             goldAmount = maxGold;
@@ -33,5 +37,9 @@ public class Gold {
         else {
             goldAmount -= amount;
         }
+    }
+
+    public int getGold() {
+        return goldAmount;
     }
 }

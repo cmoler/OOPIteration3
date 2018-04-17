@@ -3,7 +3,6 @@ package Model.Level;
 import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Command.LevelCommand.LevelCommand;
-import Model.Command.LevelCommand.SendInfluenceEffectCommand;
 
 public class LevelMessenger {
 
@@ -20,14 +19,18 @@ public class LevelMessenger {
     }
 
     public void sendCommandToGameLoop(GameLoopCommand command) {
+        command.receiveLevel(level);
+
         gameModelMessenger.sendCommandToGameLoop(command);
     }
 
     public void sendCommandToGameModel(GameModelCommand command) {
+        command.receiveLevel(level);
+
         gameModelMessenger.sendCommandToGameModel(command);
     }
 
     public void sendCommandToLevel(LevelCommand levelCommand) {
-        levelCommand.recieveLevel(level);
+        levelCommand.receiveLevel(level);
     }
 }

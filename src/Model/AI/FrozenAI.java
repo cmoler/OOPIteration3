@@ -11,16 +11,17 @@ import java.util.Map;
 public class FrozenAI extends AIState {
 
     private long startTime;
-    private long duration = 7000;
+    private long duration;
     private AIController controller;
     private AIState previousState;
     private int currentTick = 0;
 
-    public FrozenAI(Entity entity, AIController controller, AIState aiState){
+    public FrozenAI(Entity entity, AIController controller, AIState aiState, long duration){
         super(entity);
         startTime = System.currentTimeMillis();
         this.controller = controller;
         previousState = aiState;
+        this.duration = duration;
     }
 
 

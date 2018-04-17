@@ -76,6 +76,7 @@ public class MovementHandler {
 
                 for (Point3D newPoint : nextEffectPoints) {
                     influenceEffectLocations.put(newPoint, influenceEffect); // put influence effect at its new position
+                    influenceEffect.decreaseCommandAmount();
                 }
             }
         }

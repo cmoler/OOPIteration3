@@ -8,6 +8,12 @@ import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.InteractiveItem;
+import Model.Item.Item;
+import Model.Item.OneShotItem;
+import Model.Item.TakeableItem.ArmorItem;
+import Model.Item.TakeableItem.ConsumableItem;
+import Model.Item.TakeableItem.RingItem;
 import Model.Level.Level;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
@@ -82,5 +88,19 @@ public class GameLoaderTests {
 
         assertTrue(testedObstacles.size() == 1);
         assertTrue(testedObstacles.get(new Point3D(0,0,0)) instanceof Obstacle);
+    }
+
+    @Test
+    public void testItemsLoad() throws ParserConfigurationException, SAXException, IOException {
+        gameLoader.loadGame(fileName);
+        Level level = gameLoader.getCurrentLevel();
+        Map<Point3D, Item> testedItems = level.getItemLocations();
+
+        assertTrue(testedItems.size() == 5);
+        assertTrue(testedItems.get(new Point3D(0,0,0)) instanceof RingItem);
+        assertTrue(testedItems.get(new Point3D(0,0,1)) instanceof ArmorItem);
+        assertTrue(testedItems.get(new Point3D(0,0,2)) instanceof ConsumableItem);
+        assertTrue(testedItems.get(new Point3D(0,0,3)) instanceof OneShotItem);
+        assertTrue(testedItems.get(new Point3D(0,0,4)) instanceof InteractiveItem);
     }
 }
