@@ -1,6 +1,7 @@
 package Model.Command.EntityCommand.SettableCommand;
 
 import Controller.GameLoop;
+import Controller.Visitor.SavingVisitor;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Entity.Entity;
@@ -50,5 +51,10 @@ public class BarterCommand extends GameLoopCommand implements SettableCommand {
 
     public int getAmount() {
         return playerBarterStrength;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitBarterCommand(this);
     }
 }

@@ -1,5 +1,8 @@
 package Model.Level;
 
+import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitable;
+import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
@@ -11,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class GameModel {
+public class GameModel implements Visitable {
 
     private Level currentLevel;
     private LevelMessenger currentLevelMessenger;
@@ -61,6 +64,17 @@ public class GameModel {
 
     public boolean entityIsPlayer(Entity entity) {
         return entity.equals(player);
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitLevel(currentLevel);
+
+        for(Level level: levels) {
+            visitor.visitLevel(level);
+        }
+
+        visitor.visitEntity(player);
     }
 
     private class TeleportTuple {

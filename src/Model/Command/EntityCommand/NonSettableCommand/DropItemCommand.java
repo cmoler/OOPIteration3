@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.NonSettableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.LevelCommand.LevelCommand;
@@ -32,6 +33,11 @@ public class DropItemCommand extends LevelCommand implements Command {
         this.entity = entity;
 
         sendCommandToLevel();
+    }
+
+    @Override
+    public void accept(SavingVisitor savingVisitor) {
+        savingVisitor.visitDropItemCommand(this);
     }
 
     public void setItem(TakeableItem item) {
