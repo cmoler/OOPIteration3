@@ -1,5 +1,6 @@
 package Model.MenuModel;
 
+import Controller.GameLoop;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
 
@@ -7,8 +8,8 @@ public class AssignItemMenu extends InGameMenuState {
 
     private TakeableItem takeableItem;
 
-    public AssignItemMenu(MenuModel menuModel, Entity player, TakeableItem takeableItem) {
-        super(menuModel, player);
+    public AssignItemMenu(MenuModel menuModel, Entity player, GameLoop gameLoop, TakeableItem takeableItem) {
+        super(menuModel, player, gameLoop);
         this.takeableItem = takeableItem;
     }
 
@@ -22,6 +23,6 @@ public class AssignItemMenu extends InGameMenuState {
     @Override
     public void select() {
         player.addItemToHotBar(takeableItem, selectedLeftRight);
-        menuModel.setActiveState(new InventoryMenu(menuModel, player));
+        menuModel.setActiveState(new InventoryMenu(menuModel, player, gameLoop));
     }
 }

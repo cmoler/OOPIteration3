@@ -1,11 +1,13 @@
 package Model.MenuModel;
 
+import Controller.GameLoop;
+
 public class MenuModel {
 
     private MenuState currentState;
 
-    public MenuModel(){
-        this.currentState = new MainMenuState(this);
+    public MenuModel(GameLoop gameLoop){
+        this.currentState = new MainMenuState(this, gameLoop);
     }
 
     public void setActiveState(MenuState menuState){

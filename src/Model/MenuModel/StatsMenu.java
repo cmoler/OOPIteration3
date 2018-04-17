@@ -1,11 +1,12 @@
 package Model.MenuModel;
 
+import Controller.GameLoop;
 import Model.Entity.Entity;
 
 public class StatsMenu extends InGameMenuState {
 
-    public StatsMenu(MenuModel menuModel, Entity player) {
-        super(menuModel, player);
+    public StatsMenu(MenuModel menuModel, Entity player, GameLoop gameLoop) {
+        super(menuModel, player, gameLoop);
     }
 
     @Override
@@ -19,16 +20,16 @@ public class StatsMenu extends InGameMenuState {
     public void select() {
         switch (selectedUpDown){
             case 0:
-                menuModel.setActiveState(new InventoryMenu(menuModel, player));
+                menuModel.setActiveState(new InventoryMenu(menuModel, player, gameLoop));
                 break;
             case 1:
-                menuModel.setActiveState(new StatsMenu(menuModel, player));
+                menuModel.setActiveState(new StatsMenu(menuModel, player, gameLoop));
                 break;
             case 2:
-                menuModel.setActiveState(new LevelUpMenu(menuModel, player));
+                menuModel.setActiveState(new LevelUpMenu(menuModel, player, gameLoop));
                 break;
             case 3:
-                menuModel.setActiveState(new ExitGameMenu(menuModel, player));
+                menuModel.setActiveState(new ExitGameMenu(menuModel, player, gameLoop));
                 break;
         }
     }

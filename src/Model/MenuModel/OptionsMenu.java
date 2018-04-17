@@ -1,9 +1,11 @@
 package Model.MenuModel;
 
+import Controller.GameLoop;
+
 public class OptionsMenu extends MenuState {
 
-    public OptionsMenu(MenuModel menuModel) {
-        super(menuModel);
+    public OptionsMenu(MenuModel menuModel, GameLoop gameLoop) {
+        super(menuModel, gameLoop);
     }
 
     @Override

@@ -1,11 +1,12 @@
 package Model.MenuModel;
 
+import Controller.GameLoop;
 import Model.Entity.Entity;
 
 public class ExitGameMenu extends InGameMenuState {
 
-    public ExitGameMenu(MenuModel menuModel, Entity player) {
-        super(menuModel, player);
+    public ExitGameMenu(MenuModel menuModel, Entity player, GameLoop gameLoop) {
+        super(menuModel, player, gameLoop);
     }
 
     @Override
@@ -19,10 +20,10 @@ public class ExitGameMenu extends InGameMenuState {
     public void select() {
         switch (selectedLeftRight){
             case 0:
-                menuModel.setActiveState(new MainMenuState(menuModel));
+                menuModel.setActiveState(new MainMenuState(menuModel, gameLoop));
                 break;
             case 1:
-                menuModel.setActiveState(new InGameMainMenu(menuModel, player));
+                menuModel.setActiveState(new InGameMainMenu(menuModel, player, gameLoop));
                 break;
             case 2:
                 System.exit(1);

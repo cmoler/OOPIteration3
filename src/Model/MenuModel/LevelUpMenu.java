@@ -1,5 +1,6 @@
 package Model.MenuModel;
 
+import Controller.GameLoop;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.Entity.EntityAttributes.SkillLevel;
@@ -12,8 +13,8 @@ public class LevelUpMenu extends InGameMenuState {
 
     private HashMap<Skill, SkillLevel> playersSkills;
 
-    public LevelUpMenu(MenuModel menuModel, Entity player) {
-        super(menuModel, player);
+    public LevelUpMenu(MenuModel menuModel, Entity player, GameLoop gameLoop) {
+        super(menuModel, player, gameLoop);
         playersSkills = (HashMap<Skill, SkillLevel>) player.getSkillLevelsMap().clone();
     }
 
@@ -76,16 +77,16 @@ public class LevelUpMenu extends InGameMenuState {
     private void menuSelection(){
         switch (selectedUpDown){
             case 0:
-                menuModel.setActiveState(new InventoryMenu(menuModel, player));
+                menuModel.setActiveState(new InventoryMenu(menuModel, player, gameLoop));
                 break;
             case 1:
-                menuModel.setActiveState(new StatsMenu(menuModel, player));
+                menuModel.setActiveState(new StatsMenu(menuModel, player, gameLoop));
                 break;
             case 2:
-                menuModel.setActiveState(new LevelUpMenu(menuModel, player));
+                menuModel.setActiveState(new LevelUpMenu(menuModel, player, gameLoop));
                 break;
             case 3:
-                menuModel.setActiveState(new ExitGameMenu(menuModel, player));
+                menuModel.setActiveState(new ExitGameMenu(menuModel, player, gameLoop));
                 break;
         }
     }

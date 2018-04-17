@@ -1,6 +1,7 @@
 package Controller.Factories;
 
 import Controller.Controller;
+import Controller.GameLoop;
 import Controller.ModelKeyAction.*;
 import Model.Entity.Entity;
 import Model.MenuModel.MenuModel;
@@ -9,10 +10,13 @@ import java.util.ArrayList;
 
 public class ControllerSetFactory {
 
-    Controller controller;
-    KeyBindingParser keyBindingParser;
-    public ControllerSetFactory(Controller controller){
+    private Controller controller;
+    private KeyBindingParser keyBindingParser;
+    private GameLoop gameLoop;
+
+    public ControllerSetFactory(Controller controller, GameLoop gameLoop){
         this.controller = controller;
+        this.gameLoop = gameLoop;
         keyBindingParser = new KeyBindingParser();
     }
 
@@ -43,7 +47,7 @@ public class ControllerSetFactory {
     public void createPlayerControlsSet(Entity player, MenuModel menuModel) {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
-        newKeySet.add(new OpenMenuKeyAction(keyBindingParser.parseMenuKey("openMenu"), player, menuModel));
+        newKeySet.add(new OpenMenuKeyAction(keyBindingParser.parseMenuKey("openMenu"), player, menuModel, gameLoop));
 
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
 

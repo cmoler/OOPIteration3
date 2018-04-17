@@ -13,8 +13,8 @@ public class Controller {
     private List<ModelKeyAction> keyActionSet;
     private ControllerSetFactory controllerSetFactory;
 
-    public Controller(){
-        this.controllerSetFactory = new ControllerSetFactory(this);
+    public Controller(GameLoop gameLoop){
+        this.controllerSetFactory = new ControllerSetFactory(this, gameLoop);
     }
 
     public void triggerActionOnKeycode(KeyCode keyCode){

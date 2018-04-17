@@ -1,5 +1,6 @@
 package Model.MenuModel;
 
+import Controller.GameLoop;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Inventory;
 import Model.Item.TakeableItem.TakeableItem;
@@ -9,8 +10,8 @@ public class InventoryMenu extends InGameMenuState {
     private Inventory inventory;
     private int selectedItem = 0;
 
-    public InventoryMenu(MenuModel menuModel, Entity player) {
-        super(menuModel, player);
+    public InventoryMenu(MenuModel menuModel, Entity player, GameLoop gameLoop) {
+        super(menuModel, player, gameLoop);
         this.inventory = player.getInventory();
     }
 
@@ -50,16 +51,16 @@ public class InventoryMenu extends InGameMenuState {
     private void menuPart(){
         switch (selectedUpDown){
             case 0:
-                menuModel.setActiveState(new InventoryMenu(menuModel, player));
+                menuModel.setActiveState(new InventoryMenu(menuModel, player, gameLoop));
                 break;
             case 1:
-                menuModel.setActiveState(new StatsMenu(menuModel, player));
+                menuModel.setActiveState(new StatsMenu(menuModel, player, gameLoop));
                 break;
             case 2:
-                menuModel.setActiveState(new LevelUpMenu(menuModel, player));
+                menuModel.setActiveState(new LevelUpMenu(menuModel, player, gameLoop));
                 break;
             case 3:
-                menuModel.setActiveState(new ExitGameMenu(menuModel, player));
+                menuModel.setActiveState(new ExitGameMenu(menuModel, player, gameLoop));
                 break;
         }
     }
@@ -76,7 +77,7 @@ public class InventoryMenu extends InGameMenuState {
                 itemManipulating.select();
                 break;
             case 1:
-                menuModel.setActiveState(new AssignItemMenu(menuModel, player, itemManipulating));
+                menuModel.setActiveState(new AssignItemMenu(menuModel, player, gameLoop, itemManipulating));
                 break;
             case 2:
                 itemManipulating.dropItem();

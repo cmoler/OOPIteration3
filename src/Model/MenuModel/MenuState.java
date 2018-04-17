@@ -1,13 +1,17 @@
 package Model.MenuModel;
 
+import Controller.GameLoop;
+
 public abstract class MenuState {
 
     protected int selectedLeftRight = 0;
     protected int selectedUpDown = 0;
     protected MenuModel menuModel;
+    protected GameLoop gameLoop;
 
-    public MenuState(MenuModel menuModel) {
+    public MenuState(MenuModel menuModel, GameLoop gameLoop) {
         this.menuModel = menuModel;
+        this.gameLoop = gameLoop;
     }
 
 
