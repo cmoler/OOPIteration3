@@ -41,7 +41,6 @@ public class EntityAttackTests {
                 new LinearInfluenceEffect(new RemoveHealthCommand(10), 1,0, entity.getOrientation()), 10,
                 10, 10, 10, 0);
 
-        entity.addSkillsToMap(swordSkill);
         entity.addWeaponSkills(swordSkill);
         entity.equipWeapon(sword);
         entity.attack();

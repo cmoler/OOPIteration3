@@ -70,13 +70,13 @@ public class MovementHandler {
             InfluenceEffect influenceEffect = influenceEffectLocations.get(oldPoint); // Get current influence effect
 
             List<Point3D> nextEffectPoints = influenceEffect.nextMove(oldPoint); // Get list of points to move effect to
+            influenceEffect.decreaseCommandAmount();
 
             if (!nextEffectPoints.isEmpty()) {
                 influenceEffectLocations.remove(oldPoint, influenceEffect); // remove all old positions of the influence effect
 
                 for (Point3D newPoint : nextEffectPoints) {
                     influenceEffectLocations.put(newPoint, influenceEffect); // put influence effect at its new position
-                    influenceEffect.decreaseCommandAmount();
                 }
             }
         }

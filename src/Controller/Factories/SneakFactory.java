@@ -11,15 +11,6 @@ public class SneakFactory extends EntityFactory{
     @Override
     public Entity buildEntity() {
         Entity sneak = new Entity();
-        sneak.addSkillsToMap(
-                getSkillsFactory().getBargainSkill(),
-                getSkillsFactory().getObserveSkill(),
-                getSkillsFactory().getBindWounds(),
-                getSkillsFactory().getPickpocket(),
-                getSkillsFactory().getSneakSkill(),
-                getSkillsFactory().DisarmTrapSkill(),
-                getSkillsFactory().getRangeSkill()
-        );
 
         sneak.addWeaponSkills(getSkillsFactory().getRangeSkill());
 

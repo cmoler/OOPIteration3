@@ -74,9 +74,6 @@ public abstract class InfluenceEffect{
     }
 
     public void decrementMovesRemaining() {
-
-
-
         movesRemaining--;
     }
 

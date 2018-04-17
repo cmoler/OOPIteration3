@@ -12,7 +12,7 @@ public class Inventory {
     private int maxSize;
 
     public Inventory() {
-        inventory = new ArrayList<>();
+        inventory = new ArrayList<>(10);
         maxSize = 10;
     }
 
@@ -62,14 +62,12 @@ public class Inventory {
             return null;
         }
 
-        TakeableItem item;
+        int randomSlot = random.nextInt(inventory.size());
 
-        int randomSlot = random.nextInt(maxSize);
+        TakeableItem item = inventory.get(randomSlot);
 
-        while(inventory.get(randomSlot) == null) {
-            randomSlot = random.nextInt(maxSize);
-        }
+        inventory.remove(randomSlot);
 
-        return inventory.get(randomSlot);
+        return item;
     }
 }

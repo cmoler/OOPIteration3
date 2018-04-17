@@ -267,19 +267,11 @@ public class Entity {
         return skillLevelsMap.containsKey(hostSkill);
     }
 
-    public void addSkillsToMap(Skill... skill) {
-        for(Skill addingSkill: skill) {
-            if (!skillLevelsMap.containsKey(addingSkill)) {
-                skillLevelsMap.put(addingSkill, new SkillLevel(1));
-            }
-        }
-    }
-
     public void addWeaponSkills(Skill... weaponSkills) {
         for(Skill weaponSkill: weaponSkills) {
             if(!this.weaponSkills.contains(weaponSkill)) {
                 this.weaponSkills.add(weaponSkill);
-                addSkillsToMap(weaponSkills);
+                assignStartingLevelToSkill(weaponSkill);
             }
         }
     }
@@ -288,8 +280,27 @@ public class Entity {
         for(Skill nonWeaponSkill: nonWeaponSkills) {
             if(!this.nonWeaponSkills.contains(nonWeaponSkill)) {
                 this.nonWeaponSkills.add(nonWeaponSkill);
-                addSkillsToMap(nonWeaponSkills);
+                assignStartingLevelToSkill(nonWeaponSkill);
             }
+        }
+    }
+
+    private void assignStartingLevelToSkill(Skill skill) {
+        if (!skillLevelsMap.containsKey(skill)) {
+            skillLevelsMap.put(skill, new SkillLevel(1));
+        }
+    }
+
+    public int getSkillLevel(Skill skill) {
+        if (skillLevelsMap.containsKey(skill)) {
+            return skillLevelsMap.get(skill).getSkillLevel();
+        } else
+            return 0;
+    }
+
+    public void setSkillLevel(Skill skill, int skillLevel) {
+        if (skillLevelsMap.containsKey(skill)) {
+            skillLevelsMap.get(skill).setSkillLevel(skillLevel);
         }
     }
 
@@ -328,15 +339,6 @@ public class Entity {
     public void scrollRight(){
         if(currentlySelectedSkill >= nonWeaponSkills.size() - 1) currentlySelectedSkill = 0;
         else currentlySelectedSkill ++;
-    }
-
-    public SkillLevel getSkillLevel(Skill skill) {
-        if (skillLevelsMap.containsKey(skill)) {
-            return skillLevelsMap.get(skill);
-        }
-
-        else
-            return null;
     }
 
     public boolean hasFreeSpaceInInventory() {

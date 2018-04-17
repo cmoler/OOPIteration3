@@ -15,8 +15,6 @@ import java.util.List;
 
 public class RadialInfluenceEffectTest {
 
-    // TODO: test for disarming trap
-
     @Test
     public void RadialInfluenceEffectTest() {
         SettableCommand damageCommand = new RemoveHealthCommand(15);

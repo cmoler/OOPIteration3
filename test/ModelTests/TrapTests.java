@@ -13,8 +13,6 @@ import java.util.List;
 
 public class TrapTests {
 
-    // TODO: test for disarming trap
-
     @Test
     public void testTrapFiring() {
         Command damageCommand = new RemoveHealthCommand(15);

@@ -15,8 +15,6 @@ import java.util.List;
 
 public class AngularInfluenceEffectTest {
 
-    // TODO: test for disarming trap
-
     @Test
     public void AngularInfluenceEffectTest() {
         SettableCommand damageCommand = new RemoveHealthCommand(15);
