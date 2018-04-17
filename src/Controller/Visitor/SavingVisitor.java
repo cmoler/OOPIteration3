@@ -17,7 +17,10 @@ import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneak
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Equipment;
 import Model.Entity.EntityAttributes.Inventory;
+import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
+import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.Item;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
@@ -28,8 +31,10 @@ import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class SavingVisitor implements Visitor {
@@ -38,6 +43,10 @@ public class SavingVisitor implements Visitor {
     private Document savedDocument;
     private BufferedWriter writer;
     private StringBuffer valueNode = new StringBuffer("<VALUE>");
+    private StringBuffer currentLevel = new StringBuffer("<CURRENTLEVEL>");
+    private StringBuffer levelString = new StringBuffer("<LEVEL>");
+    private StringBuffer levelList = new StringBuffer("<LEVELLIST>");
+    private StringBuffer gameModelString = new StringBuffer("<GAMEMODEL>\n");
 
     public SavingVisitor(String fileName) throws IOException {
         savedText = new StringBuffer();
@@ -117,15 +126,51 @@ public class SavingVisitor implements Visitor {
         return levelMapOpen;
     }
 
+    private StringBuffer processInfluenceEffects(Map<Point3D, InfluenceEffect> influenceEffectLocations) {
+        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"INFLUENCEEFFECTS\">");
+        StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
+
+        for(Map.Entry<Point3D, InfluenceEffect> entry: influenceEffectLocations.entrySet()) {
+            StringBuffer key = new StringBuffer("<KEY key=");
+
+            key.append("\"");
+            key.append(keyToString(entry.getKey()));
+            key.append("\"");
+            key.append("/>");
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+            levelMapOpen.append(key);
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+
+            entry.getValue().accept(this);
+
+            this.valueNode.append("</VALUE>");
+            levelMapOpen.append(this.valueNode);
+            this.valueNode = new StringBuffer("<VALUE>");
+        }
+
+        levelMapOpen.append("\n");
+        levelMapOpen.append(levelMapClosed);
+        return levelMapOpen;
+    }
+
     @Override
     public void visitGameModel(GameModel gameModel) {
-        gameModel.accept(this);
+        try {
+            writer.write(gameModelString.toString());
+            gameModel.accept(this);
+            writer.write("</GAMEMODEL>");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void visitLevel(Level level) {
-        StringBuffer levelString = new StringBuffer("<LEVEL>");
-
         Map<Point3D, Terrain> terrainLocations = level.getTerrainLocations();
         Map<Point3D, Item> itemLocations = level.getItemLocations();
         Map<Point3D, Obstacle> obstacleLocations = level.getObstacleLocations();
@@ -146,9 +191,11 @@ public class SavingVisitor implements Visitor {
             levelString.append(processAreaEffects(areaEffectLocations));
             levelString.append("\n");
 
+            levelString.append("\n");
+            levelString.append(processInfluenceEffects(influenceEffectLocations));
+            levelString.append("\n");
+
             levelString.append("</LEVEL>");
-            writer.write(levelString.toString());
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -376,5 +423,47 @@ public class SavingVisitor implements Visitor {
     @Override
     public void visitSlowEntityCommand(SlowEntityCommand slowEntityCommand) {
 
+    }
+
+    @Override
+    public void visitInfluenceEffect(InfluenceEffect influenceEffect) {
+        StringBuffer areaEffect = new StringBuffer("<" + influenceEffect.getClass().getSimpleName()
+                +" speed=" + "\"" + influenceEffect.getSpeed() + "\""
+                +" range=" + "\"" + influenceEffect.getRange() + "\""
+                +" movesRemaining=" + "\"" + influenceEffect.getMovesRemaining() + "\""
+                +" orientation=" + "\"" + influenceEffect.getOrientation() + "\"" +">");
+
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(areaEffect);
+        influenceEffect.getCommand().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + influenceEffect.getClass().getSimpleName() + ">");
+    }
+
+    public void saveCurrentLevel(Level currentLevel) throws IOException {
+        visitLevel(currentLevel);
+        this.currentLevel.append("\n");
+        this.currentLevel.append(levelString);
+        this.currentLevel.append("\n");
+        this.currentLevel.append("</CURRENTLEVEL>");
+        this.currentLevel.append("\n");
+        levelString = new StringBuffer("<LEVEL>");
+        writer.write(this.currentLevel.toString());
+    }
+
+    public void saveLevelList(List<Level> levels) throws IOException {
+        this.levelList.append("\n");
+        for(Level curLevel: levels) {
+            visitLevel(curLevel);
+            this.levelList.append(levelString);
+            levelString = new StringBuffer("<LEVEL>");
+        }
+
+        this.levelList.append("\n");
+        this.levelList.append("</LEVELLIST>");
+        this.levelList.append("\n");
+        writer.write(this.levelList.toString());
     }
 }

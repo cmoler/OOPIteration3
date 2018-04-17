@@ -392,7 +392,7 @@ public class GameLoader {
                     valueTerrain = Terrain.WATER;
                     break;
 
-                case "mountain":
+                case "mountains":
                     valueTerrain = Terrain.MOUNTAINS;
                     break;
 

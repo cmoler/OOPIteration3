@@ -16,6 +16,10 @@ import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneak
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Equipment;
 import Model.Entity.EntityAttributes.Inventory;
+import Model.InfluenceEffect.AngularInfluenceEffect;
+import Model.InfluenceEffect.InfluenceEffect;
+import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.Item;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
@@ -108,4 +112,6 @@ public interface Visitor {
     void visitPickPocketCommand(PickPocketCommand pickPocketCommand);
 
     void visitSlowEntityCommand(SlowEntityCommand slowEntityCommand);
+
+    void visitInfluenceEffect(InfluenceEffect linearInfluenceEffect);
 }

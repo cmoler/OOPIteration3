@@ -9,6 +9,7 @@ import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Entity.Entity;
 import javafx.geometry.Point3D;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -68,13 +69,23 @@ public class GameModel implements Visitable {
 
     @Override
     public void accept(SavingVisitor visitor) {
-        visitor.visitLevel(currentLevel);
+        try {
+            if(currentLevel != null) {
+                visitor.saveCurrentLevel(currentLevel);
+            }
 
-        for(Level level: levels) {
-            visitor.visitLevel(level);
+            if(!levels.isEmpty()) {
+                visitor.saveLevelList(levels);
+            }
+
+            if(player != null) {
+                visitor.visitEntity(player);
+            }
         }
 
-        visitor.visitEntity(player);
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private class TeleportTuple {
