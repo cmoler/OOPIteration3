@@ -15,8 +15,6 @@ import java.util.List;
 
 public class LinearInfluenceEffectTest {
 
-    // TODO: test for disarming trap
-
     @Test
     public void LinearInfluenceEffectTest() {
         SettableCommand damageCommand = new RemoveHealthCommand(15);

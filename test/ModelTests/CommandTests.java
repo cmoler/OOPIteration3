@@ -1,6 +1,8 @@
 package ModelTests;
 
 import Controller.GameLoop;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.PickPocketCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.DisarmTrapCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
@@ -9,6 +11,8 @@ import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.Item.TakeableItem.ConsumableItem;
+import Model.Item.TakeableItem.TakeableItem;
 import Model.Level.*;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
@@ -151,12 +155,54 @@ public class CommandTests {
     }
 
     @Test
-    public void testPickPocketSuccess() {
-//        Assert.fail();
+    public void testPickPocket() {
+        List<LevelViewElement> observers = new ArrayList<>();
+
+        Level level = new Level(observers);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
+
+        SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
+
+        PickPocketCommand pickPocketCommand = new PickPocketCommand(levelMessenger);
+        LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 1, 1, Orientation.NORTH);
+
+        Skill pickpocketSkill = new Skill("Pickpocket", linearInfluenceEffect, new PickPocketCommand(levelMessenger), sendInfluenceEffectCommand, 1, 1);
+
+        Entity thief = new Entity();
+        Entity victim = new Entity();
+
+        TakeableItem item = new ConsumableItem("thingie", new AddHealthCommand(10));
+
+        victim.addItemToInventory(item);
+
+        thief.addNonWeaponSkills(pickpocketSkill);
+
+        thief.setSkillLevel(pickpocketSkill, 1000);
+
+        Point3D originPt = new Point3D(0, 0, 0);
+        level.addEntityTo(originPt, thief);
+        thief.setOrientation(Orientation.NORTH);
+        level.addEntityTo(Orientation.getAdjacentPoint(originPt, Orientation.NORTH), victim);
+
+        Assert.assertFalse(thief.hasItemInInventory(item));
+        Assert.assertTrue(victim.hasItemInInventory(item));
+
+        try {
+            thief.useSkill(0);
+            level.processInteractions();
+
+            while (!thief.hasItemInInventory(item)) {
+                thief.useSkill(0);
+                level.processInteractions();
+            }
+
+            Assert.assertTrue(thief.hasItemInInventory(item));
+            Assert.assertFalse(victim.hasItemInInventory(item));
+
+        } catch (Exception e) { // TODO: fix once AI controller logic is set
+            Assert.assertFalse(thief.hasItemInInventory(item));
+            Assert.assertTrue(victim.hasItemInInventory(item));
+        }
     }
 
-    @Test
-    public void testPickPocketFailure() {
-   //     Assert.fail();
-    }
 }

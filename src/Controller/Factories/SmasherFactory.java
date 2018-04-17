@@ -11,14 +11,6 @@ public class SmasherFactory extends EntityFactory {
     @Override
     public Entity buildEntity() {
         Entity smasher = new Entity();
-        smasher.addSkillsToMap(
-                getSkillsFactory().getBargainSkill(),
-                getSkillsFactory().getObserveSkill(),
-                getSkillsFactory().getBindWounds(),
-                getSkillsFactory().getOneHandedSkill(),
-                getSkillsFactory().getTwoHandedSkill(),
-                getSkillsFactory().getBrawlerSkill()
-        );
 
         smasher.addWeaponSkills(getSkillsFactory().getOneHandedSkill(),
                 getSkillsFactory().getTwoHandedSkill(),

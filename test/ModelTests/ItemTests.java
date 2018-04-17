@@ -314,7 +314,7 @@ public class ItemTests {
     public void userCannotEquipItemIfSkillNotInsideTheirMapTest() {
         Skill oneHand = new Skill();
 
-        entity.addSkillsToMap(oneHand);
+        entity.addWeaponSkills(oneHand);
 
         WeaponItem equippableSword = new WeaponItem("Sword", new AddHealthCommand(20));
         equippableSword.setSkill(oneHand);

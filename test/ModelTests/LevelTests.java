@@ -257,7 +257,6 @@ public class LevelTests {
         Assert.assertEquals(100, entity.getCurrentHealth(), 0);
         Assert.assertEquals(100, dummy.getCurrentHealth(), 0);
 
-        entity.addSkillsToMap(swordSkill);
         entity.addWeaponSkills(swordSkill);
         entity.equipWeapon(sword);
         entity.addItemToInventory(sword2);

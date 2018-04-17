@@ -37,7 +37,7 @@ public class Skill {
         influenceEffect.setOrientation(callingEntity.getOrientation());
 
         // for each skill level, get behaviors current value, add 10 to it
-        int skillLevel = callingEntity.getSkillLevel(this).getSkillLevel();
+        int skillLevel = callingEntity.getSkillLevel(this);
 
         int behaviorAmount = behavior.getAmount();
         behaviorAmount = behaviorAmount + skillLevel * 10;

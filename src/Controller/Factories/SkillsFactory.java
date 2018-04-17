@@ -66,7 +66,7 @@ public class SkillsFactory {
     public Skill getBargainSkill() {
         if(bargainSkill == null) {
             BarterCommand bargainCommand = new BarterCommand(levelMessenger);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(bargainCommand, 1, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(bargainCommand, 0, 1, Orientation.NORTH);
 
             bargainSkill = new Skill("Bargain", linearInfluenceEffect, bargainCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -99,7 +99,7 @@ public class SkillsFactory {
     public Skill getBrawlerSkill() {
         if(brawlerSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 2, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
 
             brawlerSkill = new Skill("Brawler", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -110,7 +110,7 @@ public class SkillsFactory {
     public Skill getEnchantSkill() {
         if(enchantSkill == null) {
             FreezeEntityCommand freezeEntityCommand = new FreezeEntityCommand(levelMessenger);
-            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(freezeEntityCommand, 2, 1, Orientation.NORTH);
+            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(freezeEntityCommand, 4, 1, Orientation.NORTH);
 
             enchantSkill = new Skill("Enchant", angularInfluenceEffect, freezeEntityCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -132,7 +132,7 @@ public class SkillsFactory {
     public Skill getBaneSkill() {
         if(baneSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(removeHealthCommand, 3, 1, Orientation.NORTH);
+            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(removeHealthCommand, 4, 1, Orientation.NORTH);
 
             baneSkill = new Skill("Bane", angularInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -156,7 +156,6 @@ public class SkillsFactory {
             ToggleSneaking sneakCommand = new ToggleSneaking(5);
             LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(sneakCommand, 0, 1, Orientation.NORTH);
 
-
             sneakSkill = new Skill("Sneak", linearInfluenceEffect, sneakCommand, sendInfluenceEffectCommand, 1, 1);
         }
 
@@ -177,7 +176,7 @@ public class SkillsFactory {
     public Skill getPickpocket() {
         if(pickpocketSkill == null) {
             PickPocketCommand pickPocketCommand = new PickPocketCommand(levelMessenger);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 0, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 1, 1, Orientation.NORTH);
 
             pickpocketSkill = new Skill("Pickpocket", linearInfluenceEffect, new PickPocketCommand(levelMessenger), sendInfluenceEffectCommand, 1, 1);
         }
