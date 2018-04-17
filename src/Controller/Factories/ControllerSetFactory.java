@@ -43,9 +43,7 @@ public class ControllerSetFactory {
         newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), menuModel));
         newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), menuModel));
         newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), menuModel));
-
-        System.out.println("controllerSetFactory: " + keyBindingParser.parseMenuKey("scrollDown"));
-
+        
         controller.setKeyActionSet(newKeySet);
     }
 

@@ -18,7 +18,6 @@ public class Controller {
     }
 
     public void triggerActionOnKeycode(KeyCode keyCode){
-        System.out.println(keyCode);
         for(int i = 0; i < keyActionSet.size(); ++i){
             keyActionSet.get(i).handle(keyCode);
         }
