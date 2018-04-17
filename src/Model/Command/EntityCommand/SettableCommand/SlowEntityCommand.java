@@ -28,7 +28,7 @@ public class SlowEntityCommand extends GameModelCommand implements SettableComma
     }
 
     public void receiveLevel(Level level) {
-
+        // TODO: is this POOP? we arent overriding an operation (we are extending/implementing it), but by default, I cannot find a reason to do anything here
     }
 
     public void execute(Entity entity) {

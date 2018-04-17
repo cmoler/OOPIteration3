@@ -3,6 +3,7 @@ package Model.Command.EntityCommand.SettableCommand;
 import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.AI.ConfusedAI;
+import Model.AI.HostileAI;
 import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
@@ -17,6 +18,8 @@ import java.util.Random;
 public class PickPocketCommand extends GameModelCommand implements SettableCommand {
 
     private Entity invokingEntity;
+    private Entity entityToStealFrom;
+    private HostileAI hostileAI;
 
     private int pickPocketStrength;
 
@@ -29,8 +32,12 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
 
         Point3D destPoint = Orientation.getAdjacentPoint(invokerPoint, invokingEntity.getOrientation());
 
-        Entity entityToStealFrom = level.getEntityAtPoint(destPoint);
+        entityToStealFrom = level.getEntityAtPoint(destPoint);
 
+        hostileAI = new HostileAI(entityToStealFrom, level.getTerrainMap(), level.getEntityLocations(), level.getObstacleLocations(), invokingEntity);
+    }
+
+    public void receiveGameModel(GameModel gameModel) {
         if(entityToStealFrom != null) {
 
             Random rand = new Random();
@@ -47,9 +54,9 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
             } else { // unsuccessful pickpocket, turn entity hostile
                 switch (rand.nextInt(2)) { // flip a coin to see if entity should notice the failed theft
                     case 0:
-                    //    AIController aiController = gameModel.getAIForEntity(entityToStealFrom);
-                    //    AIState previousState = aiController.getActiveState();
-                    //    aiController.setActiveState(new ConfusedAI(previousState.getEntity(), aiController, previousState));
+                        AIController aiController = gameModel.getAIForEntity(entityToStealFrom);
+                        AIState previousState = aiController.getActiveState();
+                        aiController.setActiveState(hostileAI);
                         break;
                     case 1:
                         break;
@@ -58,10 +65,6 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
                 }
             }
         }
-    }
-
-    public void receiveGameModel(GameModel gameModel) {
-
     }
 
     public void execute(Entity entity) {
