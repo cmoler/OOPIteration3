@@ -3,7 +3,6 @@ package Model.Command.EntityCommand.SettableCommand;
 import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.AI.ConfusedAI;
-import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
@@ -77,5 +76,4 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
     public int getAmount() {
         return pickPocketStrength;
     }
-
 }

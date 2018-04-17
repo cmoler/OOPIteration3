@@ -4,17 +4,21 @@ import Model.Command.Command;
 
 public abstract class ToggleableCommand implements Command {
 
-    protected int amount;
-    protected boolean hasFired;
+    private boolean hasFired;
 
-    public ToggleableCommand() {}
+    protected ToggleableCommand() {
+        this.hasFired = false;
+    }
 
-    public ToggleableCommand(int amount, boolean hasFired) {
-        this.amount = amount;
+    protected ToggleableCommand(boolean hasFired) {
         this.hasFired = hasFired;
     }
 
-    public void setAmount(int amount){
-        this.amount = amount;
+    protected boolean hasFired() {
+        return hasFired;
+    }
+
+    protected void toggleHasFired() {
+        hasFired = !hasFired;
     }
 }

@@ -1,7 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
 import Controller.GameLoop;
-import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Entity.Entity;
 import Model.Level.GameModel;
@@ -10,40 +9,46 @@ import Model.Level.LevelMessenger;
 
 public class ObserveEntityCommand extends GameLoopCommand implements SettableCommand {
 
-    private Entity entity;
+    private Entity observedEntity;
+    private String randomEntityFacts;
 
-    int amount; // TODO: implement me pls thnx
+    int observeAccuracy;
+    boolean playerIsNotDead;
 
     public ObserveEntityCommand(LevelMessenger levelMessenger) {
         super(levelMessenger);
+        randomEntityFacts = "Nothing to report!";
+        playerIsNotDead = true;
     }
 
-    @Override
     public void receiveGameLoop(GameLoop gameLoop) {
-        gameLoop.createObservationWindow(entity);
+        if (playerIsNotDead) {
+            gameLoop.createObservationWindow(randomEntityFacts);
+        }
     }
 
-    @Override
     public void receiveGameModel(GameModel gameModel) {
-
+        if(gameModel.playerIsDead()) {
+            playerIsNotDead = false;
+        }
     }
 
-    @Override
     public void receiveLevel(Level level) {
-
+        // remove projectiles that fired this command so we only observe one entity, and don't execute this command a bunch of times
+        level.removeInfluenceEffectsWithCommand(this);
     }
 
-    @Override
     public void execute(Entity entity) {
-        this.entity = entity;
+        this.observedEntity = entity;
+        randomEntityFacts = observedEntity.getRandomFacts(observeAccuracy);
         sendCommandToGameLoop();
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
+        this.observeAccuracy = amount;
     }
 
     public int getAmount() {
-        return amount;
+        return observeAccuracy;
     }
 }

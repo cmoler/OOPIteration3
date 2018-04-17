@@ -59,6 +59,10 @@ public class GameModel {
         teleportTupleQueue.add(tuple);
     }
 
+    public boolean entityIsPlayer(Entity entity) {
+        return entity.equals(player);
+    }
+
     private class TeleportTuple {
         private Entity entity;
         private Level destLevel;
@@ -106,5 +110,9 @@ public class GameModel {
     public void advance() {
         currentLevel.processMoves();
         currentLevel.processInteractions();
+    }
+
+    public boolean playerIsDead() {
+        return player.isDead();
     }
 }

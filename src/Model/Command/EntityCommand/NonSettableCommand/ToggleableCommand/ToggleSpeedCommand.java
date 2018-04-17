@@ -4,18 +4,25 @@ import Model.Entity.Entity;
 
 public class ToggleSpeedCommand extends ToggleableCommand {
 
-    public ToggleSpeedCommand(int amount, boolean hasFired) {
-        super(amount, hasFired);
+    int amount;
+
+    public ToggleSpeedCommand(int amount) {
+        super();
+        this.amount = amount;
     }
 
-    @Override
+    public ToggleSpeedCommand(int amount, boolean hasFired) {
+        super(hasFired);
+        this.amount = amount;
+    }
+
     public void execute(Entity entity) {
-        if(!hasFired){
+        if(!hasFired()){
             entity.increaseSpeed(amount);
-            hasFired = !hasFired;
-        }else{
+            toggleHasFired();
+        } else{
             entity.decreaseSpeed(amount);
-            hasFired = !hasFired;
+            toggleHasFired();
         }
     }
 }

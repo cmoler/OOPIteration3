@@ -12,20 +12,19 @@ import Model.Level.LevelMessenger;
 
 public class SlowEntityCommand extends GameModelCommand implements SettableCommand {
 
-    // TODO: implement me pls thnx
-
     private Entity entity;
 
-    private int amount;
+    private int slowDuration;
 
     public SlowEntityCommand(LevelMessenger levelMessenger) {
         super(levelMessenger);
+        this.slowDuration = 100;
     }
 
     public void receiveGameModel(GameModel gameModel) {
         AIController aiController = gameModel.getAIForEntity(entity);
         AIState previousState = aiController.getActiveState();
-        aiController.setActiveState(new SlowedAI(previousState.getEntity(),aiController, previousState));
+        aiController.setActiveState(new SlowedAI(previousState.getEntity(),aiController, previousState, slowDuration));
     }
 
     public void receiveLevel(Level level) {
@@ -38,11 +37,11 @@ public class SlowEntityCommand extends GameModelCommand implements SettableComma
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
+        this.slowDuration = slowDuration * amount;
     }
 
     public int getAmount() {
-        return amount;
+        return slowDuration;
     }
 
 }

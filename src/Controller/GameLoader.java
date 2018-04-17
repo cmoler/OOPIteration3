@@ -6,7 +6,7 @@ import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
 import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
 import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
-import Model.Command.EntityCommand.SettableCommand.SetAsSneakingCommand;
+import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
@@ -271,8 +271,8 @@ public class GameLoader {
                     case "levelupcommand":
                         return new LevelUpCommand();
 
-                    case "setassneakingcommand":
-                        return new SetAsSneakingCommand();
+                    case "setassneakingcommand": // TODO: save stealthAmount var
+                        return new ToggleSneaking(0);
 
                      /* Game Loop Commands */
                     case "bartercommand":

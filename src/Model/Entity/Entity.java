@@ -13,6 +13,7 @@ import com.sun.javafx.geom.Vec3d;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Entity {
 
@@ -37,7 +38,6 @@ public class Entity {
     private Inventory inventory;
     private Orientation orientation;
     private List<Terrain> compatableTerrain;
-    private boolean sneaking;
     private boolean moveable;
     private Mount mount;
 
@@ -315,9 +315,9 @@ public class Entity {
         else currentlySelectedSkill ++;
     }
 
-    public SkillLevel getSkillLevel(Skill weaponSkill) {
-        if (skillLevelsMap.containsKey(weaponSkill)) {
-            return skillLevelsMap.get(weaponSkill);
+    public SkillLevel getSkillLevel(Skill skill) {
+        if (skillLevelsMap.containsKey(skill)) {
+            return skillLevelsMap.get(skill);
         }
 
         else
@@ -334,5 +334,41 @@ public class Entity {
 
     public TakeableItem takeRandomItemFromInventory() {
         return inventory.takeRandomItem();
+    }
+
+    public String getRandomFacts(int observeStrength) { // TODO: make more complex random-ness for observe
+        Random random = new Random();
+
+        int randomAttribute = random.nextInt(5);
+
+        int error = 100 - observeStrength;
+
+        if(error < 0) {
+            error = 0;
+        }
+
+        switch (randomAttribute) {
+            case 0:
+                int currHPGuess = getCurrentHealth() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Current HP: " + currHPGuess;
+            case 1:
+                int manaGuess = getCurrentMana() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Current Mana: " + manaGuess;
+            case 2:
+                int goldGuess = getCurrentGold() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Current Gold: " + goldGuess;
+            case 3:
+                int maxHPGuess = getMaxHealth() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Max HP: " + maxHPGuess;
+            default: return "Nothing to report!";
+        }
+    }
+
+    public int getCurrentMana() {
+        return mana.getCurrentMana();
+    }
+
+    public int getCurrentGold() {
+        return gold.getGold();
     }
 }

@@ -4,18 +4,25 @@ import Model.Entity.Entity;
 
 public class ToggleManaCommand extends ToggleableCommand {
 
-    public ToggleManaCommand(int amount, boolean hasFired) {
-        super(amount, hasFired);
+    int amount;
+
+    public ToggleManaCommand(int amount) {
+        super();
+        this.amount = amount;
     }
 
-    @Override
+    public ToggleManaCommand(int amount, boolean hasFired) {
+        super(hasFired);
+        this.amount = amount;
+    }
+
     public void execute(Entity entity) {
-        if(!hasFired){
+        if(!hasFired()){
             entity.increaseMana(amount);
-            hasFired = !hasFired;
-        }else{
+            toggleHasFired();
+        } else{
             entity.decreaseMana(amount);
-            hasFired = !hasFired;
+            toggleHasFired();
         }
     }
 }

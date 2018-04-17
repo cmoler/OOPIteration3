@@ -3,7 +3,6 @@ package Model.Command.EntityCommand.SettableCommand;
 import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.AI.ConfusedAI;
-import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Entity.Entity;
 import Model.Level.GameModel;
@@ -12,37 +11,35 @@ import Model.Level.LevelMessenger;
 
 public class ConfuseEntityCommand extends GameModelCommand implements SettableCommand {
 
-    private Entity entity;
+    private Entity confusedEntity;
 
-    private int amount; // TODO: implement me pls
+    private int confusionDuration;
 
     public ConfuseEntityCommand(LevelMessenger levelMessenger) {
         super(levelMessenger);
+        confusionDuration = 1000;
     }
 
-    @Override
     public void receiveGameModel(GameModel gameModel) {
-        AIController aiController = gameModel.getAIForEntity(entity);
+        AIController aiController = gameModel.getAIForEntity(confusedEntity);
         AIState previousState = aiController.getActiveState();
-        aiController.setActiveState(new ConfusedAI(previousState.getEntity(), aiController, previousState));
-
+        aiController.setActiveState(new ConfusedAI(previousState.getEntity(), aiController, previousState, confusionDuration));
     }
 
     public void receiveLevel(Level level) {
 
     }
 
-    @Override
     public void execute(Entity entity) {
-        this.entity = entity;
+        this.confusedEntity = entity;
         sendCommandToGameModel();
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
+        this.confusionDuration = confusionDuration * amount;
     }
 
     public int getAmount() {
-        return amount;
+        return confusionDuration;
     }
 }

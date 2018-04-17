@@ -7,16 +7,17 @@ import java.util.Random;
 public class ConfusedAI extends AIState{
 
     private long startTime;
-    private long duration = 7000;
+    private long duration;
     private AIController controller;
     private AIState previousState;
 
 
-    public ConfusedAI(Entity entity, AIController controller, AIState aiState){
+    public ConfusedAI(Entity entity, AIController controller, AIState aiState, long duration){
         super(entity);
         startTime = System.currentTimeMillis();
         this.controller = controller;
         previousState = aiState;
+        this.duration = duration;
     }
 
     @Override

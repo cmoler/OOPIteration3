@@ -4,22 +4,25 @@ import Model.Entity.Entity;
 
 public class ToggleHealthCommand extends ToggleableCommand {
 
-    public ToggleHealthCommand(int amount, boolean hasFired) {
-        super(amount, hasFired);
-    }
+    int amount;
 
     public ToggleHealthCommand(int amount) {
-        setAmount(amount);
+        super();
+        this.amount = amount;
     }
 
-    @Override
+    public ToggleHealthCommand(int amount, boolean hasFired) {
+        super(hasFired);
+        this.amount = amount;
+    }
+
     public void execute(Entity entity) {
-        if(!hasFired){
+        if(!hasFired()){
             entity.increaseMaxHealth(amount);
-            hasFired = !hasFired;
-        }else{
+            toggleHasFired();
+        } else{
             entity.decreaseMaxHealth(amount);
-            hasFired = !hasFired;
+            toggleHasFired();
         }
     }
 }

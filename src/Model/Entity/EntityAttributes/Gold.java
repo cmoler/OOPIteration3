@@ -34,4 +34,8 @@ public class Gold {
             goldAmount -= amount;
         }
     }
+
+    public int getGold() {
+        return goldAmount;
+    }
 }

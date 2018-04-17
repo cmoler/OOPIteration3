@@ -30,16 +30,22 @@ public class GameLoop {
         };
     }
 
-    public void openBarterWindow(Entity player, Entity npcTradingWith) {
-
+    public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
+        // TODO: implement
+        if(playerEntity == null || receivingEntity == null) {
+            // do nothing if either entity is null
+        }
     }
 
-    public void openDialogWindow(Entity entity) {
-
+    public void openDialogWindow(Entity playerEntity, Entity receivingEntity) {
+        // TODO: implement
+        if(playerEntity == null || receivingEntity == null) {
+            // do nothing if either entity is null
+        }
     }
 
-    public void createObservationWindow(Entity entity) {
-
+    public void createObservationWindow(String randomEntityFacts) {
+        // TODO: implement
     }
 
     public void startTimer() {

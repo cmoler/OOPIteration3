@@ -4,36 +4,42 @@ import Controller.GameLoop;
 import Model.Command.Command;
 import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.Orientation;
 import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
+import javafx.geometry.Point3D;
 
 public class DialogCommand extends GameLoopCommand implements Command {
 
-    private Entity entity;
+    private Entity invokingEntity;
+    private Entity receivingEntity;
+    private Point3D receiverPoint;
 
     public DialogCommand(LevelMessenger levelMessenger) {
         super(levelMessenger);
     }
 
-    @Override
     public void receiveGameLoop(GameLoop gameLoop) {
-        gameLoop.openDialogWindow(entity);
+        gameLoop.openDialogWindow(invokingEntity, receivingEntity);
     }
 
-    @Override
-    public void receiveLevel(Level level) {
-
-    }
-
-    @Override
     public void receiveGameModel(GameModel gameModel) {
-
+        if(!gameModel.entityIsPlayer(invokingEntity)) {
+            invokingEntity = null;
+        }
     }
 
-    @Override
+    public void receiveLevel(Level level) {
+        Point3D invokerPoint = level.getEntityPoint(invokingEntity);
+
+        receiverPoint = Orientation.getAdjacentPoint(invokerPoint, invokingEntity.getOrientation());
+
+        receivingEntity = level.getEntityAtPoint(receiverPoint);
+    }
+
     public void execute(Entity entity) {
-        this.entity = entity;
+        this.invokingEntity = entity;
         sendCommandToGameLoop();
     }
 }

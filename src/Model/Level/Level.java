@@ -1,6 +1,8 @@
 package Model.Level;
 
 import Model.AreaEffect.AreaEffect;
+import Model.Command.Command;
+import Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.InfluenceEffect;
@@ -224,6 +226,18 @@ public class Level {
 
         if(trapLocations.get(southwestPoint) != null) {
             trapLocations.get(southwestPoint).disarm(entityLocations.get(originPoint), disarmStrength);
+        }
+    }
+
+    public void removeInfluenceEffectsWithCommand(Command command) {
+        List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
+
+        for(Point3D point : influenceEffectPoints) {
+            InfluenceEffect influenceEffect = influenceEffectLocations.get(point);
+
+            if(influenceEffect.getCommand().equals(command)) { // remove all instances of the influence effect if the command matches
+                influenceEffectLocations.remove(point, influenceEffect);
+            }
         }
     }
 }
