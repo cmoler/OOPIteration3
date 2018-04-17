@@ -4,18 +4,19 @@ import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
-import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Entity.Entity;
 import javafx.geometry.Point3D;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.*;
 
 public class GameModel implements Visitable {
+
+    private GameModelMessenger gameModelMessenger;
 
     private Level currentLevel;
     private LevelMessenger currentLevelMessenger;
@@ -25,7 +26,9 @@ public class GameModel implements Visitable {
     private Queue<TeleportTuple> teleportTupleQueue;
 
     public GameModel() {
-
+            levels = new ArrayList<>();
+            aiMap = new HashMap<>();
+            teleportTupleQueue = new LinkedList<>();
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
@@ -103,7 +106,6 @@ public class GameModel implements Visitable {
             return entity;
         }
 
-
         public Level getDestLevel() {
             return destLevel;
         }
@@ -125,6 +127,8 @@ public class GameModel implements Visitable {
 
         destinationLevel.addEntityTo(destinationPoint, entity);
 
+        System.out.println("hi"+destinationPoint.toString());
+
         if(entity.equals(player)) {
             currentLevel = destinationLevel;
             currentLevelMessenger.setLevel(currentLevel);
@@ -135,9 +139,29 @@ public class GameModel implements Visitable {
     public void advance() {
         currentLevel.processMoves();
         currentLevel.processInteractions();
+
+        processTeleportQueue();
     }
 
     public boolean playerIsDead() {
         return player.isDead();
+    }
+
+    public void addLevel(Level level) {
+        levels.add(level);
+    }
+
+    public void setCurrentLevel(Level level) {
+        currentLevel = level;
+
+        if(gameModelMessenger == null) {
+            throw new RuntimeException("Model messenger not set! Can't add level!");
+        }
+
+        currentLevelMessenger = new LevelMessenger(gameModelMessenger, level);
+    }
+
+    public void setGameModelMessenger(GameModelMessenger gameModelMessenger) {
+        this.gameModelMessenger = gameModelMessenger;
     }
 }

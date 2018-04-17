@@ -1,6 +1,9 @@
 package ModelTests;
 
 import Controller.GameLoop;
+import Model.AreaEffect.AreaEffect;
+import Model.AreaEffect.OneShotAreaEffect;
+import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.PickPocketCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
@@ -29,7 +32,7 @@ public class CommandTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         InfluenceEffect linear1 = new LinearInfluenceEffect(new RemoveHealthCommand(10), 0,1, Orientation.SOUTHWEST);
 
@@ -124,7 +127,7 @@ public class CommandTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         InfluenceEffect linear1 = new LinearInfluenceEffect(new RemoveHealthCommand(10), 0,1, Orientation.SOUTHWEST);
 
@@ -159,7 +162,7 @@ public class CommandTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
 
@@ -203,6 +206,46 @@ public class CommandTests {
             Assert.assertFalse(thief.hasItemInInventory(item));
             Assert.assertTrue(victim.hasItemInInventory(item));
         }
+    }
+
+    @Test
+    public void testTeleportCommand() {
+        List<LevelViewElement> observers = new ArrayList<>();
+
+        Level level1 = new Level(observers);
+
+        Level level2 = new Level(observers);
+
+        Entity entity = new Entity();
+
+        GameLoop gameLoop = new GameLoop();
+        GameModel gameModel = new GameModel();
+
+        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+        GameModelMessenger gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
+        LevelMessenger messenger = new LevelMessenger(gameModelMessenger, level1);
+
+        gameModel.setGameModelMessenger(gameModelMessenger);
+
+        gameModel.addLevel(level2);
+        gameModel.addLevel(level1);
+
+        gameModel.setCurrentLevel(level1);
+
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(messenger, level2, new Point3D(1,3,2));
+
+        AreaEffect areaEffect = new OneShotAreaEffect(teleportEntityCommand);
+
+        level1.addEntityTo(new Point3D(0,0,0), entity);
+        level1.addAreaEffectTo(new Point3D(0,0,0), areaEffect);
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), entity);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), null);
+
+        gameModel.advance();
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), null);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity);
     }
 
 }
