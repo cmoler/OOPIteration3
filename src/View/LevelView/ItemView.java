@@ -20,7 +20,7 @@ public class ItemView extends LevelViewElement{
         File file = new File(workingDir + "/src/View/Assets/sword.png");
 
         setSprite(new Image(file.toURI().toString()));
-        
+
 
 
 

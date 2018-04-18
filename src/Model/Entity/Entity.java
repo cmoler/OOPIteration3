@@ -56,6 +56,7 @@ public class Entity {
         nonWeaponSkills = new ArrayList<>();
         observers = new ArrayList<>();
         hotBar = new ItemHotBar(this);
+        orientation = Orientation.NORTH;
     }
 
     public boolean isMoveable() {

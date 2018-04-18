@@ -14,20 +14,21 @@ public class EntityView extends LevelViewElement{
 
 
     private Entity entity;
-    private Orientation entityOrientation;
-    private Image entitySprite;
 
 
-    public EntityView(Entity entity) {
-        super(new Point3D(0, 0, 0));
+    public EntityView(Entity entity, Point3D location) {
+        super(location);
+        this.entity = entity;
         entity.addObserver(this);
+        setOrientation(entity.getOrientation());
+
         String workingDir = System.getProperty("user.dir");
 
         File file = new File(workingDir + "/src/View/Assets/warrior.png");
-        entitySprite = new Image(file.toURI().toString());
-        setSprite(entitySprite);
 
-        entityOrientation = entity.getOrientation();
+        setSprite(new Image(file.toURI().toString()));
+
+
 
 
 
@@ -35,7 +36,7 @@ public class EntityView extends LevelViewElement{
     }
     @Override
     public void notifyViewElement() {
-        entityOrientation = entity.getOrientation();
+        setOrientation(entity.getOrientation());
     }
 
 
