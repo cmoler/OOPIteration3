@@ -414,7 +414,8 @@ public class GameLoader {
                         return new LevelUpCommand();
 
                     case "setassneakingcommand": // TODO: save stealthAmount var
-                        return new ToggleSneaking(0);
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        return new ToggleSneaking(amount);
 
                      /* Game Loop Commands */
                     case "bartercommand":

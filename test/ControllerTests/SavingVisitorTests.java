@@ -7,6 +7,8 @@ import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.EntityAttributes.Orientation;
@@ -60,8 +62,8 @@ public class SavingVisitorTests {
         level.addInfluenceEffectTo(new Point3D(0,0,1), new RadialInfluenceEffect(new AddHealthCommand(5), 0, 0, Orientation.NORTH));
         level.addInfluenceEffectTo(new Point3D(0,0,2), new AngularInfluenceEffect(new AddHealthCommand(5), 0, 0, Orientation.NORTH));
 
-        level.addItemnTo(new Point3D(0,0,0), new InteractiveItem("door", new RemoveHealthCommand(10)));
-        level.addItemnTo(new Point3D(0,0,1), new OneShotItem("bomb", new RemoveHealthCommand(10)));
+        level.addItemnTo(new Point3D(0,0,0), new InteractiveItem("door", new ToggleManaCommand(10)));
+        level.addItemnTo(new Point3D(0,0,1), new OneShotItem("bomb", new ToggleSpeedCommand(10)));
         level.addItemnTo(new Point3D(0,0,2), new ArmorItem("helemet", new AddHealthCommand(10), 10));
         level.addItemnTo(new Point3D(0,0,3), new RingItem("ring", new ToggleHealthCommand(10)));
         level.addItemnTo(new Point3D(0,0,4), new ConsumableItem("potion", new AddHealthCommand(10)));
@@ -115,6 +117,9 @@ public class SavingVisitorTests {
         assertTrue(itemsToTest.get(new Point3D(0,0,2)) instanceof ArmorItem);
         assertTrue(itemsToTest.get(new Point3D(0,0,3)) instanceof RingItem);
         assertTrue(itemsToTest.get(new Point3D(0,0,4)) instanceof ConsumableItem);
+
+        assertTrue(itemsToTest.get(new Point3D(0,0,0)).getCommand() instanceof ToggleManaCommand);
+        assertTrue(itemsToTest.get(new Point3D(0,0,1)).getCommand() instanceof ToggleSpeedCommand);
     }
 
     @Test

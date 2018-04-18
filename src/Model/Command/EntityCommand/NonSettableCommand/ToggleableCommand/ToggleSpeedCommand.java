@@ -31,4 +31,8 @@ public class ToggleSpeedCommand extends ToggleableCommand {
     public void accept(SavingVisitor visitor) {
         visitor.visitSpeedCommand(this);
     }
+
+    public int getAmount() {
+        return amount;
+    }
 }

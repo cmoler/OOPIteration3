@@ -568,7 +568,10 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitLevelUpCommand(LevelUpCommand levelUpCommand) {
-
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("\t");
+        this.valueNode.append("<" + levelUpCommand.getClass().getSimpleName() + "/>");
     }
 
     @Override
@@ -593,7 +596,10 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitInstaDeathCommand(InstaDeathCommand instaDeathCommand) {
-
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("\t");
+        this.valueNode.append("<" + instaDeathCommand.getClass().getSimpleName() + "/>");
     }
 
     @Override
@@ -608,17 +614,32 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitToggleManaCommand(ToggleManaCommand toggleManaCommand) {
-
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("\t");
+        this.valueNode.append("<" + toggleManaCommand.getClass().getSimpleName()
+                + " amount=" + "\"" + toggleManaCommand.getAmount() + "\""
+                + " hasFired=" + "\"" + toggleManaCommand.hasFired() + "\"" + "/>");
     }
 
     @Override
     public void visitSpeedCommand(ToggleSpeedCommand toggleSpeedCommand) {
-
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("\t");
+        this.valueNode.append("<" + toggleSpeedCommand.getClass().getSimpleName()
+                + " amount=" + "\"" + toggleSpeedCommand.getAmount() + "\""
+                + " hasFired=" + "\"" + toggleSpeedCommand.hasFired() + "\"" + "/>");
     }
 
     @Override
     public void visitToggleSneaking(ToggleSneaking toggleSneaking) {
-
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("\t");
+        this.valueNode.append("<" + toggleSneaking.getClass().getSimpleName()
+                + " amount=" + "\"" + toggleSneaking.getAmount() + "\""
+                + " hasFired=" + "\"" + toggleSneaking.hasFired() + "\"" + "/>");
     }
 
     @Override

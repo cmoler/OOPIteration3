@@ -31,4 +31,8 @@ public class ToggleManaCommand extends ToggleableCommand {
     public void accept(SavingVisitor visitor) {
         visitor.visitToggleManaCommand(this);
     }
+
+    public int getAmount() {
+        return amount;
+    }
 }
