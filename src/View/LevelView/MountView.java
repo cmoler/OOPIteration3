@@ -24,6 +24,6 @@ public class MountView extends LevelViewElement{
 
     @Override
     public int getRenderPriority() {
-        return 0;
+        return 1;
     }
 }

@@ -46,4 +46,7 @@ public abstract class LevelViewElement {
     protected void setOrientation(Orientation newOrientation) {
         orientation = newOrientation;
     }
+    public void setPosition(Point3D position) {
+        location = position;
+    }
 }
