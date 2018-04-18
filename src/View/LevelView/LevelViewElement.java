@@ -14,15 +14,18 @@ public abstract class LevelViewElement {
     private int size;
     private Image sprite;
     private HexMathHelper hexMathHelper;
+    protected boolean isWaitingToRender;
 
     LevelViewElement(Point3D location) {
         this.location = location;
         orientation = Orientation.NORTH;
         hexMathHelper = new HexMathHelper();
         size = 75;
+        isWaitingToRender = true;
     }
     public abstract void notifyViewElement();
     public void render(GraphicsContext gc, Point2D offset) {
+        if(!isWaitingToRender) { return; }
         int width = size;
         int height = (int)(width * (Math.sqrt(3)/2));
 
@@ -31,6 +34,10 @@ public abstract class LevelViewElement {
 
         rotate(gc, orientation.getDegreeOfOrientation(orientation), ((xOffset*width)*.75)+offset.getX()+(width/2), (yOffset*(height/2))+offset.getY()+(height/2));
         gc.drawImage(sprite, (int)((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY(), width, height);
+
+
+
+        isWaitingToRender = false;
 
 
     }
@@ -45,8 +52,10 @@ public abstract class LevelViewElement {
     }
     protected void setOrientation(Orientation newOrientation) {
         orientation = newOrientation;
+        isWaitingToRender = true;
     }
     public void setPosition(Point3D position) {
         location = position;
+        isWaitingToRender = true;
     }
 }
