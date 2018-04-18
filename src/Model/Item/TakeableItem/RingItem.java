@@ -19,15 +19,8 @@ public class RingItem extends TakeableItem{
         ringEquipStrategy.useStrategy();
     }
 
-    @Override
-    public void onTouch(Entity entity) {
-        entity.addItemToInventory(this);
-
-        if (entity.hasItemInInventory(this)) {
-            ringEquipStrategy.setEntity(entity);
-            setDropStrategyEntity(entity);
-            setToBeDeleted();
-        }
+    protected void setItemStrategyEntity(Entity entity) {
+        ringEquipStrategy.setEntity(entity);
     }
 
     public void toggleEquipEffect(Entity entity) {

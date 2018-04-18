@@ -28,9 +28,7 @@ public class Inventory {
     }
 
     public void removeItem(TakeableItem item) {
-        if(inventory.contains(item)) {
-            inventory.remove(item);
-        }
+        inventory.remove(item);
     }
 
     public boolean hasItem(TakeableItem item) {

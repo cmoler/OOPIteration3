@@ -103,10 +103,6 @@ public class Level {
         interactionHandler.processInteractions();
     }
 
-    public void addTerrainTo(Point3D point, Terrain terrain) {
-        terrainLocations.put(point, terrain);
-    }
-
     public void addItemnTo(Point3D point, Item item) {
         itemLocations.put(point, item);
     }
@@ -114,31 +110,34 @@ public class Level {
     public void dropItemFromEntity(Entity entity, TakeableItem item) {
         Point3D entityPoint = getEntityPoint(entity);
 
-        if(canDropItemAtPoint(item, Orientation.getAllAdjacentPoints(entityPoint))) {
-            dropItemAtPoint(entityPoint, item);
+        List<Point3D> candidatePoints = Orientation.getAllAdjacentPoints(entityPoint);
 
-            entity.removeItemFromInventory(item);
+        for(Point3D point : candidatePoints) {
+            if(canDropItemAtPoint(point)) {
+                dropItemAtPoint(point, item);
+                entity.removeItemFromInventory(item);
+
+                break;
+            }
         }
     }
 
-    private boolean canDropItemAtPoint(Item item, List<Point3D> points) {
+    private boolean canDropItemAtPoint(Point3D point) {
         // get nearest point that does not have (1) another item, (2) an entity, (3) a mount, (4) obstacle, (5) no terrain
-
-        for(Point3D point : points) {
-            if(!itemLocations.containsKey(point) &&
-               !entityLocations.containsKey(point) &&
-               !mountLocations.containsKey(point) &&
-               !obstacleLocations.containsKey(point) &&
-               terrainLocations.containsKey(point)) {
-                return true;
-            }
-        }
-
-        return false;
+        return  !itemLocations.containsKey(point) &&
+                !entityLocations.containsKey(point) &&
+                !mountLocations.containsKey(point) &&
+                !obstacleLocations.containsKey(point) &&
+                terrainLocations.containsKey(point);
     }
 
     private void dropItemAtPoint(Point3D point3D, Item item) {
+        item.clearDeletionFlag();
         itemLocations.put(point3D, item);
+    }
+
+    public void addTerrainTo(Point3D point, Terrain terrain) {
+        terrainLocations.put(point, terrain);
     }
 
     public void addObstacleTo(Point3D point, Obstacle obstacle) {
@@ -201,6 +200,18 @@ public class Level {
         } else {
             return null;
         }
+    }
+
+    public Point3D getItemPoint(Item item) {
+        if(itemLocations.containsValue(item)) {
+            for(Point3D point: itemLocations.keySet()) {
+                if(itemLocations.get(point).equals(item)) {
+                    return point;
+                }
+            }
+        }
+
+        return null;
     }
 
     public Map<Point3D, InfluenceEffect> getInfluencesMap() {

@@ -22,6 +22,9 @@ public abstract class TakeableItem extends Item {
 
         if(entity.hasItemInInventory(this)) {
             setDropStrategyEntity(entity);
+
+            setItemStrategyEntity(entity);
+
             setToBeDeleted();
         }
     }
@@ -30,11 +33,15 @@ public abstract class TakeableItem extends Item {
         dropStrategy.useStrategy();
     }
 
+
+
     public void setCurrentLevelMessenger(LevelMessenger levelMessenger) {
         dropStrategy = new DropStrategy(this, new DropItemCommand(levelMessenger));
     }
 
-    protected void setDropStrategyEntity(Entity entity) {
+    protected abstract void setItemStrategyEntity(Entity entity);
+
+    private void setDropStrategyEntity(Entity entity) {
         dropStrategy.setEntity(entity);
     }
 
