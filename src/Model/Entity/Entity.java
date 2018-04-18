@@ -9,6 +9,7 @@ import Model.Level.Terrain;
 import Model.Level.Mount;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
+import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -194,9 +195,10 @@ public class Entity {
         this.velocity = velocity;
     }
 
-    public void notifyObservers(){
+    public void notifyObservers(Point3D position){
         for (LevelViewElement o:observers) {
             o.notifyViewElement();
+            o.setPosition(position);
         }
     }
 
