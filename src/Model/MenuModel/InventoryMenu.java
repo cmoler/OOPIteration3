@@ -4,6 +4,8 @@ import Controller.GameLoop;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Inventory;
 import Model.Item.TakeableItem.TakeableItem;
+import View.MenuView.AssignItemView;
+import View.MenuView.SaveGameView;
 
 public class InventoryMenu extends InGameMenuState {
 
@@ -60,7 +62,7 @@ public class InventoryMenu extends InGameMenuState {
                 itemManipulating.select();
                 break;
             case 1:
-                menuModel.setActiveState(new AssignItemMenu(menuModel, player, gameLoop, itemManipulating));
+                gameLoop.setMenuState(new AssignItemMenu(menuModel, player, gameLoop, itemManipulating), new AssignItemView(menuModel));
                 break;
             case 2:
                 itemManipulating.dropItem();

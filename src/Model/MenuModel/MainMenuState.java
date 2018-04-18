@@ -1,6 +1,10 @@
 package Model.MenuModel;
 
 import Controller.GameLoop;
+import View.MenuView.AssignItemView;
+import View.MenuView.LoadGameView;
+import View.MenuView.NewGameView;
+import View.MenuView.OptionsView;
 
 public class MainMenuState extends MenuState {
 
@@ -19,13 +23,14 @@ public class MainMenuState extends MenuState {
     public void select() {
         switch (selectedUpDown){
             case 0:
-                menuModel.setActiveState(new NewGameMenu(menuModel, gameLoop));
+                gameLoop.setMenuState(new NewGameMenu(menuModel, gameLoop), new NewGameView(menuModel));
                 break;
             case 1:
-                menuModel.setActiveState(new LoadGameMenu(menuModel, gameLoop));
+                System.out.println("opening load game");
+                gameLoop.setMenuState(new LoadGameMenu(menuModel, gameLoop), new LoadGameView(menuModel));
                 break;
             case 2:
-                menuModel.setActiveState(new OptionsMenu(menuModel, gameLoop));
+                gameLoop.setMenuState(new OptionsMenu(menuModel, gameLoop), new OptionsView(menuModel));
                 break;
             case 3:
                 System.exit(1);

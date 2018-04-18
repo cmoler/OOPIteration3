@@ -74,20 +74,4 @@ public class LevelUpMenu extends InGameMenuState {
         if(selectedLeftRight == 1) player.setSkillLevels(playersSkills);
     }
 
-    private void menuSelection(){
-        switch (selectedUpDown){
-            case 0:
-                menuModel.setActiveState(new InventoryMenu(menuModel, player, gameLoop));
-                break;
-            case 1:
-                menuModel.setActiveState(new StatsMenu(menuModel, player, gameLoop));
-                break;
-            case 2:
-                menuModel.setActiveState(new LevelUpMenu(menuModel, player, gameLoop));
-                break;
-            case 3:
-                menuModel.setActiveState(new ExitGameMenu(menuModel, player, gameLoop));
-                break;
-        }
-    }
 }

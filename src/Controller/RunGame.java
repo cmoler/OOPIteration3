@@ -78,13 +78,8 @@ public class RunGame extends Application{
 */
         GameLoop gameLoop = new GameLoop();
 
-        MenuModel menuModel = new MenuModel(gameLoop);
-        gameLoop.getControls().createMenuSet(menuModel);
         canvas.setOnKeyPressed(gameLoop.getControls());
 
-        menuModel.setActiveState(new MainMenuState(menuModel, gameLoop));
-        MenuView menuView = new MenuView();
-        menuView.setActiveState(new TitleScreenView(menuModel));
 
 
         new AnimationTimer() {
@@ -97,7 +92,7 @@ public class RunGame extends Application{
             }
             */
             public void handle(long currentNanoTime){
-                menuView.render(gc);
+                gameLoop.render(gc);
             }
         }.start();
 

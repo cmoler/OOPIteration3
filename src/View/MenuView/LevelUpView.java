@@ -3,9 +3,9 @@ package View.MenuView;
 import Model.MenuModel.MenuModel;
 import javafx.scene.canvas.GraphicsContext;
 
-public class ExitGameView extends MenuViewState {
+public class LevelUpView extends MenuViewState {
 
-    public ExitGameView(MenuModel menuModel) {
+    public LevelUpView(MenuModel menuModel) {
         super(menuModel);
     }
 

@@ -2,6 +2,7 @@ package Model.MenuModel;
 
 import Controller.GameLoop;
 import Model.Entity.Entity;
+import View.MenuView.*;
 
 public class InGameMenuBar {
 
@@ -24,19 +25,20 @@ public class InGameMenuBar {
     public void select(int selected) {
         switch (selected){
             case 0:
-                menuModel.setActiveState(new InventoryMenu(menuModel, player, gameLoop));
+                gameLoop.setMenuState(new InventoryMenu(menuModel, player, gameLoop), new InventoryView(menuModel));
                 break;
             case 1:
-                menuModel.setActiveState(new StatsMenu(menuModel, player, gameLoop));
+                gameLoop.setMenuState(new StatsMenu(menuModel, player, gameLoop), new StatsView(menuModel));
                 break;
             case 2:
-                menuModel.setActiveState(new LevelUpMenu(menuModel, player, gameLoop));
+                gameLoop.setMenuState(new LevelUpMenu(menuModel, player, gameLoop), new LevelUpView(menuModel));
                 break;
             case 3:
-                menuModel.setActiveState(new ExitGameMenu(menuModel, player, gameLoop));
+                gameLoop.setMenuState(new ExitGameMenu(menuModel, player, gameLoop), new ExitGameView(menuModel));
                 break;
             case 4:
-                menuModel.setActiveState(new SaveGameMenu(menuModel, player, gameLoop));
+                gameLoop.setMenuState(new SaveGameMenu(menuModel, player, gameLoop), new SaveGameView(menuModel));
+                break;
         }
     }
 }
