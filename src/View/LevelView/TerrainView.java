@@ -2,6 +2,7 @@ package View.LevelView;
 
 
 import Model.Entity.EntityAttributes.Orientation;
+import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -35,12 +36,12 @@ public class TerrainView implements LevelViewElement{
 
     }
 
-    public void render(GraphicsContext gc) {
+    public void render(GraphicsContext gc, Point2D offset) {
         int width = size;
         int height = (int)(width * (Math.sqrt(3)/2));
 
-        int xOffset = hexMathHelper.getXCoord(location);
-        int yOffset = hexMathHelper.getYCoord(location);
+        int xOffset = hexMathHelper.getXCoord(location) + (int)offset.getX();
+        int yOffset = hexMathHelper.getYCoord(location) + (int)offset.getY();
 
         rotate(gc, 0, 100+(int)((xOffset*width)*.75), 100 + (yOffset*(height/2)));
         gc.drawImage(hex, 100+(int)((xOffset*width)*.75), 100 + (yOffset*(height/2)), width, height);

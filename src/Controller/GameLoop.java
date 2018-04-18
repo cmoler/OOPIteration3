@@ -14,6 +14,7 @@ import View.MenuView.InventoryView;
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
+import View.Renderer;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -27,6 +28,7 @@ public class GameLoop {
     private EntityFactory entityFactory;
     private ControllerSetFactory controllerSetFactory;
     private KeyEventImplementor controls;
+    private Renderer renderer;
 
     public GameLoop() {
         //TODO: Add loading logic
@@ -41,8 +43,13 @@ public class GameLoop {
         menuModel = new MenuModel(this);
         menuView = new MenuView();
 
+        gameModel = new GameModel();
+
         controls.createMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
+
+        renderer = new Renderer();
+        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
@@ -88,7 +95,12 @@ public class GameLoop {
         menuView.setActiveState(menuViewState);
     }
 
+    public void tick() {
+
+    }
+
     public void render(GraphicsContext gc){
+        renderer.render(gc, gameModel.getPlayerPosition());
         menuView.render(gc);
     }
 

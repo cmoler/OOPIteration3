@@ -29,6 +29,9 @@ public class GameModel implements Visitable {
             levels = new ArrayList<>();
             aiMap = new HashMap<>();
             teleportTupleQueue = new LinkedList<>();
+            currentLevel = new Level(new ArrayList<>());
+            player = new Entity();
+            currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
@@ -145,6 +148,10 @@ public class GameModel implements Visitable {
 
     public boolean playerIsDead() {
         return player.isDead();
+    }
+
+    public Point3D getPlayerPosition() {
+        return currentLevel.getEntityPoint(player);
     }
 
     public void addLevel(Level level) {

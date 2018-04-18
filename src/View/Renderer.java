@@ -1,22 +1,29 @@
 package View;
 
+import Model.Level.Level;
 import View.LevelView.LevelView;
 import View.MenuView.MenuView;
 import View.MenuView.TitleScreenView;
+
+import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Renderer {
-    private GraphicsContext gc;
+
     private LevelView levelView;
     private MenuView menuView;
     private TitleScreenView titleScreenView;
 
-    public Renderer(GraphicsContext gc) {
-        this.gc = gc;
+    public Renderer() {
+        levelView = new LevelView();
     }
 
 
-    public void render() {
-        levelView.render();
+    public void render(GraphicsContext gc, Point3D playerPos) {
+        levelView.render(gc, playerPos);
+    }
+
+    public void updateCurrentLevel(Level newCurrentLevel) {
+        levelView.setCurrentLevel(newCurrentLevel);
     }
 }

@@ -2,6 +2,7 @@ package View.LevelView;
 
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
+import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -37,12 +38,12 @@ public class EntityView implements LevelViewElement{
         entityOrientation = entity.getOrientation();
     }
 
-    public void render(GraphicsContext gc) {
+    public void render(GraphicsContext gc, Point2D offset) {
         int width = entitySize;
         int height = (int)(width * (Math.sqrt(3)/2));
 
-        int xOffset = hexMathHelper.getXCoord(entityLocation);
-        int yOffset = hexMathHelper.getYCoord(entityLocation);
+        int xOffset = hexMathHelper.getXCoord(entityLocation) + (int)offset.getX();
+        int yOffset = hexMathHelper.getYCoord(entityLocation) + (int)offset.getY();
         
         rotate(gc, (double)entityOrientation.getDegreeOfOrientation(entityOrientation), 100+(int)((xOffset*width)*.75)+(width/2), 100 + (yOffset*(height/2))+(height/2));
         gc.drawImage(entitySprite, 100+(int)((xOffset*width)*.75), 100 + (yOffset*(height/2)), width, height);
