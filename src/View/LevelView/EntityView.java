@@ -47,7 +47,7 @@ public class EntityView implements LevelViewElement{
         int yOffset = hexMathHelper.getYCoord(entityLocation);
 
 
-        rotate(gc, (double)entityOrientation.getDegreeOfOrientation(entityOrientation), ((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY());
+        //rotate(gc, (double)entityOrientation.getDegreeOfOrientation(entityOrientation), ((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY());
         gc.drawImage(entitySprite, (int)((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY(), width, height);
     }
 

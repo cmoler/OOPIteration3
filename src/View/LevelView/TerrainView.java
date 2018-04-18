@@ -43,7 +43,7 @@ public class TerrainView implements LevelViewElement{
         int xOffset = hexMathHelper.getXCoord(location);
         int yOffset = hexMathHelper.getYCoord(location);
 
-        rotate(gc, -90, ((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY());
+        //rotate(gc, 0, ((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY());
         gc.drawImage(hex, (int)((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY(), width, height);
 
 
