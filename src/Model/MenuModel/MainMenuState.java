@@ -26,7 +26,6 @@ public class MainMenuState extends MenuState {
                 gameLoop.setMenuState(new NewGameMenu(menuModel, gameLoop), new NewGameView(menuModel));
                 break;
             case 1:
-                System.out.println("opening load game");
                 gameLoop.setMenuState(new LoadGameMenu(menuModel, gameLoop), new LoadGameView(menuModel));
                 break;
             case 2:
