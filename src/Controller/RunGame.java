@@ -76,6 +76,7 @@ public class RunGame extends Application{
         }
 
 */
+        
         GameLoop gameLoop = new GameLoop();
 
         MenuModel menuModel = new MenuModel(gameLoop);
