@@ -17,6 +17,7 @@ import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneak
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Equipment;
 import Model.Entity.EntityAttributes.Inventory;
+import Model.Entity.EntityAttributes.Speed;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
@@ -292,6 +293,37 @@ public class SavingVisitor implements Visitor {
         return levelMapOpen;
     }
 
+    private StringBuffer processMounts(Map<Point3D, Mount> mountLocations) {
+        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"MOUNT\">");
+        StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
+
+        for(Map.Entry<Point3D, Mount> entry: mountLocations.entrySet()) {
+            StringBuffer key = new StringBuffer("<KEY key=");
+
+            key.append("\"");
+            key.append(keyToString(entry.getKey()));
+            key.append("\"");
+            key.append("/>");
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+            levelMapOpen.append(key);
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+
+            entry.getValue().accept(this);
+
+            this.valueNode.append("</VALUE>");
+            levelMapOpen.append(this.valueNode);
+            this.valueNode = new StringBuffer("<VALUE>");
+        }
+
+        levelMapOpen.append("\n");
+        levelMapOpen.append(levelMapClosed);
+        return levelMapOpen;
+    }
+
     @Override
     public void visitGameModel(GameModel gameModel) {
         try {
@@ -346,6 +378,10 @@ public class SavingVisitor implements Visitor {
             levelString.append(processRivers(riverLocations));
             levelString.append("\n");
 
+            levelString.append("\n");
+            levelString.append(processMounts(mountLocations));
+            levelString.append("\n");
+
             levelString.append("</LEVEL>");
         } catch (IOException e) {
             e.printStackTrace();
@@ -396,7 +432,25 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitMount(Mount mount) {
+        StringBuffer mountString = new StringBuffer("<" + mount.getClass().getSimpleName()
+                + " orientation=" + "\"" + mount.getOrientation() + "\""
+                + " speed=" + "\"" + mount.speedToString() + "\">");
 
+        mountString.append("\n");
+        mountString.append("<TERRAINLIST>");
+        for(Terrain terrain: mount.getPassableTerrain()) {
+            mountString.append("\t");
+            mountString.append("\n");
+            mountString.append("<TERRAIN value=\"");
+            mountString.append(terrain.toString());
+            mountString.append("\"/>");
+        }
+
+        mountString.append("\n");
+        mountString.append("</TERRAINLIST>");
+        this.valueNode.append(mountString);
+        this.valueNode.append("\n");
+        this.valueNode.append("</" + mount.getClass().getSimpleName() + ">");
     }
 
     @Override

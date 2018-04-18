@@ -2,13 +2,15 @@
 
 package Model.Level;
 
+import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitable;
 import View.LevelView.LevelViewElement;
 import Model.Entity.EntityAttributes.Speed;
 import Model.Entity.EntityAttributes.Orientation;
 
 import java.util.List;
 
-public class Mount {
+public class Mount implements Visitable {
     private Orientation orientation;
     private Speed movementSpeed;
     private List<Terrain> passableTerrain;
@@ -27,6 +29,10 @@ public class Mount {
 
     public Speed getMovementSpeed() {
         return movementSpeed;
+    }
+
+    public String speedToString() {
+        return Integer.toString(movementSpeed.getSpeed());
     }
 
     public void setMovementSpeed(Speed movementSpeed) {
@@ -61,5 +67,10 @@ public class Mount {
         for (LevelViewElement o:observers) {
             o.notifyViewElement();
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitMount(this);
     }
 }

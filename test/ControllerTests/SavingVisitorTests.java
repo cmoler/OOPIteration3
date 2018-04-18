@@ -10,6 +10,7 @@ import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHe
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.EntityAttributes.Orientation;
+import Model.Entity.EntityAttributes.Speed;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
@@ -45,6 +46,7 @@ public class SavingVisitorTests {
     @Before
     public void init() throws IOException, ParserConfigurationException, SAXException {
         ArrayList<Level> levels = new ArrayList<>();
+        ArrayList<Terrain> mountTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); add(Terrain.WATER); }};
         savingVisitor = new SavingVisitor("TESTSAVE.xml");
         gameLoader = new GameLoader();
         level = new Level(new ArrayList<>());
@@ -70,6 +72,8 @@ public class SavingVisitorTests {
 
         level.addRiverTo(new Point3D(0,0,0), new River(new Vec3d(0,0,0)));
 
+        level.addMountTo(new Point3D(0,0,0), new Mount(Orientation.NORTH, new Speed(10), mountTerrain, null));
+
         levels.add(level);
         levels.add(new Level(new ArrayList<LevelViewElement>()));
         gameModel = new GameModel(level, null, levels, null, null);
@@ -86,7 +90,7 @@ public class SavingVisitorTests {
     }
 
     @Test
-    public void testSavingAreaEffects() {
+    public void testSavingAreaEffectsAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
         Map<Point3D, AreaEffect> areasToTest = levelToTest.getAreaEffectLocations();
         assertTrue(areasToTest.get(new Point3D(0,0,0)) instanceof InfiniteAreaEffect);
@@ -94,7 +98,7 @@ public class SavingVisitorTests {
     }
 
     @Test
-    public void testSavingInfluences() {
+    public void testSavingInfluencesAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
         Map<Point3D, InfluenceEffect> influencesToTest = levelToTest.getInfluencesMap();
         assertTrue(influencesToTest.get(new Point3D(0,0,0)) instanceof LinearInfluenceEffect);
@@ -103,7 +107,7 @@ public class SavingVisitorTests {
     }
 
     @Test
-    public void testSavingItems() {
+    public void testSavingItemsAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
         Map<Point3D, Item> itemsToTest = levelToTest.getItemLocations();
         assertTrue(itemsToTest.get(new Point3D(0,0,0)) instanceof InteractiveItem);
@@ -114,23 +118,34 @@ public class SavingVisitorTests {
     }
 
     @Test
-    public void testTrapsSave() {
+    public void testTrapsSaveAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
         Map<Point3D, Trap> trapsToTest = levelToTest.getTrapLocations();
         assertTrue(trapsToTest.get(new Point3D(0,0,0)) instanceof Trap);
     }
 
     @Test
-    public void testObstaclesSave() {
+    public void testObstaclesSaveAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
         Map<Point3D, Obstacle> testedObstacles = levelToTest.getObstacleLocations();
         assertTrue(!testedObstacles.isEmpty());
     }
 
     @Test
-    public void testRiversSave() {
+    public void testRiversSaveAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
         Map<Point3D, River> riverMap = levelToTest.getRiverLocations();
         assertTrue(!riverMap.isEmpty());
+    }
+
+    @Test
+    public void testMountsSaveAndLoad() {
+        Level levelToTest = gameLoader.getCurrentLevel();
+        Map<Point3D, Mount> mountMap = levelToTest.getMountLocations();
+        assertTrue(!mountMap.isEmpty());
+        assertTrue(mountMap.get(new Point3D(0,0,0)).speedToString().equals("10"));
+        assertTrue(mountMap.get(new Point3D(0,0,0)).getPassableTerrain().get(0) == Terrain.GRASS);
+        assertTrue(mountMap.get(new Point3D(0,0,0)).getPassableTerrain().get(1) == Terrain.WATER);
+        assertTrue(mountMap.get(new Point3D(0,0,0)).getOrientation() == Orientation.NORTH);
     }
 }
