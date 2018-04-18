@@ -1,9 +1,11 @@
 package Model.Item;
 
+import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitable;
 import Model.Command.Command;
 import Model.Entity.Entity;
 
-public abstract class Item {
+public abstract class Item implements Visitable {
 
     private boolean toBeDeleted;
     private String name;
@@ -33,7 +35,7 @@ public abstract class Item {
         command.execute(entity);
     }
 
-    protected Command getCommand() {
+    public Command getCommand() {
         return command;
     }
 }

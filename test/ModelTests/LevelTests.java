@@ -236,7 +236,7 @@ public class LevelTests {
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameModel(), new GameLoopMessenger(new GameLoop())), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         Entity entity = new Entity();
         Entity dummy = new Entity();
@@ -257,7 +257,6 @@ public class LevelTests {
         Assert.assertEquals(100, entity.getCurrentHealth(), 0);
         Assert.assertEquals(100, dummy.getCurrentHealth(), 0);
 
-        entity.addSkillsToMap(swordSkill);
         entity.addWeaponSkills(swordSkill);
         entity.equipWeapon(sword);
         entity.addItemToInventory(sword2);

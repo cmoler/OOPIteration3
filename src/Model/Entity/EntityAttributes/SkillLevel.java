@@ -12,6 +12,7 @@ public class SkillLevel {
 
     public SkillLevel(int skillLevel) {
         this.skillLevel = skillLevel;
+        this.maxSkillLevel = 99;
     }
 
     public void increaseSkillLevel() {
@@ -26,5 +27,13 @@ public class SkillLevel {
 
     public int getSkillLevel() {
         return skillLevel;
+    }
+
+    public void setSkillLevel(int skillLevel) {
+        if(skillLevel < maxSkillLevel) {
+            this.skillLevel = skillLevel;
+        } else {
+            this.skillLevel = maxSkillLevel;
+        }
     }
 }

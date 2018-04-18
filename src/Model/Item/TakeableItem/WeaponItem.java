@@ -1,5 +1,6 @@
 package Model.Item.TakeableItem;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
@@ -48,9 +49,9 @@ public class WeaponItem extends TakeableItem{
     }
 
     public void attack(Entity entity) {
-        SkillLevel skillLevel = entity.getSkillLevel(hostSKill);
+        int skillLevel = entity.getSkillLevel(hostSKill);
 
-        if(skillLevel != null) {
+        if(skillLevel != 0) {
             //TODO: figure out what else to put here
             // TODO: figure out how to get skills to modify stats for stuff like attacks
             //int modifier = skillLevel.getSkillLevel();
@@ -74,5 +75,10 @@ public class WeaponItem extends TakeableItem{
             weaponEquipStrategy.setEntity(entity);
             setToBeDeleted();
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitWeaponItem(this);
     }
 }

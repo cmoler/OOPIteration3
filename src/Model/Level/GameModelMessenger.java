@@ -9,7 +9,7 @@ public class GameModelMessenger {
     private GameModel gameModel;
     private GameLoopMessenger gameLoopMessenger;
 
-    public GameModelMessenger(GameModel gameModel, GameLoopMessenger gameLoopMessenger) {
+    public GameModelMessenger(GameLoopMessenger gameLoopMessenger, GameModel gameModel) {
         this.gameModel = gameModel;
         this.gameLoopMessenger = gameLoopMessenger;
     }

@@ -1,5 +1,6 @@
 package Model.InfluenceEffect;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.EntityAttributes.Orientation;
@@ -50,5 +51,10 @@ public class RadialInfluenceEffect extends InfluenceEffect{
     @Override
     public InfluenceEffect cloneInfluenceEffect() {
         return new RadialInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitInfluenceEffect(this);
     }
 }

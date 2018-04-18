@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 
 public class ToggleHealthCommand extends ToggleableCommand {
@@ -24,5 +25,14 @@ public class ToggleHealthCommand extends ToggleableCommand {
             entity.decreaseMaxHealth(amount);
             toggleHasFired();
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitToggleHealthCommand(this);
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }

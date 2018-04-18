@@ -1,5 +1,6 @@
 package Model.Item;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Entity.Entity;
 
@@ -12,5 +13,10 @@ public class OneShotItem extends Item {
     public void onTouch(Entity entity) {
         executeCommand(entity);
         setToBeDeleted();
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitItem(this);
     }
 }

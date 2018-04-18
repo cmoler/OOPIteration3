@@ -1,0 +1,22 @@
+<LEVEL>
+<LEVELMAP id="TERRAIN">
+	<KEY key="0,0,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,0,1"/>
+	<VALUE value="MOUNTAINS"/>
+</LEVELMAP>
+
+<LEVELMAP id="AREAEFFECTS">
+	<KEY key="0,0,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<RemoveHealthCommand damageAmount="5"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="0,0,1"/>
+	<VALUE>
+	<OneShotAreaEffect hasNotFired="true">
+		<AddHealthCommand healAmount="10"/>
+	</OneShotAreaEffect></VALUE>
+</LEVELMAP>
+</LEVEL>
