@@ -4,6 +4,7 @@ import Controller.GameLoop;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.PickPocketCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
@@ -14,8 +15,9 @@ import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
-import Model.Item.TakeableItem.ConsumableItem;
-import Model.Item.TakeableItem.TakeableItem;
+import Model.Item.Item;
+import Model.Item.OneShotItem;
+import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
@@ -248,4 +250,186 @@ public class CommandTests {
         Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity);
     }
 
+    @Test
+    public void testDropItemAllPointsFree() {
+        List<LevelViewElement> observers = new ArrayList<>();
+
+        Level level = new Level(observers);
+
+        Entity entity = new Entity();
+
+        GameLoop gameLoop = new GameLoop();
+        GameModel gameModel = new GameModel();
+        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+        GameModelMessenger gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
+        LevelMessenger messenger = new LevelMessenger(gameModelMessenger, level);
+
+        Point3D center = new Point3D(0,0,0);
+
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.NORTH), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.SOUTH), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST), Terrain.GRASS);
+
+        ConsumableItem item = new ConsumableItem("thingie", new AddHealthCommand( 10));
+
+        level.addEntityTo(center, entity);
+        level.addItemnTo(center, item);
+        item.setCurrentLevelMessenger(messenger);
+
+        Assert.assertFalse(entity.hasItemInInventory(item));
+        Assert.assertTrue(level.hasItem(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+
+        level.processInteractions();
+
+        Assert.assertTrue(entity.hasItemInInventory(item));
+        Assert.assertFalse(level.hasItem(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+
+        item.drop();
+
+        Assert.assertFalse(entity.hasItemInInventory(item));
+        Assert.assertTrue(level.hasItem(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+
+        RingItem item2 = new RingItem("thingie2", new ToggleHealthCommand( 10));
+        item2.setCurrentLevelMessenger(messenger);
+        level.addItemnTo(center, item2);
+        level.processInteractions();
+
+        ArmorItem item3 = new ArmorItem("thingie3", new ToggleHealthCommand( 10));
+        item3.setCurrentLevelMessenger(messenger);
+        level.addItemnTo(center, item3);
+        level.processInteractions();
+
+        WeaponItem item4 = new WeaponItem("thingie4", new RemoveHealthCommand( 10));
+        item4.setCurrentLevelMessenger(messenger);
+        level.addItemnTo(center, item4);
+        level.processInteractions();
+
+        Assert.assertFalse(entity.hasItemInInventory(item));
+        Assert.assertTrue(entity.hasItemInInventory(item2));
+        Assert.assertTrue(entity.hasItemInInventory(item3));
+        Assert.assertTrue(entity.hasItemInInventory(item4));
+
+        Assert.assertTrue(level.hasItem(item));
+        Assert.assertFalse(level.hasItem(item2));
+        Assert.assertFalse(level.hasItem(item3));
+        Assert.assertFalse(level.hasItem(item4));
+
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+
+        item2.drop();
+        item3.drop();
+        item4.drop();
+
+        Assert.assertFalse(entity.hasItemInInventory(item));
+        Assert.assertFalse(entity.hasItemInInventory(item2));
+        Assert.assertFalse(entity.hasItemInInventory(item3));
+        Assert.assertFalse(entity.hasItemInInventory(item4));
+
+        Assert.assertTrue(level.hasItem(item));
+        Assert.assertTrue(level.hasItem(item2));
+        Assert.assertTrue(level.hasItem(item3));
+        Assert.assertTrue(level.hasItem(item4));
+
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+    }
+
+    @Test
+    public void testDropItemNoPointsFree() {
+        List<LevelViewElement> observers = new ArrayList<>();
+
+        Level level = new Level(observers);
+
+        Entity entity = new Entity();
+
+        GameLoop gameLoop = new GameLoop();
+        GameModel gameModel = new GameModel();
+        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+        GameModelMessenger gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
+        LevelMessenger messenger = new LevelMessenger(gameModelMessenger, level);
+
+        Point3D center = new Point3D(0,0,0);
+
+        ConsumableItem item = new ConsumableItem("thingie", new AddHealthCommand( 10));
+
+        level.addEntityTo(center, entity);
+        level.addItemnTo(center, item);
+        item.setCurrentLevelMessenger(messenger);
+
+        Assert.assertFalse(entity.hasItemInInventory(item));
+        Assert.assertTrue(level.hasItem(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+
+        level.processInteractions();
+
+        Assert.assertTrue(entity.hasItemInInventory(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+        Assert.assertFalse(level.hasItem(item));
+
+        item.drop();
+
+        Assert.assertTrue(entity.hasItemInInventory(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.NORTH), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.SOUTH), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST), Terrain.GRASS);
+        level.addTerrainTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST), Terrain.GRASS);
+
+        level.addObstacleTo(Orientation.getAdjacentPoint(center, Orientation.NORTH), new Obstacle());
+        level.addObstacleTo(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST), new Obstacle());
+        level.addMountTo(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST), new Mount());
+        level.addEntityTo(Orientation.getAdjacentPoint(center, Orientation.SOUTH), new Entity());
+        level.addEntityTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST), new Entity());
+        level.addItemnTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST), new OneShotItem("testItem", new AddHealthCommand(10)));
+
+
+
+        item.drop();
+
+        Assert.assertTrue(entity.hasItemInInventory(item));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+
+        RingItem item2 = new RingItem("thingie2", new ToggleHealthCommand( 10));
+        item2.setCurrentLevelMessenger(messenger);
+
+        level.addItemnTo(center, item2);
+        level.processInteractions();
+
+        ArmorItem item3 = new ArmorItem("thingie3", new ToggleHealthCommand( 10));
+        item3.setCurrentLevelMessenger(messenger);
+
+        level.addItemnTo(center, item3);
+        level.processInteractions();
+
+        WeaponItem item4 = new WeaponItem("thingie4", new RemoveHealthCommand( 10));
+        item4.setCurrentLevelMessenger(messenger);
+
+        level.addItemnTo(center, item4);
+        level.processInteractions();
+
+        Assert.assertTrue(entity.hasItemInInventory(item));
+        Assert.assertTrue(entity.hasItemInInventory(item2));
+        Assert.assertTrue(entity.hasItemInInventory(item3));
+        Assert.assertTrue(entity.hasItemInInventory(item4));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+
+        item.drop();
+        item2.drop();
+        item3.drop();
+        item4.drop();
+
+        Assert.assertTrue(entity.hasItemInInventory(item));
+        Assert.assertTrue(entity.hasItemInInventory(item2));
+        Assert.assertTrue(entity.hasItemInInventory(item3));
+        Assert.assertTrue(entity.hasItemInInventory(item4));
+        Assert.assertEquals(level.getEntityPoint(entity), center);
+    }
 }

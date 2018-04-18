@@ -8,11 +8,12 @@ public abstract class InventoryStrategy {
 
     public abstract void useStrategy();
 
-    protected Entity getEntity(){
+    protected Entity getEntity() {
+
         return entity;
     }
 
-    public void setEntity(Entity entity){
+    public void setEntity(Entity entity) {
         this.entity = entity;
     }
 }

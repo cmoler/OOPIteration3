@@ -67,14 +67,8 @@ public class WeaponItem extends TakeableItem{
         weaponEquipStrategy.useStrategy();
     }
 
-    @Override
-    public void onTouch(Entity entity) {
-        entity.addItemToInventory(this);
-
-        if (entity.hasItemInInventory(this)) {
-            weaponEquipStrategy.setEntity(entity);
-            setToBeDeleted();
-        }
+    protected void setItemStrategyEntity(Entity entity) {
+        weaponEquipStrategy.setEntity(entity);
     }
 
     @Override
