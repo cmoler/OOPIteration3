@@ -14,4 +14,7 @@
     <Bind type="select">
         <key>Enter</key>
     </Bind>
+    <Bind type="back">
+        <key>Esc</key>
+    </Bind>
 </class>
