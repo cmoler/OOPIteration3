@@ -27,7 +27,6 @@ public class KeyEventImplementor implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-        System.out.println(event.getCode().getName());
         controller.triggerActionOnKeycode(event.getCode());
     }
 }
