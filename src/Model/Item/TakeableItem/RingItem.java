@@ -1,5 +1,6 @@
 package Model.Item.TakeableItem;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.InventoryStrategy.RingEquipStrategy;
@@ -25,5 +26,10 @@ public class RingItem extends TakeableItem{
 
     public void toggleEquipEffect(Entity entity) {
         executeCommand(entity);
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitItem(this);
     }
 }

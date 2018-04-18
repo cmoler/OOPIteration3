@@ -1,5 +1,6 @@
 package Model.Item.TakeableItem;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.InventoryStrategy.ConsumeStrategy;
@@ -26,5 +27,10 @@ public class ConsumableItem extends TakeableItem {
     public void consume(Entity entity) {
         executeCommand(entity);
         entity.removeItemFromInventory(this);
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitItem(this);
     }
 }

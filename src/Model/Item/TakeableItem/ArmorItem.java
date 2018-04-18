@@ -1,5 +1,6 @@
 package Model.Item.TakeableItem;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Command.Command;
 import Model.Entity.Entity;
@@ -35,5 +36,14 @@ public class ArmorItem extends TakeableItem {
 
     public void toggleEquipEffect(Entity entity) {
         executeCommand(entity);
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitArmorItem(this);
+    }
+
+    public int getDefense() {
+        return defense;
     }
 }

@@ -1,5 +1,7 @@
 package Model.InfluenceEffect;
 
+import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitable;
 import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
@@ -8,7 +10,7 @@ import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
 
-public abstract class InfluenceEffect{
+public abstract class InfluenceEffect implements Visitable {
     private SettableCommand command;
     private int movesRemaining;
     private long nextMoveTime;

@@ -31,4 +31,8 @@ public class ToggleHealthCommand extends ToggleableCommand {
     public void accept(SavingVisitor visitor) {
         visitor.visitToggleHealthCommand(this);
     }
+
+    public int getAmount() {
+        return amount;
+    }
 }

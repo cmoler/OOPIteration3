@@ -14,7 +14,7 @@ public abstract class ToggleableCommand implements Command {
         this.hasFired = hasFired;
     }
 
-    protected boolean hasFired() {
+    public boolean hasFired() {
         return hasFired;
     }
 

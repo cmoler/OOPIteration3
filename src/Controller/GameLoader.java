@@ -15,6 +15,7 @@ import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHe
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Entity.EntityAttributes.Orientation;
+import Model.Entity.EntityAttributes.Speed;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
@@ -27,6 +28,7 @@ import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.RingItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.*;
+import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -125,9 +127,83 @@ public class GameLoader {
     }
 
     private void processMounts(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+        List<Mount> mountsToAdd = new ArrayList<>();
+        Speed speed;
+        Orientation orientation;
+        List<Terrain> terrains = new ArrayList<>();
+
+        NodeList mountValues = element.getElementsByTagName("VALUE");
+        for(int i = 0; i < mountValues.getLength(); i++) {
+            NodeList mountNodes = mountValues.item(i).getChildNodes();
+
+            for(int j = 0; j < mountNodes.getLength(); j++) {
+                Node mountNode = mountNodes.item(j);
+                if(mountNode.getNodeType() == Node.ELEMENT_NODE) {
+                    speed = new Speed(Integer.parseInt(mountNode.getAttributes().getNamedItem("speed").getTextContent()));
+                    orientation = Orientation.toOrientation(mountNode.getAttributes().getNamedItem("orientation").getTextContent());
+                    processTerrainList(element, terrains);
+
+                    mountsToAdd.add(new Mount(orientation, speed, terrains, null));
+                }
+            }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addMountTo(pointsToAdd.get(i), mountsToAdd.get(i));
+        }
+    }
+
+    private void processTerrainList(Element element, List<Terrain> terrains) {
+        NodeList terrainValues = element.getElementsByTagName("TERRAINLIST");
+        for(int terrainIter = 0; terrainIter < terrainValues.getLength(); terrainIter++) {
+
+            NodeList terrainNodes = terrainValues.item(terrainIter).getChildNodes();
+            for(int j = 0; j < terrainNodes.getLength(); j++) {
+                Node terrainNode = terrainNodes.item(j);
+                if (terrainNode.getNodeType() == Node.ELEMENT_NODE) {
+                    switch (terrainNode.getAttributes().getNamedItem("value").getTextContent().toLowerCase()) {
+                        case "grass":
+                            terrains.add(Terrain.GRASS);
+                            break;
+
+                        case "water":
+                            terrains.add(Terrain.WATER);
+                            break;
+
+                        case "mountains":
+                            terrains.add(Terrain.MOUNTAINS);
+                            break;
+
+                        default:
+                            terrains.add(Terrain.NONE);
+                    }
+                }
+            }
+        }
     }
 
     private void processRivers(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+        List<River> riversToAdd = new ArrayList<>();
+        Vec3d flow;
+
+        NodeList riverValues = element.getElementsByTagName("VALUE");
+        for(int i = 0; i < riverValues.getLength(); i++) {
+            NodeList riverNodes = riverValues.item(i).getChildNodes();
+
+            for(int j = 0; j < riverNodes.getLength(); j++) {
+                Node riverNode = riverNodes.item(j);
+                if(riverNode.getNodeType() == Node.ELEMENT_NODE) {
+                    flow = toVector(riverNode.getAttributes().getNamedItem("flowRate").getTextContent());
+                    riversToAdd.add(new River(flow));
+                }
+            }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addRiverTo(pointsToAdd.get(i), riversToAdd.get(i));
+        }
     }
 
     private void processTraps(Element element, Level level) {
@@ -136,6 +212,7 @@ public class GameLoader {
         Command command;
         boolean isVisible;
         boolean isDisarmed;
+        int trapStrength;
 
         NodeList trapValues = element.getElementsByTagName("VALUE");
         for(int i = 0; i < trapValues.getLength(); i++) {
@@ -149,10 +226,16 @@ public class GameLoader {
                     if(command != null) {
                         isVisible = Boolean.parseBoolean(trapNode.getAttributes().getNamedItem("isVisible").getTextContent());
                         isDisarmed = Boolean.parseBoolean(trapNode.getAttributes().getNamedItem("isDisarmed").getTextContent());
-                        //TODO: Add list of level view elements
+                        trapStrength = Integer.parseInt(trapNode.getAttributes().getNamedItem("trapStrength").getTextContent());
+
+                        traps.add(new Trap(null, command, isVisible, isDisarmed, trapStrength));
                     }
                 }
             }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addTrapTo(pointsToAdd.get(i), traps.get(i));
         }
     }
 
@@ -176,6 +259,7 @@ public class GameLoader {
 
                     if(command != null) {
                         name = itemNode.getAttributes().getNamedItem("name").getTextContent();
+//                        System.out.println(itemNode.getNodeName().toLowerCase());
                         switch (itemNode.getNodeName().toLowerCase()) {
                             case "oneshotitem":
                                 itemsToAdd.add(new OneShotItem(name, command));
@@ -231,7 +315,7 @@ public class GameLoader {
                     command = processCommand(influenceNode.getChildNodes());
 
                     if(command != null) {
-                        nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("nextMoveTime").getTextContent());
+                        nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
                         speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
                         range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
                         orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
@@ -275,11 +359,11 @@ public class GameLoader {
 
                     if(command != null) {
                         switch (effectNode.getNodeName().toLowerCase()) {
-                            case "oneshotarea":
+                            case "oneshotareaeffect":
                                 effectsToAdd.add(new OneShotAreaEffect(command));
                                 break;
 
-                            case "infinitearea":
+                            case "infiniteareaeffect":
                                 effectsToAdd.add(new InfiniteAreaEffect(command));
                                 break;
                         }
@@ -302,10 +386,10 @@ public class GameLoader {
             if(commandNode.getNodeType() == Node.ELEMENT_NODE) {
                 switch (commandNode.getNodeName().toLowerCase()) {
                     case "addhealthcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("healAmount").getTextContent());
                         return new AddHealthCommand(amount);
                     case "removehealthcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("damageAmount").getTextContent());
                         return new RemoveHealthCommand(amount);
 
                     case "togglehealthcommand":
@@ -392,7 +476,7 @@ public class GameLoader {
                     valueTerrain = Terrain.WATER;
                     break;
 
-                case "mountain":
+                case "mountains":
                     valueTerrain = Terrain.MOUNTAINS;
                     break;
 
@@ -479,6 +563,11 @@ public class GameLoader {
         }
 
         return pointsToAdd;
+    }
+
+    private Vec3d toVector(String flowRate) {
+        String[] point = flowRate.split(",");
+        return new Vec3d(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
     }
 
     public Level getCurrentLevel() {
