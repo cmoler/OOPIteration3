@@ -50,6 +50,7 @@ public class RunGame extends Application{
         primaryStage.setScene( mainScene );
 
         Canvas canvas = new Canvas(Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
+
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 

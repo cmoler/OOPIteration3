@@ -8,4 +8,5 @@ public interface LevelViewElement {
 
     void notifyViewElement();
     void render(GraphicsContext gc, Point2D offset);
+    int getRenderPriority();
 }

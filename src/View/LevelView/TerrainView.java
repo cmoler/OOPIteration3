@@ -40,13 +40,18 @@ public class TerrainView implements LevelViewElement{
         int width = size;
         int height = (int)(width * (Math.sqrt(3)/2));
 
-        int xOffset = hexMathHelper.getXCoord(location) + (int)offset.getX();
-        int yOffset = hexMathHelper.getYCoord(location) + (int)offset.getY();
+        int xOffset = hexMathHelper.getXCoord(location);
+        int yOffset = hexMathHelper.getYCoord(location);
 
-        rotate(gc, 0, 100+(int)((xOffset*width)*.75), 100 + (yOffset*(height/2)));
-        gc.drawImage(hex, 100+(int)((xOffset*width)*.75), 100 + (yOffset*(height/2)), width, height);
+        rotate(gc, -90, ((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY());
+        gc.drawImage(hex, (int)((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY(), width, height);
 
 
+    }
+
+    @Override
+    public int getRenderPriority() {
+        return 4;
     }
 
     private void rotate(GraphicsContext gc, double angle, double px, double py) {

@@ -101,7 +101,7 @@ public class GameLoop {
 
     public void render(GraphicsContext gc){
         renderer.render(gc, gameModel.getPlayerPosition());
-        menuView.render(gc);
+        //menuView.render(gc);
     }
 
     public KeyEventImplementor getControls() {

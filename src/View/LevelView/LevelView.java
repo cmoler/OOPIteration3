@@ -29,8 +29,12 @@ public class LevelView {
         Point2D offset = new Point2D((canvas.getWidth()/2)-playerOffsetX, (canvas.getHeight()/2)-playerOffsetY);
 
         List<LevelViewElement> observers = currentLevel.getObservers();
-        for(LevelViewElement o:observers) {
-            o.render(gc, offset);
+        for(int i = 4; i >= 0; i--) {
+            for (LevelViewElement o : observers) {
+                if(o.getRenderPriority() == i) {//Ensures level objects are rendered in the correct order
+                    o.render(gc, offset);
+                }
+            }
         }
     }
 

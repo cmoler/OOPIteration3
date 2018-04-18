@@ -6,6 +6,8 @@ import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Entity.Entity;
+import View.LevelView.EntityView;
+import View.LevelView.TerrainView;
 import javafx.geometry.Point3D;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class GameModel implements Visitable {
             currentLevel = new Level(new ArrayList<>());
             player = new Entity();
             currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
+            currentLevel.addObserver(new EntityView(player));
+            currentLevel.addObserver(new TerrainView(new Point3D(0, 0, 0), 75));
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,

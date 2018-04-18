@@ -32,6 +32,7 @@ public class EntityView implements LevelViewElement{
         hexMathHelper = new HexMathHelper();
 
         entityLocation = new Point3D(0, 0, 0);
+        entityOrientation = Orientation.NORTH;
     }
     @Override
     public void notifyViewElement() {
@@ -42,11 +43,17 @@ public class EntityView implements LevelViewElement{
         int width = entitySize;
         int height = (int)(width * (Math.sqrt(3)/2));
 
-        int xOffset = hexMathHelper.getXCoord(entityLocation) + (int)offset.getX();
-        int yOffset = hexMathHelper.getYCoord(entityLocation) + (int)offset.getY();
-        
-        rotate(gc, (double)entityOrientation.getDegreeOfOrientation(entityOrientation), 100+(int)((xOffset*width)*.75)+(width/2), 100 + (yOffset*(height/2))+(height/2));
-        gc.drawImage(entitySprite, 100+(int)((xOffset*width)*.75), 100 + (yOffset*(height/2)), width, height);
+        int xOffset = hexMathHelper.getXCoord(entityLocation);
+        int yOffset = hexMathHelper.getYCoord(entityLocation);
+
+
+        rotate(gc, (double)entityOrientation.getDegreeOfOrientation(entityOrientation), ((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY());
+        gc.drawImage(entitySprite, (int)((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY(), width, height);
+    }
+
+    @Override
+    public int getRenderPriority() {
+        return 0;
     }
 
     private void rotate(GraphicsContext gc, double angle, double px, double py) {
