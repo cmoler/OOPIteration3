@@ -18,7 +18,7 @@ public class TerrainView implements LevelViewElement{
     public TerrainView(Point3D location, int size) {
         String workingDir = System.getProperty("user.dir");
 
-        File file = new File(workingDir + "/src/View/Assets/hexTilesGrass.png");
+        File file = new File(workingDir + "/src/View/Assets/hexTilesGrass1.png");
         hex = new Image(file.toURI().toString());
 
         this.location = location;

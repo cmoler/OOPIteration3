@@ -76,6 +76,7 @@ public class RunGame extends Application{
         }
 
 */
+        
         GameLoop gameLoop = new GameLoop();
 
         canvas.setOnKeyPressed(gameLoop.getControls());
