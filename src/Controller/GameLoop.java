@@ -41,14 +41,14 @@ public class GameLoop {
         };
 
         menuModel = new MenuModel(this);
-        menuView = new MenuView();
 
         gameModel = new GameModel();
 
         controls.createMenuSet(menuModel);
-        setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
 
         renderer = new Renderer();
+
+        setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
     }
 
@@ -92,7 +92,7 @@ public class GameLoop {
 
     public void setMenuState(MenuState menuState, MenuViewState menuViewState){
         menuModel.setActiveState(menuState);
-        menuView.setActiveState(menuViewState);
+        renderer.setActiveMenuState(menuViewState);
     }
 
     public void tick() {
@@ -101,7 +101,6 @@ public class GameLoop {
 
     public void render(GraphicsContext gc){
         renderer.render(gc, gameModel.getPlayerPosition());
-        //menuView.render(gc);
     }
 
     public KeyEventImplementor getControls() {
