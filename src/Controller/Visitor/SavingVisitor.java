@@ -29,6 +29,7 @@ import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.RingItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.*;
+import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
 
@@ -60,6 +61,16 @@ public class SavingVisitor implements Visitor {
         pointStr.append((int)point.getY());
         pointStr.append(",");
         pointStr.append((int)point.getZ());
+        return pointStr;
+    }
+
+    private StringBuffer vecToString(Vec3d vec) {
+        StringBuffer pointStr = new StringBuffer();
+        pointStr.append((int)vec.x);
+        pointStr.append(",");
+        pointStr.append((int)vec.y);
+        pointStr.append(",");
+        pointStr.append((int)vec.z);
         return pointStr;
     }
 
@@ -250,6 +261,37 @@ public class SavingVisitor implements Visitor {
         return levelMapOpen;
     }
 
+    private StringBuffer processRivers(Map<Point3D, River> riverLocations) {
+        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"RIVER\">");
+        StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
+
+        for(Map.Entry<Point3D, River> entry: riverLocations.entrySet()) {
+            StringBuffer key = new StringBuffer("<KEY key=");
+
+            key.append("\"");
+            key.append(keyToString(entry.getKey()));
+            key.append("\"");
+            key.append("/>");
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+            levelMapOpen.append(key);
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+
+            entry.getValue().accept(this);
+
+            this.valueNode.append("</VALUE>");
+            levelMapOpen.append(this.valueNode);
+            this.valueNode = new StringBuffer("<VALUE>");
+        }
+
+        levelMapOpen.append("\n");
+        levelMapOpen.append(levelMapClosed);
+        return levelMapOpen;
+    }
+
     @Override
     public void visitGameModel(GameModel gameModel) {
         try {
@@ -298,6 +340,10 @@ public class SavingVisitor implements Visitor {
 
             levelString.append("\n");
             levelString.append(processObstacles(obstacleLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processRivers(riverLocations));
             levelString.append("\n");
 
             levelString.append("</LEVEL>");
@@ -415,7 +461,17 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitRiver(River river) {
+        StringBuffer vectorString = vecToString(river.getFlowrate());
+        StringBuffer riverString = new StringBuffer("<" + river.getClass().getSimpleName() +
+                " flowRate=" + "\"");
 
+        riverString.append(vectorString);
+        riverString.append("\"/>");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(riverString);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
     }
 
     @Override

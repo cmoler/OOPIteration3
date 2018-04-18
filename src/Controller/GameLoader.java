@@ -27,6 +27,7 @@ import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.RingItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.*;
+import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -128,6 +129,26 @@ public class GameLoader {
     }
 
     private void processRivers(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+        List<River> riversToAdd = new ArrayList<>();
+        Vec3d flow;
+
+        NodeList riverValues = element.getElementsByTagName("VALUE");
+        for(int i = 0; i < riverValues.getLength(); i++) {
+            NodeList riverNodes = riverValues.item(i).getChildNodes();
+
+            for(int j = 0; j < riverNodes.getLength(); j++) {
+                Node riverNode = riverNodes.item(j);
+                if(riverNode.getNodeType() == Node.ELEMENT_NODE) {
+                    flow = toVector(riverNode.getAttributes().getNamedItem("flowRate").getTextContent());
+                    riversToAdd.add(new River(flow));
+                }
+            }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addRiverTo(pointsToAdd.get(i), riversToAdd.get(i));
+        }
     }
 
     private void processTraps(Element element, Level level) {
@@ -487,6 +508,11 @@ public class GameLoader {
         }
 
         return pointsToAdd;
+    }
+
+    private Vec3d toVector(String flowRate) {
+        String[] point = flowRate.split(",");
+        return new Vec3d(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
     }
 
     public Level getCurrentLevel() {

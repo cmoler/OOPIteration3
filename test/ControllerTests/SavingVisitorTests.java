@@ -22,6 +22,7 @@ import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.RingItem;
 import Model.Level.*;
 import View.LevelView.LevelViewElement;
+import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,6 +67,8 @@ public class SavingVisitorTests {
         level.addTrapTo(new Point3D(0,0,0), new Trap(null, new RemoveHealthCommand(0), false, false, 10));
 
         level.addObstacleTo(new Point3D(0,0,5), new Obstacle());
+
+        level.addRiverTo(new Point3D(0,0,0), new River(new Vec3d(0,0,0)));
 
         levels.add(level);
         levels.add(new Level(new ArrayList<LevelViewElement>()));
@@ -122,5 +125,12 @@ public class SavingVisitorTests {
         Level levelToTest = gameLoader.getCurrentLevel();
         Map<Point3D, Obstacle> testedObstacles = levelToTest.getObstacleLocations();
         assertTrue(!testedObstacles.isEmpty());
+    }
+
+    @Test
+    public void testRiversSave() {
+        Level levelToTest = gameLoader.getCurrentLevel();
+        Map<Point3D, River> riverMap = levelToTest.getRiverLocations();
+        assertTrue(!riverMap.isEmpty());
     }
 }
