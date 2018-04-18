@@ -39,7 +39,21 @@ public enum Orientation {
 
     public int getDegreeOfOrientation(Orientation orientation) {
         int index = getIndexOfOrientation(orientation);
-        return (index * 60) - 90;
+        switch(index) {
+            case 0:
+                return 0;
+            case 1:
+                return 45;
+            case 2:
+                return 135;
+            case 3:
+                return 190;
+            case 4:
+                return 225;
+            case 5:
+                return 315;
+        }
+        return 0;
     }
 
     public static Orientation toOrientation(String string) {

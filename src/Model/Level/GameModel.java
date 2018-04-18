@@ -7,6 +7,7 @@ import Model.AI.AIController;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Entity.Entity;
 import View.LevelView.EntityView;
+import View.LevelView.ItemView;
 import View.LevelView.ObstacleView;
 import View.LevelView.TerrainView;
 import javafx.geometry.Point3D;
@@ -37,7 +38,7 @@ public class GameModel implements Visitable {
             currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
             currentLevel.addObserver(new EntityView(player));
             currentLevel.addObserver(new TerrainView(new Point3D(1, 1, -2), 75));
-            currentLevel.addObserver(new ObstacleView(new Point3D(-1, 0, 1), 60));
+            currentLevel.addObserver(new ItemView(new Point3D(-1, 0, 1)));
             currentLevel.addObserver(new TerrainView(new Point3D(-1, 0, 1), 75));
 
     }
