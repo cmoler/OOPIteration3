@@ -560,7 +560,10 @@ public class SavingVisitor implements Visitor {
         StringBuffer invString = new StringBuffer("<" + inventory.getClass().getSimpleName()
                 + " maxSize=" + "\"" + inventory.getMaxSize() + "\">");
         this.valueNode.append(invString);
+        this.valueNode.append("\n");
+        this.valueNode.append("<ITEMLIST>");
         inventory.accept(this);
+        this.valueNode.append("</ITEMLIST>");
         this.valueNode.append("</" + inventory.getClass().getSimpleName() + ">");
     }
 
@@ -657,12 +660,16 @@ public class SavingVisitor implements Visitor {
     @Override
     public void visitItem(TakeableItem takeableItem) {
         //TODO: this is nasty
-        if(!(takeableItem instanceof WeaponItem)) {
+        if(!(takeableItem instanceof WeaponItem) && !(takeableItem instanceof ArmorItem)) {
             processItem(takeableItem);
         }
 
-        else {
+        else if(takeableItem instanceof WeaponItem){
             visitItem((WeaponItem) takeableItem);
+        }
+
+        else if(takeableItem instanceof ArmorItem) {
+            visitItem((ArmorItem) takeableItem);
         }
     }
 

@@ -200,5 +200,18 @@ public class SavingVisitorTests {
         Level level = gameLoader.getCurrentLevel();
         BidiMap<Point3D, Entity> entityMap = level.getEntityLocations();
         assertTrue(!entityMap.isEmpty());
+
+        Entity testEntity = entityMap.getValueFromKey(new Point3D(0,0,0));
+        Inventory testInventory = testEntity.getInventory();
+        assertTrue(testInventory.size() == 2);
+        assertTrue(testInventory.getItem(0) instanceof ArmorItem);
+        assertTrue(testInventory.getItem(1) instanceof RingItem);
+
+        Equipment testEquippment = testEntity.getEquipment();
+        assertTrue(testEquippment.hasRing());
+        assertTrue(testEquippment.hasArmor());
+
+        ItemHotBar itemHotBar = testEntity.getItemHotBar();
+        assertTrue(itemHotBar.getItem(0) instanceof ArmorItem);
     }
 }

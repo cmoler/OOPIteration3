@@ -50,7 +50,7 @@ public class Inventory implements Visitable {
     }
 
     public TakeableItem getItem(int selectedItem) {
-        if(inventory.size() < selectedItem - 1 && selectedItem > 0)
+        if(inventory.size() > selectedItem && selectedItem >= 0)
             return inventory.get(selectedItem);
         return null;
     }

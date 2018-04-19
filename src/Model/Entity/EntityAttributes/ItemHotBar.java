@@ -44,4 +44,11 @@ public class ItemHotBar implements Visitable {
             visitor.visitItem(item);
         }
     }
+
+    public TakeableItem getItem(int i) {
+        if(i < 5 && i >= 0)
+            return items[i];
+        else
+            return null;
+    }
 }
