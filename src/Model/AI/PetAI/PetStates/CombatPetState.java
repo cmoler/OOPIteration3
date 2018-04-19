@@ -1,4 +1,4 @@
-package Model.AI.PetAI;
+package Model.AI.PetAI.PetStates;
 
 import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
@@ -14,7 +14,7 @@ import java.util.Map;
 
 // In CombatState, a pet will frenzy and won't stop until it kills its enemies on the map!
 
-public class CombatPetState implements PetState{
+public class CombatPetState implements PetState {
     private BidiMap<Point3D, Entity> entityMap;
     private PathingAlgorithm pathCalculator;
     private List<Entity> targetList;

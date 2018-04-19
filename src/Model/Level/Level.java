@@ -139,7 +139,7 @@ public class Level {
 
     public void addTerrainTo(Point3D point, Terrain terrain) {
         terrainLocations.put(point, terrain);
-        addObserver(new TerrainView(point));
+        addObserver(new TerrainView(terrain, point));
     }
 
     public void addObstacleTo(Point3D point, Obstacle obstacle) {

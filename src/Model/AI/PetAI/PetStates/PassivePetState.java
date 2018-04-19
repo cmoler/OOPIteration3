@@ -1,4 +1,4 @@
-package Model.AI.PetAI;
+package Model.AI.PetAI.PetStates;
 
 import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 // In PassiveState, a pet will only follow its master!
 
-public class PassivePetState implements PetState{
+public class PassivePetState implements PetState {
     private BidiMap<Point3D, Entity> entityMap;
     private Entity player;
     private PathingAlgorithm pathCalculator;
