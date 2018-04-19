@@ -16,6 +16,8 @@ import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
 import View.Renderer;
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
 
 public class GameLoop {
@@ -29,10 +31,11 @@ public class GameLoop {
     private ControllerSetFactory controllerSetFactory;
     private KeyEventImplementor controls;
     private Renderer renderer;
+    private EventHandler<KeyEvent> controls;
 
     public GameLoop() {
         //TODO: Add loading logic
-        controls = new KeyEventImplementor(this);
+        setControls();
         loopTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -48,6 +51,7 @@ public class GameLoop {
 
         renderer = new Renderer();
 
+        ((KeyEventImplementor)controls).createMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
     }
@@ -104,6 +108,14 @@ public class GameLoop {
     }
 
     public KeyEventImplementor getControls() {
-        return controls;
+        return ((KeyEventImplementor)controls);
+    }
+
+    public void setControls(){
+        controls = new KeyEventImplementor(this);
+    }
+
+    public void setKeyBinding(int selectedLeftRight, int selectedUpDown) {
+        controls = new KeyBindingSetter(this, selectedLeftRight, selectedUpDown);
     }
 }
