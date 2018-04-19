@@ -72,7 +72,7 @@ public class Level {
         return obstacleLocations;
     }
 
-    public Map<Point3D, Entity> getEntityLocations() {
+    public BidiMap<Point3D, Entity> getEntityLocations() {
         return entityLocations;
     }
 

@@ -40,7 +40,7 @@ public class ArmorItem extends TakeableItem {
 
     @Override
     public void accept(SavingVisitor visitor) {
-        visitor.visitArmorItem(this);
+        visitor.visitItem(this);
     }
 
     public int getDefense() {

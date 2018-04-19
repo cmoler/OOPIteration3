@@ -102,7 +102,7 @@ public class Entity {
 
         inventory = new Inventory();
         equipment = new Equipment();
-        hotBar = new ItemHotBar(this);
+        hotBar = new ItemHotBar();
         orientation = Orientation.NORTH;
 
         compatableTerrain = new ArrayList<Terrain>();
@@ -555,5 +555,9 @@ public class Entity {
 
     public boolean hasItems() {
         return inventory.size() >= 1;
+    }
+
+    public Equipment getEquipment() {
+        return equipment;
     }
 }

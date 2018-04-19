@@ -1,6 +1,7 @@
 package Model.Utility;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class BidiMap<K, V> extends HashMap {
@@ -50,10 +51,16 @@ public class BidiMap<K, V> extends HashMap {
         return reverseMap.keySet();
     }
 
+    public Set<Map.Entry<K,V>> entrySet () {
+        return standardMap.entrySet();
+    }
+
     public void clear(){
         standardMap.clear();
         reverseMap.clear();
     }
 
-
+    public boolean isEmpty () {
+        return standardMap.isEmpty();
+    }
 }
