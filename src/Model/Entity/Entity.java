@@ -282,10 +282,12 @@ public class Entity {
     }
 
     public void dismountVehicle(){
-        speed.decreaseSpeed(mount.getMovementSpeed());
-        compatableTerrain.removeAll(mount.getPassableTerrain());
-        this.mount = null;
-        // notifyObservers(); Only if we want the sprite to change
+        if(mount!= null) {
+            speed.decreaseSpeed(mount.getMovementSpeed());
+            compatableTerrain.removeAll(mount.getPassableTerrain());
+            this.mount = null;
+            // notifyObservers(); Only if we want the sprite to change
+        }
     }
 
     public void equipWeapon(WeaponItem weaponItem) {
