@@ -1,20 +1,17 @@
-//TODO: Have enemies also attack pets
-
 package Model.AI;
 
 import Model.Entity.Entity;
-import Model.Level.BidiMap;
+import Model.Utility.BidiMap;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
+import Model.Utility.RandomVelocityGenerator;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import java.util.*;
 
 
 public class HostileAI extends AIState{
-    private Map<Point3D, Terrain> terrainMap;
     private BidiMap<Point3D, Entity> entityMap;
-    private Map<Point3D, Obstacle> obstacleMap;
     private List<Entity> targetList;
     private Entity player;
     private PathingAlgorithm pathCalculator;
@@ -23,13 +20,12 @@ public class HostileAI extends AIState{
     private double chaseRadius;
     private Boolean moveToOrigin;
 
-    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, List<Entity> targetList) {
+    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity Player, List<Entity> targetList) {
         super(ent);
-        this.terrainMap = terrainMap;
         this.entityMap = entityMap;
-        this.obstacleMap = obstacleMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         origin = getEntityPoint(super.getEntity(), entityMap);
+        player = Player;
         chaseRadius = getEntity().getSight();
         moveToOrigin = false;
         this.targetList = targetList;
@@ -110,7 +106,7 @@ public class HostileAI extends AIState{
             super.getEntity().addVelocity(patrolPath.getNextMove());
         }
         else {
-            super.getEntity().addVelocity(super.generateRandomVelcity());
+            super.getEntity().addVelocity(RandomVelocityGenerator.generateRandomVelocity());
         }
     }
 
@@ -155,5 +151,13 @@ public class HostileAI extends AIState{
             targetPoints.add(entityMap.getKeyFromValue(ent));
         }
         return targetPoints;
+    }
+
+    public void addTarget(Entity ent){
+        targetList.add(ent);
+    }
+
+    public void removeTarget(Entity ent){
+        targetList.remove(ent);
     }
 }

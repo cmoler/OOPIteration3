@@ -24,17 +24,4 @@ public abstract class AIState {
     public Entity getEntity() {
         return entity;
     }
-
-    public Vec3d generateRandomVelcity() {
-        Random rand = new Random();
-        ArrayList<Vec3d> moves = new ArrayList<>();
-        moves.add(new Vec3d(0, 1, -1));
-        moves.add(new Vec3d(0, -1, 1));
-        moves.add(new Vec3d(1, 0, -1));
-        moves.add(new Vec3d(-1, 0, 1));
-        moves.add(new Vec3d(-1, 1, 0));
-        moves.add(new Vec3d(1, -1, 0));
-        return moves.get(rand.nextInt(moves.size()));
-
-    }
 }

@@ -2,15 +2,14 @@ package Model.Level;
 
 import Model.AreaEffect.AreaEffect;
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
+import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 
-import java.text.Bidi;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

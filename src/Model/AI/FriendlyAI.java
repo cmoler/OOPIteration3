@@ -2,70 +2,72 @@ package Model.AI;
 
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.VectorToPointCalculator;
+import Model.Utility.BidiMap;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
+import Model.Utility.RandomVelocityGenerator;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
 import java.util.Map;
-import java.util.Random;
 
 public class FriendlyAI extends AIState{
-    private Map<Point3D, Terrain> terrainMap;
-    private Map<Point3D, Entity> entityMap;
-    private Map<Point3D, Obstacle> obstacleMap;
+    private BidiMap<Point3D, Entity> entityMap;
     private Entity player;
     private PathingAlgorithm pathCalculator;
     private PatrolPath patrolPath;
     private Point3D origin;
     private double moveRadius;
 
-    public FriendlyAI(Entity ent, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
+    public FriendlyAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
         super(ent);
-        this.terrainMap = terrainMap;
         this.entityMap = entityMap;
-        this.obstacleMap = obstacleMap;
         this.player = player;
         this.pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         origin = getEntityPoint(super.getEntity(), entityMap);
-        moveRadius = getEntity().getSight();
+        moveRadius = super.getEntity().getSight(); //TODO: LoD violation?
     }
 
     @Override
     public void nextMove() {
         Point3D position = getEntityPoint(super.getEntity(), entityMap);
         if (getEntity().isMoveable()) {
-            if (patrolPath != null) {
-                super.getEntity().addVelocity(patrolPath.getNextMove());
+            if (hasPatrolPath()) {
+                moveAlongPath();
             }
             else {
-                boolean calcNeeded;
-                Point3D destination;
-                Vec3d randVelocity = super.generateRandomVelcity();
-                do {
-                    destination = VectorToPointCalculator.calculateNewPoint(position, randVelocity);
-                    if (destination.distance(origin) >= moveRadius) {
-                        calcNeeded = true;
-                        randVelocity = super.generateRandomVelcity();
-                    } else {
-                        calcNeeded = false;
-                    }
-                } while (calcNeeded);
-
-                super.getEntity().addVelocity(randVelocity);
+                moveRandomly(position);
             }
         }
     }
 
-    private Point3D getEntityPoint(Entity entity, Map<Point3D, Entity> entityLocations) {
-        if(entityLocations.containsValue(entity)) {
-            for(Point3D point: entityLocations.keySet()) {
-                if(entityLocations.get(point) == entity) {
-                    return point;
-                }
+    private boolean hasPatrolPath(){
+        return patrolPath != null;
+    }
+
+    private void moveAlongPath(){
+        super.getEntity().addVelocity(patrolPath.getNextMove());
+    }
+
+    private void moveRandomly(Point3D position){
+        boolean calcNeeded;
+        Point3D destination;
+        Vec3d randVelocity = RandomVelocityGenerator.generateRandomVelocity();
+        do {
+            destination = VectorToPointCalculator.calculateNewPoint(position, randVelocity);
+            if (destination.distance(origin) >= moveRadius) {
+                calcNeeded = true;
+                randVelocity = RandomVelocityGenerator.generateRandomVelocity();
+            } else {
+                calcNeeded = false;
             }
-        }
-        return new Point3D(0,0,0);
+        } while (calcNeeded);
+
+        super.getEntity().addVelocity(randVelocity);
+    }
+
+    private Point3D getEntityPoint(Entity entity, BidiMap<Point3D, Entity> entityLocations) {
+        return entityLocations.getKeyFromValue(entity);
     }
 
     public void setPatrolPath(PatrolPath patrolPath) {

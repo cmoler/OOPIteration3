@@ -2,6 +2,7 @@ package Model.AI;
 
 import Model.Entity.Entity;
 import Model.Item.Item;
+import Model.Utility.BidiMap;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
 import com.sun.javafx.geom.Vec3d;
@@ -12,34 +13,32 @@ import java.util.*;
 import static Model.AI.PetPriority.*;
 
 public class PetAI extends AIState {
-    private Map<Point3D, Terrain> terrainMap;
-    private Map<Point3D, Entity> entityMap;
-    private Map<Point3D, Obstacle> obstacleMap;
+    private BidiMap<Point3D, Entity> entityMap;
     private Map<Point3D, Item> itemMap;
     private Entity player;
     private PetPriority priority;
     private PathingAlgorithm pathCalculator;
+    private List<Entity> targetList;
 
 
-    public PetAI(Entity ent, Map<Point3D, Terrain> terrainMap, Map<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player) {
+    public PetAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player, List<Entity> TargetingList) {
         super(ent);
-        this.terrainMap = terrainMap;
         this.entityMap = entityMap;
-        this.obstacleMap = obstacleMap;
         this.itemMap = itemMap;
         this.player = player;
         priority = NONE;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
+        this.targetList = TargetingList;
     }
 
     @Override
     public void nextMove() {
-        Point3D petPoint = getPetPoint();
+        Point3D petPoint = getPetPoint(); //TODO: Implement a "case statement" that handles commands to Pet to do different actions based on priority
         Point3D nearestItem = getNearestItem(petPoint);
-        Point3D nearestEntity = getNearestEntity(petPoint);
+        Point3D nearestTarget = getNearestTarget(petPoint);
         Point3D playerPoint = getPlayerPoint();
 
-        Point3D goal = calculateGoal(petPoint, playerPoint, nearestItem, nearestEntity);
+        Point3D goal = calculateGoal(petPoint, playerPoint, nearestItem, nearestTarget);
         moveToGoal(petPoint,goal);
     }
 
@@ -106,13 +105,13 @@ public class PetAI extends AIState {
         return minLocation;
     }
 
-    private Point3D getNearestEntity(Point3D origin) {
-        List<Point3D> entityPoints = new ArrayList<>(entityMap.keySet());
-        Point3D minLocation = entityPoints.get(0);
+    private Point3D getNearestTarget(Point3D origin) {
+        List<Point3D> targetPoints = getTargetPoints();
+        Point3D minLocation = targetPoints.get(0);
         double minDistance = Double.MAX_VALUE;
         double distance;
-        for (Point3D point : entityPoints) {
-            if (!entityMap.get(point).equals(player)) {
+        for (Point3D point : targetPoints) {
+            if (!entityMap.getValueFromKey(point).equals(player)) { //TODO: Possible LoD violation?
                 distance = origin.distance(point);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -123,28 +122,20 @@ public class PetAI extends AIState {
         return minLocation;
     }
 
-    private Point3D getPetPoint() {
-        Entity entity = super.getEntity();
-        if(entityMap.containsValue(entity)) {
-            for(Point3D point: entityMap.keySet()) {
-                if(entityMap.get(point) == entity) {
-                    return point;
-                }
-            }
+    private List<Point3D> getTargetPoints() {
+        List<Point3D> targetPoints = new ArrayList<>();
+        for (Entity ent: targetList) {
+            targetPoints.add(entityMap.getKeyFromValue(ent));
         }
-        return new Point3D(0,0,0);
+        return targetPoints;
+    }
+
+    private Point3D getPetPoint() {
+        return entityMap.getKeyFromValue(super.getEntity());
     }
 
     private Point3D getPlayerPoint() {
-        Entity entity = player;
-        if(entityMap.containsValue(entity)) {
-            for(Point3D point: entityMap.keySet()) {
-                if(entityMap.get(point) == entity) {
-                    return point;
-                }
-            }
-        }
-        return new Point3D(0,0,0);
+        return entityMap.getKeyFromValue(player);
     }
 
     public PetPriority getPriority() {
@@ -153,5 +144,13 @@ public class PetAI extends AIState {
 
     public void setPriority(PetPriority priority) {
         this.priority = priority;
+    }
+
+    public void addTarget(Entity ent){
+        targetList.add(ent);
+    }
+
+    public void removeTarget(Entity ent){
+        targetList.remove(ent);
     }
 }

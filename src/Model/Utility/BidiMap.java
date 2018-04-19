@@ -1,4 +1,4 @@
-package Model.Level;
+package Model.Utility;
 
 import java.util.HashMap;
 import java.util.Set;
