@@ -26,16 +26,24 @@ public abstract class MenuState {
     }
 
     public void scrollUp(){
-        selectedUpDown++;
+        selectedUpDown--;
         correctParameters();
     }
 
     public void scrollDown(){
-        selectedUpDown--;
+        selectedUpDown++;
         correctParameters();
     }
 
     public abstract void correctParameters();
 
     public abstract void select();
+
+    public int getHorizontal() {
+        return selectedLeftRight;
+    }
+
+    public int getVertical() {
+        return selectedUpDown;
+    }
 }

@@ -14,6 +14,14 @@ public class MenuModel {
         this.currentState = menuState;
     }
 
+    public int getSelectedHorizontal(){
+        return currentState.getHorizontal();
+    }
+
+    public int getSelectedVertical(){
+        return currentState.getVertical();
+    }
+
     public void scrollLeft(){
         currentState.scrollLeft();
     }
@@ -32,5 +40,9 @@ public class MenuModel {
 
     public void select(){
         currentState.select();
+    }
+
+    public MenuState getActiveState() {
+        return currentState;
     }
 }

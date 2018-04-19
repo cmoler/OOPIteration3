@@ -57,6 +57,8 @@ public class Level {
                 riverLocations, observers);
 
         this.tilesSeenByPlayer = new ArrayList<>();
+
+
     }
 
     public Map<Point3D, Terrain> getTerrainLocations() {
@@ -192,6 +194,14 @@ public class Level {
         }
 
         return null;
+    }
+
+    public List<LevelViewElement> getObservers() {
+        return observers;
+    }
+    public void addObserver(LevelViewElement newObserver) {
+        if(newObserver == null) { return; }
+        observers.add(newObserver);
     }
 
     public Entity getEntityAtPoint(Point3D point) {

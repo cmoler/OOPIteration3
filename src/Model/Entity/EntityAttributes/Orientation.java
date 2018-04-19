@@ -52,6 +52,26 @@ public enum Orientation {
         return -1;
     }
 
+
+    public int getDegreeOfOrientation(Orientation orientation) {
+        int index = getIndexOfOrientation(orientation);
+        switch(index) {
+            case 0:
+                return 0;
+            case 1:
+                return 45;
+            case 2:
+                return 135;
+            case 3:
+                return 190;
+            case 4:
+                return 225;
+            case 5:
+                return 315;
+        }
+        return 0;
+    }
+
     public static Orientation toOrientation(String string) {
         switch (string.toLowerCase()) {
             case "north":
@@ -75,5 +95,6 @@ public enum Orientation {
             default:
                 return NONE;
         }
+
     }
 }

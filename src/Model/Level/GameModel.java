@@ -6,6 +6,8 @@ import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Entity.Entity;
+import View.LevelView.*;
+import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +30,14 @@ public class GameModel implements Visitable {
             levels = new ArrayList<>();
             aiMap = new HashMap<>();
             teleportTupleQueue = new LinkedList<>();
+            currentLevel = new Level(new ArrayList<>());
+            player = new Entity();
+            currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
+            currentLevel.addObserver(new EntityView(player, getPlayerPosition()));
+            currentLevel.addObserver(new TerrainView(new Point3D(1, 1, -2), 75));
+            currentLevel.addObserver(new RiverView(new River(new Vec3d(0, 0, 0)), new Point3D(-1, 0, 1)));
+            currentLevel.addObserver(new TerrainView(new Point3D(-1, 0, 1), 75));
+
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
@@ -144,6 +154,10 @@ public class GameModel implements Visitable {
 
     public boolean playerIsDead() {
         return player.isDead();
+    }
+
+    public Point3D getPlayerPosition() {
+        return currentLevel.getEntityPoint(player);
     }
 
     public void addLevel(Level level) {

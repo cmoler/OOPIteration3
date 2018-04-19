@@ -58,4 +58,8 @@ public class Skill {
     public void setBehavior(SettableCommand command) {
         behavior = command;
     }
+
+    public String getName(){
+        return name;
+    }
 }

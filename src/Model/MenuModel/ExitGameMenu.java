@@ -2,6 +2,8 @@ package Model.MenuModel;
 
 import Controller.GameLoop;
 import Model.Entity.Entity;
+import View.MenuView.StatsView;
+import View.MenuView.TitleScreenView;
 
 public class ExitGameMenu extends InGameMenuState {
 
@@ -20,10 +22,10 @@ public class ExitGameMenu extends InGameMenuState {
     public void select() {
         switch (selectedLeftRight){
             case 0:
-                menuModel.setActiveState(new MainMenuState(menuModel, gameLoop));
+                gameLoop.setMenuState(new MainMenuState(menuModel, gameLoop), new TitleScreenView(menuModel));
                 break;
             case 1:
-                menuModel.setActiveState(new StatsMenu(menuModel, player, gameLoop));
+                gameLoop.setMenuState(new StatsMenu(menuModel, player, gameLoop), new StatsView(menuModel));
                 break;
             case 2:
                 System.exit(1);

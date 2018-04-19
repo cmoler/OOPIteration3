@@ -9,6 +9,7 @@ import Model.Level.Terrain;
 import Model.Level.Mount;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
+import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +54,7 @@ public class Entity {
         currentlySelectedSkill = 0;
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
+        observers = new ArrayList<>();
 
         orientation = Orientation.NORTH;
         velocity = new Vec3d(0,0,0);
@@ -71,6 +73,7 @@ public class Entity {
         inventory = new Inventory();
         equipment = new Equipment();
         hotBar = new ItemHotBar(this);
+        orientation = Orientation.NORTH;
 
         compatableTerrain = new ArrayList<Terrain>();
         compatableTerrain.add(Terrain.GRASS);
@@ -218,10 +221,15 @@ public class Entity {
         this.velocity = velocity;
     }
 
-    public void notifyObservers(){
+    public void notifyObservers(Point3D position){
         for (LevelViewElement o:observers) {
             o.notifyViewElement();
+            o.setPosition(position);
         }
+    }
+
+    public void addObserver(LevelViewElement observer) {
+        observers.add(observer);
     }
 
     public Boolean isMoving(){
