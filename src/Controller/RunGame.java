@@ -94,6 +94,7 @@ public class RunGame extends Application{
             }
             */
             public void handle(long currentNanoTime){
+                gameLoop.tick();
                 gameLoop.render(gc);
             }
         }.start();

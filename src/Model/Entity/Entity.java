@@ -1,5 +1,6 @@
 package Model.Entity;
 
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.EntityAttributes.*;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.RingItem;
@@ -58,6 +59,9 @@ public class Entity {
         observers = new ArrayList<>();
         hotBar = new ItemHotBar(this);
         orientation = Orientation.NORTH;
+        speed = new Speed();
+        speed.setSpeed(1);
+        equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
     }
 
     public boolean isMoveable() {
@@ -74,6 +78,7 @@ public class Entity {
 
     public void setOrientation(Orientation o){
         orientation = o;
+        notifyObservers(null);
     }
 
     public void addItemToInventory(TakeableItem item) {
@@ -198,7 +203,7 @@ public class Entity {
     public void notifyObservers(Point3D position){
         for (LevelViewElement o:observers) {
             o.notifyViewElement();
-            o.setPosition(position);
+            if(position != null) { o.setPosition(position); }
         }
     }
 

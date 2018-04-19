@@ -15,7 +15,7 @@ public class TerrainView extends LevelViewElement{
     private Image hex;
 
 
-    public TerrainView(Point3D location, int size) {
+    public TerrainView(Point3D location) {
         super(location);
         String workingDir = System.getProperty("user.dir");
 

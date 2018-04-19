@@ -57,6 +57,7 @@ public class MovementHandler {
                             mountLocations.put(contestedPoint,mount);
                         }
                     }
+                    ent.notifyObservers(contestedPoint);
                 }
                 ent.decrementVelocity();
             }

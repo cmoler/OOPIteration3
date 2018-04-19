@@ -8,7 +8,7 @@ import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
 import Model.Item.TakeableItem.TakeableItem;
-import View.LevelView.LevelViewElement;
+import View.LevelView.*;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
@@ -140,14 +140,20 @@ public class Level {
 
     public void addTerrainTo(Point3D point, Terrain terrain) {
         terrainLocations.put(point, terrain);
+        addObserver(new TerrainView(point));
     }
 
     public void addObstacleTo(Point3D point, Obstacle obstacle) {
         obstacleLocations.put(point, obstacle);
+        addObserver(new ObstacleView(point));
     }
 
     public void addEntityTo(Point3D point, Entity entity) {
         entityLocations.put(point, entity);
+        EntityView entityView = new EntityView(entity, point);
+        entity.addObserver(entityView);
+        addObserver(entityView);
+
     }
 
     public void removeEntityFrom(Entity entity){
@@ -170,10 +176,12 @@ public class Level {
 
     public void addRiverTo(Point3D point, River river) {
         riverLocations.put(point, river);
+        addObserver(new RiverView(river, point));
     }
 
     public void addMountTo(Point3D point, Mount mount) {
         mountLocations.put(point, mount);
+        addObserver(new MountView(mount));
     }
 
     public void addInfluenceEffectTo(Point3D point, InfluenceEffect influenceEffect) {

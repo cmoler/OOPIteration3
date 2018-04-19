@@ -8,6 +8,7 @@ import View.LevelView.LevelViewElement;
 import Model.Entity.EntityAttributes.Speed;
 import Model.Entity.EntityAttributes.Orientation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mount implements Visitable {
@@ -18,6 +19,11 @@ public class Mount implements Visitable {
 
     public Mount(){
         movementSpeed = new Speed();
+        passableTerrain = new ArrayList<>();
+        passableTerrain.add(Terrain.GRASS);
+        orientation = Orientation.NORTH;
+
+        movementSpeed.setSpeed(1);
     }
 
     public Mount(Orientation orientation, Speed movementSpeed, List<Terrain> passableTerrain, List<LevelViewElement> observers) {

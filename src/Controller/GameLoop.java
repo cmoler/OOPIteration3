@@ -51,6 +51,8 @@ public class GameLoop {
         ((KeyEventImplementor)controls).createMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
+
+        ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
@@ -97,7 +99,7 @@ public class GameLoop {
     }
 
     public void tick() {
-
+        gameModel.advance();
     }
 
     public void render(GraphicsContext gc){

@@ -1,5 +1,6 @@
 package View.LevelView;
 
+import Configs.Commons;
 import Model.Level.Level;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
@@ -29,6 +30,8 @@ public class LevelView {
         Point2D offset = new Point2D((canvas.getWidth()/2)-playerOffsetX, (canvas.getHeight()/2)-playerOffsetY);
 
         List<LevelViewElement> observers = currentLevel.getObservers();
+
+        gc.clearRect(0, 0, Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
         for(int i = 4; i >= 0; i--) {
             for (LevelViewElement o : observers) {
                 if(o.getRenderPriority() == i) {//Ensures level objects are rendered in the correct order

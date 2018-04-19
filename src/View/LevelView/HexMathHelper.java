@@ -8,11 +8,11 @@ public class HexMathHelper {
     }
 
     public int getXCoord(Point3D point) {
-        return -(int)(point.getX() + point.getZ());
+        return -(int)(point.getY() + point.getZ());
 
     }
 
     public int getYCoord(Point3D point) {
-        return (int) (2*point.getX() + point.getY());
+        return -(int) (2*point.getY() + point.getX());
     }
 }

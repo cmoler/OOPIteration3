@@ -52,7 +52,7 @@ public class ControllerSetFactory {
     public void createPlayerControlsSet(Entity player, MenuModel menuModel) {
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
-        newKeySet.add(new OpenMenuKeyAction(keyBindingParser.parseMenuKey("openMenu"), player, menuModel, gameLoop));
+        newKeySet.add(new OpenMenuKeyAction(keyBindingParser.parsePlayerKey("openMenu"), player, menuModel, gameLoop));
 
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
 
