@@ -20,14 +20,8 @@ public class ConsumableItem extends TakeableItem {
         consumeStrategy.useStrategy();
     }
 
-    @Override
-    public void onTouch(Entity entity) {
-        entity.addItemToInventory(this);
-
-        if (entity.hasItemInInventory(this)) {
-            consumeStrategy.setEntity(entity);
-            setToBeDeleted();
-        }
+    protected void setItemStrategyEntity(Entity entity) {
+        consumeStrategy.setEntity(entity);
     }
 
     public void consume(Entity entity) {

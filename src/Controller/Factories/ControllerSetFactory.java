@@ -38,12 +38,14 @@ public class ControllerSetFactory {
     public void createMenuSet(MenuModel menuModel){
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 
+        newKeySet.add(new BackKeyAction(keyBindingParser.parseMenuKey("back"), menuModel, gameLoop));
+
         newKeySet.add(new SelectKeyAction(keyBindingParser.parseMenuKey("select"), menuModel));
         newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), menuModel));
         newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), menuModel));
         newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), menuModel));
         newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), menuModel));
-
+        
         controller.setKeyActionSet(newKeySet);
     }
 

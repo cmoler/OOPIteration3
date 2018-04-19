@@ -60,10 +60,6 @@ public class Skill {
         behavior = command;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public int getAccuracy() {
         return accuracy;
     }
@@ -82,5 +78,9 @@ public class Skill {
 
     public SendInfluenceEffectCommand getSendInfluenceEffectCommand() {
         return sendInfluenceEffectCommand;
+    }
+
+    public String getName(){
+        return name;
     }
 }

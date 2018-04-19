@@ -3,6 +3,7 @@ package Model.MenuModel;
 import Controller.GameLoop;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
+import View.MenuView.InventoryView;
 
 public class AssignItemMenu extends InGameMenuState {
 
@@ -23,6 +24,6 @@ public class AssignItemMenu extends InGameMenuState {
     @Override
     public void select() {
         player.addItemToHotBar(takeableItem, selectedLeftRight);
-        menuModel.setActiveState(new InventoryMenu(menuModel, player, gameLoop));
+        gameLoop.setMenuState(new InventoryMenu(menuModel, player, gameLoop), new InventoryView(menuModel));
     }
 }

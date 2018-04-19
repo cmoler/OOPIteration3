@@ -31,6 +31,10 @@ public abstract class Item implements Visitable {
         toBeDeleted = true;
     }
 
+    public void clearDeletionFlag() {
+        toBeDeleted = false;
+    }
+
     protected void executeCommand(Entity entity) {
         command.execute(entity);
     }

@@ -7,6 +7,7 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
+import Model.Item.TakeableItem.TakeableItem;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 
@@ -56,6 +57,8 @@ public class Level {
                 riverLocations, observers);
 
         this.tilesSeenByPlayer = new ArrayList<>();
+
+
     }
 
     public Map<Point3D, Terrain> getTerrainLocations() {
@@ -102,12 +105,41 @@ public class Level {
         interactionHandler.processInteractions();
     }
 
-    public void addTerrainTo(Point3D point, Terrain terrain) {
-        terrainLocations.put(point, terrain);
-    }
-
     public void addItemnTo(Point3D point, Item item) {
         itemLocations.put(point, item);
+    }
+
+    public void dropItemFromEntity(Entity entity, TakeableItem item) {
+        Point3D entityPoint = getEntityPoint(entity);
+
+        List<Point3D> candidatePoints = Orientation.getAllAdjacentPoints(entityPoint);
+
+        for(Point3D point : candidatePoints) {
+            if(canDropItemAtPoint(point)) {
+                dropItemAtPoint(point, item);
+                entity.removeItemFromInventory(item);
+
+                break;
+            }
+        }
+    }
+
+    private boolean canDropItemAtPoint(Point3D point) {
+        // get nearest point that does not have (1) another item, (2) an entity, (3) a mount, (4) obstacle, (5) no terrain
+        return  !itemLocations.containsKey(point) &&
+                !entityLocations.containsKey(point) &&
+                !mountLocations.containsKey(point) &&
+                !obstacleLocations.containsKey(point) &&
+                terrainLocations.containsKey(point);
+    }
+
+    private void dropItemAtPoint(Point3D point3D, Item item) {
+        item.clearDeletionFlag();
+        itemLocations.put(point3D, item);
+    }
+
+    public void addTerrainTo(Point3D point, Terrain terrain) {
+        terrainLocations.put(point, terrain);
     }
 
     public void addObstacleTo(Point3D point, Obstacle obstacle) {
@@ -155,7 +187,7 @@ public class Level {
     public Point3D getEntityPoint(Entity entity) {
         if(entityLocations.containsValue(entity)) {
             for(Point3D point: entityLocations.keySet()) {
-                if(entityLocations.get(point) == entity) {
+                if(entityLocations.get(point).equals(entity)) {
                     return point;
                 }
             }
@@ -164,12 +196,32 @@ public class Level {
         return null;
     }
 
+    public List<LevelViewElement> getObservers() {
+        return observers;
+    }
+    public void addObserver(LevelViewElement newObserver) {
+        if(newObserver == null) { return; }
+        observers.add(newObserver);
+    }
+
     public Entity getEntityAtPoint(Point3D point) {
         if (entityLocations.containsKey(point)) {
             return entityLocations.get(point);
         } else {
             return null;
         }
+    }
+
+    public Point3D getItemPoint(Item item) {
+        if(itemLocations.containsValue(item)) {
+            for(Point3D point: itemLocations.keySet()) {
+                if(itemLocations.get(point).equals(item)) {
+                    return point;
+                }
+            }
+        }
+
+        return null;
     }
 
     public Map<Point3D, InfluenceEffect> getInfluencesMap() {

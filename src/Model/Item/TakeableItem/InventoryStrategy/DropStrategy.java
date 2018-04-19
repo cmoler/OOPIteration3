@@ -3,7 +3,7 @@ package Model.Item.TakeableItem.InventoryStrategy;
 import Model.Command.EntityCommand.NonSettableCommand.DropItemCommand;
 import Model.Item.TakeableItem.TakeableItem;
 
-public class DropStrategy extends InventoryStrategy{
+public class DropStrategy extends InventoryStrategy {
 
     private TakeableItem item;
     private DropItemCommand dropItemCommand;

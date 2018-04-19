@@ -20,4 +20,8 @@ public class StatsMenu extends InGameMenuState {
     public void select() {
         inGameMenuBar.select(selectedUpDown);
     }
+
+    public Entity getPlayer(){
+        return player;
+    }
 }

@@ -33,7 +33,6 @@ public class LevelTests {
 
     @Test
     public void testAreaEffectInteractions() {
-
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);
@@ -180,7 +179,6 @@ public class LevelTests {
 
     @Test
     public void testTrapInteractions() {
-
         List<LevelViewElement> observers = new ArrayList<>();
 
         Level level = new Level(observers);

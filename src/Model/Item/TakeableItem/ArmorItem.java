@@ -30,14 +30,8 @@ public class ArmorItem extends TakeableItem {
         armorEquipStrategy.useStrategy();
     }
 
-    @Override
-    public void onTouch(Entity entity) {
-        entity.addItemToInventory(this);
-
-        if (entity.hasItemInInventory(this)) {
-            armorEquipStrategy.setEntity(entity);
-            setToBeDeleted();
-        }
+    protected void setItemStrategyEntity(Entity entity) {
+        armorEquipStrategy.setEntity(entity);
     }
 
     public void toggleEquipEffect(Entity entity) {

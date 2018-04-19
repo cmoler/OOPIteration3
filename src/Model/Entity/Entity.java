@@ -10,6 +10,7 @@ import Model.Level.Terrain;
 import Model.Level.Mount;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
+import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,28 +21,33 @@ public class Entity {
 
     private List<LevelViewElement> observers;
 
-    private ItemHotBar hotBar;
-
+    private HashMap<Skill, SkillLevel> skillLevelsMap;
+    private int currentlySelectedSkill;
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
-    private int currentlySelectedSkill = 0;
 
-    private HashMap<Skill, SkillLevel> skillLevelsMap;
+    private Orientation orientation;
     private Vec3d velocity;
-    private NoiseLevel noiseLevel;
+
     private SightRadius sightRadius;
+    private NoiseLevel noiseLevel;
+
     private XPLevel xpLevel;
     private Health health;
     private Mana mana;
-    private Speed speed;
     private Gold gold;
+    private Speed speed;
     private Attack attack;
     private Defense defense;
+
     private Equipment equipment;
     private Inventory inventory;
-    private Orientation orientation;
+
+    private ItemHotBar hotBar;
+
     private List<Terrain> compatableTerrain;
     private boolean moveable;
+
     private Mount mount;
 
     public Entity(List<LevelViewElement> observers, ItemHotBar hotBar, List<Skill> weaponSkills,
@@ -74,17 +80,36 @@ public class Entity {
     }
 
     public Entity() {
-        this.xpLevel = new XPLevel();
-        this.health = new Health(100, 100);
-        this.inventory = new Inventory();
-        this.equipment = new Equipment();
-        this.compatableTerrain = new ArrayList<Terrain>();
-        compatableTerrain.add(Terrain.GRASS);
-        this.velocity = new Vec3d(0,0,0);
         skillLevelsMap = new HashMap<>();
+        currentlySelectedSkill = 0;
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
+        observers = new ArrayList<>();
+
+        orientation = Orientation.NORTH;
+        velocity = new Vec3d(0,0,0);
+
+        sightRadius = new SightRadius();
+        noiseLevel = new NoiseLevel();
+
+        xpLevel = new XPLevel();
+        health = new Health(100, 100);
+        mana = new Mana();
+        gold = new Gold();
+        speed = new Speed();
+        attack = new Attack();
+        defense = new Defense();
+
+        inventory = new Inventory();
+        equipment = new Equipment();
         hotBar = new ItemHotBar(this);
+        orientation = Orientation.NORTH;
+
+        compatableTerrain = new ArrayList<Terrain>();
+        compatableTerrain.add(Terrain.GRASS);
+        moveable = false;
+
+        mount = null;
     }
 
     public boolean isMoveable() {
@@ -222,10 +247,15 @@ public class Entity {
         this.velocity = velocity;
     }
 
-    public void notifyObservers(){
+    public void notifyObservers(Point3D position){
         for (LevelViewElement o:observers) {
             o.notifyViewElement();
+            o.setPosition(position);
         }
+    }
+
+    public void addObserver(LevelViewElement observer) {
+        observers.add(observer);
     }
 
     public Boolean isMoving(){
@@ -513,5 +543,13 @@ public class Entity {
 
     public ItemHotBar getItemHotBar() {
         return hotBar;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed.setSpeed(speed);
+    }
+
+    public void setNoise(int noise) {
+        noiseLevel.setNoise(noise);
     }
 }
