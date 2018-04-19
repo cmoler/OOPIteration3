@@ -8,6 +8,7 @@ import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
 
+import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -25,12 +26,12 @@ public class Renderer {
     }
 
 
-    public void render(GraphicsContext gc, Point3D playerPos) {
+    public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
         if(menuView.inMenu()){
             menuView.render(gc);
         }
         else{
-            levelView.render(gc, playerPos);
+            levelView.render(gc, playerPos, scrollOffset);
         }
 
     }
