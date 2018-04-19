@@ -30,6 +30,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class SavingVisitor implements Visitor {
 
@@ -318,11 +319,13 @@ public class SavingVisitor implements Visitor {
         StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"ENTITY\">");
         StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
 
-        for(BidiMap.Entry<Point3D, Entity> entry: entityLocations.entrySet()) {
+        for(Entity entity: entityLocations.getValueList()) {
+            Point3D point = entityLocations.getKeyFromValue(entity);
+
             StringBuffer key = new StringBuffer("<KEY key=");
 
             key.append("\"");
-            key.append(keyToString(entry.getKey()));
+            key.append(keyToString(point));
             key.append("\"");
             key.append("/>");
 
@@ -333,7 +336,7 @@ public class SavingVisitor implements Visitor {
             levelMapOpen.append("\n");
             levelMapOpen.append("\t");
 
-            entry.getValue().accept(this);
+            entity.accept(this);
 
             this.valueNode.append("</VALUE>");
             levelMapOpen.append(this.valueNode);

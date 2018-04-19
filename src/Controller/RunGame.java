@@ -5,6 +5,7 @@ import Model.Entity.Entity;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
@@ -79,6 +80,10 @@ public class RunGame extends Application{
 */
         
         GameLoop gameLoop = new GameLoop();
+
+        // TODO: get rid of these when loading from file logic is done vvvv
+
+        // TODO: get rid of these when loading from file logic is done ^^^^
 
         canvas.setOnKeyPressed(gameLoop.getControls());
 
