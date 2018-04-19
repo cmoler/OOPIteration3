@@ -1,6 +1,6 @@
 package ControllerTests;
 
-import Controller.Factories.ShopKeeperFactory;
+import Controller.Factories.EntityFactories.ShopKeeperFactory;
 import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.ArmorItem;

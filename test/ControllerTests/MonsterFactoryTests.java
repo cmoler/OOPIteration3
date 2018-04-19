@@ -1,18 +1,14 @@
 package ControllerTests;
 
-import Controller.Factories.MonsterFactory;
+import Controller.Factories.EntityFactories.MonsterFactory;
 import Controller.Factories.SkillsFactory;
-import Model.AI.AIController;
-import Model.AI.HostileAI;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertTrue;
