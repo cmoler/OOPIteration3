@@ -7,7 +7,6 @@ import Model.AI.HostileAI;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
-import Model.Command.Command;
 import Model.Command.EntityCommand.NonSettableCommand.*;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
@@ -16,26 +15,19 @@ import Model.Command.EntityCommand.SettableCommand.*;
 import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.*;
-import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
-import Model.InfluenceEffect.LinearInfluenceEffect;
-import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.InteractiveItem;
 import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import Model.Utility.BidiMap;
-import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
-import org.w3c.dom.Document;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -489,21 +481,35 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</TERRAINLIST>");
         this.valueNode.append("\n");
         visitMount(entity.getMount());
-        this.valueNode.append("</" + entity.getClass().getSimpleName() + ">");
 
-//        visitItemHotBar(entity.getItemHotBar());
+        this.valueNode.append("\n");
+        visitEquipment(entity.getEquipment());
+        this.valueNode.append("\n");
+
+        visitInventory(entity.getInventory());
+        this.valueNode.append("\n");
+
+        visitItemHotBar(entity.getItemHotBar());
+        this.valueNode.append("\n");
+        this.valueNode.append("</" + entity.getClass().getSimpleName() + ">");
     }
 
     private void visitItemHotBar(ItemHotBar itemHotBar) {
         StringBuffer hotBarString = new StringBuffer("<" + itemHotBar.getClass().getSimpleName() + ">");
         this.valueNode.append(hotBarString);
+        this.valueNode.append("\n");
         this.valueNode.append("<ITEMLIST>");
+        this.valueNode.append("\n");
 
-        for(TakeableItem items: itemHotBar.getItems()) {
-            visitItem(items);
+        for(Map.Entry<Integer, TakeableItem> entry: itemHotBar.getItemBarMap().entrySet()) {
+            this.valueNode.append("<INTEGERKEY key=" + "\"" + entry.getKey() + "\"" + "/>");
+            visitItem(entry.getValue());
+            this.valueNode.append("\n");
         }
 
         this.valueNode.append("</ITEMLIST>");
+        this.valueNode.append("\n");
+        this.valueNode.append("</" + itemHotBar.getClass().getSimpleName() + ">");
     }
 
     private void processSkill(Skill weaponSkill, int skillLevel) {
@@ -530,12 +536,35 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitEquipment(Equipment equipment) {
+        StringBuffer equipString = new StringBuffer("<" + equipment.getClass().getSimpleName() + ">");
+        this.valueNode.append(equipString);
 
+        if(equipment.hasArmor()) {
+            visitItem(equipment.getEquippedArmor());
+        }
+
+        if(equipment.hasRing()) {
+            visitItem(equipment.getEquippedRing());
+        }
+
+        if(equipment.hasWeapon()) {
+            visitItem(equipment.getEquippedWeapon());
+        }
+
+        this.valueNode.append("\n");
+        this.valueNode.append("</" + equipment.getClass().getSimpleName() + ">");
     }
 
     @Override
     public void visitInventory(Inventory inventory) {
-
+        StringBuffer invString = new StringBuffer("<" + inventory.getClass().getSimpleName()
+                + " maxSize=" + "\"" + inventory.getMaxSize() + "\">");
+        this.valueNode.append(invString);
+        this.valueNode.append("\n");
+        this.valueNode.append("<ITEMLIST>");
+        inventory.accept(this);
+        this.valueNode.append("</ITEMLIST>");
+        this.valueNode.append("</" + inventory.getClass().getSimpleName() + ">");
     }
 
     @Override
@@ -589,26 +618,22 @@ public class SavingVisitor implements Visitor {
     }
 
     @Override
-    public void visitItem(Item item) {
-        StringBuffer itemString = new StringBuffer("<" + item.getClass().getSimpleName()
-                + " name=" + "\"" + item.getName() + "\""
-                + " isToBeDeleted=" + "\"" + item.isToBeDeleted() + "\">");
-        this.valueNode.append("\n");
-        this.valueNode.append("\t");
-        this.valueNode.append(itemString);
-        item.getCommand().accept(this);
-        this.valueNode.append("\n");
-        this.valueNode.append("\t");
-        this.valueNode.append("</" + item.getClass().getSimpleName() + ">");
+    public void visitItem(ConsumableItem item) {
+        processItem(item);
     }
 
     @Override
-    public void visitWeaponItem(WeaponItem weaponItem) {
+    public void visitItem(WeaponItem item) {
 
     }
 
     @Override
-    public void visitArmorItem(ArmorItem armorItem) {
+    public void visitItem(InteractiveItem item) {
+        processItem(item);
+    }
+
+    @Override
+    public void visitItem(ArmorItem armorItem) {
         StringBuffer itemString = new StringBuffer("<" + armorItem.getClass().getSimpleName()
                 + " name=" + "\"" + armorItem.getName() + "\""
                 + " isToBeDeleted=" + "\"" + armorItem.isToBeDeleted() + "\""
@@ -623,13 +648,42 @@ public class SavingVisitor implements Visitor {
     }
 
     @Override
-    public void visitRingItem(RingItem ringItem) {
-
+    public void visitItem(RingItem item) {
+        processItem(item);
     }
 
     @Override
-    public void visitConsumableItem(ConsumableItem consumableItem) {
+    public void visitItem(OneShotItem item) {
+        processItem(item);
+    }
 
+    @Override
+    public void visitItem(TakeableItem takeableItem) {
+        //TODO: this is nasty
+        if(!(takeableItem instanceof WeaponItem) && !(takeableItem instanceof ArmorItem)) {
+            processItem(takeableItem);
+        }
+
+        else if(takeableItem instanceof WeaponItem){
+            visitItem((WeaponItem) takeableItem);
+        }
+
+        else if(takeableItem instanceof ArmorItem) {
+            visitItem((ArmorItem) takeableItem);
+        }
+    }
+
+    private void processItem(Item item) {
+        StringBuffer itemString = new StringBuffer("<" + item.getClass().getSimpleName()
+                + " name=" + "\"" + item.getName() + "\""
+                + " isToBeDeleted=" + "\"" + item.isToBeDeleted() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(itemString);
+        item.getCommand().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + item.getClass().getSimpleName() + ">");
     }
 
     @Override

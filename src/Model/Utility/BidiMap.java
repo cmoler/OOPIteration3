@@ -53,6 +53,10 @@ public class BidiMap<K, V> {
         return elementToKeyMap.keySet();
     }
 
+    public Set<Map.Entry<K,V>> entrySet () {
+        return keyToElementMap.entrySet();
+    }
+
     public void clear(){
         keyToElementMap.clear();
         elementToKeyMap.clear();

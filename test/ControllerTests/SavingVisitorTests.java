@@ -21,9 +21,7 @@ import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.InteractiveItem;
 import Model.Item.Item;
 import Model.Item.OneShotItem;
-import Model.Item.TakeableItem.ArmorItem;
-import Model.Item.TakeableItem.ConsumableItem;
-import Model.Item.TakeableItem.RingItem;
+import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
@@ -50,6 +48,18 @@ public class SavingVisitorTests {
 
     @Before
     public void init() throws IOException, ParserConfigurationException, SAXException {
+        Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
+            add(new ArmorItem("helemet", new AddHealthCommand(10), 10));
+            add(new RingItem("ring", new ToggleHealthCommand(10)));
+        }}, 10);
+
+        ItemHotBar itemHotBar = new ItemHotBar();
+        itemHotBar.addItem(new ArmorItem("helemet", new AddHealthCommand(10), 10), 0);
+
+        Equipment equipment = new Equipment(null,
+                new ArmorItem("helemet", new AddHealthCommand(10), 10),
+                new RingItem("ring", new ToggleHealthCommand(10)));
+
         ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
             add(new Skill("BRAWL",
                     new LinearInfluenceEffect(new RemoveHealthCommand(5), 0, 0, Orientation.NORTH),
@@ -96,11 +106,11 @@ public class SavingVisitorTests {
 
         level.addMountTo(new Point3D(0,0,0), new Mount(Orientation.NORTH, new Speed(10), mountTerrain, null));
 
-        Entity entity = new Entity(new ArrayList<>(), new ItemHotBar(null), new ArrayList<>(),
+        Entity entity = new Entity(new ArrayList<>(), itemHotBar, new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
-                new Equipment(), new Inventory(), Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
+                equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
                 new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
 
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
@@ -190,5 +200,18 @@ public class SavingVisitorTests {
         Level level = gameLoader.getCurrentLevel();
         BidiMap<Point3D, Entity> entityMap = level.getEntityLocations();
         assertTrue(!entityMap.isEmpty());
+
+        Entity testEntity = entityMap.getValueFromKey(new Point3D(0,0,0));
+        Inventory testInventory = testEntity.getInventory();
+        assertTrue(testInventory.size() == 2);
+        assertTrue(testInventory.getItem(0) instanceof ArmorItem);
+        assertTrue(testInventory.getItem(1) instanceof RingItem);
+
+        Equipment testEquippment = testEntity.getEquipment();
+        assertTrue(testEquippment.hasRing());
+        assertTrue(testEquippment.hasArmor());
+
+        ItemHotBar itemHotBar = testEntity.getItemHotBar();
+        assertTrue(itemHotBar.getItem(0) instanceof ArmorItem);
     }
 }
