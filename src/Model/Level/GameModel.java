@@ -35,6 +35,23 @@ public class GameModel implements Visitable {
             levels = new ArrayList<>();
             aiMap = new HashMap<>();
             teleportQueue = new LinkedList<>();
+
+
+            currentLevel = new Level(new ArrayList<>());
+            player = new Entity();
+            currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
+            //currentLevel.addObstacleTo(new Point3D(-1, 0, 1), new Obstacle());
+
+
+            currentLevel.addTerrainTo(new Point3D(-1, 0, 1), Terrain.GRASS);
+            currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+            currentLevel.addTerrainTo(new Point3D(1, 0, -1), Terrain.GRASS);
+            currentLevel.addTerrainTo(new Point3D(0, 1, -1), Terrain.GRASS);
+            currentLevel.addTerrainTo(new Point3D(1, 1, -2), Terrain.GRASS);
+            currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
+
+            currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
@@ -143,6 +160,7 @@ public class GameModel implements Visitable {
     }
 
     public void advance() {
+
         currentLevel.processMoves();
         currentLevel.processInteractions();
 
@@ -155,6 +173,10 @@ public class GameModel implements Visitable {
 
     public Point3D getPlayerPosition() {
         return currentLevel.getEntityPoint(player);
+    }
+
+    public Entity getPlayer() {
+        return player;
     }
 
     public void addLevel(Level level) {

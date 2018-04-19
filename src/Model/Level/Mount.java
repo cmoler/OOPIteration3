@@ -7,7 +7,9 @@ import Controller.Visitor.Visitable;
 import View.LevelView.LevelViewElement;
 import Model.Entity.EntityAttributes.Speed;
 import Model.Entity.EntityAttributes.Orientation;
+import javafx.geometry.Point3D;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mount implements Visitable {
@@ -18,6 +20,12 @@ public class Mount implements Visitable {
 
     public Mount(){
         movementSpeed = new Speed();
+        passableTerrain = new ArrayList<>();
+        observers = new ArrayList<>();
+        passableTerrain.add(Terrain.GRASS);
+        orientation = Orientation.NORTH;
+
+        movementSpeed.setSpeed(1);
     }
 
     public Mount(Orientation orientation, Speed movementSpeed, List<Terrain> passableTerrain, List<LevelViewElement> observers) {
@@ -51,6 +59,10 @@ public class Mount implements Visitable {
         return observers;
     }
 
+    public  void addObserver(LevelViewElement observer) {
+        observers.add(observer);
+    }
+
     public void setObservers(List<LevelViewElement> observers) {
         this.observers = observers;
     }
@@ -63,9 +75,10 @@ public class Mount implements Visitable {
         this.orientation = orientation;
     }
 
-    public void notifyObservers(){
+    public void notifyObservers(Point3D point){
         for (LevelViewElement o:observers) {
             o.notifyViewElement();
+            if(point != null) { o.setPosition(point); }
         }
     }
 

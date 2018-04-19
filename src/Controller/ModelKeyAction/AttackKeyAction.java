@@ -16,6 +16,7 @@ public class AttackKeyAction extends ModelKeyAction {
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
             entity.attack();
+            System.out.println("ATTACK");
         }
     }
 

@@ -1,7 +1,8 @@
-package Model.AI.PetAI;
+package Model.AI.PetAI.PetStates;
 
 import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.Skill;
 import Model.Item.Item;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
@@ -16,17 +17,19 @@ import java.util.Random;
 
 // In ItemState, a pet will disregard its master and run wildly towards items and Entities in hopes to grab all the loot!
 
-public class ItemPetState implements PetState{
+public class ItemPetState implements PetState {
     private BidiMap<Point3D, Entity> entityMap;
     private Map<Point3D, Item> itemMap;
     private Entity player;
     private PathingAlgorithm pathCalculator;
+    private Skill pickPocketSkill;
 
 
-    public ItemPetState(Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player) {
+    public ItemPetState(Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player, Skill PickPocketSkill) {
         this.entityMap = entityMap;
         this.itemMap = itemMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
+        pickPocketSkill = PickPocketSkill;
     }
 
     @Override
@@ -41,11 +44,16 @@ public class ItemPetState implements PetState{
 
         if(isInStealingRange(petPoint,nearestItem) && targetHasItemsToSteal(nearestItem)){
             // TODO: Issue command to steal
+            executePickpocket(pet);
         }
         else{
             Point3D goal = calculateGoal(petPoint, nearestItem, nearestTarget);
             moveToGoal(pet,petPoint,goal);
         }
+    }
+
+    private void executePickpocket(Entity pet) {
+        pet.useSkill(pickPocketSkill);
     }
 
     private boolean hasItemsToLoot(){

@@ -21,12 +21,18 @@ public class Renderer {
         levelView = new LevelView();
 
         menuView = new MenuView();
+
     }
 
 
     public void render(GraphicsContext gc, Point3D playerPos) {
-        //levelView.render(gc, playerPos);
-        menuView.render(gc);
+        if(menuView.inMenu()){
+            menuView.render(gc);
+        }
+        else{
+            levelView.render(gc, playerPos);
+        }
+
     }
 
     public void updateCurrentLevel(Level newCurrentLevel) {
@@ -35,5 +41,10 @@ public class Renderer {
 
     public void setActiveMenuState(MenuViewState menuViewState) {
         menuView.setActiveState(menuViewState);
+        menuView.setInMenu(true);
+    }
+
+    public void closeMenu() {
+        menuView.setInMenu(false);
     }
 }

@@ -31,6 +31,10 @@ public class Controller {
         return controllerSetFactory;
     }
 
+    public void createInGameMenuSet(MenuModel menuModel){
+        controllerSetFactory.createInGameMenuSet(menuModel);
+    }
+
     public void createMenuSet(MenuModel menuModel){
         controllerSetFactory.createMenuSet(menuModel);
     }

@@ -13,7 +13,11 @@ public class KeyEventImplementor implements EventHandler<KeyEvent> {
         this.controller = new Controller(gameLoop);
     }
 
-    public void createMenuSet(MenuModel menuModel){
+    public void createInGameMenuSet(MenuModel menuModel){
+        controller.createInGameMenuSet(menuModel);
+    }
+
+    public void createMainMenuSet(MenuModel menuModel){
         controller.createMenuSet(menuModel);
     }
 

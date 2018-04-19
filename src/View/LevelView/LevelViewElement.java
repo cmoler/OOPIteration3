@@ -25,7 +25,7 @@ public abstract class LevelViewElement {
     }
     public abstract void notifyViewElement();
     public void render(GraphicsContext gc, Point2D offset) {
-        if(!isWaitingToRender) { return; }
+        //if(!isWaitingToRender) { return; }
         int width = size;
         int height = (int)(width * (Math.sqrt(3)/2));
 

@@ -14,6 +14,8 @@ import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
 import View.Renderer;
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
 
 public class GameLoop {
@@ -26,10 +28,15 @@ public class GameLoop {
     private SavingVisitor gameSaver;
     private EntityFactory entityFactory;
     private ControllerSetFactory controllerSetFactory;
-    private KeyEventImplementor controls;
     private Renderer renderer;
+    private EventHandler<KeyEvent> controls;
+    private RunGame runGame;
 
     public GameLoop() {
+
+    }
+
+    public void init() {
         //TODO: Add loading from file logic
         controls = new KeyEventImplementor(this);
         loopTimer = new AnimationTimer() {
@@ -45,12 +52,17 @@ public class GameLoop {
 
         gameModel = new GameModel();
 
-        controls.createMenuSet(menuModel);
-
         renderer = new Renderer();
 
+
+        ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
+        setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
+        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
+        renderer.closeMenu();
+        ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+
         //setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
-        //renderer.updateCurrentLevel(gameModel.getCurrentLevel());
+        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
@@ -97,7 +109,7 @@ public class GameLoop {
     }
 
     public void tick() {
-
+        gameModel.advance();
     }
 
     public void render(GraphicsContext gc){
@@ -105,6 +117,34 @@ public class GameLoop {
     }
 
     public KeyEventImplementor getControls() {
-        return controls;
+        return ((KeyEventImplementor)controls);
+    }
+
+    public void setControls(){
+        controls = new KeyEventImplementor(this);
+        ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
+        runGame.setInput(controls);
+    }
+
+    public void setKeyBinding(int selectedLeftRight, int selectedUpDown) {
+        controls = new KeyBindingSetter(this, selectedLeftRight, selectedUpDown);
+        runGame.setInput(controls);
+    }
+
+    public void setRunGame(RunGame runGame) {
+        this.runGame = runGame;
+    }
+
+    public void closeMenu() {
+        renderer.closeMenu();
+        ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+    }
+
+    public void setInGameMenuKeySet() {
+        ((KeyEventImplementor)controls).createInGameMenuSet(menuModel);
+    }
+
+    public void setMainMenuKeySet() {
+        ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
     }
 }

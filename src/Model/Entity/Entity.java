@@ -1,6 +1,10 @@
 package Model.Entity;
 
+
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+
 import Controller.Visitor.SavingVisitor;
+
 import Model.Entity.EntityAttributes.*;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.RingItem;
@@ -105,11 +109,17 @@ public class Entity {
         hotBar = new ItemHotBar();
         orientation = Orientation.NORTH;
 
-        compatableTerrain = new ArrayList<Terrain>();
+        speed = new Speed();
+        speed.setSpeed(1);
+        equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
+
+
+        compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
-        moveable = false;
+        moveable = true;
 
         mount = null;
+
     }
 
     public boolean isMoveable() {
@@ -126,6 +136,7 @@ public class Entity {
 
     public void setOrientation(Orientation o){
         orientation = o;
+        notifyObservers(null);
     }
 
     public void addItemToInventory(TakeableItem item) {
@@ -250,7 +261,7 @@ public class Entity {
     public void notifyObservers(Point3D position){
         for (LevelViewElement o : observers) {
             o.notifyViewElement();
-            o.setPosition(position);
+            if(position != null) { o.setPosition(position); }
         }
     }
 
@@ -384,6 +395,15 @@ public class Entity {
         if(nonWeaponSkills.size() - 1 < index || index < 0) return;
         else{
             nonWeaponSkills.get(index).fire(this);
+        }
+    }
+
+    public void  useSkill(Skill skill){
+        for (int i = 0; i < nonWeaponSkills.size(); ++i){
+            Skill s = nonWeaponSkills.get(i);
+            if (skill.equals(s)){
+                s.fire(this);
+            }
         }
     }
 

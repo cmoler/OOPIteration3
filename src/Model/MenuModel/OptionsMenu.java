@@ -21,6 +21,6 @@ public class OptionsMenu extends MenuState {
 
     @Override
     public void select() {
-
+        gameLoop.setKeyBinding(selectedLeftRight, selectedUpDown);
     }
 }

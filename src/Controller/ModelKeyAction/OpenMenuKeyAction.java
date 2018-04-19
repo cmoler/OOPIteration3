@@ -24,6 +24,7 @@ public class OpenMenuKeyAction extends ModelKeyAction {
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
             gameLoop.setMenuState(new StatsMenu(menuModel, player, gameLoop), new StatsView(menuModel));
+            gameLoop.setInGameMenuKeySet();
         }
     }
 

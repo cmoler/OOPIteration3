@@ -8,7 +8,7 @@ import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
 import Model.Utility.BidiMap;
 import Model.Item.TakeableItem.TakeableItem;
-import View.LevelView.LevelViewElement;
+import View.LevelView.*;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
@@ -139,14 +139,24 @@ public class Level {
 
     public void addTerrainTo(Point3D point, Terrain terrain) {
         terrainLocations.put(point, terrain);
+        addObserver(new TerrainView(terrain, point));
     }
 
     public void addObstacleTo(Point3D point, Obstacle obstacle) {
         obstacleLocations.put(point, obstacle);
+        addObserver(new ObstacleView(point));
     }
 
     public void addEntityTo(Point3D point, Entity entity) {
+
         entityLocations.place(point, entity);
+        EntityView entityView = new EntityView(entity, point);
+        entity.addObserver(entityView);
+        addObserver(entityView);
+
+
+
+
     }
 
     public void removeEntityFrom(Entity entity){
@@ -159,14 +169,20 @@ public class Level {
 
     public void addTrapTo(Point3D point, Trap trap) {
         trapLocations.put(point, trap);
+        addObserver(new TrapView(trap, point));
     }
 
     public void addRiverTo(Point3D point, River river) {
         riverLocations.put(point, river);
+        addObserver(new RiverView(river, point));
     }
 
     public void addMountTo(Point3D point, Mount mount) {
+        System.out.println(point);
         mountLocations.put(point, mount);
+        MountView mountView = new MountView(mount, point);
+        mount.addObserver(mountView);
+        addObserver(mountView);
     }
 
     public void addInfluenceEffectTo(Point3D point, InfluenceEffect influenceEffect) {

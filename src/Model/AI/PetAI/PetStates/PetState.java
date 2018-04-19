@@ -1,4 +1,4 @@
-package Model.AI.PetAI;
+package Model.AI.PetAI.PetStates;
 
 import Model.Entity.Entity;
 

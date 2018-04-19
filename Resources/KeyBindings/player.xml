@@ -41,4 +41,10 @@
     <Bind type="hotKey5">
         <key>5</key>
     </Bind>
+    <Bind type="attack">
+        <key>Enter</key>
+    </Bind>
+    <Bind type="openMenu">
+        <key>Esc</key>
+    </Bind>
 </class>
