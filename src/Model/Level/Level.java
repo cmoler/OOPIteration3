@@ -139,20 +139,20 @@ public class Level {
 
     public void addTerrainTo(Point3D point, Terrain terrain) {
         terrainLocations.put(point, terrain);
-        addObserver(new TerrainView(terrain, point));
+//        addObserver(new TerrainView(terrain, point));
     }
 
     public void addObstacleTo(Point3D point, Obstacle obstacle) {
         obstacleLocations.put(point, obstacle);
-        addObserver(new ObstacleView(point));
+  //      addObserver(new ObstacleView(point));
     }
 
     public void addEntityTo(Point3D point, Entity entity) {
 
         entityLocations.place(point, entity);
-        EntityView entityView = new EntityView(entity, point);
-        entity.addObserver(entityView);
-        addObserver(entityView);
+//        EntityView entityView = new EntityView(entity, point);
+  //      entity.addObserver(entityView);
+   //     addObserver(entityView);
 
 
 
@@ -169,20 +169,20 @@ public class Level {
 
     public void addTrapTo(Point3D point, Trap trap) {
         trapLocations.put(point, trap);
-        addObserver(new TrapView(trap, point));
+ //       addObserver(new TrapView(trap, point));
     }
 
     public void addRiverTo(Point3D point, River river) {
         riverLocations.put(point, river);
-        addObserver(new RiverView(river, point));
+  //      addObserver(new RiverView(river, point));
     }
 
     public void addMountTo(Point3D point, Mount mount) {
         System.out.println(point);
         mountLocations.put(point, mount);
-        MountView mountView = new MountView(mount, point);
-        mount.addObserver(mountView);
-        addObserver(mountView);
+   //     MountView mountView = new MountView(mount, point);
+  //      mount.addObserver(mountView);
+    //    addObserver(mountView);
     }
 
     public void addInfluenceEffectTo(Point3D point, InfluenceEffect influenceEffect) {
