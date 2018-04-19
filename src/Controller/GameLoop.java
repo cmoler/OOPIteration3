@@ -15,8 +15,10 @@ import View.MenuView.TitleScreenView;
 import View.Renderer;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
+
 
 public class GameLoop {
 
@@ -31,6 +33,7 @@ public class GameLoop {
     private Renderer renderer;
     private EventHandler<KeyEvent> controls;
     private RunGame runGame;
+    private Point2D scrollOffSet;
 
     public GameLoop() {
 
@@ -38,6 +41,7 @@ public class GameLoop {
 
     public void init() {
         //TODO: Add loading from file logic
+        scrollOffSet = new Point2D(0, 0);
         controls = new KeyEventImplementor(this);
         loopTimer = new AnimationTimer() {
             @Override
@@ -113,7 +117,7 @@ public class GameLoop {
     }
 
     public void render(GraphicsContext gc){
-        renderer.render(gc, gameModel.getPlayerPosition());
+        renderer.render(gc, gameModel.getPlayerPosition(), scrollOffSet);
     }
 
     public KeyEventImplementor getControls() {
@@ -146,5 +150,9 @@ public class GameLoop {
 
     public void setMainMenuKeySet() {
         ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
+    }
+
+    public void setScrollOffSet(Point2D scrollOffSet) {
+        this.scrollOffSet = scrollOffSet;
     }
 }

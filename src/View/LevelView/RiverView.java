@@ -16,7 +16,7 @@ public class RiverView extends LevelViewElement{
 
         String workingDir = System.getProperty("user.dir");
 
-        File file = new File(workingDir + "/src/View/Assets/pointer.png");
+        File file = new File(workingDir + "/src/View/Assets/river.png");
 
         setSprite(new Image(file.toURI().toString()));
     }

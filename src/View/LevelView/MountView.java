@@ -10,7 +10,7 @@ public class MountView extends LevelViewElement{
     private Mount mount;
     public MountView(Mount mount, Point3D location) {
         super(location);
-
+        this.mount = mount;
         String workingDir = System.getProperty("user.dir");
 
         File file = new File(workingDir + "/src/View/Assets/horse.png");
@@ -19,7 +19,7 @@ public class MountView extends LevelViewElement{
     }
     @Override
     public void notifyViewElement() {
-
+        setOrientation(mount.getOrientation());
     }
 
     @Override

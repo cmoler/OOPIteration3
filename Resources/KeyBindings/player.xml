@@ -6,16 +6,19 @@
         <key>E</key>
     </Bind>
     <Bind type="moveSE">
-        <key>C</key>
+        <key>D</key>
     </Bind>
     <Bind type="moveS">
-        <key>X</key>
+        <key>S</key>
     </Bind>
     <Bind type="moveSW">
-        <key>Z</key>
+        <key>A</key>
     </Bind>
     <Bind type="moveNW">
         <key>Q</key>
+    </Bind>
+    <Bind type="dismount">
+        <key>H</key>
     </Bind>
     <Bind type="scrollLeft">
         <key>Left</key>

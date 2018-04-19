@@ -1,5 +1,6 @@
 package View.LevelView;
 
+import Configs.Commons;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,21 +25,20 @@ public abstract class LevelViewElement {
         isWaitingToRender = true;
     }
     public abstract void notifyViewElement();
-    public void render(GraphicsContext gc, Point2D offset) {
+    public void render(GraphicsContext gc, Point2D playerPos, Point2D scrollOffset) {
         //if(!isWaitingToRender) { return; }
         int width = size;
         int height = (int)(width * (Math.sqrt(3)/2));
 
-        int xOffset = hexMathHelper.getXCoord(location);
-        int yOffset = hexMathHelper.getYCoord(location);
+        int xOffset = hexMathHelper.getXCoord(location)-(int)playerPos.getX();
+        int yOffset = hexMathHelper.getYCoord(location) - (int)playerPos.getY();
 
-        rotate(gc, orientation.getDegreeOfOrientation(orientation), ((xOffset*width)*.75)+offset.getX()+(width/2), (yOffset*(height/2))+offset.getY()+(height/2));
-        gc.drawImage(sprite, (int)((xOffset*width)*.75)+offset.getX(), (yOffset*(height/2))+offset.getY(), width, height);
+        rotate(gc, orientation.getDegreeOfOrientation(orientation), ((xOffset*width)*.75)+(width/2) + Commons.SCREEN_WIDTH/2 + scrollOffset.getX(), (yOffset*(height/2))+(height/2) + Commons.SCREEN_HEIGHT/2 + scrollOffset.getY());
+        gc.drawImage(sprite, (int)((xOffset*width)*.75) + Commons.SCREEN_WIDTH/2 + scrollOffset.getX(), (yOffset*(height/2)) + Commons.SCREEN_HEIGHT/2 + scrollOffset.getY(), width, height);
 
 
 
         isWaitingToRender = false;
-
 
     }
     private void rotate(GraphicsContext gc, double angle, double px, double py) {
