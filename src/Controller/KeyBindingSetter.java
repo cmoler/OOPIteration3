@@ -37,7 +37,7 @@ public class KeyBindingSetter implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-
+        
         String bindingToChange = keyBindings.getBinding(selectedLeftRight);
 
         String keyToChange = keyBindings.getKey(keyBindings.getBinding(selectedLeftRight), selectedUpDown).getKey();

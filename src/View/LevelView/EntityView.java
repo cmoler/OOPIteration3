@@ -12,9 +12,7 @@ import java.io.File;
 
 public class EntityView extends LevelViewElement{
 
-
     private Entity entity;
-
 
     public EntityView(Entity entity, Point3D location) {
         super(location);
@@ -27,25 +25,15 @@ public class EntityView extends LevelViewElement{
         File file = new File(workingDir + "/src/View/Assets/warrior.png");
 
         setSprite(new Image(file.toURI().toString()));
-
-
-
-
-
-
     }
+
     @Override
     public void notifyViewElement() {
         setOrientation(entity.getOrientation());
     }
 
-
-
-
     @Override
     public int getRenderPriority() {
         return 0;
     }
-
-
 }

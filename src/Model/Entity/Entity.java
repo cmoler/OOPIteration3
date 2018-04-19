@@ -1,6 +1,10 @@
 package Model.Entity;
 
+
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+
+import Controller.Visitor.SavingVisitor;
+
 import Model.Entity.EntityAttributes.*;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.RingItem;
@@ -21,47 +25,101 @@ public class Entity {
 
     private List<LevelViewElement> observers;
 
-    private ItemHotBar hotBar;
-
+    private HashMap<Skill, SkillLevel> skillLevelsMap;
+    private int currentlySelectedSkill;
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
-    private int currentlySelectedSkill = 0;
 
-    private HashMap<Skill, SkillLevel> skillLevelsMap;
+    private Orientation orientation;
     private Vec3d velocity;
-    private NoiseLevel noiseLevel;
+
     private SightRadius sightRadius;
+    private NoiseLevel noiseLevel;
+
     private XPLevel xpLevel;
     private Health health;
     private Mana mana;
-    private Speed speed;
     private Gold gold;
+    private Speed speed;
     private Attack attack;
     private Defense defense;
+
     private Equipment equipment;
     private Inventory inventory;
-    private Orientation orientation;
+
+    private ItemHotBar hotBar;
+
     private List<Terrain> compatableTerrain;
     private boolean moveable;
+
     private Mount mount;
 
+    public Entity(List<LevelViewElement> observers, ItemHotBar hotBar, List<Skill> weaponSkills,
+                  List<Skill> nonWeaponSkills, HashMap<Skill, SkillLevel> skillLevelsMap,
+                  Vec3d velocity, NoiseLevel noiseLevel, SightRadius sightRadius, XPLevel xpLevel, Health health,
+                  Mana mana, Speed speed, Gold gold, Attack attack, Defense defense, Equipment equipment,
+                  Inventory inventory, Orientation orientation, List<Terrain> compatableTerrain, boolean moveable,
+                  Mount mount) {
+        this.observers = observers;
+        this.hotBar = hotBar;
+        this.weaponSkills = weaponSkills;
+        this.nonWeaponSkills = nonWeaponSkills;
+        this.skillLevelsMap = skillLevelsMap;
+        this.velocity = velocity;
+        this.noiseLevel = noiseLevel;
+        this.sightRadius = sightRadius;
+        this.xpLevel = xpLevel;
+        this.health = health;
+        this.mana = mana;
+        this.speed = speed;
+        this.gold = gold;
+        this.attack = attack;
+        this.defense = defense;
+        this.equipment = equipment;
+        this.inventory = inventory;
+        this.orientation = orientation;
+        this.compatableTerrain = compatableTerrain;
+        this.moveable = moveable;
+        this.mount = mount;
+    }
+
     public Entity() {
-        this.xpLevel = new XPLevel();
-        this.health = new Health(100, 100);
-        this.inventory = new Inventory();
-        this.equipment = new Equipment();
-        this.compatableTerrain = new ArrayList<Terrain>();
-        compatableTerrain.add(Terrain.GRASS);
-        this.velocity = new Vec3d(0,0,0);
         skillLevelsMap = new HashMap<>();
+        currentlySelectedSkill = 0;
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
         observers = new ArrayList<>();
+
+        orientation = Orientation.NORTH;
+        velocity = new Vec3d(0,0,0);
+
+        sightRadius = new SightRadius();
+        noiseLevel = new NoiseLevel();
+
+        xpLevel = new XPLevel();
+        health = new Health(100, 100);
+        mana = new Mana();
+        gold = new Gold();
+        speed = new Speed();
+        attack = new Attack();
+        defense = new Defense();
+
+        inventory = new Inventory();
+        equipment = new Equipment();
         hotBar = new ItemHotBar(this);
         orientation = Orientation.NORTH;
+
         speed = new Speed();
         speed.setSpeed(1);
         equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
+
+
+        compatableTerrain = new ArrayList<Terrain>();
+        compatableTerrain.add(Terrain.GRASS);
+        moveable = false;
+
+        mount = null;
+
     }
 
     public boolean isMoveable() {
@@ -201,7 +259,7 @@ public class Entity {
     }
 
     public void notifyObservers(Point3D position){
-        for (LevelViewElement o:observers) {
+        for (LevelViewElement o : observers) {
             o.notifyViewElement();
             if(position != null) { o.setPosition(position); }
         }
@@ -323,7 +381,7 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
-    }
+    } // TODO: add logic for mana costs
 
     public void addItemToHotBar(TakeableItem takeableItem, int index){
         hotBar.addItem(takeableItem, index);
@@ -333,7 +391,7 @@ public class Entity {
         hotBar.use(index);
     }
 
-    public void useSkill(int index){
+    public void useSkill(int index){ // TODO: add logic for mana costs
         if(nonWeaponSkills.size() - 1 < index || index < 0) return;
         else{
             nonWeaponSkills.get(index).fire(this);
@@ -342,7 +400,7 @@ public class Entity {
 
     public void useSkill(){
         nonWeaponSkills.get(currentlySelectedSkill).fire(this);
-    }
+    } // TODO: add logic for mana costs
 
     public void scrollLeft(){
         if(currentlySelectedSkill <= 0) currentlySelectedSkill = nonWeaponSkills.size() - 1;
@@ -419,7 +477,7 @@ public class Entity {
     }
 
     public int getCurrentGold() {
-        return gold.getGold();
+        return gold.getGoldAmount();
     }
 
     public SightRadius getSightRadius() {
@@ -432,5 +490,81 @@ public class Entity {
 
     public int getSight(){
         return sightRadius.getSight();
+    }
+
+    public void accept(SavingVisitor visitor) {
+        visitor.visitEntity(this);
+    }
+
+    public int getExperience() {
+        return xpLevel.getExperience();
+    }
+
+    public int getExperienceToNextLevel() {
+        return xpLevel.getExpToNextLevel();
+    }
+
+    public int getManaPoints() {
+        return mana.getCurrentMana();
+    }
+
+    public int getMaxMana() {
+        return mana.getMaxMana();
+    }
+
+    public int getSpeed() {
+        return speed.getSpeed();
+    }
+
+    public int getMaxGold() {
+        return gold.getMaxGold();
+    }
+
+    public int getAttackPoints() {
+        return attack.getAttackPoints();
+    }
+
+    public int getAttackModifier() {
+        return attack.getModifier();
+    }
+
+    public int getDefensePoints() {
+        return defense.getDefensePoints();
+    }
+
+    public int getDefenseModifier() {
+        return defense.getModifier();
+    }
+
+    public Mount getMount() {
+        return mount;
+    }
+
+    public List<Terrain> getPassableTerrains() {
+        return compatableTerrain;
+    }
+
+    public List<Skill> getWeaponSkills() {
+        return weaponSkills;
+    }
+
+    public List<Skill> getNonWeaponSkills() {
+        return nonWeaponSkills;
+    }
+
+    public ItemHotBar getItemHotBar() {
+        return hotBar;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed.setSpeed(speed);
+    }
+
+    public void setNoise(int noise) {
+        noiseLevel.setNoise(noise);
+    }
+
+    public boolean hasItems() {
+        return inventory.size() >= 1;
     }
 }

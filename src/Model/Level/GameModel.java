@@ -2,11 +2,12 @@ package Model.Level;
 
 import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
-import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Entity.Entity;
-import View.LevelView.*;
+import View.LevelView.EntityView;
+import View.LevelView.RiverView;
+import View.LevelView.TerrainView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import java.io.IOException;
@@ -19,17 +20,22 @@ import java.util.*;
 public class GameModel implements Visitable {
 
     private GameModelMessenger gameModelMessenger;
+
+    private List<Level> levels;
     private Level currentLevel;
     private LevelMessenger currentLevelMessenger;
-    private List<Level> levels;
+
     private Entity player;
+
     private Map<Level, List<AIController>> aiMap;
-    private Queue<TeleportTuple> teleportTupleQueue;
+
+    private Queue<TeleportTuple> teleportQueue;
 
     public GameModel() {
             levels = new ArrayList<>();
             aiMap = new HashMap<>();
-            teleportTupleQueue = new LinkedList<>();
+            teleportQueue = new LinkedList<>();
+
             currentLevel = new Level(new ArrayList<>());
             player = new Entity();
             currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
@@ -75,7 +81,7 @@ public class GameModel implements Visitable {
         TeleportTuple tuple = new TeleportTuple(teleportEntityCommand.getEntity(),
                                                 teleportEntityCommand.getDestinationLevel(), teleportEntityCommand.getDestinationPoint());
 
-        teleportTupleQueue.add(tuple);
+        teleportQueue.add(tuple);
     }
 
     public boolean entityIsPlayer(Entity entity) {
@@ -128,11 +134,11 @@ public class GameModel implements Visitable {
     }
 
     public void processTeleportQueue() {
-        for(TeleportTuple tuple : teleportTupleQueue) {
+        for(TeleportTuple tuple : teleportQueue) {
             changeLevels(tuple.getEntity(), tuple.getDestLevel(), tuple.getDestinationPoint());
         }
 
-        teleportTupleQueue.clear();
+        teleportQueue.clear();
     }
 
     private void changeLevels(Entity entity, Level destinationLevel, Point3D destinationPoint) {

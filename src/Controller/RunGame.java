@@ -1,38 +1,23 @@
 package Controller;
 
 import Configs.Commons;
-import Model.Entity.Entity;
-import Model.InfluenceEffect.AngularInfluenceEffect;
-import Model.InfluenceEffect.LinearInfluenceEffect;
-import Model.InfluenceEffect.RadialInfluenceEffect;
-import Model.Level.Level;
-import Model.MenuModel.MainMenuState;
-import Model.MenuModel.MenuModel;
-import View.LevelView.EntityView;
-import View.LevelView.LevelViewElement;
-import View.LevelView.TerrainView;
-import View.MenuView.MenuView;
-import View.MenuView.TitleScreenView;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 
-import javafx.geometry.Point3D;
-import javafx.scene.paint.Color;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import Model.Entity.EntityAttributes.Orientation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class RunGame extends Application{
     private Stage mainStage;
     private Scene mainScene;
+
+    private Canvas canvas;
 
     public static void main(String[] args) {
         launch(args);
@@ -49,7 +34,7 @@ public class RunGame extends Application{
         mainScene = new Scene(root);
         primaryStage.setScene( mainScene );
 
-        Canvas canvas = new Canvas(Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
+        canvas = new Canvas(Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
 
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -79,7 +64,7 @@ public class RunGame extends Application{
 */
         
         GameLoop gameLoop = new GameLoop();
-
+        gameLoop.setRunGame(this);
         canvas.setOnKeyPressed(gameLoop.getControls());
 
 
@@ -102,5 +87,9 @@ public class RunGame extends Application{
 
         mainStage.show();
 
+    }
+
+    public void setInput(EventHandler<KeyEvent> keyEventEventHandler){
+        canvas.setOnKeyPressed(keyEventEventHandler);
     }
 }

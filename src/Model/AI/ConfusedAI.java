@@ -1,8 +1,7 @@
 package Model.AI;
 
 import Model.Entity.Entity;
-
-import java.util.Random;
+import Model.Utility.RandomVelocityGenerator;
 
 public class ConfusedAI extends AIState{
 
@@ -26,8 +25,7 @@ public class ConfusedAI extends AIState{
             controller.setActiveState(previousState);
         }
         else {
-            Random rand = new Random();
-            super.getEntity().addVelocity(super.generateRandomVelcity());
+            super.getEntity().addVelocity(RandomVelocityGenerator.generateRandomVelocity());
         }
     }
 }

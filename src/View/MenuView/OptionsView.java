@@ -17,7 +17,6 @@ public class OptionsView extends MenuViewState {
 
     public OptionsView(MenuModel menuModel) {
         super(menuModel);
-        keyBindings = new KeyBindings();
 
         String workingDir = System.getProperty("user.dir");
 
@@ -27,6 +26,8 @@ public class OptionsView extends MenuViewState {
 
     @Override
     public void render(GraphicsContext gc) {
+
+        keyBindings = new KeyBindings();
 
         gc.clearRect(0, 0, Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
 

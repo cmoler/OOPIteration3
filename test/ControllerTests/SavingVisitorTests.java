@@ -5,12 +5,15 @@ import Controller.Visitor.SavingVisitor;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
+import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
-import Model.Entity.EntityAttributes.Orientation;
-import Model.Entity.EntityAttributes.Speed;
+import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.*;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
@@ -32,6 +35,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
@@ -45,6 +49,23 @@ public class SavingVisitorTests {
 
     @Before
     public void init() throws IOException, ParserConfigurationException, SAXException {
+        ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
+            add(new Skill("BRAWL",
+                    new LinearInfluenceEffect(new RemoveHealthCommand(5), 0, 0, Orientation.NORTH),
+                    new RemoveHealthCommand(5),
+                    new SendInfluenceEffectCommand(null),0, 0));
+
+            add(new Skill("ONE HANDED",
+                    new LinearInfluenceEffect(new RemoveHealthCommand(10), 0, 0, Orientation.NORTH),
+                    new RemoveHealthCommand(10),
+                    new SendInfluenceEffectCommand(null),0, 0));
+
+            add(new Skill("TWO HANDED",
+                    new LinearInfluenceEffect(new RemoveHealthCommand(20), 0, 0, Orientation.NORTH),
+                    new RemoveHealthCommand(20),
+                    new SendInfluenceEffectCommand(null),0, 0));
+        }};
+
         ArrayList<Level> levels = new ArrayList<>();
         ArrayList<Terrain> mountTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); add(Terrain.WATER); }};
         savingVisitor = new SavingVisitor("TESTSAVE.xml");
@@ -60,8 +81,8 @@ public class SavingVisitorTests {
         level.addInfluenceEffectTo(new Point3D(0,0,1), new RadialInfluenceEffect(new AddHealthCommand(5), 0, 0, Orientation.NORTH));
         level.addInfluenceEffectTo(new Point3D(0,0,2), new AngularInfluenceEffect(new AddHealthCommand(5), 0, 0, Orientation.NORTH));
 
-        level.addItemnTo(new Point3D(0,0,0), new InteractiveItem("door", new RemoveHealthCommand(10)));
-        level.addItemnTo(new Point3D(0,0,1), new OneShotItem("bomb", new RemoveHealthCommand(10)));
+        level.addItemnTo(new Point3D(0,0,0), new InteractiveItem("door", new ToggleManaCommand(10)));
+        level.addItemnTo(new Point3D(0,0,1), new OneShotItem("bomb", new ToggleSpeedCommand(10)));
         level.addItemnTo(new Point3D(0,0,2), new ArmorItem("helemet", new AddHealthCommand(10), 10));
         level.addItemnTo(new Point3D(0,0,3), new RingItem("ring", new ToggleHealthCommand(10)));
         level.addItemnTo(new Point3D(0,0,4), new ConsumableItem("potion", new AddHealthCommand(10)));
@@ -73,6 +94,17 @@ public class SavingVisitorTests {
         level.addRiverTo(new Point3D(0,0,0), new River(new Vec3d(0,0,0)));
 
         level.addMountTo(new Point3D(0,0,0), new Mount(Orientation.NORTH, new Speed(10), mountTerrain, null));
+
+        Entity entity = new Entity(new ArrayList<>(), new ItemHotBar(null), new ArrayList<>(),
+                new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
+                new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
+                new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
+                new Equipment(), new Inventory(), Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
+                new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
+
+        entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
+
+        level.addEntityTo(new Point3D(0,0,0), entity);
 
         levels.add(level);
         levels.add(new Level(new ArrayList<LevelViewElement>()));
@@ -115,6 +147,9 @@ public class SavingVisitorTests {
         assertTrue(itemsToTest.get(new Point3D(0,0,2)) instanceof ArmorItem);
         assertTrue(itemsToTest.get(new Point3D(0,0,3)) instanceof RingItem);
         assertTrue(itemsToTest.get(new Point3D(0,0,4)) instanceof ConsumableItem);
+
+        assertTrue(itemsToTest.get(new Point3D(0,0,0)).getCommand() instanceof ToggleManaCommand);
+        assertTrue(itemsToTest.get(new Point3D(0,0,1)).getCommand() instanceof ToggleSpeedCommand);
     }
 
     @Test
@@ -147,5 +182,12 @@ public class SavingVisitorTests {
         assertTrue(mountMap.get(new Point3D(0,0,0)).getPassableTerrain().get(0) == Terrain.GRASS);
         assertTrue(mountMap.get(new Point3D(0,0,0)).getPassableTerrain().get(1) == Terrain.WATER);
         assertTrue(mountMap.get(new Point3D(0,0,0)).getOrientation() == Orientation.NORTH);
+    }
+
+    @Test
+    public void testEntitySaveAndLoad() {
+        Level level = gameLoader.getCurrentLevel();
+        Map<Point3D, Entity> entityMap = level.getEntityLocations();
+        assertTrue(!entityMap.isEmpty());
     }
 }
