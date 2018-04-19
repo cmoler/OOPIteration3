@@ -44,12 +44,12 @@ public class MovementHandler {
                     if (mountLocations.containsKey(contestedPoint)){
                         entity.mountVehicle(mountLocations.get(contestedPoint));
                     }
-                    if (entityLocations.containsKey(contestedPoint)){
+                    if (entityLocations.hasKey(contestedPoint)){
                        // TODO: Figure out this use case.
                         System.out.println("Hello Entity! I, another Entity, is interacting with you!");
                     }
                     else {
-                        entityLocations.remove(entityPoint);
+                        entityLocations.removeByKey(entityPoint);
                         entityLocations.place(contestedPoint, entity);
 
                         if (entity.isMounted()){

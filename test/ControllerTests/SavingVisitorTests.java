@@ -25,6 +25,7 @@ import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.RingItem;
 import Model.Level.*;
+import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -187,7 +188,7 @@ public class SavingVisitorTests {
     @Test
     public void testEntitySaveAndLoad() {
         Level level = gameLoader.getCurrentLevel();
-        Map<Point3D, Entity> entityMap = level.getEntityLocations();
+        BidiMap<Point3D, Entity> entityMap = level.getEntityLocations();
         assertTrue(!entityMap.isEmpty());
     }
 }

@@ -49,7 +49,7 @@ public class GameLoop {
 
         renderer = new Renderer();
 
-       // setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
+        //setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         //renderer.updateCurrentLevel(gameModel.getCurrentLevel());
     }
 
