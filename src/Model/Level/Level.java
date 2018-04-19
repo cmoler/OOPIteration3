@@ -50,15 +50,14 @@ public class Level {
 
         this.observers = observers;
 
-        this.movementHandler = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations, influenceEffectLocations);
+        this.movementHandler = new MovementHandler(terrainLocations, obstacleLocations, entityLocations,
+                                                   mountLocations, influenceEffectLocations);
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
                                                          trapLocations, mountLocations, influenceEffectLocations,
-                riverLocations, observers);
+                                                         riverLocations, observers);
 
         this.tilesSeenByPlayer = new ArrayList<>();
-
-
     }
 
     public Map<Point3D, Terrain> getTerrainLocations() {

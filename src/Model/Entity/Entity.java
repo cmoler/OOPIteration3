@@ -248,7 +248,7 @@ public class Entity {
     }
 
     public void notifyObservers(Point3D position){
-        for (LevelViewElement o:observers) {
+        for (LevelViewElement o : observers) {
             o.notifyViewElement();
             o.setPosition(position);
         }
