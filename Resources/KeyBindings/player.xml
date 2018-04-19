@@ -17,6 +17,9 @@
     <Bind type="moveNW">
         <key>Q</key>
     </Bind>
+    <Bind type="dismount">
+        <key>H</key>
+    </Bind>
     <Bind type="scrollLeft">
         <key>Left</key>
     </Bind>
