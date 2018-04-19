@@ -1,6 +1,7 @@
-package Model.AI.PetAI;
+package Model.AI.PetAI.PetStates;
 
 import Model.AI.PathingAlgorithm;
+import Model.AI.PetAI.PetPriority;
 import Model.Entity.Entity;
 import Model.Item.Item;
 import Model.Level.Obstacle;
@@ -16,7 +17,7 @@ import java.util.Random;
 
 import static Model.AI.PetAI.PetPriority.*;
 
-public class GeneralPetState implements PetState{
+public class GeneralPetState implements PetState {
     private BidiMap<Point3D, Entity> entityMap;
     private Map<Point3D, Item> itemMap;
     private Entity player;

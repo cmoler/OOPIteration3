@@ -1,6 +1,7 @@
 package Model.AI.PetAI;
 
 import Model.AI.AIState;
+import Model.AI.PetAI.PetStates.PetState;
 import Model.Entity.Entity;
 
 
