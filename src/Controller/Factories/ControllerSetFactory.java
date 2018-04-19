@@ -35,6 +35,20 @@ public class ControllerSetFactory {
         controller.setKeyActionSet(newKeySet);
     }
 
+    public void createInGameMenuSet(MenuModel menuModel){
+        ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
+
+        newKeySet.add(new CloseMenuKeyAction(keyBindingParser.parseMenuKey("closeMenu"), gameLoop));
+
+        newKeySet.add(new SelectKeyAction(keyBindingParser.parseMenuKey("select"), menuModel));
+        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), menuModel));
+        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), menuModel));
+        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), menuModel));
+        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), menuModel));
+
+        controller.setKeyActionSet(newKeySet);
+    }
+
     public void createMenuSet(MenuModel menuModel){
         ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
 

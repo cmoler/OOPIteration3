@@ -120,4 +120,8 @@ public class GameLoop {
     public void setRunGame(RunGame runGame) {
         this.runGame = runGame;
     }
+
+    public void closeMenu() {
+        renderer.closeMenu();
+    }
 }
