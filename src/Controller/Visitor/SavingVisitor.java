@@ -694,7 +694,7 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append("\t");
-        this.valueNode.append("<" + removeHealthCommand.getClass().getSimpleName() + " damageAmount=" + "\"" + removeHealthCommand.getAmount() + "\"" + "/>");
+        this.valueNode.append("<" + removeHealthCommand.getClass().getSimpleName() + " amount=" + "\"" + removeHealthCommand.getAmount() + "\"" + "/>");
     }
 
     @Override
@@ -778,7 +778,7 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append("\t");
-        this.valueNode.append("<" + addHealthCommand.getClass().getSimpleName() + " healAmount=" +
+        this.valueNode.append("<" + addHealthCommand.getClass().getSimpleName() + " amount=" +
                 "\"" +addHealthCommand.getAmount() + "\"" + "/>");
     }
 

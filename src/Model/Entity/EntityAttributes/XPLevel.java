@@ -12,6 +12,12 @@ public class XPLevel {
         this.expToNextLevel = 100; // TODO: define more complex algorithm for increasing level and managing experience
     }
 
+    public XPLevel(int level, int experience, int expToNextLevel) {
+        this.level = level;
+        this.experience = experience;
+        this.expToNextLevel = expToNextLevel;
+    }
+
     public int getLevel() {
         return level;
     }

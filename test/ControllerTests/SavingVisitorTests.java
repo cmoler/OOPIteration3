@@ -183,4 +183,11 @@ public class SavingVisitorTests {
         assertTrue(mountMap.get(new Point3D(0,0,0)).getPassableTerrain().get(1) == Terrain.WATER);
         assertTrue(mountMap.get(new Point3D(0,0,0)).getOrientation() == Orientation.NORTH);
     }
+
+    @Test
+    public void testEntitySaveAndLoad() {
+        Level level = gameLoader.getCurrentLevel();
+        Map<Point3D, Entity> entityMap = level.getEntityLocations();
+        assertTrue(!entityMap.isEmpty());
+    }
 }
