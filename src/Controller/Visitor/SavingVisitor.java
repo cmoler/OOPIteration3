@@ -438,7 +438,8 @@ public class SavingVisitor implements Visitor {
                 + " defensePoints=" + "\"" + entity.getDefensePoints() + "\""
                 + " defenseModifier=" + "\"" + entity.getDefenseModifier() + "\""
                 + " orientation=" + "\"" + entity.getOrientation() + "\""
-                + " moveable=" + "\"" + entity.isMoveable() + "\">");
+                + " moveable=" + "\"" + entity.isMoveable() + "\""
+                + " reference=" + "\"" + entity.toString() + "\"" + ">");
 
         entityString.append("\n");
         entityString.append("\t");
@@ -637,7 +638,8 @@ public class SavingVisitor implements Visitor {
         StringBuffer itemString = new StringBuffer("<" + armorItem.getClass().getSimpleName()
                 + " name=" + "\"" + armorItem.getName() + "\""
                 + " isToBeDeleted=" + "\"" + armorItem.isToBeDeleted() + "\""
-                + " defense=" + "\"" + armorItem.getDefense() +"\">");
+                + " defense=" + "\"" + armorItem.getDefense() + "\""
+                + " reference=" + "\"" + armorItem.toString() + "\">");
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append(itemString);
@@ -676,7 +678,8 @@ public class SavingVisitor implements Visitor {
     private void processItem(Item item) {
         StringBuffer itemString = new StringBuffer("<" + item.getClass().getSimpleName()
                 + " name=" + "\"" + item.getName() + "\""
-                + " isToBeDeleted=" + "\"" + item.isToBeDeleted() + "\">");
+                + " isToBeDeleted=" + "\"" + item.isToBeDeleted() + "\""
+                + " reference=" + "\"" + item.toString() + "\">");
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append(itemString);
@@ -925,5 +928,13 @@ public class SavingVisitor implements Visitor {
         this.levelList.append("</LEVELLIST>");
         this.levelList.append("\n");
         writer.write(this.levelList.toString());
+    }
+
+    public void visitPlayerEntity(Entity player) throws IOException {
+        this.valueNode = new StringBuffer("<PLAYER>");
+        visitEntity(player);
+        this.valueNode.append("</PLAYER>");
+        this.valueNode.append("\n");
+        writer.write(this.valueNode.toString());
     }
 }
