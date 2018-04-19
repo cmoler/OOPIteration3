@@ -25,8 +25,8 @@ public class Renderer {
 
 
     public void render(GraphicsContext gc, Point3D playerPos) {
-        levelView.render(gc, playerPos);
-        //menuView.render(gc);
+        //levelView.render(gc, playerPos);
+        menuView.render(gc);
     }
 
     public void updateCurrentLevel(Level newCurrentLevel) {
