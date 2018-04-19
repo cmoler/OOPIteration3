@@ -3,8 +3,6 @@ package Model.AI;
 import Model.Entity.Entity;
 import Model.Utility.RandomVelocityGenerator;
 
-import java.util.Random;
-
 public class ConfusedAI extends AIState{
 
     private long startTime;
@@ -27,7 +25,6 @@ public class ConfusedAI extends AIState{
             controller.setActiveState(previousState);
         }
         else {
-            Random rand = new Random();
             super.getEntity().addVelocity(RandomVelocityGenerator.generateRandomVelocity());
         }
     }
