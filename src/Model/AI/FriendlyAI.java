@@ -13,16 +13,14 @@ import java.util.Map;
 
 public class FriendlyAI extends AIState{
     private BidiMap<Point3D, Entity> entityMap;
-    private Entity player;
     private PathingAlgorithm pathCalculator;
     private PatrolPath patrolPath;
     private Point3D origin;
     private double moveRadius;
 
-    public FriendlyAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
+    public FriendlyAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
         super(ent);
         this.entityMap = entityMap;
-        this.player = player;
         this.pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         origin = getEntityPoint(super.getEntity(), entityMap);
         moveRadius = super.getEntity().getSight(); //TODO: LoD violation?

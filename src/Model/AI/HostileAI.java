@@ -20,12 +20,11 @@ public class HostileAI extends AIState{
     private double chaseRadius;
     private Boolean moveToOrigin;
 
-    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity Player, List<Entity> targetList) {
+    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, List<Entity> targetList) {
         super(ent);
         this.entityMap = entityMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         origin = getEntityPoint(super.getEntity(), entityMap);
-        player = Player;
         chaseRadius = getEntity().getSight();
         moveToOrigin = false;
         this.targetList = targetList;
