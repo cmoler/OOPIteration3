@@ -16,6 +16,7 @@ import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.*;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -115,7 +116,7 @@ public class LevelTests {
     public void testMovementInteractions(){
         Map<Point3D,Terrain> terrainLocations = new HashMap<Point3D, Terrain>();
         Map<Point3D, Obstacle> obstacleLocations = new HashMap<Point3D, Obstacle>();
-        Map<Point3D, Entity> entityLocations = new HashMap<Point3D, Entity>();
+        BidiMap<Point3D, Entity> entityLocations = new BidiMap<>();
         Map<Point3D, Mount> mountLocations = new HashMap<Point3D, Mount>();
         Map<Point3D, InfluenceEffect> influenceEffectLocations = new HashMap<Point3D, InfluenceEffect>();
 
@@ -126,10 +127,10 @@ public class LevelTests {
 
         Entity ent = new Entity();
         ent.setVelocity(new Vec3d(1,0,0));
-        entityLocations.put(new Point3D(1,2,2), ent);
+        entityLocations.place(new Point3D(1,2,2), ent);
 
         MH.processMoves();
-        Assert.assertTrue(entityLocations.containsKey(new Point3D(1,2,2)));
+        Assert.assertTrue(entityLocations.hasKey(new Point3D(1,2,2)));
 
         entityLocations.clear();
         terrainLocations.clear();
@@ -139,23 +140,23 @@ public class LevelTests {
         obstacleLocations.put(new Point3D(2,2,2),new Obstacle());
 
         ent.setVelocity(new Vec3d(1,0,0));
-        entityLocations.put(new Point3D(1,2,2), ent);
+        entityLocations.place(new Point3D(1,2,2), ent);
 
         MH.processMoves();
-        Assert.assertTrue(entityLocations.containsKey(new Point3D(1,2,2)));
+        Assert.assertTrue(entityLocations.hasKey(new Point3D(1,2,2)));
 
         entityLocations.clear();
         obstacleLocations.clear();
 
         // Case 3: Attempting to move on another entity
         Entity ent1 = new Entity();
-        entityLocations.put(new Point3D(2,2,2), ent1);
+        entityLocations.place(new Point3D(2,2,2), ent1);
 
         ent.setVelocity(new Vec3d(1,0,0));
-        entityLocations.put(new Point3D(1,2,2), ent);
+        entityLocations.place(new Point3D(1,2,2), ent);
 
         MH.processMoves();
-        Assert.assertTrue(entityLocations.get(new Point3D(1,2,2)).equals(ent));
+        Assert.assertTrue(entityLocations.getValueFromKey(new Point3D(1,2,2)).equals(ent));
         Assert.assertEquals(new Vec3d(0, 0, 0),ent.getVelocity());
 
         entityLocations.clear();
@@ -165,12 +166,12 @@ public class LevelTests {
         terrainLocations.put(new Point3D(2,2,2),Terrain.GRASS);
 
         ent.setVelocity(new Vec3d(1,0,0));
-        entityLocations.put(new Point3D(1,2,2), ent);
+        entityLocations.place(new Point3D(1,2,2), ent);
 
         Assert.assertTrue(ent.isMoving());
 
         MH.processMoves();
-        Assert.assertTrue(entityLocations.get(new Point3D(2,2,2)).equals(ent));
+        Assert.assertTrue(entityLocations.getValueFromKey(new Point3D(2,2,2)).equals(ent));
         Assert.assertEquals(new Vec3d(0, 0, 0),ent.getVelocity());
 
         entityLocations.clear();

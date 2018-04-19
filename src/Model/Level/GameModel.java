@@ -35,15 +35,6 @@ public class GameModel implements Visitable {
             levels = new ArrayList<>();
             aiMap = new HashMap<>();
             teleportQueue = new LinkedList<>();
-
-            currentLevel = new Level(new ArrayList<>());
-            player = new Entity();
-            currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
-            currentLevel.addObserver(new EntityView(player, getPlayerPosition()));
-            currentLevel.addObserver(new TerrainView(new Point3D(1, 1, -2), 75));
-            currentLevel.addObserver(new RiverView(new River(new Vec3d(0, 0, 0)), new Point3D(-1, 0, 1)));
-            currentLevel.addObserver(new TerrainView(new Point3D(-1, 0, 1), 75));
-
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,

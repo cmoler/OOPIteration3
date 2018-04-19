@@ -54,6 +54,4 @@ public class BidiMap<K, V> extends HashMap {
         standardMap.clear();
         reverseMap.clear();
     }
-
-
 }

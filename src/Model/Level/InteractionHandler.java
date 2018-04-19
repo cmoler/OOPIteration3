@@ -4,6 +4,7 @@ import Model.AreaEffect.AreaEffect;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
+import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 
@@ -14,7 +15,7 @@ import java.util.Map;
 public class InteractionHandler {
 
     private Map<Point3D, Item> itemLocations;
-    private Map<Point3D, Entity> entityLocations;
+    private BidiMap<Point3D, Entity> entityLocations;
     private Map<Point3D, AreaEffect> areaEffectLocations;
     private Map<Point3D, Trap> trapLocations;
     private Map<Point3D, Mount> mountLocations;
@@ -23,7 +24,7 @@ public class InteractionHandler {
     private List<LevelViewElement> observers;
 
     public  InteractionHandler(Map<Point3D, Item> itemLocations,
-                               Map<Point3D, Entity> entityLocations,
+                               BidiMap<Point3D, Entity> entityLocations,
                                Map<Point3D, AreaEffect> areaEffectLocations,
                                Map<Point3D, Trap> trapLocations,
                                Map<Point3D, Mount> mountLocations,
@@ -53,22 +54,22 @@ public class InteractionHandler {
     }
 
     private void processRivers() {
-        List<Point3D> entityPoints = new ArrayList<>(entityLocations.keySet());
+        List<Point3D> entityPoints = new ArrayList<>(entityLocations.getKeyList());
 
         for(Point3D point : entityPoints) {
             if(riverLocations.containsKey(point)) {
-                entityLocations.get(point).addVelocity(riverLocations.get(point).getFlowrate());
+                entityLocations.getValueFromKey(point).addVelocity(riverLocations.get(point).getFlowrate());
             }
         }
     }
 
     private void processItems() {
-        List<Point3D> entityPoints = new ArrayList<>(entityLocations.keySet());
+        List<Point3D> entityPoints = new ArrayList<>(entityLocations.getKeyList());
 
         for(Point3D point : entityPoints) {
             if(itemLocations.containsKey(point)) {
                 Item item = itemLocations.get(point);
-                Entity entity = entityLocations.get(point);
+                Entity entity = entityLocations.getValueFromKey(point);
 
                 item.onTouch(entity);
             }
@@ -76,12 +77,12 @@ public class InteractionHandler {
     }
 
     private void processAreaEffects() {
-        List<Point3D> entityPoints = new ArrayList<>(entityLocations.keySet());
+        List<Point3D> entityPoints = new ArrayList<>(entityLocations.getKeyList());
 
         for(Point3D point : entityPoints) {
             if(areaEffectLocations.containsKey(point)) {
                 AreaEffect effect = areaEffectLocations.get(point);
-                Entity entity = entityLocations.get(point);
+                Entity entity = entityLocations.getValueFromKey(point);
 
                 effect.trigger(entity);
             }
@@ -89,12 +90,12 @@ public class InteractionHandler {
     }
 
     private void processTraps() {
-        List<Point3D> entityPoints = new ArrayList<>(entityLocations.keySet());
+        List<Point3D> entityPoints = new ArrayList<>(entityLocations.getKeyList());
 
         for(Point3D point : entityPoints) {
             if(trapLocations.containsKey(point)) {
                 Trap trap = trapLocations.get(point);
-                Entity entity = entityLocations.get(point);
+                Entity entity = entityLocations.getValueFromKey(point);
 
                 trap.fire(entity);
             }
@@ -119,8 +120,8 @@ public class InteractionHandler {
         for(Point3D point : influenceEffectPoints) {
             InfluenceEffect influenceEffect = influenceEffectLocations.get(point); //Get current influence effect
 
-            if(entityLocations.containsKey(point)) {//Check if there is an entity on that location
-                Entity entity = entityLocations.get(point); //Get entity
+            if(entityLocations.hasKey(point)) {//Check if there is an entity on that location
+                Entity entity = entityLocations.getValueFromKey(point); //Get entity
                 influenceEffect.hitEntity(entity); //Trigger command
                 influenceEffectLocations.remove(point, influenceEffect); // remove influence effect if it hit the entity
             } else if(influenceEffect.noMovesRemaining()) { // remove influence effect if it has no moves left and didn't hit an entity
