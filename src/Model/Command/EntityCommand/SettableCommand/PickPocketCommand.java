@@ -21,11 +21,13 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
     private Entity invokingEntity;
     private Entity entityToStealFrom;
     private HostileAI hostileAI;
+    private ChangeToHostileAICommand changeToHostileAICommand;
 
     private int pickPocketStrength;
 
     public PickPocketCommand(LevelMessenger levelMessenger) {
         super(levelMessenger);
+        changeToHostileAICommand = new ChangeToHostileAICommand(levelMessenger);
     }
 
     public void receiveLevel(Level level) {
@@ -35,7 +37,7 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
 
         entityToStealFrom = level.getEntityAtPoint(destPoint);
 
-        //hostileAI = new HostileAI(entityToStealFrom, level.getTerrainMap(), level.getEntityLocations(), level.getObstacleLocations(), invokingEntity);
+
     }
 
     public void receiveGameModel(GameModel gameModel) {
@@ -54,8 +56,7 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
                 } else { // unsuccessful pickpocket, turn entity hostile
                     switch (rand.nextInt(2)) { // flip a coin to see if entity should notice the failed theft
                         case 0:
-                            AIController aiController = gameModel.getAIForEntity(entityToStealFrom);
-                            aiController.setActiveState(hostileAI);
+                            changeToHostileAICommand.execute(invokingEntity);
                             break;
                         case 1:
                             break;

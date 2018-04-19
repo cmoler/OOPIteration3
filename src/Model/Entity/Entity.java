@@ -398,6 +398,15 @@ public class Entity {
         }
     }
 
+    public void  useSkill(Skill skill){
+        for (int i = 0; i < nonWeaponSkills.size(); ++i){
+            Skill s = nonWeaponSkills.get(i);
+            if (skill.equals(s)){
+                s.fire(this);
+            }
+        }
+    }
+
     public void useSkill(){
         nonWeaponSkills.get(currentlySelectedSkill).fire(this);
     } // TODO: add logic for mana costs
