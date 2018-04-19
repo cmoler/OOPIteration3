@@ -114,9 +114,9 @@ public class Entity {
         equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
 
 
-        compatableTerrain = new ArrayList<Terrain>();
+        compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
-        moveable = false;
+        moveable = true;
 
         mount = null;
 

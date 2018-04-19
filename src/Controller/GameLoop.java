@@ -4,6 +4,7 @@ import Controller.Factories.ControllerSetFactory;
 import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
+import Model.Level.GameLoopMessenger;
 import Model.Level.GameModel;
 import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
@@ -20,6 +21,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class GameLoop {
 
     private AnimationTimer loopTimer;
+    private GameLoopMessenger gameLoopMessenger;
     private GameModel gameModel;
     private MenuView menuView;
     private MenuModel menuModel;
@@ -31,7 +33,8 @@ public class GameLoop {
     private RunGame runGame;
 
     public GameLoop() {
-        //TODO: Add loading logic
+
+        //TODO: Add loading from file logic
         controls = new KeyEventImplementor(this);
         loopTimer = new AnimationTimer() {
             @Override
@@ -40,17 +43,24 @@ public class GameLoop {
             }
         };
 
+        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(this);
+
         menuModel = new MenuModel(this);
 
         gameModel = new GameModel();
 
         renderer = new Renderer();
 
+
         ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
-
+        renderer.closeMenu();
         ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+
+        //setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
+        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
+
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {

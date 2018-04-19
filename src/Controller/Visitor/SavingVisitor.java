@@ -25,6 +25,7 @@ import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
+import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -37,6 +38,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class SavingVisitor implements Visitor {
 
@@ -321,15 +323,17 @@ public class SavingVisitor implements Visitor {
         return levelMapOpen;
     }
 
-    private StringBuffer processEntities(Map<Point3D, Entity> entityLocations) {
+    private StringBuffer processEntities(BidiMap<Point3D, Entity> entityLocations) {
         StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"ENTITY\">");
         StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
 
-        for(Map.Entry<Point3D, Entity> entry: entityLocations.entrySet()) {
+        for(Entity entity: entityLocations.getValueList()) {
+            Point3D point = entityLocations.getKeyFromValue(entity);
+
             StringBuffer key = new StringBuffer("<KEY key=");
 
             key.append("\"");
-            key.append(keyToString(entry.getKey()));
+            key.append(keyToString(point));
             key.append("\"");
             key.append("/>");
 
@@ -340,7 +344,7 @@ public class SavingVisitor implements Visitor {
             levelMapOpen.append("\n");
             levelMapOpen.append("\t");
 
-            entry.getValue().accept(this);
+            entity.accept(this);
 
             this.valueNode.append("</VALUE>");
             levelMapOpen.append(this.valueNode);
@@ -369,7 +373,7 @@ public class SavingVisitor implements Visitor {
         Map<Point3D, Terrain> terrainLocations = level.getTerrainLocations();
         Map<Point3D, Item> itemLocations = level.getItemLocations();
         Map<Point3D, Obstacle> obstacleLocations = level.getObstacleLocations();
-        Map<Point3D, Entity> entityLocations = level.getEntityLocations();
+        BidiMap<Point3D, Entity> entityLocations = level.getEntityLocations();
         Map<Point3D, AreaEffect> areaEffectLocations = level.getAreaEffectLocations();
         Map<Point3D, Trap> trapLocations = level.getTrapLocations();
         Map<Point3D, River> riverLocations = level.getRiverLocations();

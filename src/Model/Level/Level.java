@@ -72,7 +72,7 @@ public class Level {
         return obstacleLocations;
     }
 
-    public Map<Point3D, Entity> getEntityLocations() {
+    public BidiMap<Point3D, Entity> getEntityLocations() {
         return entityLocations;
     }
 
@@ -126,7 +126,7 @@ public class Level {
     private boolean canDropItemAtPoint(Point3D point) {
         // get nearest point that does not have (1) another item, (2) an entity, (3) a mount, (4) obstacle, (5) no terrain
         return  !itemLocations.containsKey(point) &&
-                !entityLocations.containsKey(point) &&
+                !entityLocations.hasKey(point) &&
                 !mountLocations.containsKey(point) &&
                 !obstacleLocations.containsKey(point) &&
                 terrainLocations.containsKey(point);

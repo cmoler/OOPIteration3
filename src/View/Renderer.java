@@ -21,6 +21,7 @@ public class Renderer {
         levelView = new LevelView();
 
         menuView = new MenuView();
+
     }
 
 

@@ -1,59 +1,64 @@
 package Model.Utility;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
-public class BidiMap<K, V> extends HashMap {
-    private HashMap<K, V> standardMap = new HashMap<K,V>();
-    private HashMap<V, K> reverseMap = new HashMap<V,K>();
+public class BidiMap<K, V> {
+    private HashMap<K, V> keyToElementMap = new HashMap<K,V>();
+    private HashMap<V, K> elementToKeyMap = new HashMap<V,K>();
 
     public void place(K key,V value) {
-        standardMap.put(key, value);
-        reverseMap.put(value,key);
+        keyToElementMap.put(key, value);
+        elementToKeyMap.put(value, key);
     }
 
     public void removeByValue(V value){
-        standardMap.remove(reverseMap.remove(value));
+        keyToElementMap.remove(elementToKeyMap.remove(value));
     }
 
     public void removeByKey(K key){
-        reverseMap.remove(standardMap.remove(key));
+        elementToKeyMap.remove(keyToElementMap.remove(key));
     }
 
     public V getValueFromKey(K key){
-        return standardMap.get(key);
+        return keyToElementMap.get(key);
     }
 
     public K getKeyFromValue(V value){
-        return reverseMap.get(value);
+        return elementToKeyMap.get(value);
     }
 
     public boolean hasKey(K key){
-        return standardMap.containsKey(key);
+        return keyToElementMap.containsKey(key);
     }
 
     public boolean hasValue(V value){
-        return standardMap.containsValue(value);
+        return keyToElementMap.containsValue(value);
     }
 
     public void replacePair(K key, V newValue){
-        reverseMap.remove(standardMap.get(key));
-        standardMap.replace(key,newValue);
-        reverseMap.put(newValue,key);
+        elementToKeyMap.remove(keyToElementMap.get(key));
+        keyToElementMap.replace(key,newValue);
+        elementToKeyMap.put(newValue,key);
     }
 
     public Set<K> getKeyList(){
-        return standardMap.keySet();
+        return keyToElementMap.keySet();
     }
 
     public Set<V> getValueList(){
-        return reverseMap.keySet();
+        return elementToKeyMap.keySet();
     }
 
     public void clear(){
-        standardMap.clear();
-        reverseMap.clear();
+        keyToElementMap.clear();
+        elementToKeyMap.clear();
     }
 
-
+    public boolean isEmpty() {
+        return keyToElementMap.isEmpty() && elementToKeyMap.isEmpty();
+    }
 }

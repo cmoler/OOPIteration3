@@ -21,8 +21,10 @@ import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import View.LevelView.LevelViewElement;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
