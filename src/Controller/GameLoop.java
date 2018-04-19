@@ -29,7 +29,6 @@ public class GameLoop {
     private SavingVisitor gameSaver;
     private EntityFactory entityFactory;
     private ControllerSetFactory controllerSetFactory;
-    private KeyEventImplementor controls;
     private Renderer renderer;
     private EventHandler<KeyEvent> controls;
 
@@ -46,8 +45,6 @@ public class GameLoop {
         menuModel = new MenuModel(this);
 
         gameModel = new GameModel();
-
-        controls.createMenuSet(menuModel);
 
         renderer = new Renderer();
 
