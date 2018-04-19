@@ -3,14 +3,11 @@ package Controller;
 import Controller.Factories.ControllerSetFactory;
 import Controller.Factories.EntityFactory;
 import Controller.Visitor.SavingVisitor;
-import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Entity.Entity;
 import Model.Level.GameModel;
-import Model.MenuModel.InventoryMenu;
 import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
 import Model.MenuModel.MenuState;
-import View.MenuView.InventoryView;
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
@@ -31,10 +28,11 @@ public class GameLoop {
     private ControllerSetFactory controllerSetFactory;
     private Renderer renderer;
     private EventHandler<KeyEvent> controls;
+    private RunGame runGame;
 
     public GameLoop() {
         //TODO: Add loading logic
-        setControls();
+        controls = new KeyEventImplementor(this);
         loopTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -110,9 +108,16 @@ public class GameLoop {
 
     public void setControls(){
         controls = new KeyEventImplementor(this);
+        ((KeyEventImplementor)controls).createMenuSet(menuModel);
+        runGame.setInput(controls);
     }
 
     public void setKeyBinding(int selectedLeftRight, int selectedUpDown) {
         controls = new KeyBindingSetter(this, selectedLeftRight, selectedUpDown);
+        runGame.setInput(controls);
+    }
+
+    public void setRunGame(RunGame runGame) {
+        this.runGame = runGame;
     }
 }
