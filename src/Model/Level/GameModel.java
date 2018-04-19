@@ -43,11 +43,11 @@ public class GameModel implements Visitable {
             currentLevel = new Level(new ArrayList<>());
             player = new Entity();
             currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
-            //currentLevel.addObstacleTo(new Point3D(-1, 0, 1), new Obstacle());
 
-            Entity entity = new Entity();
 
-            currentLevel.addEntityTo(new Point3D(1, 2, -3), entity);
+
+
+
 
             RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
