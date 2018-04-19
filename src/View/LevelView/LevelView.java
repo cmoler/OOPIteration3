@@ -22,12 +22,12 @@ public class LevelView {
         hexMathHelper = new HexMathHelper();
     }
 
-    public void render(GraphicsContext gc, Point3D playerPos) {
+    public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
         Canvas canvas = gc.getCanvas();
         int playerOffsetX = hexMathHelper.getXCoord(playerPos);
         int playerOffsetY = hexMathHelper.getYCoord(playerPos);
         //TODO modify offset if user is scrolling viewport
-        Point2D offset = new Point2D((canvas.getWidth()/2)-playerOffsetX, (canvas.getHeight()/2)-playerOffsetY);
+        Point2D offset = new Point2D((canvas.getWidth()/2)-playerOffsetX + scrollOffset.getX(), (canvas.getHeight()/2)-playerOffsetY + scrollOffset.getY());
 
         List<LevelViewElement> observers = currentLevel.getObservers();
 

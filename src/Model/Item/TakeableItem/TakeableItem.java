@@ -1,5 +1,6 @@
 package Model.Item.TakeableItem;
 
+import Controller.Visitor.Visitable;
 import Model.Command.Command;
 import Model.Command.EntityCommand.NonSettableCommand.DropItemCommand;
 import Model.Entity.Entity;
@@ -7,7 +8,7 @@ import Model.Item.Item;
 import Model.Item.TakeableItem.InventoryStrategy.DropStrategy;
 import Model.Level.LevelMessenger;
 
-public abstract class TakeableItem extends Item {
+public abstract class TakeableItem extends Item implements Visitable {
 
     private int price; // TODO: constructors/getters/setters for price of item
     private DropStrategy dropStrategy;

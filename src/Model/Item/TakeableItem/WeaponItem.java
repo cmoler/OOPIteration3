@@ -73,6 +73,6 @@ public class WeaponItem extends TakeableItem{
 
     @Override
     public void accept(SavingVisitor visitor) {
-        visitor.visitWeaponItem(this);
+        visitor.visitItem(this);
     }
 }

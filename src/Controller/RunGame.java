@@ -20,6 +20,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -33,6 +34,8 @@ public class RunGame extends Application{
     private Scene mainScene;
 
     private Canvas canvas;
+    private double mouseX;
+    private double mouseY;
 
     public static void main(String[] args) {
         launch(args);
@@ -91,6 +94,20 @@ public class RunGame extends Application{
         canvas.setOnKeyPressed(gameLoop.getControls());
 
 
+        canvas.setOnMousePressed(evt -> {
+            mouseX = evt.getScreenX();
+            mouseY = evt.getScreenY();
+        });
+
+        canvas.setOnMouseDragged(evt -> {
+            double deltaX = evt.getScreenX() - mouseX;
+            double deltaY = evt.getScreenY() - mouseY;
+
+            Point2D mouseOffSet = new Point2D(deltaX, deltaY);
+
+            gameLoop.setScrollOffSet(mouseOffSet);
+
+        });
 
         new AnimationTimer() {
             /*

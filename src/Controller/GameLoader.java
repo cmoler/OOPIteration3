@@ -24,10 +24,7 @@ import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.InteractiveItem;
 import Model.Item.Item;
 import Model.Item.OneShotItem;
-import Model.Item.TakeableItem.ArmorItem;
-import Model.Item.TakeableItem.ConsumableItem;
-import Model.Item.TakeableItem.RingItem;
-import Model.Item.TakeableItem.WeaponItem;
+import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -333,6 +330,9 @@ public class GameLoader {
                     processWeaponSkillsList(element, weaponSkills, skillLevelsMap);
                     processNonWeaponSkillsList(element, nonWeaponSkills, skillLevelsMap);
                     mount = processEntityMount(element);
+                    equipment = processEquipment(element);
+                    hotBar = processHotBar(element);
+                    inventory = processInventory(element);
 
                     entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
                             noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
@@ -346,6 +346,149 @@ public class GameLoader {
         for(int i = 0; i < pointsToAdd.size(); i++) {
             level.addEntityTo(pointsToAdd.get(i), entitiesToAdd.get(i));
         }
+    }
+
+    private Inventory processInventory(Element element) {
+        List<TakeableItem> itemsToAdd = new ArrayList<>();
+        Command command = null;
+        String name;
+        int maxSize = 0;
+
+        NodeList values = element.getElementsByTagName("Inventory");
+        for(int i = 0; i < values.getLength(); i++) {
+
+            NodeList nodes = values.item(i).getChildNodes();
+            Node maxSizeNode = values.item(i);
+
+            if(maxSizeNode.getNodeType() == Node.ELEMENT_NODE) {
+                maxSize = Integer.parseInt(maxSizeNode.getAttributes().getNamedItem("maxSize").getTextContent());
+            }
+
+            for(int j = 0; j < nodes.getLength(); j++) {
+                NodeList itemList = nodes.item(j).getChildNodes();
+
+                for(int k = 0; k < itemList.getLength(); k++) {
+                    Node itemNode = itemList.item(k);
+                    if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
+                        command = processCommand(itemNode.getChildNodes());
+                        name = itemNode.getAttributes().getNamedItem("name").getTextContent();
+                        switch (itemNode.getNodeName().toLowerCase()) {
+                            case "armoritem":
+                                int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
+                                itemsToAdd.add(new ArmorItem(name, command, defense));
+                                break;
+
+                            case "consumableitem":
+                                itemsToAdd.add(new ConsumableItem(name, command));
+                                break;
+
+                            case "ringitem":
+                                itemsToAdd.add(new RingItem(name, (ToggleableCommand) command));
+                                break;
+
+                            case "weaponitem": //TODO: this needs to be changed
+                                itemsToAdd.add(new WeaponItem(name, (SettableCommand) command));
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return new Inventory(itemsToAdd, maxSize);
+    }
+
+    private ItemHotBar processHotBar(Element element) {
+        ItemHotBar itemHotBar = new ItemHotBar();
+        HashMap<Integer, TakeableItem> itemMap = new HashMap<>();
+        Command command;
+        String name;
+        int index = -1;
+
+        NodeList itemVals = element.getElementsByTagName("ItemHotBar");
+        for(int i = 0; i < itemVals.getLength(); i++) {
+            NodeList itemNodes = itemVals.item(i).getChildNodes();
+
+            for(int j = 0; j < itemNodes.getLength(); j++) {
+                NodeList invNodes = itemNodes.item(j).getChildNodes();
+
+                for(int k = 0; k < invNodes.getLength(); k++) {
+                    Node itemNode = invNodes.item(k);
+
+                    if(itemNode.getNodeType() == Node.ELEMENT_NODE) {
+                        if(itemNode.getNodeName().equalsIgnoreCase("INTEGERKEY")) {
+                            index = Integer.parseInt(itemNode.getAttributes().getNamedItem("key").getTextContent());
+                        }
+
+                        else {
+                            command = processCommand(itemNode.getChildNodes());
+                            name = itemNode.getAttributes().getNamedItem("name").getTextContent();
+
+                            if(command != null && !name.isEmpty() && index != -1) {
+                                switch (itemNode.getNodeName().toLowerCase()) {
+                                    case "armoritem":
+                                        int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
+                                        itemHotBar.addItem(new ArmorItem(name, command, defense), index);
+                                        break;
+
+                                    case "consumableitem":
+                                        itemHotBar.addItem(new ConsumableItem(name, command), index);
+                                        break;
+
+                                    case "ringitem":
+                                        itemHotBar.addItem(new RingItem(name, (ToggleableCommand) command), index);
+                                        break;
+
+                                    case "weaponitem": //TODO: this needs to be changed
+                                        itemHotBar.addItem(new WeaponItem(name, (SettableCommand) command), index);
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return itemHotBar;
+    }
+
+    private Equipment processEquipment(Element element) {
+        WeaponItem weaponItem = null;
+        RingItem ringItem = null;
+        ArmorItem armorItem = null;
+        String name;
+        Command command;
+
+        NodeList equipValues = element.getElementsByTagName("Equipment");
+        for(int i = 0; i < equipValues.getLength(); i++) {
+            NodeList equipNodes = equipValues.item(i).getChildNodes();
+
+            for(int j = 0; j < equipNodes.getLength(); j++) {
+                Node equipNode = equipNodes.item(j);
+
+                if(equipNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(equipNode.getChildNodes());
+                    name = equipNode.getAttributes().getNamedItem("name").getTextContent();
+                    switch (equipNode.getNodeName().toLowerCase()) {
+                        case "armoritem":
+                            int defense = Integer.parseInt(equipNode.getAttributes().getNamedItem("defense").getTextContent());
+                            armorItem = new ArmorItem(name, command, defense);
+                            break;
+
+                        case "ringitem":
+                            ringItem = new RingItem(name, (ToggleableCommand) command);
+                            break;
+
+                        case "weaponitem": //TODO: this needs to be changed
+                            weaponItem = new WeaponItem(name, (SettableCommand) command);
+                            break;
+                    }
+                }
+            }
+        }
+
+        return new Equipment(weaponItem, armorItem, ringItem);
     }
 
     private Mount processEntityMount(Element element) {
@@ -458,7 +601,6 @@ public class GameLoader {
 
                     if(command != null) {
                         name = itemNode.getAttributes().getNamedItem("name").getTextContent();
-//                        System.out.println(itemNode.getNodeName().toLowerCase());
                         switch (itemNode.getNodeName().toLowerCase()) {
                             case "oneshotitem":
                                 itemsToAdd.add(new OneShotItem(name, command));

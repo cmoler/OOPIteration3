@@ -23,10 +23,7 @@ import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.InteractiveItem;
 import Model.Item.Item;
 import Model.Item.OneShotItem;
-import Model.Item.TakeableItem.ArmorItem;
-import Model.Item.TakeableItem.ConsumableItem;
-import Model.Item.TakeableItem.RingItem;
-import Model.Item.TakeableItem.WeaponItem;
+import Model.Item.TakeableItem.*;
 import Model.Level.*;
 
 public interface Visitor {
@@ -47,15 +44,19 @@ public interface Visitor {
 
     public void visitMount(Mount mount);
 
-    public void visitItem(Item item);
+    void visitItem(ConsumableItem item);
 
-    public void visitWeaponItem(WeaponItem weaponItem);
+    void visitItem(WeaponItem item);
 
-    public void visitArmorItem(ArmorItem armorItem);
+    void visitItem(InteractiveItem item);
 
-    public void visitRingItem(RingItem ringItem);
+    void visitItem(ArmorItem item);
 
-    public void visitConsumableItem(ConsumableItem consumableItem);
+    void visitItem(RingItem item);
+
+    void visitItem(OneShotItem item);
+
+    void visitItem(TakeableItem takeableItem);
 
     public void visitTrap(Trap trap);
 

@@ -1,12 +1,14 @@
 package Model.Entity.EntityAttributes;
 
+import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitable;
 import Model.Item.TakeableItem.TakeableItem;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Inventory {
+public class Inventory implements Visitable {
 
     private List<TakeableItem> inventory;
     private int maxSize;
@@ -48,7 +50,7 @@ public class Inventory {
     }
 
     public TakeableItem getItem(int selectedItem) {
-        if(inventory.size() < selectedItem - 1 && selectedItem > 0)
+        if(0 <= selectedItem && selectedItem <= inventory.size() - 1)
             return inventory.get(selectedItem);
         return null;
     }
@@ -67,5 +69,16 @@ public class Inventory {
         inventory.remove(randomSlot);
 
         return item;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        for(TakeableItem item: inventory) {
+            visitor.visitItem(item);
+        }
+    }
+
+    public int getMaxSize() {
+        return maxSize;
     }
 }
