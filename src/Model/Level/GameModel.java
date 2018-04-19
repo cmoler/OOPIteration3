@@ -4,7 +4,10 @@ import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
 import Model.AI.AIController;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.Orientation;
+import Model.InfluenceEffect.RadialInfluenceEffect;
 import View.LevelView.EntityView;
 import View.LevelView.RiverView;
 import View.LevelView.TerrainView;
@@ -42,12 +45,19 @@ public class GameModel implements Visitable {
             currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
             //currentLevel.addObstacleTo(new Point3D(-1, 0, 1), new Obstacle());
 
+            Entity entity = new Entity();
 
-            currentLevel.addTerrainTo(new Point3D(-1, 0, 1), Terrain.GRASS);
-            currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
-            currentLevel.addTerrainTo(new Point3D(1, 0, -1), Terrain.GRASS);
-            currentLevel.addTerrainTo(new Point3D(0, 1, -1), Terrain.GRASS);
-            currentLevel.addTerrainTo(new Point3D(1, 1, -2), Terrain.GRASS);
+            currentLevel.addEntityTo(new Point3D(1, 2, -3), entity);
+
+            RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+
+            for(int i = 0; i < 8; i++) {
+                ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
+                for(int j = 0; j < points.size(); j++) {
+                    currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
+                }
+            }
+
             currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
 
             currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
