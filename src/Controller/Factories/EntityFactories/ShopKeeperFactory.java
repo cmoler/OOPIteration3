@@ -1,11 +1,11 @@
-package Controller.Factories;
+package Controller.Factories.EntityFactories;
 
-import Model.AI.AIController;
-import Model.AI.FriendlyAI;
+import Controller.Factories.EntityFactories.EntityFactory;
+import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
 
-public class ShopKeeperFactory extends  EntityFactory {
+public class ShopKeeperFactory extends EntityFactory {
 
     public ShopKeeperFactory(SkillsFactory skillsFactory) {
         super(skillsFactory);
@@ -16,7 +16,7 @@ public class ShopKeeperFactory extends  EntityFactory {
         return buildEntity(null);
     }
 
-    public Entity buildEntity(TakeableItem... items) {
+    public Entity buildEntity(TakeableItem... items) { // TODO: add skills to shopkeeper
         Entity shopKeep = new Entity();
 
         if(items != null) {

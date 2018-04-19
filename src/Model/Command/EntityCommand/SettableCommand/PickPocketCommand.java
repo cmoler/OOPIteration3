@@ -35,7 +35,7 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
 
         entityToStealFrom = level.getEntityAtPoint(destPoint);
 
-        hostileAI = new HostileAI(entityToStealFrom, level.getTerrainMap(), level.getEntityLocations(), level.getObstacleLocations(), invokingEntity);
+        //hostileAI = new HostileAI(entityToStealFrom, level.getTerrainMap(), level.getEntityLocations(), level.getObstacleLocations(), invokingEntity);
     }
 
     public void receiveGameModel(GameModel gameModel) {

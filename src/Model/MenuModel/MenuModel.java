@@ -41,4 +41,8 @@ public class MenuModel {
     public void select(){
         currentState.select();
     }
+
+    public MenuState getActiveState() {
+        return currentState;
+    }
 }

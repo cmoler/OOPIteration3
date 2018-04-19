@@ -39,7 +39,7 @@ public class Gold {
         }
     }
 
-    public int getGold() {
-        return goldAmount;
+    public int getMaxGold() {
+        return maxGold;
     }
 }

@@ -1,7 +1,7 @@
 package Controller;
 
 import Controller.Factories.ControllerSetFactory;
-import Controller.Factories.EntityFactory;
+import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 import Model.Level.GameModel;

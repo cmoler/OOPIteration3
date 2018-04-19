@@ -36,4 +36,12 @@ public class Attack {
     public void removeModifier() {
         attackPoints -= modifier;
     }
+
+    public int getAttackPoints() {
+        return attackPoints;
+    }
+
+    public int getModifier() {
+        return modifier;
+    }
 }

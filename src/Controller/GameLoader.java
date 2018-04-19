@@ -6,6 +6,7 @@ import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.Command;
 import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
 import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
+import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
@@ -14,8 +15,8 @@ import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
-import Model.Entity.EntityAttributes.Orientation;
-import Model.Entity.EntityAttributes.Speed;
+import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.*;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
@@ -42,6 +43,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class GameLoader {
@@ -240,6 +242,203 @@ public class GameLoader {
     }
 
     private void processEntities(Element element, Level level) {
+        List<Point3D> pointsToAdd = getKeyPoints(element);
+        List<Entity> entitiesToAdd = new ArrayList<>();
+        Entity entity;
+        ItemHotBar hotBar = null;
+        List<Skill> weaponSkills = new ArrayList<>();
+        List<Skill> nonWeaponSkills = new ArrayList<>();
+        HashMap<Skill, SkillLevel> skillLevelsMap = new HashMap<>();
+        Vec3d velocity = null;
+        NoiseLevel noiseLevel;
+        SightRadius sightRadius;
+        XPLevel xpLevel;
+        Health health;
+        Mana mana;
+        Speed speed;
+        Gold gold;
+        Attack attack;
+        Defense defense;
+        Equipment equipment = null;
+        Inventory inventory = null;
+        Orientation orientation;
+        List<Terrain> compatableTerrain = new ArrayList<>();
+        Mount mount;
+        boolean moveable;
+        int noise;
+        int goldAmount;
+        int maxGold;
+        int attackPoints;
+        int attackModifier;
+        int defensePoints;
+        int defenseModifier;
+        int speedAmount;
+        int manaPoints;
+        int maxMana;
+        int sight;
+        int currentHealth;
+        int maxHealth;
+        int currentExperience;
+        int levelAmount;
+        int experienceToNextLevel;
+
+        NodeList entityValues = element.getElementsByTagName("VALUE");
+        for(int i = 0; i < entityValues.getLength(); i++) {
+            NodeList entityNodes = entityValues.item(i).getChildNodes();
+
+            for(int j = 0; j < entityNodes.getLength(); j++) {
+                Node entityNode = entityNodes.item(j);
+                if(entityNode.getNodeType() == Node.ELEMENT_NODE) {
+                    noise = Integer.parseInt(entityNode.getAttributes().getNamedItem("noiseLevel").getTextContent());
+                    noiseLevel = new NoiseLevel(noise);
+
+                    goldAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("goldAmount").getTextContent());
+                    maxGold = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxGold").getTextContent());
+                    gold = new Gold(goldAmount, maxGold);
+
+                    speedAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("speed").getTextContent());
+                    speed = new Speed(speedAmount);
+
+                    manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
+                    maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
+                    mana = new Mana(manaPoints, maxMana);
+
+                    attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
+                    attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());
+                    attack = new Attack(attackPoints, attackModifier);
+
+                    defensePoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("defensePoints").getTextContent());
+                    defenseModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("defenseModifier").getTextContent());
+                    defense = new Defense(defensePoints, defenseModifier);
+
+                    sight = Integer.parseInt(entityNode.getAttributes().getNamedItem("sightRadius").getTextContent());
+                    sightRadius = new SightRadius(sight);
+
+                    orientation = Orientation.toOrientation(entityNode.getAttributes().getNamedItem("orientation").getTextContent());
+
+                    currentHealth = Integer.parseInt(entityNode.getAttributes().getNamedItem("currentHealth").getTextContent());
+                    maxHealth = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxHealth").getTextContent());
+                    health = new Health(currentHealth, maxHealth);
+
+                    currentExperience = Integer.parseInt(entityNode.getAttributes().getNamedItem("experience").getTextContent());
+                    levelAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("level").getTextContent());
+                    experienceToNextLevel = Integer.parseInt(entityNode.getAttributes().getNamedItem("experienceToNextLevel").getTextContent());
+                    xpLevel = new XPLevel(levelAmount, currentExperience, experienceToNextLevel);
+
+                    moveable = Boolean.parseBoolean(entityNode.getAttributes().getNamedItem("moveable").getTextContent());
+
+                    velocity = toVector(entityNode.getAttributes().getNamedItem("velocity").getTextContent());
+
+                    processTerrainList(element, compatableTerrain);
+                    processWeaponSkillsList(element, weaponSkills, skillLevelsMap);
+                    processNonWeaponSkillsList(element, nonWeaponSkills, skillLevelsMap);
+                    mount = processEntityMount(element);
+
+                    entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
+                            noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
+                            inventory, orientation, compatableTerrain, moveable, mount);
+
+                    entitiesToAdd.add(entity);
+                }
+            }
+        }
+
+        for(int i = 0; i < pointsToAdd.size(); i++) {
+            level.addEntityTo(pointsToAdd.get(i), entitiesToAdd.get(i));
+        }
+    }
+
+    private Mount processEntityMount(Element element) {
+        Speed speed;
+        Orientation orientation;
+        List<Terrain> terrains = new ArrayList<>();
+
+        NodeList mountValues = element.getElementsByTagName("Mount");
+        for(int i = 0; i < mountValues.getLength(); i++) {
+            Node mountNode = mountValues.item(i);
+            if(mountNode.getNodeType() == Node.ELEMENT_NODE) {
+                speed = new Speed(Integer.parseInt(mountNode.getAttributes().getNamedItem("speed").getTextContent()));
+                orientation = Orientation.toOrientation(mountNode.getAttributes().getNamedItem("orientation").getTextContent());
+                processTerrainList((Element)mountNode, terrains);
+                return new Mount(orientation, speed, terrains, null);
+            }
+        }
+
+        return null;
+    }
+
+    private void processNonWeaponSkillsList(Element element, List<Skill> skills, HashMap<Skill, SkillLevel> skillLevelMap) {
+        Command command;
+        InfluenceEffect influenceEffect = null;
+        SendInfluenceEffectCommand sendInfluenceEffectCommand = null;
+        Skill newSkill;
+        SkillLevel skillLevel;
+
+        String name;
+        int useCost;
+        int accuracy;
+        int skillLevelAmount;
+
+        NodeList skillValues = element.getElementsByTagName("NONWEAPONSKILLS");
+        for(int i = 0; i < skillValues.getLength(); i++) {
+
+            NodeList skillNodes = skillValues.item(i).getChildNodes();
+            for(int j = 0; j < skillNodes.getLength(); j++) {
+                Node skillNode = skillNodes.item(j);
+                if (skillNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(skillNode.getChildNodes());
+
+                    if(command != null) {
+                        name = skillNode.getAttributes().getNamedItem("name").getTextContent();
+                        useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
+                        accuracy = Integer.parseInt(skillNode.getAttributes().getNamedItem("accuracy").getTextContent());
+                        newSkill = new Skill(name, influenceEffect, (SettableCommand) command, sendInfluenceEffectCommand, accuracy, useCost);
+                        skills.add(newSkill);
+
+                        skillLevelAmount = Integer.parseInt(skillNode.getAttributes().getNamedItem("level").getTextContent());
+                        skillLevel = new SkillLevel(skillLevelAmount);
+                        skillLevelMap.put(newSkill, skillLevel);
+                    }
+                }
+            }
+        }
+    }
+
+    private void processWeaponSkillsList(Element element, List<Skill> skills, HashMap<Skill, SkillLevel> skillLevelMap) {
+        Command command;
+        InfluenceEffect influenceEffect = null;
+        SendInfluenceEffectCommand sendInfluenceEffectCommand = null;
+        Skill newSkill;
+        SkillLevel skillLevel;
+
+        String name;
+        int useCost;
+        int accuracy;
+        int skillLevelAmount;
+
+        NodeList skillValues = element.getElementsByTagName("WEAPONSKILLS");
+        for(int i = 0; i < skillValues.getLength(); i++) {
+
+            NodeList skillNodes = skillValues.item(i).getChildNodes();
+            for(int j = 0; j < skillNodes.getLength(); j++) {
+                Node skillNode = skillNodes.item(j);
+                if (skillNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(skillNode.getChildNodes());
+
+                    if(command != null) {
+                        name = skillNode.getAttributes().getNamedItem("name").getTextContent();
+                        useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
+                        accuracy = Integer.parseInt(skillNode.getAttributes().getNamedItem("accuracy").getTextContent());
+                        newSkill = new Skill(name, influenceEffect, (SettableCommand) command, sendInfluenceEffectCommand, accuracy, useCost);
+                        skills.add(newSkill);
+
+                        skillLevelAmount = Integer.parseInt(skillNode.getAttributes().getNamedItem("level").getTextContent());
+                        skillLevel = new SkillLevel(skillLevelAmount);
+                        skillLevelMap.put(newSkill, skillLevel);
+                    }
+                }
+            }
+        }
     }
 
     private void processItems(Element element, Level level) {
@@ -386,10 +585,10 @@ public class GameLoader {
             if(commandNode.getNodeType() == Node.ELEMENT_NODE) {
                 switch (commandNode.getNodeName().toLowerCase()) {
                     case "addhealthcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("healAmount").getTextContent());
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                         return new AddHealthCommand(amount);
                     case "removehealthcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("damageAmount").getTextContent());
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                         return new RemoveHealthCommand(amount);
 
                     case "togglehealthcommand":
@@ -414,7 +613,8 @@ public class GameLoader {
                         return new LevelUpCommand();
 
                     case "setassneakingcommand": // TODO: save stealthAmount var
-                        return new ToggleSneaking(0);
+                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                        return new ToggleSneaking(amount);
 
                      /* Game Loop Commands */
                     case "bartercommand":

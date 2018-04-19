@@ -1,5 +1,6 @@
-package Controller.Factories;
+package Controller.Factories.EntityFactories;
 
+import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 
 public abstract class EntityFactory {

@@ -38,6 +38,10 @@ public class LevelUpMenu extends InGameMenuState {
         }
     }
 
+    public HashMap<Skill, SkillLevel> getPlayersSkills(){
+        return playersSkills;
+    }
+
     @Override
     public void select() {
         if(selectedLeftRight == 0){

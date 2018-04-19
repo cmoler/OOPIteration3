@@ -2,11 +2,11 @@ package Model.Level;
 
 import Model.AreaEffect.AreaEffect;
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
+import Model.Utility.BidiMap;
 import Model.Item.TakeableItem.TakeableItem;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
@@ -21,7 +21,7 @@ public class Level {
     private Map<Point3D, Terrain> terrainLocations;
     private Map<Point3D, Item> itemLocations;
     private Map<Point3D, Obstacle> obstacleLocations;
-    private Map<Point3D, Entity> entityLocations;
+    private BidiMap<Point3D, Entity> entityLocations;
     private Map<Point3D, AreaEffect> areaEffectLocations;
     private Map<Point3D, Trap> trapLocations;
     private Map<Point3D, River> riverLocations;
@@ -40,7 +40,7 @@ public class Level {
         this.terrainLocations = new HashMap<>();
         this.itemLocations = new HashMap<>();
         this.obstacleLocations = new HashMap<>();
-        this.entityLocations = new HashMap<>();
+        this.entityLocations = new BidiMap<>();
         this.areaEffectLocations = new HashMap<>();
         this.trapLocations = new HashMap<>();
         this.riverLocations = new HashMap<>();
@@ -50,15 +50,14 @@ public class Level {
 
         this.observers = observers;
 
-        this.movementHandler = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations, influenceEffectLocations);
+        this.movementHandler = new MovementHandler(terrainLocations, obstacleLocations, entityLocations,
+                                                   mountLocations, influenceEffectLocations);
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
                                                          trapLocations, mountLocations, influenceEffectLocations,
-                riverLocations, observers);
+                                                         riverLocations, observers);
 
         this.tilesSeenByPlayer = new ArrayList<>();
-
-
     }
 
     public Map<Point3D, Terrain> getTerrainLocations() {
@@ -147,17 +146,11 @@ public class Level {
     }
 
     public void addEntityTo(Point3D point, Entity entity) {
-        entityLocations.put(point, entity);
+        entityLocations.place(point, entity);
     }
 
     public void removeEntityFrom(Entity entity){
-        if(entityLocations.containsValue(entity)) {
-            for(Point3D point: entityLocations.keySet()) {
-                if(entityLocations.get(point) == entity) {
-                    entityLocations.remove(point);
-                }
-            }
-        }
+        entityLocations.removeByValue(entity);
     }
 
     public void addAreaEffectTo(Point3D point, AreaEffect areaEffect) {
@@ -185,15 +178,7 @@ public class Level {
     }
 
     public Point3D getEntityPoint(Entity entity) {
-        if(entityLocations.containsValue(entity)) {
-            for(Point3D point: entityLocations.keySet()) {
-                if(entityLocations.get(point).equals(entity)) {
-                    return point;
-                }
-            }
-        }
-
-        return null;
+        return entityLocations.getKeyFromValue(entity);
     }
 
     public List<LevelViewElement> getObservers() {
@@ -205,11 +190,7 @@ public class Level {
     }
 
     public Entity getEntityAtPoint(Point3D point) {
-        if (entityLocations.containsKey(point)) {
-            return entityLocations.get(point);
-        } else {
-            return null;
-        }
+        return entityLocations.getValueFromKey(point);
     }
 
     public Point3D getItemPoint(Item item) {
@@ -241,8 +222,8 @@ public class Level {
     }
 
     public void disarmTrapFromEntity(Entity entity, int disarmStrength) {
-        for(Point3D point : entityLocations.keySet()) {
-            if(entityLocations.get(point).equals(entity)) {
+        for(Point3D point : entityLocations.getKeyList()) {
+            if(entityLocations.getValueFromKey(point).equals(entity)) {
                 disarmTrapsAtPoint(point, disarmStrength);
             }
         }
@@ -257,27 +238,27 @@ public class Level {
         Point3D southwestPoint = Orientation.getAdjacentPoint(originPoint, Orientation.SOUTHWEST);
 
         if(trapLocations.get(northPoint) != null) {
-            trapLocations.get(northPoint).disarm(entityLocations.get(originPoint), disarmStrength);
+            trapLocations.get(northPoint).disarm(entityLocations.getValueFromKey(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(northeastPoint) != null) {
-            trapLocations.get(northeastPoint).disarm(entityLocations.get(originPoint), disarmStrength);
+            trapLocations.get(northeastPoint).disarm(entityLocations.getValueFromKey(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(northWestPoint) != null) {
-            trapLocations.get(northWestPoint).disarm(entityLocations.get(originPoint), disarmStrength);
+            trapLocations.get(northWestPoint).disarm(entityLocations.getValueFromKey(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(southPoint) != null) {
-            trapLocations.get(southPoint).disarm(entityLocations.get(originPoint), disarmStrength);
+            trapLocations.get(southPoint).disarm(entityLocations.getValueFromKey(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(southeastPoint) != null) {
-            trapLocations.get(southeastPoint).disarm(entityLocations.get(originPoint), disarmStrength);
+            trapLocations.get(southeastPoint).disarm(entityLocations.getValueFromKey(originPoint), disarmStrength);
         }
 
         if(trapLocations.get(southwestPoint) != null) {
-            trapLocations.get(southwestPoint).disarm(entityLocations.get(originPoint), disarmStrength);
+            trapLocations.get(southwestPoint).disarm(entityLocations.getValueFromKey(originPoint), disarmStrength);
         }
     }
 

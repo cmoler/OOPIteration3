@@ -1,8 +1,10 @@
-package Controller.Factories;
+package Controller.Factories.EntityFactories;
 
+import Controller.Factories.EntityFactories.EntityFactory;
+import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 
-public class SneakFactory extends EntityFactory{
+public class SneakFactory extends EntityFactory {
 
     public SneakFactory(SkillsFactory skillsFactory) {
         super(skillsFactory);

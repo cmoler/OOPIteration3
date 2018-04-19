@@ -10,6 +10,7 @@ import Model.Command.EntityCommand.SettableCommand.PickPocketCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.DisarmTrapCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
@@ -390,8 +391,6 @@ public class CommandTests {
         level.addEntityTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST), new Entity());
         level.addItemnTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST), new OneShotItem("testItem", new AddHealthCommand(10)));
 
-
-
         item.drop();
 
         Assert.assertTrue(entity.hasItemInInventory(item));
@@ -431,5 +430,45 @@ public class CommandTests {
         Assert.assertTrue(entity.hasItemInInventory(item3));
         Assert.assertTrue(entity.hasItemInInventory(item4));
         Assert.assertEquals(level.getEntityPoint(entity), center);
+    }
+
+    @Test
+    public void testSneakCommand() {
+        List<LevelViewElement> observers = new ArrayList<>();
+
+        Level level = new Level(observers);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
+
+        SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
+
+        ToggleSneaking sneakCommand = new ToggleSneaking(315);
+        LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(sneakCommand, 0, 1, Orientation.NORTH);
+
+        Skill sneakSkill = new Skill("Sneak", linearInfluenceEffect, sneakCommand, sendInfluenceEffectCommand, 1, 1);
+
+        Entity entity = new Entity();
+
+        level.addEntityTo(new Point3D(0,0,0), entity);
+
+        entity.addNonWeaponSkills(sneakSkill);
+
+        Assert.assertEquals(entity.getNoise(), 1, 0);
+        Assert.assertEquals(entity.getSpeed(),1, 0);
+
+        entity.useSkill(0);
+        level.processMoves();
+        level.processInteractions();
+        level.processMoves();
+
+        Assert.assertEquals(entity.getNoise(), 0, 0);
+        Assert.assertEquals(entity.getSpeed(),0, 0);
+
+        entity.useSkill(0);
+        level.processMoves();
+        level.processInteractions();
+        level.processMoves();
+
+        Assert.assertEquals(entity.getNoise(), 1, 0);
+        Assert.assertEquals(entity.getSpeed(),1, 0);
     }
 }
