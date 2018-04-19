@@ -552,4 +552,8 @@ public class Entity {
     public void setNoise(int noise) {
         noiseLevel.setNoise(noise);
     }
+
+    public boolean hasItems() {
+        return inventory.size() >= 1;
+    }
 }

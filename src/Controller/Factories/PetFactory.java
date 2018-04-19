@@ -1,7 +1,5 @@
 package Controller.Factories;
 
-import Model.AI.AIController;
-import Model.AI.PetAI;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
 

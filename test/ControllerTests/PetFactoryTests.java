@@ -2,8 +2,6 @@ package ControllerTests;
 
 import Controller.Factories.PetFactory;
 import Controller.Factories.SkillsFactory;
-import Model.AI.AIController;
-import Model.AI.PetAI;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Level.Level;

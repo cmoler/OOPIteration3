@@ -1,18 +1,22 @@
-package Model.AI;
+package Model.AI.PetAI;
 
+import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
 import Model.Item.Item;
-import Model.Utility.BidiMap;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
+import Model.Utility.BidiMap;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-import static Model.AI.PetPriority.*;
+import static Model.AI.PetAI.PetPriority.*;
 
-public class PetAI extends AIState {
+public class GeneralPetState implements PetState{
     private BidiMap<Point3D, Entity> entityMap;
     private Map<Point3D, Item> itemMap;
     private Entity player;
@@ -21,31 +25,29 @@ public class PetAI extends AIState {
     private List<Entity> targetList;
 
 
-    public PetAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player, List<Entity> TargetingList) {
-        super(ent);
+    public GeneralPetState(Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player, List<Entity> TargetingList) {
         this.entityMap = entityMap;
         this.itemMap = itemMap;
         this.player = player;
-        priority = NONE;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         this.targetList = TargetingList;
     }
 
     @Override
-    public void nextMove() {
-        Point3D petPoint = getPetPoint(); //TODO: Implement a "case statement" that handles commands to Pet to do different actions based on priority
+    public void nextPetMove(Entity pet) {
+        Point3D petPoint = getPetPoint(pet); //TODO: Implement a "case statement" that handles commands to Pet to do different actions based on priority
         Point3D nearestItem = getNearestItem(petPoint);
-        Point3D nearestTarget = getNearestTarget(petPoint);
+        Point3D nearestTarget = getNearestTarget(petPoint,pet);
         Point3D playerPoint = getPlayerPoint();
 
         Point3D goal = calculateGoal(petPoint, playerPoint, nearestItem, nearestTarget);
-        moveToGoal(petPoint,goal);
+        moveToGoal(pet,petPoint,goal);
     }
 
-    private void moveToGoal(Point3D start, Point3D goal){
-        ArrayList<Point3D> path = pathCalculator.getPath(start, goal, player);
+    private void moveToGoal(Entity pet, Point3D start, Point3D goal){
+        ArrayList<Point3D> path = pathCalculator.getPath(start, goal, pet);
         Point3D firstStep = path.get(0);
-        super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
+        pet.addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
     private Point3D calculateGoal(Point3D origin, Point3D playerPoint, Point3D nearestItem, Point3D nearestEntity){
@@ -60,7 +62,7 @@ public class PetAI extends AIState {
         else if (goalDistance == itemDistance){
             return nearestItem;
         }
-       else {
+        else {
             return playerPoint;
         }
     }
@@ -105,13 +107,13 @@ public class PetAI extends AIState {
         return minLocation;
     }
 
-    private Point3D getNearestTarget(Point3D origin) {
+    private Point3D getNearestTarget(Point3D origin, Entity pet) {
         List<Point3D> targetPoints = getTargetPoints();
         Point3D minLocation = targetPoints.get(0);
         double minDistance = Double.MAX_VALUE;
         double distance;
         for (Point3D point : targetPoints) {
-            if (!entityMap.getValueFromKey(point).equals(player)) { //TODO: Possible LoD violation?
+            if (!entityMap.getValueFromKey(point).equals(player) && !entityMap.getValueFromKey(point).equals(pet)) { //TODO: Possible LoD violation?
                 distance = origin.distance(point);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -130,8 +132,8 @@ public class PetAI extends AIState {
         return targetPoints;
     }
 
-    private Point3D getPetPoint() {
-        return entityMap.getKeyFromValue(super.getEntity());
+    private Point3D getPetPoint(Entity pet) {
+        return entityMap.getKeyFromValue(pet);
     }
 
     private Point3D getPlayerPoint() {

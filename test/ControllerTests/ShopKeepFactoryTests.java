@@ -1,13 +1,7 @@
 package ControllerTests;
 
-import Controller.Factories.MonsterFactory;
-import Controller.Factories.PetFactory;
 import Controller.Factories.ShopKeeperFactory;
 import Controller.Factories.SkillsFactory;
-import Model.AI.AIController;
-import Model.AI.FriendlyAI;
-import Model.AI.HostileAI;
-import Model.AI.PetAI;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Level.Level;
