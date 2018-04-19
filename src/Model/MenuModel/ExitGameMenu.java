@@ -23,9 +23,11 @@ public class ExitGameMenu extends InGameMenuState {
         switch (selectedLeftRight){
             case 0:
                 gameLoop.setMenuState(new MainMenuState(menuModel, gameLoop), new TitleScreenView(menuModel));
+                gameLoop.setMainMenuKeySet();
                 break;
             case 1:
                 gameLoop.setMenuState(new StatsMenu(menuModel, player, gameLoop), new StatsView(menuModel));
+                gameLoop.setInGameMenuKeySet();
                 break;
             case 2:
                 System.exit(1);

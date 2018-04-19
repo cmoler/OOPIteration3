@@ -46,7 +46,7 @@ public class GameLoop {
 
         renderer = new Renderer();
 
-        ((KeyEventImplementor)controls).createMenuSet(menuModel);
+        ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
     }
@@ -108,7 +108,7 @@ public class GameLoop {
 
     public void setControls(){
         controls = new KeyEventImplementor(this);
-        ((KeyEventImplementor)controls).createMenuSet(menuModel);
+        ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
         runGame.setInput(controls);
     }
 
@@ -123,5 +123,14 @@ public class GameLoop {
 
     public void closeMenu() {
         renderer.closeMenu();
+        ((KeyEventImplementor)controls).createPlayerControlsSet(menuModel);
+    }
+
+    public void setInGameMenuKeySet() {
+        ((KeyEventImplementor)controls).createInGameMenuSet(menuModel);
+    }
+
+    public void setMainMenuKeySet() {
+        ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
     }
 }

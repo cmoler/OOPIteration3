@@ -17,7 +17,7 @@ public class KeyEventImplementor implements EventHandler<KeyEvent> {
         controller.createInGameMenuSet(menuModel);
     }
 
-    public void createMenuSet(MenuModel menuModel){
+    public void createMainMenuSet(MenuModel menuModel){
         controller.createMenuSet(menuModel);
     }
 
