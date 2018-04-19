@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><class>
     <Bind type="moveN">
-        <key>87</key>
+        <key>W</key>
     </Bind>
     <Bind type="moveNE">
-        <key>69</key>
+        <key>E</key>
     </Bind>
     <Bind type="moveSE">
-        <key>67</key>
+        <key>C</key>
     </Bind>
     <Bind type="moveS">
-        <key>88</key>
+        <key>X</key>
     </Bind>
     <Bind type="moveSW">
-        <key>90</key>
+        <key>Z</key>
     </Bind>
     <Bind type="moveNW">
-        <key>81</key>
+        <key>Q</key>
     </Bind>
     <Bind type="scrollLeft">
-        <key>37</key>
+        <key>Left</key>
     </Bind>
     <Bind type="scrollRight">
-        <key>39</key>
+        <key>Right</key>
     </Bind>
     <Bind type="select">
-        <key>10</key>
+        <key>Enter</key>
     </Bind>
     <Bind type="hotKey1">
-        <key>49</key>
+        <key>1</key>
     </Bind>
     <Bind type="hotKey2">
-        <key>50</key>
+        <key>2</key>
     </Bind>
     <Bind type="hotKey3">
-        <key>51</key>
+        <key>3</key>
     </Bind>
     <Bind type="hotKey4">
-        <key>52</key>
+        <key>4</key>
     </Bind>
     <Bind type="hotKey5">
-        <key>53</key>
+        <key>5</key>
     </Bind>
 </class>

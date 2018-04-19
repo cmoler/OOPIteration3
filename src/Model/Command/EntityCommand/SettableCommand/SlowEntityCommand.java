@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.AI.SlowedAI;
@@ -44,4 +45,8 @@ public class SlowEntityCommand extends GameModelCommand implements SettableComma
         return slowDuration;
     }
 
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitSlowEntityCommand(this);
+    }
 }

@@ -1,5 +1,6 @@
 package Model.Item.TakeableItem;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Command.Command;
 import Model.Entity.Entity;
@@ -29,17 +30,20 @@ public class ArmorItem extends TakeableItem {
         armorEquipStrategy.useStrategy();
     }
 
-    @Override
-    public void onTouch(Entity entity) {
-        entity.addItemToInventory(this);
-
-        if (entity.hasItemInInventory(this)) {
-            armorEquipStrategy.setEntity(entity);
-            setToBeDeleted();
-        }
+    protected void setItemStrategyEntity(Entity entity) {
+        armorEquipStrategy.setEntity(entity);
     }
 
     public void toggleEquipEffect(Entity entity) {
         executeCommand(entity);
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitArmorItem(this);
+    }
+
+    public int getDefense() {
+        return defense;
     }
 }

@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand.ToggleableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
@@ -7,27 +8,39 @@ import Model.Entity.Entity;
 
 public class ToggleSneaking extends ToggleableCommand implements SettableCommand {
 
-    int stealthAmount;
+    private int stealthAmount;
+    private int oldSpeed;
+    private int oldNoise;
+    private boolean firstTimeExecuting;
 
     public ToggleSneaking(int amount) {
         super();
         this.stealthAmount = amount;
+        this.firstTimeExecuting = true;
     }
 
     public ToggleSneaking(int amount, boolean hasFired) {
         super(hasFired);
         this.stealthAmount = amount;
+        this.firstTimeExecuting = true;
     }
 
     @Override
     public void execute(Entity entity) {
+        if(firstTimeExecuting) {
+            oldSpeed = entity.getSpeed();
+            oldNoise = entity.getNoise();
+
+            firstTimeExecuting = false;
+        }
+
         if(!hasFired()) {
             entity.decreaseSpeed(stealthAmount);
             entity.decreaseNoiseLevel(stealthAmount);
             toggleHasFired();
         } else {
-            entity.increaseSpeed(stealthAmount);
-            entity.increaseNoiseLevel(stealthAmount);
+            entity.setSpeed(oldSpeed);
+            entity.setNoise(oldNoise);
             toggleHasFired();
         }
     }
@@ -38,5 +51,10 @@ public class ToggleSneaking extends ToggleableCommand implements SettableCommand
 
     public int getAmount() {
         return stealthAmount;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitToggleSneaking(this);
     }
 }

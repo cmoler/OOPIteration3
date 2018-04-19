@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.AI.ConfusedAI;
@@ -39,29 +40,28 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
 
     public void receiveGameModel(GameModel gameModel) {
         if(entityToStealFrom != null) {
+            if(invokingEntity.hasFreeSpaceInInventory()) {
+                Random rand = new Random();
 
-            Random rand = new Random();
+                int successChance = rand.nextInt(pickPocketStrength);
 
-            int successChance = rand.nextInt(pickPocketStrength);
-
-            if(successChance < pickPocketStrength / 2) { // successful pickpocket
-                TakeableItem item = entityToStealFrom.takeRandomItemFromInventory();
-
-                if(item != null) {
-                    invokingEntity.addItemToInventory(item);
-                }
-
-            } else { // unsuccessful pickpocket, turn entity hostile
-                switch (rand.nextInt(2)) { // flip a coin to see if entity should notice the failed theft
-                    case 0:
-                        AIController aiController = gameModel.getAIForEntity(entityToStealFrom);
-                        AIState previousState = aiController.getActiveState();
-                        aiController.setActiveState(hostileAI);
-                        break;
-                    case 1:
-                        break;
-                    default:
-                        throw new RuntimeException("Invalid random generated for PickPocketCommand!");
+                if (successChance < pickPocketStrength / 2) { // successful pickpocket
+                    TakeableItem item = entityToStealFrom.takeRandomItemFromInventory();
+                    if (item != null) {
+                        System.out.println("item added");
+                        invokingEntity.addItemToInventory(item);
+                    }
+                } else { // unsuccessful pickpocket, turn entity hostile
+                    switch (rand.nextInt(2)) { // flip a coin to see if entity should notice the failed theft
+                        case 0:
+                            AIController aiController = gameModel.getAIForEntity(entityToStealFrom);
+                            aiController.setActiveState(hostileAI);
+                            break;
+                        case 1:
+                            break;
+                        default:
+                            throw new RuntimeException("Invalid random generated for PickPocketCommand!");
+                    }
                 }
             }
         }
@@ -78,5 +78,10 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
 
     public int getAmount() {
         return pickPocketStrength;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitPickPocketCommand(this);
     }
 }

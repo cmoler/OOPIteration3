@@ -12,7 +12,7 @@ public class Inventory {
     private int maxSize;
 
     public Inventory() {
-        inventory = new ArrayList<>();
+        inventory = new ArrayList<>(10);
         maxSize = 10;
     }
 
@@ -28,9 +28,7 @@ public class Inventory {
     }
 
     public void removeItem(TakeableItem item) {
-        if(inventory.contains(item)) {
-            inventory.remove(item);
-        }
+        inventory.remove(item);
     }
 
     public boolean hasItem(TakeableItem item) {
@@ -45,6 +43,16 @@ public class Inventory {
         maxSize += increase;
     }
 
+    public int size() {
+        return inventory.size();
+    }
+
+    public TakeableItem getItem(int selectedItem) {
+        if(inventory.size() < selectedItem - 1 && selectedItem > 0)
+            return inventory.get(selectedItem);
+        return null;
+    }
+
     public TakeableItem takeRandomItem() {
         Random random = new Random();
 
@@ -52,14 +60,12 @@ public class Inventory {
             return null;
         }
 
-        TakeableItem item;
+        int randomSlot = random.nextInt(inventory.size());
 
-        int randomSlot = random.nextInt(maxSize);
+        TakeableItem item = inventory.get(randomSlot);
 
-        while(inventory.get(randomSlot) == null) {
-            randomSlot = random.nextInt(maxSize);
-        }
+        inventory.remove(randomSlot);
 
-        return inventory.get(randomSlot);
+        return item;
     }
 }

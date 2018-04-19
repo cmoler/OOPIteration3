@@ -1,6 +1,7 @@
 package Model.Command.EntityCommand.SettableCommand;
 
 import Controller.GameLoop;
+import Controller.Visitor.SavingVisitor;
 import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Entity.Entity;
 import Model.Level.GameModel;
@@ -50,5 +51,10 @@ public class ObserveEntityCommand extends GameLoopCommand implements SettableCom
 
     public int getAmount() {
         return observeAccuracy;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitObserveEntityCommand(this);
     }
 }

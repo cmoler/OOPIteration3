@@ -1,5 +1,7 @@
 package Model.Level;
 
+import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitable;
 import Model.Command.Command;
 import Model.Entity.Entity;
 import View.LevelView.LevelViewElement;
@@ -7,7 +9,7 @@ import View.LevelView.LevelViewElement;
 import java.util.List;
 import java.util.Random;
 
-public class Trap {
+public class Trap implements Visitable {
 
     private List<LevelViewElement> observers;
 
@@ -17,6 +19,14 @@ public class Trap {
     private Command command;
 
     private int trapStrength;
+
+    public Trap(List<LevelViewElement> observers, Command command, boolean isVisible, boolean isDisarmed, int trapStrength) {
+        this.observers = observers;
+        this.isVisible = isVisible;
+        this.isDisarmed = isDisarmed;
+        this.command = command;
+        this.trapStrength = trapStrength;
+    }
 
     public Trap(List<LevelViewElement> observers, Command command, int trapStrength) {
         this.observers = observers;
@@ -63,5 +73,13 @@ public class Trap {
 
     public boolean getIsDisarmed() {
         return isDisarmed;
+    }
+
+    public int getTrapStrength() { return trapStrength; }
+
+    public Command getCommand() { return command; }
+
+    public void accept(SavingVisitor visitor) {
+        visitor.visitTrap(this);
     }
 }

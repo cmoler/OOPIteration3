@@ -1,5 +1,6 @@
 package Model.InfluenceEffect;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.EntityAttributes.Orientation;
@@ -44,5 +45,10 @@ public class LinearInfluenceEffect extends InfluenceEffect{
 
     public InfluenceEffect cloneInfluenceEffect() {
         return new LinearInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitInfluenceEffect(this);
     }
 }

@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.NonSettableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.LevelCommand.LevelCommand;
@@ -19,19 +20,18 @@ public class DropItemCommand extends LevelCommand implements Command {
     }
 
     public void receiveLevel(Level level) {
-        Point3D entityPoint = level.getEntityPoint(entity);
-
-        if(entityPoint != null) {
-            entity.removeItemFromInventory(this.item);
-            //TODO: Make logic to not drop at same point as entity.
-            level.addItemnTo(entityPoint, item);
-        }
+        level.dropItemFromEntity(entity, item);
     }
 
     public void execute(Entity entity) {
         this.entity = entity;
 
         sendCommandToLevel();
+    }
+
+    @Override
+    public void accept(SavingVisitor savingVisitor) {
+        savingVisitor.visitDropItemCommand(this);
     }
 
     public void setItem(TakeableItem item) {

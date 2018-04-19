@@ -38,4 +38,8 @@ public class Mana {
     public int getCurrentMana() {
         return manaPoints;
     }
+
+    public int getMaxMana() {
+        return maxMana;
+    }
 }

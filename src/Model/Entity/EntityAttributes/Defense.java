@@ -36,4 +36,12 @@ public class Defense {
     public void removeModifier() {
         defensePoints -= modifier;
     }
+
+    public int getDefensePoints() {
+        return defensePoints;
+    }
+
+    public int getModifier() {
+        return modifier;
+    }
 }

@@ -25,10 +25,6 @@ public class PetFactory extends EntityFactory {
             }
         }
 
-        pet.addSkillsToMap(
-                getSkillsFactory().getPickpocket()
-        );
-
         pet.addNonWeaponSkills(
                 getSkillsFactory().getPickpocket()
         );

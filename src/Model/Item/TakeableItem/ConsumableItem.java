@@ -1,5 +1,6 @@
 package Model.Item.TakeableItem;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.InventoryStrategy.ConsumeStrategy;
@@ -19,18 +20,17 @@ public class ConsumableItem extends TakeableItem {
         consumeStrategy.useStrategy();
     }
 
-    @Override
-    public void onTouch(Entity entity) {
-        entity.addItemToInventory(this);
-
-        if (entity.hasItemInInventory(this)) {
-            consumeStrategy.setEntity(entity);
-            setToBeDeleted();
-        }
+    protected void setItemStrategyEntity(Entity entity) {
+        consumeStrategy.setEntity(entity);
     }
 
     public void consume(Entity entity) {
         executeCommand(entity);
         entity.removeItemFromInventory(this);
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitItem(this);
     }
 }

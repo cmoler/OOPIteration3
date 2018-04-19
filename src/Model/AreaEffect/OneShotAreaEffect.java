@@ -1,5 +1,6 @@
 package Model.AreaEffect;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Command.Command;
 import Model.Entity.Entity;
 
@@ -18,5 +19,18 @@ public class OneShotAreaEffect implements AreaEffect {
             command.execute(entity);
             hasNotFired = false;
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitOneShotAreaEffect(this);
+    }
+
+    public Command getCommand() {
+        return command;
+    }
+
+    public boolean hasNotFired() {
+        return hasNotFired;
     }
 }

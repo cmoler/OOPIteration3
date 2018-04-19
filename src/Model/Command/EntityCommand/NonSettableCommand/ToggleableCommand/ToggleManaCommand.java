@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 
 public class ToggleManaCommand extends ToggleableCommand {
@@ -24,5 +25,14 @@ public class ToggleManaCommand extends ToggleableCommand {
             entity.decreaseMana(amount);
             toggleHasFired();
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitToggleManaCommand(this);
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }

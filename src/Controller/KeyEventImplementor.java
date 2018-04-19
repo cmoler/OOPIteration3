@@ -9,16 +9,20 @@ public class KeyEventImplementor implements EventHandler<KeyEvent> {
 
     Controller controller;
 
-    public KeyEventImplementor(){
-        this.controller = new Controller();
+    public KeyEventImplementor(GameLoop gameLoop){
+        this.controller = new Controller(gameLoop);
     }
 
-    public void createTradeSet(MenuModel menuModel){
-        controller.createTradeSet(menuModel);
+    public void createMenuSet(MenuModel menuModel){
+        controller.createMenuSet(menuModel);
     }
 
-    public void createPlayerControlsSet(Entity player){
-        controller.createPlayerControlsSet(player);
+    public void createTradeSet(MenuModel menuModel, Entity player, Entity npc){
+        controller.createTradeSet(menuModel, player, npc);
+    }
+
+    public void createPlayerControlsSet(Entity player, MenuModel menuModel){
+        controller.createPlayerControlsSet(player, menuModel);
     }
 
     @Override

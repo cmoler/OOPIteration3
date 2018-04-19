@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><class>
     <Bind type="scrollLeft">
-        <key>37</key>
+        <key>Left</key>
     </Bind>
     <Bind type="scrollRight">
-        <key>39</key>
+        <key>Right</key>
     </Bind>
     <Bind type="scrollUp">
-        <key>38</key>
+        <key>Up</key>
     </Bind>
     <Bind type="scrollDown">
-        <key>40</key>
+        <key>Down</key>
     </Bind>
     <Bind type="select">
-        <key>10</key>
+        <key>Enter</key>
+    </Bind>
+    <Bind type="back">
+        <key>Esc</key>
     </Bind>
 </class>

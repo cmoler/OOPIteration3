@@ -1,5 +1,6 @@
 package Model.Entity.EntityAttributes;
 
+import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
@@ -37,7 +38,7 @@ public class Skill {
         influenceEffect.setOrientation(callingEntity.getOrientation());
 
         // for each skill level, get behaviors current value, add 10 to it
-        int skillLevel = callingEntity.getSkillLevel(this).getSkillLevel();
+        int skillLevel = callingEntity.getSkillLevel(this);
 
         int behaviorAmount = behavior.getAmount();
         behaviorAmount = behaviorAmount + skillLevel * 10;
@@ -57,5 +58,29 @@ public class Skill {
 
     public void setBehavior(SettableCommand command) {
         behavior = command;
+    }
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+
+    public int getUseCost() {
+        return useCost;
+    }
+
+    public InfluenceEffect getInfluenceEffect() {
+        return influenceEffect;
+    }
+
+    public SettableCommand getBehavior() {
+        return behavior;
+    }
+
+    public SendInfluenceEffectCommand getSendInfluenceEffectCommand() {
+        return sendInfluenceEffectCommand;
+    }
+
+    public String getName(){
+        return name;
     }
 }

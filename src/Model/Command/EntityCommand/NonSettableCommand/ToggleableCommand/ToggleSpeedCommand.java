@@ -1,5 +1,6 @@
 package Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 
 public class ToggleSpeedCommand extends ToggleableCommand {
@@ -24,5 +25,14 @@ public class ToggleSpeedCommand extends ToggleableCommand {
             entity.decreaseSpeed(amount);
             toggleHasFired();
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitSpeedCommand(this);
+    }
+
+    public int getAmount() {
+        return amount;
     }
 }
