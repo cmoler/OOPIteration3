@@ -46,8 +46,11 @@ public class GameModel implements Visitable {
             currentLevel.addTerrainTo(new Point3D(-1, 0, 1), Terrain.GRASS);
             currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
             currentLevel.addTerrainTo(new Point3D(1, 0, -1), Terrain.GRASS);
-            currentLevel.addRiverTo(new Point3D(0, -1, 1), new River(new Vec3d(0, -1, 1)));
-            //currentLevel.addMountTo(new Point3D(1, 0, -1), new Mount());
+            currentLevel.addTerrainTo(new Point3D(0, 1, -1), Terrain.GRASS);
+            currentLevel.addTerrainTo(new Point3D(1, 1, -2), Terrain.GRASS);
+            currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
+
+            currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
 
     }
 

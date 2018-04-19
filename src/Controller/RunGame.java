@@ -79,7 +79,7 @@ public class RunGame extends Application{
 */
         
         GameLoop gameLoop = new GameLoop();
-
+        gameLoop.init();
         gameLoop.setRunGame(this);
 
 

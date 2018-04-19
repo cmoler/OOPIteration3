@@ -8,8 +8,8 @@ import java.io.File;
 
 public class MountView extends LevelViewElement{
     private Mount mount;
-    public MountView(Mount mount) {
-        super(new Point3D(1, -1, 0));
+    public MountView(Mount mount, Point3D location) {
+        super(location);
 
         String workingDir = System.getProperty("user.dir");
 

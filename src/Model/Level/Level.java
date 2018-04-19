@@ -169,6 +169,7 @@ public class Level {
 
     public void addTrapTo(Point3D point, Trap trap) {
         trapLocations.put(point, trap);
+        addObserver(new TrapView(trap, point));
     }
 
     public void addRiverTo(Point3D point, River river) {
@@ -177,8 +178,11 @@ public class Level {
     }
 
     public void addMountTo(Point3D point, Mount mount) {
+        System.out.println(point);
         mountLocations.put(point, mount);
-        addObserver(new MountView(mount));
+        MountView mountView = new MountView(mount, point);
+        mount.addObserver(mountView);
+        addObserver(mountView);
     }
 
     public void addInfluenceEffectTo(Point3D point, InfluenceEffect influenceEffect) {

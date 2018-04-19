@@ -34,6 +34,9 @@ public class GameLoop {
 
     public GameLoop() {
 
+    }
+
+    public void init() {
         //TODO: Add loading from file logic
         controls = new KeyEventImplementor(this);
         loopTimer = new AnimationTimer() {
@@ -60,7 +63,6 @@ public class GameLoop {
 
         //setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
-
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {

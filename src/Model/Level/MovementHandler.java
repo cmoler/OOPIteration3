@@ -41,24 +41,26 @@ public class MovementHandler {
             if (entity.isMoving()){
                 Point3D contestedPoint = calculateMove(entityPoint, entity.getVelocity());
                 if (!obstacleLocations.containsKey(contestedPoint) && entity.canMoveOnTerrain(terrainLocations.get(contestedPoint))){
-                    if (mountLocations.containsKey(contestedPoint)){
-                        entity.mountVehicle(mountLocations.get(contestedPoint));
-                    }
                     if (entityLocations.hasKey(contestedPoint)){
                         // TODO: Figure out this use case.
                         System.out.println("Hello Entity! I, another Entity, is interacting with you!");
-                    }
-                    else {
+                    } else {
+                        //Update entity movement
                         entityLocations.removeByKey(entityPoint);
                         entityLocations.place(contestedPoint, entity);
 
-                        if (entity.isMounted()){
+                        if (entity.isMounted()) {
                             Mount mount = mountLocations.get(entityPoint);
                             mountLocations.remove(entityPoint);
-                            mountLocations.put(contestedPoint,mount);
+                            mountLocations.put(contestedPoint, mount);
+                            mount.notifyObservers(contestedPoint);
                         }
+                        if (mountLocations.containsKey(contestedPoint) && !entity.isMounted()) {
+                            entity.mountVehicle(mountLocations.get(contestedPoint));
+                        }
+
+                        entity.notifyObservers(contestedPoint);
                     }
-                    entity.notifyObservers(contestedPoint);
                 }
                 entity.decrementVelocity();
             }
