@@ -69,4 +69,12 @@ public class InventoryMenu extends InGameMenuState {
                 break;
         }
     }
+
+    public TakeableItem getSelectedItem(){
+        return inventory.getItem(selectedItem);
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
 }
