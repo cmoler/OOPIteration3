@@ -1,5 +1,6 @@
 package Model.Entity.EntityAttributes;
 
+import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
@@ -57,5 +58,29 @@ public class Skill {
 
     public void setBehavior(SettableCommand command) {
         behavior = command;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+
+    public int getUseCost() {
+        return useCost;
+    }
+
+    public InfluenceEffect getInfluenceEffect() {
+        return influenceEffect;
+    }
+
+    public SettableCommand getBehavior() {
+        return behavior;
+    }
+
+    public SendInfluenceEffectCommand getSendInfluenceEffectCommand() {
+        return sendInfluenceEffectCommand;
     }
 }

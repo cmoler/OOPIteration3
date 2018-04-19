@@ -15,9 +15,7 @@ import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSp
 import Model.Command.EntityCommand.SettableCommand.*;
 import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
 import Model.Entity.Entity;
-import Model.Entity.EntityAttributes.Equipment;
-import Model.Entity.EntityAttributes.Inventory;
-import Model.Entity.EntityAttributes.Speed;
+import Model.Entity.EntityAttributes.*;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
@@ -25,11 +23,9 @@ import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.InteractiveItem;
 import Model.Item.Item;
 import Model.Item.OneShotItem;
-import Model.Item.TakeableItem.ArmorItem;
-import Model.Item.TakeableItem.ConsumableItem;
-import Model.Item.TakeableItem.RingItem;
-import Model.Item.TakeableItem.WeaponItem;
+import Model.Item.TakeableItem.*;
 import Model.Level.*;
+import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
@@ -38,6 +34,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -324,6 +321,37 @@ public class SavingVisitor implements Visitor {
         return levelMapOpen;
     }
 
+    private StringBuffer processEntities(Map<Point3D, Entity> entityLocations) {
+        StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"ENTITY\">");
+        StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
+
+        for(Map.Entry<Point3D, Entity> entry: entityLocations.entrySet()) {
+            StringBuffer key = new StringBuffer("<KEY key=");
+
+            key.append("\"");
+            key.append(keyToString(entry.getKey()));
+            key.append("\"");
+            key.append("/>");
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+            levelMapOpen.append(key);
+
+            levelMapOpen.append("\n");
+            levelMapOpen.append("\t");
+
+            entry.getValue().accept(this);
+
+            this.valueNode.append("</VALUE>");
+            levelMapOpen.append(this.valueNode);
+            this.valueNode = new StringBuffer("<VALUE>");
+        }
+
+        levelMapOpen.append("\n");
+        levelMapOpen.append(levelMapClosed);
+        return levelMapOpen;
+    }
+
     @Override
     public void visitGameModel(GameModel gameModel) {
         try {
@@ -382,6 +410,11 @@ public class SavingVisitor implements Visitor {
             levelString.append(processMounts(mountLocations));
             levelString.append("\n");
 
+            levelString.append("\n");
+            levelString.append(processEntities(entityLocations));
+            levelString.append("\n");
+
+
             levelString.append("</LEVEL>");
         } catch (IOException e) {
             e.printStackTrace();
@@ -390,7 +423,105 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitEntity(Entity entity) {
+        StringBuffer entityString = new StringBuffer("<" + entity.getClass().getSimpleName()
+                + " velocity=" + "\"" + vecToString(entity.getVelocity()) + "\""
+                + " noiseLevel=" + "\"" + entity.getNoise() + "\""
+                + " sightRadius=" + "\"" + entity.getSight() + "\""
+                + " level=" + "\"" + entity.getLevel() + "\""
+                + " experience=" + "\"" + entity.getExperience() + "\""
+                + " experienceToNextLevel=" + "\"" + entity.getExperienceToNextLevel() + "\""
+                + " currentHealth=" + "\"" + entity.getCurrentHealth() + "\""
+                + " maxHealth=" + "\"" + entity.getMaxHealth() + "\""
+                + " manaPoints=" + "\"" + entity.getManaPoints() + "\""
+                + " maxMana=" + "\"" + entity.getMaxMana() + "\""
+                + " speed=" + "\"" + entity.getSpeed() + "\""
+                + " goldAmount=" + "\"" + entity.getGold() + "\""
+                + " maxGold=" + "\"" + entity.getMaxGold() + "\""
+                + " attackPoints=" + "\"" + entity.getAttackPoints() + "\""
+                + " attackModifier=" + "\"" + entity.getAttackModifier() + "\""
+                + " defensePoints=" + "\"" + entity.getDefensePoints() + "\""
+                + " defenseModifier=" + "\"" + entity.getDefenseModifier() + "\""
+                + " orientation=" + "\"" + entity.getOrientation() + "\""
+                + " moveable=" + "\"" + entity.isMoveable() + "\">");
 
+        entityString.append("\n");
+        entityString.append("\t");
+        entityString.append("<WEAPONSKILLS>");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(entityString);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+
+        for(Skill weaponSkill: entity.getWeaponSkills()) {
+            processSkill(weaponSkill, entity.getSkillLevel(weaponSkill));
+        }
+
+        this.valueNode.append("\n");
+        this.valueNode.append("</WEAPONSKILLS>");
+        this.valueNode.append("\n");
+
+        this.valueNode.append("<NONWEAPONSKILLS>");
+        for(Skill nonWeaponSkill: entity.getNonWeaponSkills()) {
+            entityString.append("\t");
+            entityString.append("\n");
+            processSkill(nonWeaponSkill, entity.getSkillLevel(nonWeaponSkill));
+        }
+
+        this.valueNode.append("\n");
+        this.valueNode.append("</NONWEAPONSKILLS>");
+        this.valueNode.append("\n");
+
+        this.valueNode.append("<TERRAINLIST>");
+        for(Terrain terrain: entity.getPassableTerrains()) {
+            this.valueNode.append("\t");
+            this.valueNode.append("\n");
+            this.valueNode.append("<TERRAIN value=\"");
+            this.valueNode.append(terrain.toString());
+            this.valueNode.append("\"/>");
+        }
+
+        this.valueNode.append("\n");
+        this.valueNode.append("</TERRAINLIST>");
+        this.valueNode.append("\n");
+        visitMount(entity.getMount());
+        this.valueNode.append("</" + entity.getClass().getSimpleName() + ">");
+
+//        visitItemHotBar(entity.getItemHotBar());
+    }
+
+    private void visitItemHotBar(ItemHotBar itemHotBar) {
+        StringBuffer hotBarString = new StringBuffer("<" + itemHotBar.getClass().getSimpleName() + ">");
+        this.valueNode.append(hotBarString);
+        this.valueNode.append("<ITEMLIST>");
+
+        for(TakeableItem items: itemHotBar.getItems()) {
+            visitItem(items);
+        }
+
+        this.valueNode.append("</ITEMLIST>");
+    }
+
+    private void processSkill(Skill weaponSkill, int skillLevel) {
+        StringBuffer skillString = new StringBuffer("<" + weaponSkill.getClass().getSimpleName()
+                + " name=" + "\"" + weaponSkill.getName() + "\""
+                + " accuracy=" + "\"" + weaponSkill.getAccuracy() + "\""
+                + " useCost=" + "\"" + weaponSkill.getUseCost()  + "\""
+                + " level=" + "\"" + skillLevel + "\"" + ">");
+
+        this.valueNode.append(skillString);
+        visitInfluenceEffect(weaponSkill.getInfluenceEffect());
+        visitSettableCommand(weaponSkill.getBehavior());
+        visitSendInfluenceEffectCommand(weaponSkill.getSendInfluenceEffectCommand());
+        this.valueNode.append("</" + weaponSkill.getClass().getSimpleName() + ">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+    }
+
+    private void visitSettableCommand(SettableCommand behavior) {
+        StringBuffer commandString = new StringBuffer("<" + behavior.getClass().getSimpleName()
+                + " amount=" + "\"" + behavior.getAmount() + "\"/>");
+        this.valueNode.append(commandString);
     }
 
     @Override

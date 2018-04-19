@@ -22,4 +22,8 @@ public class ItemHotBar {
     public void use(int index) {
         if(items[index] != null) items[index].select();
     }
+
+    public TakeableItem[] getItems() {
+        return items;
+    }
 }

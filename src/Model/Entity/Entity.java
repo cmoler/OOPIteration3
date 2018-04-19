@@ -1,5 +1,6 @@
 package Model.Entity;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.EntityAttributes.*;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.RingItem;
@@ -42,6 +43,35 @@ public class Entity {
     private List<Terrain> compatableTerrain;
     private boolean moveable;
     private Mount mount;
+
+    public Entity(List<LevelViewElement> observers, ItemHotBar hotBar, List<Skill> weaponSkills,
+                  List<Skill> nonWeaponSkills, HashMap<Skill, SkillLevel> skillLevelsMap,
+                  Vec3d velocity, NoiseLevel noiseLevel, SightRadius sightRadius, XPLevel xpLevel, Health health,
+                  Mana mana, Speed speed, Gold gold, Attack attack, Defense defense, Equipment equipment,
+                  Inventory inventory, Orientation orientation, List<Terrain> compatableTerrain, boolean moveable,
+                  Mount mount) {
+        this.observers = observers;
+        this.hotBar = hotBar;
+        this.weaponSkills = weaponSkills;
+        this.nonWeaponSkills = nonWeaponSkills;
+        this.skillLevelsMap = skillLevelsMap;
+        this.velocity = velocity;
+        this.noiseLevel = noiseLevel;
+        this.sightRadius = sightRadius;
+        this.xpLevel = xpLevel;
+        this.health = health;
+        this.mana = mana;
+        this.speed = speed;
+        this.gold = gold;
+        this.attack = attack;
+        this.defense = defense;
+        this.equipment = equipment;
+        this.inventory = inventory;
+        this.orientation = orientation;
+        this.compatableTerrain = compatableTerrain;
+        this.moveable = moveable;
+        this.mount = mount;
+    }
 
     public Entity() {
         this.xpLevel = new XPLevel();
@@ -406,7 +436,7 @@ public class Entity {
     }
 
     public int getCurrentGold() {
-        return gold.getGold();
+        return gold.getGoldAmount();
     }
 
     public SightRadius getSightRadius() {
@@ -419,5 +449,69 @@ public class Entity {
 
     public int getSight(){
         return sightRadius.getSight();
+    }
+
+    public void accept(SavingVisitor visitor) {
+        visitor.visitEntity(this);
+    }
+
+    public int getExperience() {
+        return xpLevel.getExperience();
+    }
+
+    public int getExperienceToNextLevel() {
+        return xpLevel.getExpToNextLevel();
+    }
+
+    public int getManaPoints() {
+        return mana.getCurrentMana();
+    }
+
+    public int getMaxMana() {
+        return mana.getMaxMana();
+    }
+
+    public int getSpeed() {
+        return speed.getSpeed();
+    }
+
+    public int getMaxGold() {
+        return gold.getMaxGold();
+    }
+
+    public int getAttackPoints() {
+        return attack.getAttackPoints();
+    }
+
+    public int getAttackModifier() {
+        return attack.getModifier();
+    }
+
+    public int getDefensePoints() {
+        return defense.getDefensePoints();
+    }
+
+    public int getDefenseModifier() {
+        return defense.getModifier();
+    }
+
+    public Mount getMount() {
+        return mount;
+    }
+
+    public List<Terrain> getPassableTerrains() {
+        return compatableTerrain;
+    }
+
+    public List<Skill> getWeaponSkills() {
+        return weaponSkills;
+    }
+
+    public List<Skill> getNonWeaponSkills() {
+        return nonWeaponSkills;
+    }
+
+    public ItemHotBar getItemHotBar() {
+        return hotBar;
     }
 }
