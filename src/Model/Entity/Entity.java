@@ -370,7 +370,7 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
-    }
+    } // TODO: add logic for mana costs
 
     public void addItemToHotBar(TakeableItem takeableItem, int index){
         hotBar.addItem(takeableItem, index);
@@ -380,7 +380,7 @@ public class Entity {
         hotBar.use(index);
     }
 
-    public void useSkill(int index){
+    public void useSkill(int index){ // TODO: add logic for mana costs
         if(nonWeaponSkills.size() - 1 < index || index < 0) return;
         else{
             nonWeaponSkills.get(index).fire(this);
@@ -389,7 +389,7 @@ public class Entity {
 
     public void useSkill(){
         nonWeaponSkills.get(currentlySelectedSkill).fire(this);
-    }
+    } // TODO: add logic for mana costs
 
     public void scrollLeft(){
         if(currentlySelectedSkill <= 0) currentlySelectedSkill = nonWeaponSkills.size() - 1;
