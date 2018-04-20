@@ -13,7 +13,7 @@ public class ObstacleView extends LevelViewElement{
 
 
     public ObstacleView(Point3D location) {
-        super(location);
+        super(location, 2);
         String workingDir = System.getProperty("user.dir");
 
         File file = new File(workingDir + "/src/View/Assets/boulder.png");
@@ -33,10 +33,7 @@ public class ObstacleView extends LevelViewElement{
 
 
 
-    @Override
-    public int getRenderPriority() {
-        return 3;
-    }
+
 
 
 }

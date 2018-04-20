@@ -24,7 +24,7 @@ public class EntityAttackTests {
 
     @Before
     public void init() {
-        level = new Level(new ArrayList<>());
+        level = new Level();
         levelMessenger = new LevelMessenger(null, level);
         entity = new Entity();
         affectedEntity = new Entity();

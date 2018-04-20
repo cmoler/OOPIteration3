@@ -58,15 +58,15 @@ public class GameLoop {
 
         renderer = new Renderer();
 
-
         ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
         renderer.closeMenu();
         ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
 
-        //setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
+
+        gameModel.registerAllLevelObservers();
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {

@@ -28,7 +28,7 @@ public class SendInfluenceEffectCommandTests {
     @Before
     public void init() {
         entity = new Entity();
-        level = new Level(new ArrayList<>());
+        level = new Level();
         level.addEntityTo(new Point3D(0,0,0), entity);
         levelMessenger = new LevelMessenger(null, level);
         sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);

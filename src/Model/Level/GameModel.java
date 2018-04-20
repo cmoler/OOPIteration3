@@ -11,9 +11,6 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
-import View.LevelView.EntityView;
-import View.LevelView.RiverView;
-import View.LevelView.TerrainView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import java.io.IOException;
@@ -36,15 +33,18 @@ public class GameModel implements Visitable {
     private Map<Level, List<AIController>> aiMap;
 
     private Queue<TeleportTuple> teleportQueue;
+    private Queue<TeleportTuple> failedTeleportQueue;
 
     public GameModel() {
             levels = new ArrayList<>();
             aiMap = new HashMap<>();
             teleportQueue = new LinkedList<>();
+            failedTeleportQueue = new LinkedList<>();
 
+            currentLevel = new Level();
 
-            currentLevel = new Level(new ArrayList<>());
             player = new Entity();
+
             player.setMoveable(true);
             player.setNoise(5);
             currentLevel.addEntityTo(new Point3D(4, 0, -4), player);
@@ -53,6 +53,8 @@ public class GameModel implements Visitable {
 
 
 
+
+            currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
 
             RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
@@ -94,6 +96,7 @@ public class GameModel implements Visitable {
             aiMap.put(currentLevel,AIList);
 
 
+            levels.add(currentLevel);
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
@@ -186,18 +189,26 @@ public class GameModel implements Visitable {
         }
 
         teleportQueue.clear();
+
+        teleportQueue.addAll(failedTeleportQueue);
     }
 
     private void changeLevels(Entity entity, Level destinationLevel, Point3D destinationPoint) {
 
-        destinationLevel.addEntityTo(destinationPoint, entity);
+        if(!destinationLevel.hasEntityAtPoint(destinationPoint)) {
+            destinationLevel.addEntityTo(destinationPoint, entity);
+            destinationLevel.registerEntityObserver(entity);
 
-        System.out.println("hi"+destinationPoint.toString());
+            currentLevel.removeEntityFrom(entity);
+            currentLevel.deregisterEntityObserver(entity);
 
-        if(entity.equals(player)) {
-            currentLevel = destinationLevel;
-            currentLevelMessenger.setLevel(currentLevel);
-            // TODO: notify pets when player teleports, so we can teleport them as well
+            if (entity.equals(player)) {
+                currentLevel = destinationLevel;
+                currentLevelMessenger.setLevel(currentLevel);
+                // TODO: notify pets when player teleports, so we can teleport them as well
+            }
+        } else {
+            failedTeleportQueue.add(new TeleportTuple(entity, destinationLevel, destinationPoint));
         }
     }
 
@@ -205,12 +216,14 @@ public class GameModel implements Visitable {
         processAIMoves();
         currentLevel.processMoves();
         currentLevel.processInteractions();
+        currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
 
         processTeleportQueue();
     }
 
     private void processAIMoves(){
         List<AIController> aiControllers = aiMap.get(currentLevel);
+
         for (AIController AI: aiControllers) {
             AI.processMove();
         }
@@ -247,5 +260,11 @@ public class GameModel implements Visitable {
 
     public void setGameModelMessenger(GameModelMessenger gameModelMessenger) {
         this.gameModelMessenger = gameModelMessenger;
+    }
+
+    public void registerAllLevelObservers() {
+        for(Level level : levels) {
+            level.registerObservers();
+        }
     }
 }

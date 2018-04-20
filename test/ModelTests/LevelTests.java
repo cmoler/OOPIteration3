@@ -34,9 +34,7 @@ public class LevelTests {
 
     @Test
     public void testAreaEffectInteractions() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
 
         Entity entity1 = new Entity();
         Entity entity2 = new Entity();
@@ -73,9 +71,7 @@ public class LevelTests {
 
     @Test
     public void testLinearInfluenceEffect() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
 
         SettableCommand damageCommand = new RemoveHealthCommand(15);
 
@@ -180,16 +176,14 @@ public class LevelTests {
 
     @Test
     public void testTrapInteractions() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
 
         Entity entity1 = new Entity();
         Entity entity2 = new Entity();
 
         Command damageCommand = new RemoveHealthCommand(15);
 
-        Trap trap = new Trap(observers, damageCommand, 0);
+        Trap trap = new Trap(damageCommand, 0);
 
         level.addEntityTo(new Point3D(0 ,0 ,0), entity1);
         level.addEntityTo(new Point3D(1, 0 ,0), entity2);
@@ -217,9 +211,7 @@ public class LevelTests {
 
     @Test
     public void testEntityIsFound() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
 
         Entity entity = new Entity();
 
@@ -232,9 +224,7 @@ public class LevelTests {
         SettableCommand damageCommand = new RemoveHealthCommand(20);
         SettableCommand damageCommand2 = new RemoveHealthCommand(40);
 
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
         LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         Entity entity = new Entity();

@@ -10,7 +10,7 @@ public class RiverView extends LevelViewElement{
     private River river;
 
     public RiverView(River river, Point3D location) {
-        super(location);
+        super(location, 3);
 
         this.river = river;
 
@@ -26,8 +26,5 @@ public class RiverView extends LevelViewElement{
 
     }
 
-    @Override
-    public int getRenderPriority() {
-        return 3;
-    }
+
 }

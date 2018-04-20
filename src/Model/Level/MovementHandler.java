@@ -50,6 +50,7 @@ public class MovementHandler {
                         if (entity.isMounted()) {
                             Mount mount = mountLocations.get(entityPoint);
                             mountLocations.remove(entityPoint);
+                            mount.setOrientation(entity.getOrientation());
                             mountLocations.put(contestedPoint, mount);
                             mount.notifyObservers(contestedPoint);
                         }

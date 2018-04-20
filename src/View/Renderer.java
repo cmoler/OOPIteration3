@@ -22,15 +22,12 @@ public class Renderer {
         levelView = new LevelView();
 
         menuView = new MenuView();
-
     }
 
-
     public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
-        if(menuView.inMenu()){
+        if(menuView.inMenu()) {
             menuView.render(gc);
-        }
-        else{
+        } else {
             levelView.render(gc, playerPos, scrollOffset);
         }
 

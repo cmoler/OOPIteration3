@@ -10,11 +10,8 @@ import javafx.scene.transform.Rotate;
 import java.io.File;
 
 public class ItemView extends LevelViewElement{
-
-
-
     public ItemView(Point3D location) {
-        super(location);
+        super(location, 2);
         String workingDir = System.getProperty("user.dir");
 
         File file = new File(workingDir + "/src/View/Assets/sword.png");
@@ -34,10 +31,7 @@ public class ItemView extends LevelViewElement{
 
 
 
-    @Override
-    public int getRenderPriority() {
-        return 3;
-    }
+
 
 
 }

@@ -76,7 +76,7 @@ public class Mount implements Visitable {
     }
 
     public void notifyObservers(Point3D point){
-        for (LevelViewElement o:observers) {
+        for (LevelViewElement o : observers) {
             o.notifyViewElement();
             if(point != null) { o.setPosition(point); }
         }

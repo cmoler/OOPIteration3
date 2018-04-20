@@ -28,20 +28,16 @@ public class ItemTests {
 
     private Level level;
     private Entity entity;
-    private List<LevelViewElement> observers;
 
     @Before
     public void init() {
-        observers = new ArrayList<>();
-        level = new Level(observers);
+        level = new Level();
         entity = new Entity();
     }
 
     @Test
     public void testOneShotItemInteractions() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
 
         Command damageCommand = new RemoveHealthCommand(20);
 
@@ -72,9 +68,7 @@ public class ItemTests {
 
     @Test
     public void testInteractiveItemInteractions() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
 
         Command damageCommand = new RemoveHealthCommand(20);
 
@@ -112,9 +106,7 @@ public class ItemTests {
 
     @Test
     public void testWeaponEquip() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
         LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         Entity entity = new Entity();
@@ -178,9 +170,7 @@ public class ItemTests {
 
     @Test
     public void testArmorEquipping() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
         LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         Entity entity = new Entity();
@@ -244,9 +234,7 @@ public class ItemTests {
 
     @Test
     public void testRingEquipping() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
         LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         Entity entity = new Entity();

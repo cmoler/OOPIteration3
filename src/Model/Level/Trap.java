@@ -6,6 +6,8 @@ import Model.Command.Command;
 import Model.Entity.Entity;
 import View.LevelView.LevelViewElement;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -20,16 +22,16 @@ public class Trap implements Visitable {
 
     private int trapStrength;
 
-    public Trap(List<LevelViewElement> observers, Command command, boolean isVisible, boolean isDisarmed, int trapStrength) {
-        this.observers = observers;
+    public Trap(Command command, boolean isVisible, boolean isDisarmed, int trapStrength) {
+        this.observers = new ArrayList<>();
         this.isVisible = isVisible;
         this.isDisarmed = isDisarmed;
         this.command = command;
         this.trapStrength = trapStrength;
     }
 
-    public Trap(List<LevelViewElement> observers, Command command, int trapStrength) {
-        this.observers = observers;
+    public Trap(Command command, int trapStrength) {
+        this.observers = new ArrayList<>();
         this.trapStrength = trapStrength;
 
         isVisible = false;
@@ -81,5 +83,9 @@ public class Trap implements Visitable {
 
     public void accept(SavingVisitor visitor) {
         visitor.visitTrap(this);
+    }
+
+    public void addObservers(LevelViewElement... observers) {
+        this.observers.addAll(Arrays.asList(observers));
     }
 }
