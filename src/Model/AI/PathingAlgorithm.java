@@ -3,6 +3,8 @@ package Model.AI;
 import Model.Entity.Entity;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
+import Model.Utility.VectorToPointCalculator;
+import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
 import java.util.*;
@@ -73,7 +75,7 @@ public class PathingAlgorithm {
             current = nodeList.get(current);
             if(current == null) { break; }
         }
-
+        System.out.println("What is my first step?: Let's see:\tFirst Point:\t"+path.get(0)+"\tLast step:\t"+path.get(path.size()-1));
         return path;
     }
 
@@ -88,15 +90,12 @@ public class PathingAlgorithm {
 
     private Queue<Point3D> getAdjacent(Point3D p) {
         Queue<Point3D> adj = new LinkedList<>();
-        for (int dx = -1; dx <= 1; ++dx) {
-            for (int dy = -1; dy <= 1; ++dy) {
-                for (int dz = -1; dz <= 1; ++dz){
-                    if (dx != 0 || dy != 0 || dz !=0) {
-                        adj.add(new Point3D((p.getX()+ dx),(p.getY() + dy), (p.getZ()+dz)));
-                    }
-                }
-            }
-        }
+        adj.add(VectorToPointCalculator.calculateNewPoint(p,new Vec3d(0, 1, -1)));
+        adj.add(VectorToPointCalculator.calculateNewPoint(p,new Vec3d(0, -1, 1)));
+        adj.add(VectorToPointCalculator.calculateNewPoint(p,new Vec3d(1, 0, -1)));
+        adj.add(VectorToPointCalculator.calculateNewPoint(p,new Vec3d(-1, 0, 1)));
+        adj.add(VectorToPointCalculator.calculateNewPoint(p,new Vec3d(-1, 1, 0)));
+        adj.add(VectorToPointCalculator.calculateNewPoint(p,new Vec3d(1, -1, 0)));
         return adj;
     }
 }

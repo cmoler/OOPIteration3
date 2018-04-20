@@ -1,4 +1,4 @@
-package Model.Entity.EntityAttributes;
+package Model.Utility;
 
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;

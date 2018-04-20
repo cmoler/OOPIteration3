@@ -13,7 +13,6 @@ import java.util.*;
 public class HostileAI extends AIState{
     private BidiMap<Point3D, Entity> entityMap;
     private List<Entity> targetList;
-    private Entity player;
     private PathingAlgorithm pathCalculator;
     private PatrolPath patrolPath;
     private Point3D origin;
@@ -34,54 +33,48 @@ public class HostileAI extends AIState{
     public void nextMove() {
         Point3D position = getEntityPoint(super.getEntity(), entityMap);
         Point3D goal = getTarget(position);
+        Entity target = entityMap.getValueFromKey(goal);
+        System.out.println("The target's point is:\t" + goal);
 
-        if (isOutsideChaseRadius(position)){
+        /*if (!isReturningToOrigin() && isOutsideChaseRadius(position)){
             setReturnToOrigin();
+            System.out.println("Outside chase radius!");
         }
+        else if (isAtOrigin(position)){
+            resetMoveToOrigin();
+            //System.out.println("\n\nReturn reset\n");
+        }*/
 
-        if (isOutsideSightRange(position,goal)){
+        if (isOutsideSightRange(target,position,goal) && hasPatrolSet()){
             moveAlongPatrol();
         }
-        else if (isMovingToOrigin()){
+        /*else if (isMovingToOrigin() && !isAtOrigin(position)){
             moveToGoal(position,origin);
-        }
+            System.out.println("Moving to origin!");
+        }*/
         else {
             moveToGoal(position, goal);
         }
     }
 
+    private boolean hasPatrolSet() {
+        return patrolPath != null;
+    }
+
+    private boolean isReturningToOrigin() {
+        return moveToOrigin;
+    }
+
+    private boolean isAtOrigin(Point3D currentPosition) {
+        return currentPosition.distance(origin) == 0;
+    }
+
+    private void resetMoveToOrigin(){
+        moveToOrigin = false;
+    }
+
     private Point3D getTarget(Point3D position){
-        Point3D playerPoint = getEntityPoint(player,entityMap);
-        Point3D targetPoint = getNearestTarget(position);
-
-        if (isSamePoint(playerPoint,targetPoint)){
-            return playerPoint;
-        }
-        else if (isEquidistant(position,playerPoint,targetPoint)){
-            return playerPoint; //Player takes highest priority
-        }
-        else{
-            return getClosestPoint(origin,playerPoint,targetPoint);
-        }
-    }
-
-    private boolean isSamePoint(Point3D point1, Point3D point2){
-        return point1.equals(point2);
-    }
-
-    private Point3D getClosestPoint(Point3D origin, Point3D playerPoint, Point3D targetPoint) {
-        double playerDistance = origin.distance(playerPoint);
-        double targetDistance = origin.distance(targetPoint);
-        if (playerDistance > targetDistance) {
-            return targetPoint;
-        }
-        else{
-            return playerPoint;
-        }
-    }
-
-    private boolean isEquidistant(Point3D origin, Point3D point1, Point3D point2){
-        return (origin.distance(point1) == origin.distance(point2));
+        return getNearestTarget(position);
     }
 
     private boolean isOutsideChaseRadius(Point3D position){
@@ -96,8 +89,8 @@ public class HostileAI extends AIState{
         return moveToOrigin;
     }
 
-    private boolean isOutsideSightRange(Point3D position, Point3D goal){
-        return position.distance(goal) >= player.getNoise() && !moveToOrigin;
+    private boolean isOutsideSightRange(Entity target, Point3D position, Point3D goal){
+        return position.distance(goal) >= target.getNoise() && !moveToOrigin;
     }
 
     private void moveAlongPatrol() {
@@ -110,8 +103,10 @@ public class HostileAI extends AIState{
     }
 
     private void moveToGoal(Point3D start, Point3D goal){
-        ArrayList<Point3D> path = pathCalculator.getPath(start, goal, player);
-        Point3D firstStep = path.get(0);
+        ArrayList<Point3D> path = pathCalculator.getPath(start, goal, super.getEntity());
+        Point3D firstStep = path.get(path.size()-1);
+        System.out.println("My Point:\t"+start);
+        //System.out.println("Is this my first step?: Let's see:\tCurrent Point:\t"+start+"\tFirst step:\t"+firstStep);
         super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
@@ -133,12 +128,10 @@ public class HostileAI extends AIState{
         double minDistance = Double.MAX_VALUE;
         double distance;
         for (Point3D point : targetPoints) {
-            if (!entityMap.getValueFromKey(point).equals(player)) { //TODO: Possible LoD violation?
-                distance = origin.distance(point);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    minLocation = point;
-                }
+            distance = origin.distance(point);
+            if (distance < minDistance) {
+                minDistance = distance;
+                minLocation = point;
             }
         }
         return minLocation;

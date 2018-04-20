@@ -3,10 +3,13 @@ package Model.Level;
 import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
 import Model.AI.AIController;
+import Model.AI.HostileAI;
+import Model.AI.PatrolPath;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
+import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import View.LevelView.EntityView;
 import View.LevelView.RiverView;
@@ -42,7 +45,9 @@ public class GameModel implements Visitable {
 
             currentLevel = new Level(new ArrayList<>());
             player = new Entity();
-            currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
+            player.setMoveable(true);
+            player.setNoise(5);
+            currentLevel.addEntityTo(new Point3D(0, -4, 4), player);
 
 
 
@@ -60,7 +65,26 @@ public class GameModel implements Visitable {
 
             currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
 
-            currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+            //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+
+            Entity enemy =  new Entity();
+            enemy.setMoveable(true);
+            enemy.setNoise(5);
+            enemy.setSightRadius(new SightRadius(2));
+            ArrayList<Vec3d> path = new ArrayList<>();
+            path.add(new Vec3d(0,1,-1));
+            path.add(new Vec3d(0,-1,1));
+            currentLevel.addEntityTo(new Point3D(0, 2, -2),enemy);
+            List<Entity> list = new ArrayList<>();
+            list.add(player);
+            HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),list);
+            //hostileAI.setPatrolPath(new PatrolPath(path));
+            AIController controller = new AIController();
+            controller.setActiveState(hostileAI);
+            List<AIController> AIList = new ArrayList<>();
+            AIList.add(controller);
+            aiMap.put(currentLevel,AIList);
+
 
     }
 
@@ -170,11 +194,18 @@ public class GameModel implements Visitable {
     }
 
     public void advance() {
-
+        processAIMoves();
         currentLevel.processMoves();
         currentLevel.processInteractions();
 
         processTeleportQueue();
+    }
+
+    private void processAIMoves(){
+        List<AIController> aiControllers = aiMap.get(currentLevel);
+        for (AIController AI: aiControllers) {
+            AI.processMove();
+        }
     }
 
     public boolean playerIsDead() {
