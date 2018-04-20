@@ -139,7 +139,7 @@ public class GameModel implements Visitable {
             }
 
             if(player != null) {
-                visitor.visitEntity(player);
+                visitor.visitPlayerEntity(player);
             }
         }
 

@@ -26,6 +26,7 @@ import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
+import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
@@ -48,6 +49,10 @@ public class GameLoader {
     private Level currentLevel;
     private GameModel gameModel;
     private List<Level> world;
+    private Entity entity;
+    private HashMap<String, Entity> entityRef = new HashMap<>();
+    private HashMap<String, Item> itemRef = new HashMap<>();
+    private HashMap<String, Level> levelRef = new HashMap<>();
 
     public GameLoader() {
         world = new ArrayList<>();
@@ -143,7 +148,7 @@ public class GameLoader {
                     orientation = Orientation.toOrientation(mountNode.getAttributes().getNamedItem("orientation").getTextContent());
                     processTerrainList(element, terrains);
 
-                    mountsToAdd.add(new Mount(orientation, speed, terrains, null));
+                    mountsToAdd.add(new Mount(orientation, speed, terrains, new ArrayList<>()));
                 }
             }
         }
@@ -278,6 +283,7 @@ public class GameLoader {
         int currentExperience;
         int levelAmount;
         int experienceToNextLevel;
+        String reference = "";
 
         NodeList entityValues = element.getElementsByTagName("VALUE");
         for(int i = 0; i < entityValues.getLength(); i++) {
@@ -286,59 +292,68 @@ public class GameLoader {
             for(int j = 0; j < entityNodes.getLength(); j++) {
                 Node entityNode = entityNodes.item(j);
                 if(entityNode.getNodeType() == Node.ELEMENT_NODE) {
-                    noise = Integer.parseInt(entityNode.getAttributes().getNamedItem("noiseLevel").getTextContent());
-                    noiseLevel = new NoiseLevel(noise);
+                    reference = entityNode.getAttributes().getNamedItem("reference").getTextContent();
 
-                    goldAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("goldAmount").getTextContent());
-                    maxGold = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxGold").getTextContent());
-                    gold = new Gold(goldAmount, maxGold);
+                    if(entityRef.containsKey(reference)) {
+                        entitiesToAdd.add(entityRef.get(reference));
+                    }
 
-                    speedAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("speed").getTextContent());
-                    speed = new Speed(speedAmount);
+                    else {
+                        noise = Integer.parseInt(entityNode.getAttributes().getNamedItem("noiseLevel").getTextContent());
+                        noiseLevel = new NoiseLevel(noise);
 
-                    manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
-                    maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
-                    mana = new Mana(manaPoints, maxMana);
+                        goldAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("goldAmount").getTextContent());
+                        maxGold = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxGold").getTextContent());
+                        gold = new Gold(goldAmount, maxGold);
 
-                    attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
-                    attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());
-                    attack = new Attack(attackPoints, attackModifier);
+                        speedAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("speed").getTextContent());
+                        speed = new Speed(speedAmount);
 
-                    defensePoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("defensePoints").getTextContent());
-                    defenseModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("defenseModifier").getTextContent());
-                    defense = new Defense(defensePoints, defenseModifier);
+                        manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
+                        maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
+                        mana = new Mana(manaPoints, maxMana);
 
-                    sight = Integer.parseInt(entityNode.getAttributes().getNamedItem("sightRadius").getTextContent());
-                    sightRadius = new SightRadius(sight);
+                        attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
+                        attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());
+                        attack = new Attack(attackPoints, attackModifier);
 
-                    orientation = Orientation.toOrientation(entityNode.getAttributes().getNamedItem("orientation").getTextContent());
+                        defensePoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("defensePoints").getTextContent());
+                        defenseModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("defenseModifier").getTextContent());
+                        defense = new Defense(defensePoints, defenseModifier);
 
-                    currentHealth = Integer.parseInt(entityNode.getAttributes().getNamedItem("currentHealth").getTextContent());
-                    maxHealth = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxHealth").getTextContent());
-                    health = new Health(currentHealth, maxHealth);
+                        sight = Integer.parseInt(entityNode.getAttributes().getNamedItem("sightRadius").getTextContent());
+                        sightRadius = new SightRadius(sight);
 
-                    currentExperience = Integer.parseInt(entityNode.getAttributes().getNamedItem("experience").getTextContent());
-                    levelAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("level").getTextContent());
-                    experienceToNextLevel = Integer.parseInt(entityNode.getAttributes().getNamedItem("experienceToNextLevel").getTextContent());
-                    xpLevel = new XPLevel(levelAmount, currentExperience, experienceToNextLevel);
+                        orientation = Orientation.toOrientation(entityNode.getAttributes().getNamedItem("orientation").getTextContent());
 
-                    moveable = Boolean.parseBoolean(entityNode.getAttributes().getNamedItem("moveable").getTextContent());
+                        currentHealth = Integer.parseInt(entityNode.getAttributes().getNamedItem("currentHealth").getTextContent());
+                        maxHealth = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxHealth").getTextContent());
+                        health = new Health(currentHealth, maxHealth);
 
-                    velocity = toVector(entityNode.getAttributes().getNamedItem("velocity").getTextContent());
+                        currentExperience = Integer.parseInt(entityNode.getAttributes().getNamedItem("experience").getTextContent());
+                        levelAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("level").getTextContent());
+                        experienceToNextLevel = Integer.parseInt(entityNode.getAttributes().getNamedItem("experienceToNextLevel").getTextContent());
+                        xpLevel = new XPLevel(levelAmount, currentExperience, experienceToNextLevel);
 
-                    processTerrainList(element, compatableTerrain);
-                    processWeaponSkillsList(element, weaponSkills, skillLevelsMap);
-                    processNonWeaponSkillsList(element, nonWeaponSkills, skillLevelsMap);
-                    mount = processEntityMount(element);
-                    equipment = processEquipment(element);
-                    hotBar = processHotBar(element);
-                    inventory = processInventory(element);
+                        moveable = Boolean.parseBoolean(entityNode.getAttributes().getNamedItem("moveable").getTextContent());
 
-                    entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
-                            noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
-                            inventory, orientation, compatableTerrain, moveable, mount);
+                        velocity = toVector(entityNode.getAttributes().getNamedItem("velocity").getTextContent());
 
-                    entitiesToAdd.add(entity);
+                        processTerrainList(element, compatableTerrain);
+                        processWeaponSkillsList(element, weaponSkills, skillLevelsMap);
+                        processNonWeaponSkillsList(element, nonWeaponSkills, skillLevelsMap);
+                        mount = processEntityMount(element);
+                        equipment = processEquipment(element);
+                        hotBar = processHotBar(element);
+                        inventory = processInventory(element);
+
+                        entity = new Entity(new ArrayList<>(), hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
+                                noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
+                                inventory, orientation, compatableTerrain, moveable, mount);
+
+                        entitiesToAdd.add(entity);
+                        entityRef.put(reference, entity);
+                    }
                 }
             }
         }
@@ -404,6 +419,7 @@ public class GameLoader {
         Command command;
         String name;
         int index = -1;
+        String reference;
 
         NodeList itemVals = element.getElementsByTagName("ItemHotBar");
         for(int i = 0; i < itemVals.getLength(); i++) {
@@ -423,24 +439,57 @@ public class GameLoader {
                         else {
                             command = processCommand(itemNode.getChildNodes());
                             name = itemNode.getAttributes().getNamedItem("name").getTextContent();
+                            reference = itemNode.getAttributes().getNamedItem("reference").getTextContent();
 
                             if(command != null && !name.isEmpty() && index != -1) {
                                 switch (itemNode.getNodeName().toLowerCase()) {
                                     case "armoritem":
-                                        int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
-                                        itemHotBar.addItem(new ArmorItem(name, command, defense), index);
+                                        if(itemRef.containsKey(reference)) {
+                                            itemHotBar.addItem((ArmorItem)itemRef.get(reference), index);
+                                        }
+
+                                        else {
+                                            int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
+                                            ArmorItem armorItem = new ArmorItem(name, command, defense);
+                                            itemHotBar.addItem(armorItem, index);
+                                            itemRef.put(armorItem.toString(), armorItem);
+                                        }
                                         break;
 
                                     case "consumableitem":
-                                        itemHotBar.addItem(new ConsumableItem(name, command), index);
+                                        if(itemRef.containsKey(reference)) {
+                                            itemHotBar.addItem((ConsumableItem)itemRef.get(reference), index);
+                                        }
+
+                                        else {
+                                            ConsumableItem consumableItem = new ConsumableItem(name, command);
+                                            itemHotBar.addItem(consumableItem, index);
+                                            itemRef.put(consumableItem.toString(), consumableItem);
+                                        }
                                         break;
 
                                     case "ringitem":
-                                        itemHotBar.addItem(new RingItem(name, (ToggleableCommand) command), index);
+                                        if(itemRef.containsKey(reference)) {
+                                            itemHotBar.addItem((RingItem)itemRef.get(reference), index);
+                                        }
+
+                                        else {
+                                            RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
+                                            itemHotBar.addItem(ringItem, index);
+                                            itemRef.put(ringItem.toString(), ringItem);
+                                        }
                                         break;
 
                                     case "weaponitem": //TODO: this needs to be changed
-                                        itemHotBar.addItem(new WeaponItem(name, (SettableCommand) command), index);
+                                        if(itemRef.containsKey(reference)) {
+                                            itemHotBar.addItem((WeaponItem)itemRef.get(reference), index);
+                                        }
+
+                                        else {
+                                            WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command);
+                                            itemHotBar.addItem(weaponItem, index);
+                                            itemRef.put(weaponItem.toString(), weaponItem);
+                                        }
                                         break;
                                 }
                             }
@@ -459,6 +508,7 @@ public class GameLoader {
         ArmorItem armorItem = null;
         String name;
         Command command;
+        String reference;
 
         NodeList equipValues = element.getElementsByTagName("Equipment");
         for(int i = 0; i < equipValues.getLength(); i++) {
@@ -470,18 +520,41 @@ public class GameLoader {
                 if(equipNode.getNodeType() == Node.ELEMENT_NODE) {
                     command = processCommand(equipNode.getChildNodes());
                     name = equipNode.getAttributes().getNamedItem("name").getTextContent();
+                    reference = equipNode.getAttributes().getNamedItem("reference").getTextContent();
+
                     switch (equipNode.getNodeName().toLowerCase()) {
                         case "armoritem":
-                            int defense = Integer.parseInt(equipNode.getAttributes().getNamedItem("defense").getTextContent());
-                            armorItem = new ArmorItem(name, command, defense);
+                            if(itemRef.containsKey(reference)) {
+                                armorItem = (ArmorItem)itemRef.get(reference);
+                            }
+
+                            else {
+                                int defense = Integer.parseInt(equipNode.getAttributes().getNamedItem("defense").getTextContent());
+                                armorItem = new ArmorItem(name, command, defense);
+                                itemRef.put(armorItem.toString(), armorItem);
+                            }
                             break;
 
                         case "ringitem":
-                            ringItem = new RingItem(name, (ToggleableCommand) command);
+                            if(itemRef.containsKey(reference)) {
+                                ringItem = (RingItem)itemRef.get(reference);
+                            }
+
+                            else {
+                                ringItem = new RingItem(name, (ToggleableCommand) command);
+                                itemRef.put(ringItem.toString(), ringItem);
+                            }
                             break;
 
                         case "weaponitem": //TODO: this needs to be changed
-                            weaponItem = new WeaponItem(name, (SettableCommand) command);
+                            if(itemRef.containsKey(reference)) {
+                                weaponItem = (WeaponItem)itemRef.get(reference);
+                            }
+
+                            else {
+                                weaponItem = new WeaponItem(name, (SettableCommand) command);
+                                itemRef.put(weaponItem.toString(), weaponItem);
+                            }
                             break;
                     }
                 }
@@ -503,7 +576,7 @@ public class GameLoader {
                 speed = new Speed(Integer.parseInt(mountNode.getAttributes().getNamedItem("speed").getTextContent()));
                 orientation = Orientation.toOrientation(mountNode.getAttributes().getNamedItem("orientation").getTextContent());
                 processTerrainList((Element)mountNode, terrains);
-                return new Mount(orientation, speed, terrains, null);
+                return new Mount(orientation, speed, terrains, new ArrayList<>());
             }
         }
 
@@ -589,6 +662,7 @@ public class GameLoader {
         List<Item> itemsToAdd = new ArrayList<>();
         Command command;
         String name;
+        String reference;
 
         NodeList itemValues = element.getElementsByTagName("VALUE");
         for (int i = 0; i < itemValues.getLength(); i++) {
@@ -597,35 +671,54 @@ public class GameLoader {
             for(int j = 0; j < itemNodes.getLength(); j++) {
                 Node itemNode = itemNodes.item(j);
                 if(itemNode.getNodeType() == Node.ELEMENT_NODE) {
-                    command = processCommand(itemNode.getChildNodes());
+                    reference = itemNode.getAttributes().getNamedItem("reference").getTextContent();
 
-                    if(command != null) {
-                        name = itemNode.getAttributes().getNamedItem("name").getTextContent();
-                        switch (itemNode.getNodeName().toLowerCase()) {
-                            case "oneshotitem":
-                                itemsToAdd.add(new OneShotItem(name, command));
-                                break;
+                    if(itemRef.containsKey(reference)) {
+                        itemsToAdd.add(itemRef.get(reference));
+                    }
 
-                            case "interactiveitem":
-                                itemsToAdd.add(new InteractiveItem(name, command));
-                                break;
+                    else {
+                        command = processCommand(itemNode.getChildNodes());
+                        if (command != null) {
+                            name = itemNode.getAttributes().getNamedItem("name").getTextContent();
+                            switch (itemNode.getNodeName().toLowerCase()) {
+                                case "oneshotitem":
+                                    OneShotItem oneShotItem = new OneShotItem(name, command);
+                                    itemsToAdd.add(oneShotItem);
+                                    itemRef.put(oneShotItem.toString(),oneShotItem);
+                                    break;
 
-                            case "armoritem":
-                                int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
-                                itemsToAdd.add(new ArmorItem(name, command, defense));
-                                break;
+                                case "interactiveitem":
+                                    InteractiveItem interactiveItem = new InteractiveItem(name, command);
+                                    itemsToAdd.add(interactiveItem);
+                                    itemRef.put(interactiveItem.toString(), interactiveItem);
+                                    break;
 
-                            case "consumableitem":
-                                itemsToAdd.add(new ConsumableItem(name, command));
-                                break;
+                                case "armoritem":
+                                    int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
+                                    ArmorItem armorItem = new ArmorItem(name, command, defense);
+                                    itemsToAdd.add(armorItem);
+                                    itemRef.put(armorItem.toString(), armorItem);
+                                    break;
 
-                            case "ringitem":
-                                itemsToAdd.add(new RingItem(name, (ToggleableCommand) command));
-                                break;
+                                case "consumableitem":
+                                    ConsumableItem consumableItem = new ConsumableItem(name, command);
+                                    itemsToAdd.add(consumableItem);
+                                    itemRef.put(consumableItem.toString(), consumableItem);
+                                    break;
 
-                            case "weaponitem": //TODO: this needs to be changed
-                                itemsToAdd.add(new WeaponItem(name, (SettableCommand) command));
-                                break;
+                                case "ringitem":
+                                    RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
+                                    itemsToAdd.add(ringItem);
+                                    itemRef.put(ringItem.toString(), ringItem);
+                                    break;
+
+                                case "weaponitem": //TODO: this needs to be changed
+                                    WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command);
+                                    itemsToAdd.add(weaponItem);
+                                    itemRef.put(weaponItem.toString(), weaponItem);
+                                    break;
+                            }
                         }
                     }
                 }
@@ -837,8 +930,129 @@ public class GameLoader {
     private void loadGameModel(Document document) {
         NodeList currentLevel = document.getElementsByTagName("CURRENTLEVEL");
         NodeList levelList = document.getElementsByTagName("LEVELLIST");
+        NodeList player = document.getElementsByTagName("PLAYER");
         this.currentLevel = loadLevel(currentLevel);
         this.world = loadWorld(levelList);
+        this.entity = loadPlayer(player);
+    }
+
+    private Entity loadPlayer(NodeList player) {
+
+        for(int i = 0; i < player.getLength(); i++) {
+            NodeList playerNodes = player.item(i).getChildNodes();
+
+            for(int j = 0; j < playerNodes.getLength(); j++) {
+                Node playerNode = playerNodes.item(j);
+
+                if(playerNode.getNodeType() == Node.ELEMENT_NODE) {
+                    return processPlayerEntity((Element) playerNode);
+                }
+            }
+        }
+
+        return new Entity();
+    }
+
+    private Entity processPlayerEntity(Element entityNode) {
+        Entity entity = null;
+        ItemHotBar hotBar = null;
+        List<Skill> weaponSkills = new ArrayList<>();
+        List<Skill> nonWeaponSkills = new ArrayList<>();
+        HashMap<Skill, SkillLevel> skillLevelsMap = new HashMap<>();
+        Vec3d velocity = null;
+        NoiseLevel noiseLevel;
+        SightRadius sightRadius;
+        XPLevel xpLevel;
+        Health health;
+        Mana mana;
+        Speed speed;
+        Gold gold;
+        Attack attack;
+        Defense defense;
+        Equipment equipment = null;
+        Inventory inventory = null;
+        Orientation orientation;
+        List<Terrain> compatableTerrain = new ArrayList<>();
+        Mount mount;
+        boolean moveable;
+        int noise;
+        int goldAmount;
+        int maxGold;
+        int attackPoints;
+        int attackModifier;
+        int defensePoints;
+        int defenseModifier;
+        int speedAmount;
+        int manaPoints;
+        int maxMana;
+        int sight;
+        int currentHealth;
+        int maxHealth;
+        int currentExperience;
+        int levelAmount;
+        int experienceToNextLevel;
+        String reference = entityNode.getAttributes().getNamedItem("reference").getTextContent();
+
+        if(entityRef.containsKey(reference)) {
+            return entityRef.get(reference);
+        }
+
+        else {
+            noise = Integer.parseInt(entityNode.getAttributes().getNamedItem("noiseLevel").getTextContent());
+            noiseLevel = new NoiseLevel(noise);
+
+            goldAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("goldAmount").getTextContent());
+            maxGold = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxGold").getTextContent());
+            gold = new Gold(goldAmount, maxGold);
+
+            speedAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("speed").getTextContent());
+            speed = new Speed(speedAmount);
+
+            manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
+            maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
+            mana = new Mana(manaPoints, maxMana);
+
+            attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
+            attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());
+            attack = new Attack(attackPoints, attackModifier);
+
+            defensePoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("defensePoints").getTextContent());
+            defenseModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("defenseModifier").getTextContent());
+            defense = new Defense(defensePoints, defenseModifier);
+
+            sight = Integer.parseInt(entityNode.getAttributes().getNamedItem("sightRadius").getTextContent());
+            sightRadius = new SightRadius(sight);
+
+            orientation = Orientation.toOrientation(entityNode.getAttributes().getNamedItem("orientation").getTextContent());
+
+            currentHealth = Integer.parseInt(entityNode.getAttributes().getNamedItem("currentHealth").getTextContent());
+            maxHealth = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxHealth").getTextContent());
+            health = new Health(currentHealth, maxHealth);
+
+            currentExperience = Integer.parseInt(entityNode.getAttributes().getNamedItem("experience").getTextContent());
+            levelAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("level").getTextContent());
+            experienceToNextLevel = Integer.parseInt(entityNode.getAttributes().getNamedItem("experienceToNextLevel").getTextContent());
+            xpLevel = new XPLevel(levelAmount, currentExperience, experienceToNextLevel);
+
+            moveable = Boolean.parseBoolean(entityNode.getAttributes().getNamedItem("moveable").getTextContent());
+
+            velocity = toVector(entityNode.getAttributes().getNamedItem("velocity").getTextContent());
+
+            processTerrainList(entityNode, compatableTerrain);
+            processWeaponSkillsList(entityNode, weaponSkills, skillLevelsMap);
+            processNonWeaponSkillsList(entityNode, nonWeaponSkills, skillLevelsMap);
+            mount = processEntityMount(entityNode);
+            equipment = processEquipment(entityNode);
+            hotBar = processHotBar(entityNode);
+            inventory = processInventory(entityNode);
+
+            entity = new Entity(new ArrayList<>(), hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
+                    noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
+                    inventory, orientation, compatableTerrain, moveable, mount);
+
+            entityRef.put(reference, entity);
+            return entity;
+        }
     }
 
     private ArrayList<Level> loadWorld(NodeList nodeList) {
