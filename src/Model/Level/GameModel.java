@@ -47,7 +47,7 @@ public class GameModel implements Visitable {
             player = new Entity();
             player.setMoveable(true);
             player.setNoise(5);
-            currentLevel.addEntityTo(new Point3D(0, -4, 4), player);
+            currentLevel.addEntityTo(new Point3D(4, 0, -4), player);
 
 
 
@@ -70,15 +70,23 @@ public class GameModel implements Visitable {
             Entity enemy =  new Entity();
             enemy.setMoveable(true);
             enemy.setNoise(5);
-            enemy.setSightRadius(new SightRadius(2));
+            enemy.setSightRadius(new SightRadius(5));
             ArrayList<Vec3d> path = new ArrayList<>();
-            path.add(new Vec3d(0,1,-1));
+            path.add(new Vec3d(1,0,-1));
+            path.add(new Vec3d(1,0,-1));
+            path.add(new Vec3d(-1,1,0));
+            path.add(new Vec3d(-1,1,0));
             path.add(new Vec3d(0,-1,1));
-            currentLevel.addEntityTo(new Point3D(0, 2, -2),enemy);
+            path.add(new Vec3d(0,-1,1));
+            path.add(new Vec3d(-1,0,1));
+            path.add(new Vec3d(-1,0,1));
+            path.add(new Vec3d(1,-1,0));
+            path.add(new Vec3d(1,-1,0));
+            currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
             List<Entity> list = new ArrayList<>();
             list.add(player);
             HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),list);
-            //hostileAI.setPatrolPath(new PatrolPath(path));
+            hostileAI.setPatrolPath(new PatrolPath(path));
             AIController controller = new AIController();
             controller.setActiveState(hostileAI);
             List<AIController> AIList = new ArrayList<>();

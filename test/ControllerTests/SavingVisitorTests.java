@@ -1,4 +1,4 @@
-package ControllerTests;
+/*package ControllerTests;
 
 import Controller.GameLoader;
 import Controller.Visitor.SavingVisitor;
@@ -41,7 +41,7 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class SavingVisitorTests extends ApplicationTest {
+/*public class SavingVisitorTests extends ApplicationTest {
 
     private SavingVisitor savingVisitor;
     private GameLoader gameLoader;
@@ -225,4 +225,4 @@ public class SavingVisitorTests extends ApplicationTest {
     public void start(Stage stage) throws Exception {
         super.start(stage);
     }
-}
+}*/

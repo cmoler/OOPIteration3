@@ -17,7 +17,7 @@ public class HostileAI extends AIState{
     private PatrolPath patrolPath;
     private Point3D origin;
     private double chaseRadius;
-    private Boolean moveToOrigin;
+    private Boolean originalState;
 
     public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, List<Entity> targetList) {
         super(ent);
@@ -25,72 +25,84 @@ public class HostileAI extends AIState{
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         origin = getEntityPoint(super.getEntity(), entityMap);
         chaseRadius = getEntity().getSight();
-        moveToOrigin = false;
         this.targetList = targetList;
+        originalState = true;
     }
 
     @Override
     public void nextMove() {
         Point3D position = getEntityPoint(super.getEntity(), entityMap);
         Point3D goal = getTarget(position);
-        Entity target = entityMap.getValueFromKey(goal);
+        System.out.println("My point is:\t\t\t" + position);
         System.out.println("The target's point is:\t" + goal);
 
-        /*if (!isReturningToOrigin() && isOutsideChaseRadius(position)){
-            setReturnToOrigin();
-            System.out.println("Outside chase radius!");
+        if(isReachable(position,goal,super.getEntity())){
+            System.out.println("Reachable");
+            moveToGoal(position, goal);
+            if (isInOriginalState()) {
+                setOriginalState();
+            }
         }
-        else if (isAtOrigin(position)){
-            resetMoveToOrigin();
-            //System.out.println("\n\nReturn reset\n");
-        }*/
+        else{
+            if (!isInOriginalState()){
+                System.out.println("Not in original state!");
+                getToOriginalState(position);
+            }
+            else {
+                performDefaultAction();
+            }
+        }
+    }
 
-        if (isOutsideSightRange(target,position,goal) && hasPatrolSet()){
+    private void performDefaultAction() {
+        if (hasPatrolSet()){
             moveAlongPatrol();
         }
-        /*else if (isMovingToOrigin() && !isAtOrigin(position)){
-            moveToGoal(position,origin);
-            System.out.println("Moving to origin!");
-        }*/
-        else {
-            moveToGoal(position, goal);
+        else{
+            return;
         }
+    }
+
+    private void setOriginalState() {
+        originalState = false;
+    }
+
+    private void getToOriginalState(Point3D position) {
+        if (isAtOrigin(position)){
+            resetOriginalState();
+        }
+        else{
+            moveToOrigin(position);
+        }
+    }
+
+    private void resetOriginalState() {
+        originalState = true;
+    }
+
+    private boolean isInOriginalState() {
+        return originalState;
+    }
+
+    private void moveToOrigin(Point3D position) {
+        moveToGoal(position,origin);
     }
 
     private boolean hasPatrolSet() {
         return patrolPath != null;
     }
 
-    private boolean isReturningToOrigin() {
-        return moveToOrigin;
-    }
-
     private boolean isAtOrigin(Point3D currentPosition) {
         return currentPosition.distance(origin) == 0;
-    }
-
-    private void resetMoveToOrigin(){
-        moveToOrigin = false;
     }
 
     private Point3D getTarget(Point3D position){
         return getNearestTarget(position);
     }
 
-    private boolean isOutsideChaseRadius(Point3D position){
-        return position.distance(origin) > chaseRadius;
-    }
-
-    private void setReturnToOrigin(){
-        moveToOrigin = true;
-    }
-
-    private boolean isMovingToOrigin(){
-        return moveToOrigin;
-    }
-
-    private boolean isOutsideSightRange(Entity target, Point3D position, Point3D goal){
-        return position.distance(goal) >= target.getNoise() && !moveToOrigin;
+    private boolean isReachable(Point3D position, Point3D goal, Entity ent){
+        ArrayList<Point3D> reachable = pathCalculator.getReachablePoints(position, (int) chaseRadius, ent);
+        return reachable.contains(goal);
     }
 
     private void moveAlongPatrol() {
@@ -103,10 +115,7 @@ public class HostileAI extends AIState{
     }
 
     private void moveToGoal(Point3D start, Point3D goal){
-        ArrayList<Point3D> path = pathCalculator.getPath(start, goal, super.getEntity());
-        Point3D firstStep = path.get(path.size()-1);
-        System.out.println("My Point:\t"+start);
-        //System.out.println("Is this my first step?: Let's see:\tCurrent Point:\t"+start+"\tFirst step:\t"+firstStep);
+        Point3D firstStep = pathCalculator.getAStarPoint(start, goal, super.getEntity());
         super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
