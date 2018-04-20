@@ -11,10 +11,7 @@ import Model.Item.TakeableItem.TakeableItem;
 import View.LevelView.*;
 import javafx.geometry.Point3D;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Level {
 
@@ -186,13 +183,20 @@ public class Level {
         return observers;
     }
 
-    public void addObserver(LevelViewElement newObserver) {
-        if(newObserver == null) { return; }
-        observers.add(newObserver);
+    public void addObservers(LevelViewElement... newObserver) {
+        if(Arrays.asList(newObserver).isEmpty()) {
+            return;
+        } else {
+            observers.addAll(Arrays.asList(newObserver));
+        }
     }
 
     public Entity getEntityAtPoint(Point3D point) {
         return entityLocations.getValueFromKey(point);
+    }
+
+    public boolean hasEntityAtPoint(Point3D point3D) {
+        return getEntityAtPoint(point3D) != null;
     }
 
     public Point3D getItemPoint(Item item) {
@@ -303,7 +307,7 @@ public class Level {
          //   Decal decal = decalLocations.get(point); TODO: needed?
 
             DecalView observer = new DecalView(point);
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
@@ -312,7 +316,7 @@ public class Level {
          //   InfluenceEffect effect = influenceEffectLocations.get(point); TODO: needed?
 
             InfluenceEffectView observer = new InfluenceEffectView(point);
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
@@ -321,7 +325,7 @@ public class Level {
             Mount mount = mountLocations.get(point);
 
             MountView observer = new MountView(mount, point);
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
@@ -330,7 +334,7 @@ public class Level {
             River river = riverLocations.get(point);
 
             RiverView observer = new RiverView(river, point);
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
@@ -339,14 +343,14 @@ public class Level {
             Trap trap = trapLocations.get(point);
 
             TrapView observer = new TrapView(trap, point);
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
     private void registerAreaEffectObservers() {
         for(Point3D point : areaEffectLocations.keySet()) {
             AreaEffectView observer = new AreaEffectView(point);
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
@@ -356,21 +360,21 @@ public class Level {
 
             EntityView observer = new EntityView(entity, point);
 
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
     private void registerObstacleObservers() {
         for(Point3D point : obstacleLocations.keySet()) {
             ObstacleView observer = new ObstacleView(point);
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
     private void registerItemObservers() {
         for(Point3D point : itemLocations.keySet()) {
             ItemView observer = new ItemView(point);
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
@@ -379,11 +383,42 @@ public class Level {
             Terrain terrain = terrainLocations.get(point);
 
             TerrainView observer = new TerrainView(terrain, point);
-            addObserver(observer);
+            addObservers(observer);
         }
     }
 
     public void clearObservers() {
         observers.clear();
+    }
+
+    public void registerEntityObserver(Entity entity) {
+        Point3D point = getEntityPoint(entity);
+
+        List<LevelViewElement> observers = getObservers();
+
+        addEntityObservers(observers);
+    }
+
+    private void addEntityObservers(List<LevelViewElement> observers) {
+        addObservers(observers.toArray(new LevelViewElement[observers.size()]));
+    }
+
+    public void deregisterEntityObserver(Entity entity) {
+        // find match in entity and level observers lists
+        // add match to list of observers to remove
+        // remove from level observers and entity observers
+        List<LevelViewElement> entityObservers = entity.getObservers();
+
+        List<LevelViewElement> observersToRemove = new ArrayList<>();
+
+        for(LevelViewElement entityObserver : entityObservers) {
+            if(observers.contains(entityObserver)) {
+                observersToRemove.add(entityObserver);
+
+                entity.removeObserver(entityObserver);
+            }
+        }
+
+        observers.removeAll(observersToRemove);
     }
 }

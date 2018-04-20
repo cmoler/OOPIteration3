@@ -8,9 +8,6 @@ import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.InfluenceEffect.RadialInfluenceEffect;
-import View.LevelView.EntityView;
-import View.LevelView.RiverView;
-import View.LevelView.TerrainView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import java.io.IOException;
@@ -33,11 +30,13 @@ public class GameModel implements Visitable {
     private Map<Level, List<AIController>> aiMap;
 
     private Queue<TeleportTuple> teleportQueue;
+    private Queue<TeleportTuple> failedTeleportQueue;
 
     public GameModel() {
             levels = new ArrayList<>();
             aiMap = new HashMap<>();
             teleportQueue = new LinkedList<>();
+            failedTeleportQueue = new LinkedList<>();
 
             currentLevel = new Level();
 
@@ -151,19 +150,27 @@ public class GameModel implements Visitable {
         }
 
         teleportQueue.clear();
+
+        teleportQueue.addAll(failedTeleportQueue);
     }
 
     private void changeLevels(Entity entity, Level destinationLevel, Point3D destinationPoint) {
 
-        destinationLevel.addEntityTo(destinationPoint, entity);
+        if(!destinationLevel.hasEntityAtPoint(destinationPoint)) {
+            destinationLevel.addEntityTo(destinationPoint, entity);
+            destinationLevel.registerEntityObserver(entity);
 
-        System.out.println("hi"+destinationPoint.toString());
+            currentLevel.removeEntityFrom(entity);
+            currentLevel.deregisterEntityObserver(entity);
 
-        if(entity.equals(player)) {
-            currentLevel = destinationLevel;
-            currentLevelMessenger.setLevel(currentLevel);
-            // TODO: notify pets when player teleports, so we can teleport them as well
-        }   // TODO: make sure observers are updated to account for new entities being added/removed to/from levels
+            if (entity.equals(player)) {
+                currentLevel = destinationLevel;
+                currentLevelMessenger.setLevel(currentLevel);
+                // TODO: notify pets when player teleports, so we can teleport them as well
+            }
+        } else {
+            failedTeleportQueue.add(new TeleportTuple(entity, destinationLevel, destinationPoint));
+        }
     }
 
     public void advance() {
@@ -205,10 +212,6 @@ public class GameModel implements Visitable {
 
     public void setGameModelMessenger(GameModelMessenger gameModelMessenger) {
         this.gameModelMessenger = gameModelMessenger;
-    }
-
-    public void registerCurrentLevelObservers() {
-        currentLevel.registerObservers();
     }
 
     public void registerAllLevelObservers() {
