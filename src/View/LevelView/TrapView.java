@@ -12,7 +12,7 @@ public class TrapView extends LevelViewElement{
     private Trap trap;
 
     public TrapView(Trap trap, Point3D location) {
-        super(location);
+        super(location, 2);
 
         this.trap = trap;
 
@@ -27,8 +27,5 @@ public class TrapView extends LevelViewElement{
 
     }
 
-    @Override
-    public int getRenderPriority() {
-        return 1;
-    }
+
 }

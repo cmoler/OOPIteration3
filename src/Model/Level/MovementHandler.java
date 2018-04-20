@@ -6,9 +6,7 @@ import Model.Utility.BidiMap;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MovementHandler {
     private Map<Point3D,Terrain> terrainLocations;
@@ -36,14 +34,14 @@ public class MovementHandler {
     }
 
     private void moveEntities() {
-        for (Entity entity : entityLocations.getValueList()) { //For each entry in the map
+        for (Entity entity: entityLocations.getValueList()){//For each entry in the map
             Point3D entityPoint = entityLocations.getKeyFromValue(entity);
             if (entity.isMoving()){
                 Point3D contestedPoint = calculateMove(entityPoint, entity.getVelocity());
                 if (!obstacleLocations.containsKey(contestedPoint) && entity.canMoveOnTerrain(terrainLocations.get(contestedPoint))){
                     if (entityLocations.hasKey(contestedPoint)){
                         // TODO: Figure out this use case.
-                        System.out.println("Hello Entity! I, another Entity, is interacting with you!");
+                        System.out.println("Hello Entity! I, another Entity, am interacting with you!");
                     } else {
                         //Update entity movement
                         entityLocations.removeByKey(entityPoint);

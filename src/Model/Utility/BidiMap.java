@@ -1,14 +1,15 @@
 package Model.Utility;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
-public class BidiMap<K, V> {
-    private HashMap<K, V> keyToElementMap = new HashMap<K,V>();
-    private HashMap<V, K> elementToKeyMap = new HashMap<V,K>();
+public class BidiMap<K, V> /*implements ConcurrentMap<K,V*/ {
+    private ConcurrentMap<K, V> keyToElementMap = new ConcurrentHashMap<>();
+    private ConcurrentMap<V, K> elementToKeyMap = new ConcurrentHashMap<>();
 
     public void place(K key,V value) {
         keyToElementMap.put(key, value);
@@ -63,6 +64,6 @@ public class BidiMap<K, V> {
     }
 
     public boolean isEmpty() {
-        return keyToElementMap.isEmpty() && elementToKeyMap.isEmpty();
+        return keyToElementMap.size() == 0;
     }
 }

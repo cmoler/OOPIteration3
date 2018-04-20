@@ -8,7 +8,7 @@ public class DecalView extends LevelViewElement { // TODO: implement
     // private Decal decal; TODO: needed?
 
     public DecalView(/*Decal decal,*/ Point3D location) {
-        super(location);
+        super(location, 2);
         //  this.decal = decal; TODO: needed?
 
 
@@ -24,8 +24,5 @@ public class DecalView extends LevelViewElement { // TODO: implement
 
     }
 
-    @Override
-    public int getRenderPriority() {
-        return 0; // TODO: assign priority
-    }
+
 }

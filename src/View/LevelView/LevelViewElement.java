@@ -13,15 +13,17 @@ public abstract class LevelViewElement {
     private Point3D location;
     private Orientation orientation;
     private int size;
+    private int renderPriority;
     private Image sprite;
     private HexMathHelper hexMathHelper;
     protected boolean isWaitingToRender;
 
-    LevelViewElement(Point3D location) {
+    LevelViewElement(Point3D location, int renderPriority) {
         this.location = location;
         orientation = Orientation.NORTH;
         hexMathHelper = new HexMathHelper();
         size = 75;
+        this.renderPriority = renderPriority;
         isWaitingToRender = true;
     }
 
@@ -41,12 +43,18 @@ public abstract class LevelViewElement {
         isWaitingToRender = false;
     }
 
-    private void rotate(GraphicsContext gc, double angle, double px, double py) {
+    protected void rotate(GraphicsContext gc, double angle, double px, double py) {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
-    public abstract int getRenderPriority();
+    public int getRenderPriority() {
+        return renderPriority;
+    }
+
+    public void setRenderPriority(int renderPriority) {
+        this.renderPriority = renderPriority;
+    }
 
     protected void setSprite(Image sprite) {
         this.sprite = sprite;
@@ -60,5 +68,17 @@ public abstract class LevelViewElement {
     public void setPosition(Point3D position) {
         location = position;
         isWaitingToRender = true;
+    }
+
+    public Point3D getLocation() {
+        return location;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
     }
 }

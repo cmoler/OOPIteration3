@@ -21,4 +21,8 @@ public class AIController {
     public Entity getEntity(){
         return activeState.getEntity();
     }
+
+    public void processMove(){
+        activeState.nextMove();
+    }
 }
