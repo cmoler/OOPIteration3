@@ -1,4 +1,31 @@
 package View.LevelView;
 
-public class AreaEffectView {
+import Model.AreaEffect.AreaEffect;
+import javafx.geometry.Point3D;
+
+public class AreaEffectView extends LevelViewElement { // TODO: implement
+
+   // private AreaEffect effect; TODO: needed?
+
+    public AreaEffectView(/*AreaEffect effect,*/ Point3D location) {
+        super(location);
+    //    this.effect = effect; TODO: needed?
+
+
+     //   String workingDir = System.getProperty("user.dir");
+
+       // File file = new File(workingDir + "/src/View/Assets/warrior.png");
+
+     //   setSprite(new Image(file.toURI().toString()));
+    }
+
+    @Override
+    public void notifyViewElement() {
+
+    }
+
+    @Override
+    public int getRenderPriority() {
+        return 0; // TODO: assign priority
+    }
 }

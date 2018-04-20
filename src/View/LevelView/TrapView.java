@@ -8,9 +8,13 @@ import javafx.scene.image.Image;
 import java.io.File;
 
 public class TrapView extends LevelViewElement{
+
     private Trap trap;
+
     public TrapView(Trap trap, Point3D location) {
         super(location);
+
+        this.trap = trap;
 
         String workingDir = System.getProperty("user.dir");
 

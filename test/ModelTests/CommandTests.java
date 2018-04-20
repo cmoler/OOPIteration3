@@ -34,9 +34,7 @@ public class CommandTests {
 
     @Test
     public void testTrapDisarm() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
         LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         InfluenceEffect linear1 = new LinearInfluenceEffect(new RemoveHealthCommand(10), 0,1, Orientation.SOUTHWEST);
@@ -51,12 +49,12 @@ public class CommandTests {
 
         level.addEntityTo(center, entity);
 
-        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.NORTH), new Trap(observers, new RemoveHealthCommand(20), 0));
-        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST), new Trap(observers, new RemoveHealthCommand(20), 0));
-        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST), new Trap(observers, new RemoveHealthCommand(20), 0));
-        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.SOUTH), new Trap(observers, new RemoveHealthCommand(20), 0));
-        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST), new Trap(observers, new RemoveHealthCommand(20), 0));
-        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST), new Trap(observers, new RemoveHealthCommand(20), 0));
+        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.NORTH), new Trap(new RemoveHealthCommand(20), 0));
+        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST), new Trap(new RemoveHealthCommand(20), 0));
+        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST), new Trap(new RemoveHealthCommand(20), 0));
+        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.SOUTH), new Trap(new RemoveHealthCommand(20), 0));
+        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST), new Trap(new RemoveHealthCommand(20), 0));
+        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST), new Trap(new RemoveHealthCommand(20), 0));
 
         Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
         Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
@@ -129,9 +127,7 @@ public class CommandTests {
 
     @Test
     public void testTrapDisarmFailure() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
         LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         InfluenceEffect linear1 = new LinearInfluenceEffect(new RemoveHealthCommand(10), 0,1, Orientation.SOUTHWEST);
@@ -146,7 +142,7 @@ public class CommandTests {
 
         level.addEntityTo(center, entity);
 
-        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.NORTH), new Trap(observers, new RemoveHealthCommand(50), 100));
+        level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.NORTH), new Trap(new RemoveHealthCommand(50), 100));
 
         Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
         Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
@@ -164,9 +160,7 @@ public class CommandTests {
 
     @Test
     public void testPickPocket() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
         LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
@@ -215,11 +209,9 @@ public class CommandTests {
 
     @Test
     public void testTeleportCommand() {
-        List<LevelViewElement> observers = new ArrayList<>();
+        Level level1 = new Level();
 
-        Level level1 = new Level(observers);
-
-        Level level2 = new Level(observers);
+        Level level2 = new Level();
 
         Entity entity = new Entity();
 
@@ -255,9 +247,7 @@ public class CommandTests {
 
     @Test
     public void testDropItemAllPointsFree() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
 
         Entity entity = new Entity();
 
@@ -344,9 +334,7 @@ public class CommandTests {
 
     @Test
     public void testDropItemNoPointsFree() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
 
         Entity entity = new Entity();
 
@@ -436,9 +424,7 @@ public class CommandTests {
 
     @Test
     public void testSneakCommand() {
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Level level = new Level(observers);
+        Level level = new Level();
         LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
 
         SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
