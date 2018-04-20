@@ -34,10 +34,10 @@ public class InGameMenuBar {
                 gameLoop.setMenuState(new LevelUpMenu(menuModel, player, gameLoop), new LevelUpView(menuModel));
                 break;
             case 3:
-                gameLoop.setMenuState(new ExitGameMenu(menuModel, player, gameLoop), new ExitGameView(menuModel));
+                gameLoop.setMenuState(new SaveGameMenu(menuModel, player, gameLoop), new SaveGameView(menuModel));
                 break;
             case 4:
-                gameLoop.setMenuState(new SaveGameMenu(menuModel, player, gameLoop), new SaveGameView(menuModel));
+                gameLoop.setMenuState(new ExitGameMenu(menuModel, player, gameLoop), new ExitGameView(menuModel));
                 break;
         }
     }
