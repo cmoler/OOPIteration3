@@ -17,7 +17,11 @@ public class BidiMap<K, V> /*implements ConcurrentMap<K,V*/ {
     }
 
     public void removeByValue(V value){
-        keyToElementMap.remove(elementToKeyMap.remove(value));
+        if(elementToKeyMap.containsKey(value)) {
+            keyToElementMap.remove(elementToKeyMap.get(value));
+
+            elementToKeyMap.remove(value);
+        }
     }
 
     public void removeByKey(K key){

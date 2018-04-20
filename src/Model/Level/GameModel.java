@@ -223,10 +223,13 @@ public class GameModel implements Visitable {
     }
 
     private void processAIMoves(){
-        List<AIController> aiControllers = aiMap.get(currentLevel);
 
-        for (AIController AI: aiControllers) {
-            AI.processMove();
+        if(aiMap.containsKey(currentLevel)) {
+            List<AIController> aiControllers = aiMap.get(currentLevel);
+
+            for (AIController AI : aiControllers) {
+                AI.processMove();
+            }
         }
     }
 
