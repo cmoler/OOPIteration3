@@ -16,11 +16,13 @@ public class LevelView {
 
     private Level currentLevel;
     private HexMathHelper hexMathHelper;
+    private HUDStatsView hudStatsView;
 
     public LevelView() {
 
 
         hexMathHelper = new HexMathHelper();
+
     }
 
     public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
@@ -41,6 +43,8 @@ public class LevelView {
                 }
             }
         }
+
+       // hudStatsView.render(gc);
     }
 
     public void setCurrentLevel(Level currentLevel) {
