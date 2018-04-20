@@ -208,6 +208,7 @@ public class GameModel implements Visitable {
         processAIMoves();
         currentLevel.processMoves();
         currentLevel.processInteractions();
+        currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
 
         processTeleportQueue();
     }

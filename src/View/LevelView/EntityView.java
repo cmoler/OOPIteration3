@@ -15,7 +15,7 @@ public class EntityView extends LevelViewElement{
     private Entity entity;
 
     public EntityView(Entity entity, Point3D location) {
-        super(location);
+        super(location, 1);
         this.entity = entity;
         entity.addObserver(this);
         setOrientation(entity.getOrientation());
@@ -32,10 +32,6 @@ public class EntityView extends LevelViewElement{
         setOrientation(entity.getOrientation());
     }
 
-    @Override
-    public int getRenderPriority() {
-        return 0;
-    }
 
     public void setAsPet() {
         String workingDir = System.getProperty("user.dir");

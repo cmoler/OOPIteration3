@@ -8,7 +8,7 @@ public class AreaEffectView extends LevelViewElement { // TODO: implement
    // private AreaEffect effect; TODO: needed?
 
     public AreaEffectView(/*AreaEffect effect,*/ Point3D location) {
-        super(location);
+        super(location, 2);
     //    this.effect = effect; TODO: needed?
 
 
@@ -24,8 +24,5 @@ public class AreaEffectView extends LevelViewElement { // TODO: implement
 
     }
 
-    @Override
-    public int getRenderPriority() {
-        return 0; // TODO: assign priority
-    }
+
 }

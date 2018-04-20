@@ -27,6 +27,7 @@ public class Level {
     private Map<Point3D, Decal> decalLocations;
 
     private List<LevelViewElement> observers;
+    private List<TerrainView> terrainObservers;
 
     private MovementHandler movementHandler;
     private InteractionHandler interactionHandler;
@@ -46,6 +47,7 @@ public class Level {
         this.decalLocations = new HashMap<>();
 
         this.observers = new ArrayList<>();
+        this.terrainObservers = new ArrayList<>();
 
         this.movementHandler = new MovementHandler(terrainLocations, obstacleLocations, entityLocations,
                                                    mountLocations, influenceEffectLocations);
@@ -384,6 +386,21 @@ public class Level {
 
             TerrainView observer = new TerrainView(terrain, point);
             addObservers(observer);
+            terrainObservers.add(observer);
+
+        }
+    }
+
+    public void updateTerrainFog(Point3D playerPos, int playerViewDistance) {
+        HexMathHelper hexMathHelper = new HexMathHelper();
+        if(terrainObservers == null) { return; }
+
+        for(TerrainView o: terrainObservers) {
+            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {
+                o.setShrouded(false);
+            } else {
+                o.setShrouded(true);
+            }
         }
     }
 
