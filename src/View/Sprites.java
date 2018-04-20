@@ -13,6 +13,7 @@ public class Sprites {
 
     private Map<Terrain, Image> terrainSprites;
     private Image fogSprite;
+    private Image blackHex;
 
     public static Sprites getInstance() {
         return ourInstance;
@@ -30,6 +31,7 @@ public class Sprites {
         terrainSprites.put(Terrain.WATER, getImage(workingDir + "/src/View/Assets/water.png"));
         terrainSprites.put(Terrain.MOUNTAINS, getImage(workingDir + "/src/View/Assets/hexTilesMountain.png"));
         fogSprite = getImage(workingDir + "/src/View/Assets/fog.png");
+        blackHex = getImage(workingDir + "/src/View/Assets/blackHex.png");
     }
 
     private Image getImage(String fp) {
@@ -42,4 +44,5 @@ public class Sprites {
         return terrainSprites.get(terrain);
     }
     public Image getFogSprite() { return fogSprite; }
+    public Image getBlackHex() { return blackHex; }
 }

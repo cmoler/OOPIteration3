@@ -58,6 +58,7 @@ public class GameModel implements Visitable {
 
             RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
+            currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
             for(int i = 0; i < 8; i++) {
                 ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
                 for(int j = 0; j < points.size(); j++) {
