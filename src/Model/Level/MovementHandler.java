@@ -68,7 +68,7 @@ public class MovementHandler {
         }
     }
 
-    private void moveInfluenceEffects() {
+    private void moveInfluenceEffects() { // TODO: notify influence effect observers on position changed
         List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
         for(Point3D oldPoint : influenceEffectPoints) {
