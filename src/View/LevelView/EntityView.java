@@ -36,4 +36,12 @@ public class EntityView extends LevelViewElement{
     public int getRenderPriority() {
         return 0;
     }
+
+    public void setAsPet() {
+        String workingDir = System.getProperty("user.dir");
+
+        File file = new File(workingDir + "/src/View/Assets/pet_chicken.png");
+
+        setSprite(new Image(file.toURI().toString()));
+    }
 }

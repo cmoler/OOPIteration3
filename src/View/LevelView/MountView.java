@@ -6,8 +6,10 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 
-public class MountView extends LevelViewElement{
+public class MountView extends LevelViewElement {
+
     private Mount mount;
+
     public MountView(Mount mount, Point3D location) {
         super(location);
         this.mount = mount;
@@ -16,6 +18,8 @@ public class MountView extends LevelViewElement{
         File file = new File(workingDir + "/src/View/Assets/horse.png");
 
         setSprite(new Image(file.toURI().toString()));
+
+        mount.addObserver(this);
     }
     @Override
     public void notifyViewElement() {

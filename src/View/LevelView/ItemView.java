@@ -10,9 +10,6 @@ import javafx.scene.transform.Rotate;
 import java.io.File;
 
 public class ItemView extends LevelViewElement{
-
-
-
     public ItemView(Point3D location) {
         super(location);
         String workingDir = System.getProperty("user.dir");

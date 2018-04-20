@@ -232,7 +232,7 @@ public class GameLoader {
                         isDisarmed = Boolean.parseBoolean(trapNode.getAttributes().getNamedItem("isDisarmed").getTextContent());
                         trapStrength = Integer.parseInt(trapNode.getAttributes().getNamedItem("trapStrength").getTextContent());
 
-                        traps.add(new Trap(null, command, isVisible, isDisarmed, trapStrength));
+                        traps.add(new Trap(command, isVisible, isDisarmed, trapStrength));
                     }
                 }
             }
@@ -1067,7 +1067,7 @@ public class GameLoader {
     }
 
     private Level loadLevel(NodeList nodeList) {
-        Level level = new Level(new ArrayList<>());
+        Level level = new Level();
 
         for(int i = 0; i < nodeList.getLength(); i++) {
             Node levelNode = nodeList.item(i);
@@ -1097,7 +1097,7 @@ public class GameLoader {
 
             Node node = nodeList.item(i);
             if(node.getNodeType() == Node.ELEMENT_NODE) {
-                Level level = new Level(new ArrayList<>());
+                Level level = new Level();
                 Element element = (Element) node;
                 loadMaps(element.getChildNodes(), level);
                 levelList.add(level);

@@ -21,7 +21,7 @@ public class ShopKeepFactoryTests {
 
     @Before
     public void before(){
-        level = new Level(new ArrayList<>());
+        level = new Level();
         levelMessenger = new LevelMessenger(null, level);
         skillsFactory = new SkillsFactory(levelMessenger);
     }

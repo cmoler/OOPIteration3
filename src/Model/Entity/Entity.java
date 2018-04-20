@@ -266,8 +266,16 @@ public class Entity {
         }
     }
 
+    public List<LevelViewElement> getObservers() {
+        return observers;
+    }
+
     public void addObserver(LevelViewElement observer) {
         observers.add(observer);
+    }
+
+    public void removeObserver(LevelViewElement observer) {
+        observers.remove(observer);
     }
 
     public Boolean isMoving(){

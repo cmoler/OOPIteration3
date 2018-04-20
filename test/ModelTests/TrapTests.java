@@ -17,9 +17,7 @@ public class TrapTests {
     public void testTrapFiring() {
         Command damageCommand = new RemoveHealthCommand(15);
 
-        List<LevelViewElement> observers = new ArrayList<>();
-
-        Trap trap = new Trap(observers, damageCommand, 0);
+        Trap trap = new Trap(damageCommand, 0);
 
         Entity entity1 = new Entity();
         Entity entity2 = new Entity();
