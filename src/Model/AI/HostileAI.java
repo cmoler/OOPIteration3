@@ -33,11 +33,8 @@ public class HostileAI extends AIState{
     public void nextMove() {
         Point3D position = getEntityPoint(super.getEntity(), entityMap);
         Point3D goal = getTarget(position);
-        System.out.println("My point is:\t\t\t" + position);
-        System.out.println("The target's point is:\t" + goal);
 
         if(isReachable(position,goal,super.getEntity())){
-            System.out.println("Reachable");
             moveToGoal(position, goal);
             if (isInOriginalState()) {
                 setOriginalState();
@@ -45,7 +42,6 @@ public class HostileAI extends AIState{
         }
         else{
             if (!isInOriginalState()){
-                System.out.println("Not in original state!");
                 getToOriginalState(position);
             }
             else {
@@ -57,9 +53,6 @@ public class HostileAI extends AIState{
     private void performDefaultAction() {
         if (hasPatrolSet()){
             moveAlongPatrol();
-        }
-        else{
-            return;
         }
     }
 

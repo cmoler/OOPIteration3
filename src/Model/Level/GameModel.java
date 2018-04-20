@@ -47,6 +47,7 @@ public class GameModel implements Visitable {
 
             player.setMoveable(true);
             player.setNoise(5);
+            player.setSightRadius(new SightRadius(7));
             currentLevel.addEntityTo(new Point3D(4, 0, -4), player);
 
 
@@ -54,7 +55,7 @@ public class GameModel implements Visitable {
 
 
 
-            currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
+            currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
 
             RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
@@ -72,18 +73,18 @@ public class GameModel implements Visitable {
             Entity enemy =  new Entity();
             enemy.setMoveable(true);
             enemy.setNoise(5);
-            enemy.setSightRadius(new SightRadius(5));
+            enemy.setSightRadius(new SightRadius(2));
             ArrayList<Vec3d> path = new ArrayList<>();
             path.add(new Vec3d(1,0,-1));
             path.add(new Vec3d(1,0,-1));
-            path.add(new Vec3d(-1,1,0));
+            /*path.add(new Vec3d(-1,1,0));
             path.add(new Vec3d(-1,1,0));
             path.add(new Vec3d(0,-1,1));
-            path.add(new Vec3d(0,-1,1));
+            path.add(new Vec3d(0,-1,1));*/
             path.add(new Vec3d(-1,0,1));
             path.add(new Vec3d(-1,0,1));
-            path.add(new Vec3d(1,-1,0));
-            path.add(new Vec3d(1,-1,0));
+            /*path.add(new Vec3d(1,-1,0));
+            path.add(new Vec3d(1,-1,0));*/
             currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
             List<Entity> list = new ArrayList<>();
             list.add(player);
