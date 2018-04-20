@@ -6,7 +6,7 @@ public class Mana {
     private int maxMana;
 
     public Mana() {
-        manaPoints = 10;
+        manaPoints = 50;
         maxMana = 100;
     }
 

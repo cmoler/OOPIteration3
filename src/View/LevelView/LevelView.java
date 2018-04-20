@@ -44,10 +44,13 @@ public class LevelView {
             }
         }
 
-       // hudStatsView.render(gc);
+       hudStatsView.render(gc);
     }
 
     public void setCurrentLevel(Level currentLevel) {
         this.currentLevel = currentLevel;
+    }
+    public void setPlayerHUD(HUDStatsView hud) {
+        hudStatsView = hud;
     }
 }

@@ -42,6 +42,10 @@ public class Renderer {
         menuView.setInMenu(true);
     }
 
+    public void setPlayerHUD(HUDStatsView hud) {
+        levelView.setPlayerHUD(hud);
+    }
+
     public void closeMenu() {
         menuView.setInMenu(false);
     }
