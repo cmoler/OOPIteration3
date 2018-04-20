@@ -243,7 +243,8 @@ public class Entity {
     }
 
     public Boolean canMoveOnTerrain(Terrain T) {
-        return compatableTerrain.contains(T);
+        if(mount != null) return mount.getPassableTerrain().contains(T);
+        else return compatableTerrain.contains(T);
     }
 
     public Vec3d getVelocity() {
@@ -275,17 +276,17 @@ public class Entity {
 
     public void mountVehicle(Mount mount){
         this.mount = mount;
-        compatableTerrain.addAll(mount.getPassableTerrain());
         mount.setOrientation(getOrientation());
         speed.increaseSpeed(mount.getMovementSpeed());
         // notifyObservers(); Only if we want the sprite to change to a mounted sprite
     }
 
     public void dismountVehicle(){
-        speed.decreaseSpeed(mount.getMovementSpeed());
-        compatableTerrain.removeAll(mount.getPassableTerrain());
-        this.mount = null;
-        // notifyObservers(); Only if we want the sprite to change
+        if(mount!= null) {
+            speed.decreaseSpeed(mount.getMovementSpeed());
+            this.mount = null;
+            // notifyObservers(); Only if we want the sprite to change
+        }
     }
 
     public void equipWeapon(WeaponItem weaponItem) {

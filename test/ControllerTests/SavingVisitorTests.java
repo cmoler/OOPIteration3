@@ -27,6 +27,7 @@ import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
+import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -45,16 +46,18 @@ public class SavingVisitorTests {
     private GameLoader gameLoader;
     private Level level;
     private GameModel gameModel;
+    private Entity entity;
 
     @Before
-    public void init() throws IOException, ParserConfigurationException, SAXException {
+    public void initVars() throws IOException, ParserConfigurationException, SAXException {
+        ArmorItem helmet = new ArmorItem("helemet", new AddHealthCommand(10), 10);
         Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
-            add(new ArmorItem("helemet", new AddHealthCommand(10), 10));
+            add(helmet);
             add(new RingItem("ring", new ToggleHealthCommand(10)));
         }}, 10);
-
+        
         ItemHotBar itemHotBar = new ItemHotBar();
-        itemHotBar.addItem(new ArmorItem("helemet", new AddHealthCommand(10), 10), 0);
+        itemHotBar.addItem(helmet, 0);
 
         Equipment equipment = new Equipment(null,
                 new ArmorItem("helemet", new AddHealthCommand(10), 10),
@@ -104,9 +107,9 @@ public class SavingVisitorTests {
 
         level.addRiverTo(new Point3D(0,0,0), new River(new Vec3d(0,0,0)));
 
-        level.addMountTo(new Point3D(0,0,0), new Mount(Orientation.NORTH, new Speed(10), mountTerrain, null));
+        level.addMountTo(new Point3D(0,0,0), new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
 
-        Entity entity = new Entity(new ArrayList<>(), itemHotBar, new ArrayList<>(),
+        entity = new Entity(new ArrayList<>(), itemHotBar, new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
@@ -118,8 +121,10 @@ public class SavingVisitorTests {
         level.addEntityTo(new Point3D(0,0,0), entity);
 
         levels.add(level);
+
         levels.add(new Level());
         gameModel = new GameModel(level, null, levels, null, null);
+
         savingVisitor.visitGameModel(gameModel);
         gameLoader.loadGame("TESTSAVE.xml");
     }
@@ -213,5 +218,7 @@ public class SavingVisitorTests {
 
         ItemHotBar itemHotBar = testEntity.getItemHotBar();
         assertTrue(itemHotBar.getItem(0) instanceof ArmorItem);
+
+        assertTrue(gameLoader.getWorld().get(0).getEntityAtPoint(new Point3D(0,0,0)) == testEntity);
     }
 }

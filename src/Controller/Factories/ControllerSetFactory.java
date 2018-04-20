@@ -69,13 +69,14 @@ public class ControllerSetFactory {
         newKeySet.add(new OpenMenuKeyAction(keyBindingParser.parsePlayerKey("openMenu"), player, menuModel, gameLoop));
 
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
+        newKeySet.add(new DismountKeyAction(keyBindingParser.parsePlayerKey("dismount"), player));
 
-        newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player));
-        newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player));
-        newKeySet.add(new MoveSEKeyAction(keyBindingParser.parsePlayerKey("moveSE"), player));
-        newKeySet.add(new MoveSKeyAction(keyBindingParser.parsePlayerKey("moveS"), player));
-        newKeySet.add(new MoveSWKeyAction(keyBindingParser.parsePlayerKey("moveSW"), player));
-        newKeySet.add(new MoveNWKeyAction(keyBindingParser.parsePlayerKey("moveNW"), player));
+        newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player, gameLoop));
+        newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player, gameLoop));
+        newKeySet.add(new MoveSEKeyAction(keyBindingParser.parsePlayerKey("moveSE"), player, gameLoop));
+        newKeySet.add(new MoveSKeyAction(keyBindingParser.parsePlayerKey("moveS"), player, gameLoop));
+        newKeySet.add(new MoveSWKeyAction(keyBindingParser.parsePlayerKey("moveSW"), player, gameLoop));
+        newKeySet.add(new MoveNWKeyAction(keyBindingParser.parsePlayerKey("moveNW"), player, gameLoop));
 
         newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parsePlayerKey("scrollLeft"), player));
         newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parsePlayerKey("scrollRight"), player));
