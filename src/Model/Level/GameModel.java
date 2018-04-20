@@ -57,6 +57,8 @@ public class GameModel implements Visitable {
             currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
 
             currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+
+            levels.add(currentLevel);
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,

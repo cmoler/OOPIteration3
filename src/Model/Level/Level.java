@@ -277,23 +277,80 @@ public class Level {
     }
 
     public void registerObservers() {
-        for(Point3D point : terrainLocations.keySet()) {
-            Terrain terrain = terrainLocations.get(point);
+        registerTerrainObservers();
 
-            TerrainView observer = new TerrainView(terrain, point);
+        registerItemObservers();
+
+        registerObstacleObservers();
+
+        registerEntityObservers();
+
+        registerAreaEffectObservers();
+
+        registerTrapObservers();
+
+        registerRiverObservers();
+
+        registerMountObservers();
+
+        registerInfluenceEffectObservers();
+
+        registerDecalObservers();
+    }
+
+    private void registerDecalObservers() {
+        for(Point3D point : decalLocations.keySet()) {
+         //   Decal decal = decalLocations.get(point); TODO: needed?
+
+            DecalView observer = new DecalView(point);
             addObserver(observer);
         }
+    }
 
-        for(Point3D point : itemLocations.keySet()) {
-            ItemView observer = new ItemView(point);
+    private void registerInfluenceEffectObservers() {
+        for(Point3D point : influenceEffectLocations.keySet()) {
+         //   InfluenceEffect effect = influenceEffectLocations.get(point); TODO: needed?
+
+            InfluenceEffectView observer = new InfluenceEffectView(point);
             addObserver(observer);
         }
+    }
 
-        for(Point3D point : obstacleLocations.keySet()) {
-            ObstacleView observer = new ObstacleView(point);
+    private void registerMountObservers() {
+        for(Point3D point : mountLocations.keySet()) {
+            Mount mount = mountLocations.get(point);
+
+            MountView observer = new MountView(mount, point);
             addObserver(observer);
         }
+    }
 
+    private void registerRiverObservers() {
+        for(Point3D point : riverLocations.keySet()) {
+            River river = riverLocations.get(point);
+
+            RiverView observer = new RiverView(river, point);
+            addObserver(observer);
+        }
+    }
+
+    private void registerTrapObservers() {
+        for(Point3D point : trapLocations.keySet()) {
+            Trap trap = trapLocations.get(point);
+
+            TrapView observer = new TrapView(trap, point);
+            addObserver(observer);
+        }
+    }
+
+    private void registerAreaEffectObservers() {
+        for(Point3D point : areaEffectLocations.keySet()) {
+            AreaEffectView observer = new AreaEffectView(point);
+            addObserver(observer);
+        }
+    }
+
+    private void registerEntityObservers() {
         for(Point3D point : entityLocations.getKeyList()) {
             Entity entity = entityLocations.getValueFromKey(point);
 
@@ -301,44 +358,27 @@ public class Level {
 
             addObserver(observer);
         }
+    }
 
-        for(Point3D point : areaEffectLocations.keySet()) {
-            AreaEffectView observer = new AreaEffectView(point);
+    private void registerObstacleObservers() {
+        for(Point3D point : obstacleLocations.keySet()) {
+            ObstacleView observer = new ObstacleView(point);
             addObserver(observer);
         }
+    }
 
-        for(Point3D point : trapLocations.keySet()) {
-            Trap trap = trapLocations.get(point);
-
-            TrapView observer = new TrapView(trap, point);
+    private void registerItemObservers() {
+        for(Point3D point : itemLocations.keySet()) {
+            ItemView observer = new ItemView(point);
             addObserver(observer);
         }
+    }
 
-        for(Point3D point : riverLocations.keySet()) {
-            River river = riverLocations.get(point);
+    private void registerTerrainObservers() {
+        for(Point3D point : terrainLocations.keySet()) {
+            Terrain terrain = terrainLocations.get(point);
 
-            RiverView observer = new RiverView(river, point);
-            addObserver(observer);
-        }
-
-        for(Point3D point : mountLocations.keySet()) {
-            Mount mount = mountLocations.get(point);
-
-            MountView observer = new MountView(mount, point);
-            addObserver(observer);
-        }
-
-        for(Point3D point : influenceEffectLocations.keySet()) {
-         //   InfluenceEffect effect = influenceEffectLocations.get(point); TODO: needed?
-
-            InfluenceEffectView observer = new InfluenceEffectView(point);
-            addObserver(observer);
-        }
-
-        for(Point3D point : decalLocations.keySet()) {
-         //   Decal decal = decalLocations.get(point); TODO: needed?
-
-            DecalView observer = new DecalView(point);
+            TerrainView observer = new TerrainView(terrain, point);
             addObserver(observer);
         }
     }
