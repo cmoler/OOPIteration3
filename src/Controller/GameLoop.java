@@ -6,16 +6,21 @@ import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 import Model.Level.GameLoopMessenger;
 import Model.Level.GameModel;
+import Model.MenuModel.*;
 import Model.Level.Level;
 import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
 import Model.MenuModel.MenuState;
 import View.LevelView.HUDStatsView;
 import View.LevelView.HotbarView;
+
+import View.MenuView.*;
+
 import View.LevelView.ObservationView;
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
+
 import View.Renderer;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
@@ -82,12 +87,19 @@ public class GameLoop {
         // TODO: implement
         if(playerEntity == null || receivingEntity == null) {
             // do nothing if either entity is null
+        }else{
+            setMenuState(new BarterMenu(menuModel, this, playerBarterStrength, playerEntity, receivingEntity), new BarterView(menuModel));
+            setInGameMenuKeySet();
         }
     }
 
     public void openDialogWindow(Entity playerEntity, Entity receivingEntity) {
         // TODO: implement
         System.out.println("I (player) am talking to you!");
+
+        boolean wantToTalk = gameModel.getAIForEntity(receivingEntity).wantToTalk();
+        setMenuState(new DialogMenu(menuModel, this, wantToTalk, playerEntity, receivingEntity), new DialogView(menuModel));
+        setInGameMenuKeySet();
     }
 
     public void createObservationWindow(Entity entity, String randomEntityFacts) {

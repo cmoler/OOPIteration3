@@ -51,7 +51,7 @@ public class LevelView {
 
 
         Iterator itr = observationViews.iterator();
-        while (itr.hasNext()) {
+        while (itr.hasNext()) {//Render observation windows
             ObservationView observationView = (ObservationView)itr.next();
             observationView.setPosition(currentLevel.getEntityPoint(observationView.getEntity()));
             observationView.locationViewedByPlayer();
@@ -61,12 +61,6 @@ public class LevelView {
                 itr.remove();
             }
         }
-        /*
-        for(ObservationView o: observationViews) {
-            o.setPosition(currentLevel.getEntityPoint(o.getEntity()));
-            o.locationViewedByPlayer();
-            o.render(gc, offset, scrollOffset);
-        }*/
 
 
         hudStatsView.render(gc);

@@ -82,6 +82,44 @@ public class GameModel implements Visitable {
         entityFactory = new SmasherFactory(skillsFactory);
 
         player = entityFactory.buildEntity();
+
+        ConsumableItem potion = new ConsumableItem("potion", new AddHealthCommand(20));
+        potion.setCurrentLevelMessenger(currentLevelMessenger);
+        potion.setPrice(2);
+        potion.onTouch(player);
+
+        ConsumableItem manapotion = new ConsumableItem("manapotion", new AddHealthCommand(20));
+        manapotion.setCurrentLevelMessenger(currentLevelMessenger);
+        manapotion.setPrice(2);
+        manapotion.onTouch(player);
+
+        ConsumableItem healthpotion = new ConsumableItem("healthpotion", new AddHealthCommand(20));
+        healthpotion.setCurrentLevelMessenger(currentLevelMessenger);
+        healthpotion.setPrice(2);
+        healthpotion.onTouch(player);
+
+        ConsumableItem beer = new ConsumableItem("beer", new AddHealthCommand(20));
+        beer.setCurrentLevelMessenger(currentLevelMessenger);
+        beer.setPrice(2);
+        beer.onTouch(player);
+
+        ConsumableItem wine = new ConsumableItem("wine", new AddHealthCommand(20));
+        wine.setCurrentLevelMessenger(currentLevelMessenger);
+        wine.setPrice(2);
+        wine.onTouch(player);
+
+        ConsumableItem gin = new ConsumableItem("gin", new AddHealthCommand(20));
+        gin.setCurrentLevelMessenger(currentLevelMessenger);
+        gin.setPrice(2);
+        gin.onTouch(player);
+
+        player.addItemToInventory(potion);
+        player.addItemToInventory(manapotion);
+        player.addItemToInventory(healthpotion);
+        player.addItemToInventory(beer);
+        player.addItemToInventory(wine);
+        player.addItemToInventory(gin);
+
         entityFactory.buildEntitySprite(player);
 
         player.setMoveable(true);
