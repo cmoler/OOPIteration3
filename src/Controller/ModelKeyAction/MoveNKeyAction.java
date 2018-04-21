@@ -4,7 +4,6 @@ import Controller.GameLoop;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import com.sun.javafx.geom.Vec3d;
-import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 
 public class MoveNKeyAction extends ModelKeyAction {
@@ -23,7 +22,7 @@ public class MoveNKeyAction extends ModelKeyAction {
         if(incomingKey == keyCode){
             entity.setOrientation(Orientation.NORTH);
             entity.addVelocity(new Vec3d(0, 1, -1));
-            gameLoop.setScrollOffSet(Point2D.ZERO);
+            gameLoop.resetScrollOffSet();
         }
     }
 

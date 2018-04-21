@@ -6,12 +6,10 @@ import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Controller.Visitor.SavingVisitor;
 
 import Model.Entity.EntityAttributes.*;
-import Model.Item.TakeableItem.ArmorItem;
-import Model.Item.TakeableItem.RingItem;
-import Model.Item.TakeableItem.TakeableItem;
-import Model.Item.TakeableItem.WeaponItem;
+import Model.Item.TakeableItem.*;
 import Model.Level.Terrain;
 import Model.Level.Mount;
+import View.LevelView.EntityView.EntityView;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -23,7 +21,7 @@ import java.util.Random;
 
 public class Entity {
 
-    private List<LevelViewElement> observers;
+    private LevelViewElement observer;
 
     private HashMap<Skill, SkillLevel> skillLevelsMap;
     private int currentlySelectedSkill;
@@ -54,13 +52,13 @@ public class Entity {
 
     private Mount mount;
 
-    public Entity(List<LevelViewElement> observers, ItemHotBar hotBar, List<Skill> weaponSkills,
+    public Entity(LevelViewElement observer, ItemHotBar hotBar, List<Skill> weaponSkills,
                   List<Skill> nonWeaponSkills, HashMap<Skill, SkillLevel> skillLevelsMap,
                   Vec3d velocity, NoiseLevel noiseLevel, SightRadius sightRadius, XPLevel xpLevel, Health health,
                   Mana mana, Speed speed, Gold gold, Attack attack, Defense defense, Equipment equipment,
                   Inventory inventory, Orientation orientation, List<Terrain> compatableTerrain, boolean moveable,
                   Mount mount) {
-        this.observers = observers;
+        this.observer = observer;
         this.hotBar = hotBar;
         this.weaponSkills = weaponSkills;
         this.nonWeaponSkills = nonWeaponSkills;
@@ -88,12 +86,13 @@ public class Entity {
         currentlySelectedSkill = 0;
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
-        observers = new ArrayList<>();
+        observer = null;
 
         orientation = Orientation.NORTH;
         velocity = new Vec3d(0,0,0);
 
         sightRadius = new SightRadius();
+        sightRadius.setSight(2);
         noiseLevel = new NoiseLevel();
 
         xpLevel = new XPLevel();
@@ -114,11 +113,22 @@ public class Entity {
         equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
 
 
+        hotBar.addItem(new ConsumableItem("Sword", new RemoveHealthCommand(5)), 0);
+        levelUp();
+
         compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
         moveable = true;
 
         mount = null;
+
+
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+
 
     }
 
@@ -259,23 +269,21 @@ public class Entity {
         this.velocity = velocity;
     }
 
-    public void notifyObservers(Point3D position){
-        for (LevelViewElement o : observers) {
-            o.notifyViewElement();
-            if(position != null) { o.setPosition(position); }
+    public void notifyObservers(Point3D position) {
+        if (observer != null) {
+            observer.notifyViewElement();
+            if (position != null) {
+                observer.setPosition(position);
+            }
         }
     }
 
-    public List<LevelViewElement> getObservers() {
-        return observers;
+    public LevelViewElement getObserver() {
+        return observer;
     }
 
-    public void addObserver(LevelViewElement observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(LevelViewElement observer) {
-        observers.remove(observer);
+    public void setObserver(LevelViewElement observer) {
+        this.observer = observer;
     }
 
     public Boolean isMoving(){

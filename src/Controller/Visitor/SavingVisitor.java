@@ -94,16 +94,16 @@ public class SavingVisitor implements Visitor {
     }
 
     public void visitLevel(Level level) {
-        Map<Point3D, Terrain> terrainLocations = level.getTerrainLocations();
-        Map<Point3D, Item> itemLocations = level.getItemLocations();
-        Map<Point3D, Obstacle> obstacleLocations = level.getObstacleLocations();
-        BidiMap<Point3D, Entity> entityLocations = level.getEntityLocations();
-        Map<Point3D, AreaEffect> areaEffectLocations = level.getAreaEffectLocations();
-        Map<Point3D, Trap> trapLocations = level.getTrapLocations();
-        Map<Point3D, River> riverLocations = level.getRiverLocations();
-        Map<Point3D, Mount> mountLocations = level.getMountLocations();
-        Map<Point3D, InfluenceEffect> influenceEffectLocations = level.getInfluenceEffectLocations();
-        Map<Point3D, Decal> decalLocations = level.getDecalLocations(); // TODO: save decal locations and decal type
+        Map<Point3D, Terrain> terrainLocations = level.getTerrainMap();
+        Map<Point3D, Item> itemLocations = level.getItemMap();
+        Map<Point3D, Obstacle> obstacleLocations = level.getObstacleMap();
+        BidiMap<Point3D, Entity> entityLocations = level.getEntityMap();
+        Map<Point3D, AreaEffect> areaEffectLocations = level.getAreaEffectMap();
+        Map<Point3D, Trap> trapLocations = level.getTrapMap();
+        Map<Point3D, River> riverLocations = level.getRiverMap();
+        Map<Point3D, Mount> mountLocations = level.getMountMap();
+        Map<Point3D, InfluenceEffect> influenceEffectLocations = level.getInfluenceEffectMap();
+        Map<Point3D, Decal> decalLocations = level.getDecalMap(); // TODO: save decal locations and decal type
 
         levelString.append(" reference=" + "\"" + level.toString() + "\">");
         try {

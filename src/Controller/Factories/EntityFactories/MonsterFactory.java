@@ -1,9 +1,13 @@
 package Controller.Factories.EntityFactories;
 
-import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
+
+import View.LevelView.EntityView.EntityView;
+import View.LevelView.EntityView.MonsterView;
+import javafx.geometry.Point3D;
+
 
 public class MonsterFactory extends EntityFactory {
 
@@ -27,4 +31,10 @@ public class MonsterFactory extends EntityFactory {
 
         return monster;
     }
+
+
+    public void buildEntitySprite(Entity entity) {
+        MonsterView monsterView = new MonsterView(entity, new Point3D(0,0,0));
+    }
+
 }

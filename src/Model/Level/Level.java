@@ -12,7 +12,6 @@ import View.LevelView.*;
 import javafx.geometry.Point3D;
 
 import java.util.*;
-
 public class Level {
 
     private Map<Point3D, Terrain> terrainLocations;
@@ -27,12 +26,10 @@ public class Level {
     private Map<Point3D, Decal> decalLocations;
 
     private List<LevelViewElement> observers;
-    private List<TerrainView> terrainObservers;
+    private List<TerrainView> tilesSeenByPlayer;
 
     private MovementHandler movementHandler;
     private InteractionHandler interactionHandler;
-
-    private List<Point3D> tilesSeenByPlayer;
 
     public Level() {
         this.terrainLocations = new HashMap<>();
@@ -47,55 +44,55 @@ public class Level {
         this.decalLocations = new HashMap<>();
 
         this.observers = new ArrayList<>();
-        this.terrainObservers = new ArrayList<>();
+        this.tilesSeenByPlayer = new ArrayList<>();
 
         this.movementHandler = new MovementHandler(terrainLocations, obstacleLocations, entityLocations,
-                                                   mountLocations, influenceEffectLocations);
+                mountLocations, influenceEffectLocations);
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
-                                                         trapLocations, mountLocations, influenceEffectLocations,
-                                                         riverLocations, observers);
+                trapLocations, mountLocations, influenceEffectLocations,
+                riverLocations, observers);
 
         this.tilesSeenByPlayer = new ArrayList<>();
     }
 
-    public Map<Point3D, Terrain> getTerrainLocations() {
+    public Map<Point3D, Terrain> getTerrainMap() {
         return terrainLocations;
     }
 
-    public Map<Point3D, Item> getItemLocations() {
+    public Map<Point3D, Item> getItemMap() {
         return itemLocations;
     }
 
-    public Map<Point3D, Obstacle> getObstacleLocations() {
+    public Map<Point3D, Obstacle> getObstacleMap() {
         return obstacleLocations;
     }
 
-    public BidiMap<Point3D, Entity> getEntityLocations() {
+    public BidiMap<Point3D, Entity> getEntityMap() {
         return entityLocations;
     }
 
-    public Map<Point3D, AreaEffect> getAreaEffectLocations() {
+    public Map<Point3D, AreaEffect> getAreaEffectMap() {
         return areaEffectLocations;
     }
 
-    public Map<Point3D, Trap> getTrapLocations() {
+    public Map<Point3D, Trap> getTrapMap() {
         return trapLocations;
     }
 
-    public Map<Point3D, River> getRiverLocations() {
+    public Map<Point3D, River> getRiverMap() {
         return riverLocations;
     }
 
-    public Map<Point3D, Mount> getMountLocations() {
+    public Map<Point3D, Mount> getMountMap() {
         return mountLocations;
     }
 
-    public Map<Point3D, InfluenceEffect> getInfluenceEffectLocations() {
+    public Map<Point3D, InfluenceEffect> getInfluenceEffectMap() {
         return influenceEffectLocations;
     }
 
-    public Map<Point3D, Decal> getDecalLocations() {
+    public Map<Point3D, Decal> getDecalMap() {
         return decalLocations;
     }
 
@@ -181,18 +178,6 @@ public class Level {
         return entityLocations.getKeyFromValue(entity);
     }
 
-    public List<LevelViewElement> getObservers() {
-        return observers;
-    }
-
-    public void addObservers(LevelViewElement... newObserver) {
-        if(Arrays.asList(newObserver).isEmpty()) {
-            return;
-        } else {
-            observers.addAll(Arrays.asList(newObserver));
-        }
-    }
-
     public Entity getEntityAtPoint(Point3D point) {
         return entityLocations.getValueFromKey(point);
     }
@@ -213,20 +198,24 @@ public class Level {
         return null;
     }
 
+    public void setObservers(List<LevelViewElement> observers) {
+        this.observers = observers;
+    }
+
+    public void setTilesSeenByPlayer(List<TerrainView> tilesSeenByPlayer) {
+        this.tilesSeenByPlayer = tilesSeenByPlayer;
+    }
+
     public Map<Point3D, InfluenceEffect> getInfluencesMap() {
         return influenceEffectLocations;
     }
-    
+
     public boolean hasItem(Item item) {
         return itemLocations.containsValue(item);
     }
 
     public void processMoves() {
         movementHandler.processMoves();
-    }
-
-    public Map<Point3D, Terrain> getTerrainMap() {
-        return terrainLocations;
     }
 
     public void disarmTrapFromEntity(Entity entity, int disarmStrength) {
@@ -282,163 +271,45 @@ public class Level {
         }
     }
 
-    public void registerObservers() {
-        registerTerrainObservers();
-
-        registerItemObservers();
-
-        registerObstacleObservers();
-
-        registerEntityObservers();
-
-        registerAreaEffectObservers();
-
-        registerTrapObservers();
-
-        registerRiverObservers();
-
-        registerMountObservers();
-
-        registerInfluenceEffectObservers();
-
-        registerDecalObservers();
-    }
-
-    private void registerDecalObservers() {
-        for(Point3D point : decalLocations.keySet()) {
-         //   Decal decal = decalLocations.get(point); TODO: needed?
-
-            DecalView observer = new DecalView(point);
-            addObservers(observer);
-        }
-    }
-
-    private void registerInfluenceEffectObservers() {
-        for(Point3D point : influenceEffectLocations.keySet()) {
-         //   InfluenceEffect effect = influenceEffectLocations.get(point); TODO: needed?
-
-            InfluenceEffectView observer = new InfluenceEffectView(point);
-            addObservers(observer);
-        }
-    }
-
-    private void registerMountObservers() {
-        for(Point3D point : mountLocations.keySet()) {
-            Mount mount = mountLocations.get(point);
-
-            MountView observer = new MountView(mount, point);
-            addObservers(observer);
-        }
-    }
-
-    private void registerRiverObservers() {
-        for(Point3D point : riverLocations.keySet()) {
-            River river = riverLocations.get(point);
-
-            RiverView observer = new RiverView(river, point);
-            addObservers(observer);
-        }
-    }
-
-    private void registerTrapObservers() {
-        for(Point3D point : trapLocations.keySet()) {
-            Trap trap = trapLocations.get(point);
-
-            TrapView observer = new TrapView(trap, point);
-            addObservers(observer);
-        }
-    }
-
-    private void registerAreaEffectObservers() {
-        for(Point3D point : areaEffectLocations.keySet()) {
-            AreaEffectView observer = new AreaEffectView(point);
-            addObservers(observer);
-        }
-    }
-
-    private void registerEntityObservers() {
-        for(Point3D point : entityLocations.getKeyList()) {
-            Entity entity = entityLocations.getValueFromKey(point);
-
-            EntityView observer = new EntityView(entity, point);
-            addObservers(observer);
-        }
-    }
-
-    private void registerObstacleObservers() {
-        for(Point3D point : obstacleLocations.keySet()) {
-            ObstacleView observer = new ObstacleView(point);
-            addObservers(observer);
-        }
-    }
-
-    private void registerItemObservers() {
-        for(Point3D point : itemLocations.keySet()) {
-            ItemView observer = new ItemView(point);
-            addObservers(observer);
-        }
-    }
-
-    private void registerTerrainObservers() {
-        for(Point3D point : terrainLocations.keySet()) {
-            Terrain terrain = terrainLocations.get(point);
-
-            TerrainView observer = new TerrainView(terrain, point);
-            addObservers(observer);
-            terrainObservers.add(observer);
-
-        }
-    }
-
     public void updateTerrainFog(Point3D playerPos, int playerViewDistance) {
         HexMathHelper hexMathHelper = new HexMathHelper();
-        if(terrainObservers == null) { return; }
-
-        for(TerrainView o: terrainObservers) {
+        if(tilesSeenByPlayer == null) { return; }
+        /*
+        for(TerrainView o: observers) {
             if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {
+
                 o.setShrouded(false);
             } else {
                 o.setShrouded(true);
             }
-        }
+        }*/
     }
 
-    public void clearObservers() {
-        observers.clear();
-    }
+    public void updateRenderLocations(Point3D playerPos, int playerViewDistance) {
+        HexMathHelper hexMathHelper = new HexMathHelper();
 
-    public void registerEntityObserver(Entity entity) {
-        Point3D point = getEntityPoint(entity);
-
-        List<LevelViewElement> observers = getObservers();
-
-        addEntityObservers(observers);
-    }
-
-    private void addEntityObservers(List<LevelViewElement> observers) {
-        addObservers(observers.toArray(new LevelViewElement[observers.size()]));
-    }
-
-    public void deregisterEntityObserver(Entity entity) {
-        // find match in entity and level observers lists
-        // add match to list of observers to remove
-        // remove from level observers and entity observers
-        List<LevelViewElement> entityObservers = entity.getObservers();
-
-        List<LevelViewElement> observersToRemove = new ArrayList<>();
-
-        for(LevelViewElement entityObserver : entityObservers) {
-            if(observers.contains(entityObserver)) {
-                observersToRemove.add(entityObserver);
-
-                entity.removeObserver(entityObserver);
+        for(LevelViewElement o:observers) {
+            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {//If object in view of player, update location
+                o.locationViewedByPlayer();
+            }
+            if(hexMathHelper.getDistance(playerPos, o.getRenderLocation()) <= playerViewDistance) {
+                o.rendererLocationViewedByPlayer();
             }
         }
-
-        observers.removeAll(observersToRemove);
     }
-
     public void setMovementHandlerDialogCommand(LevelMessenger levelMessenger) {
         movementHandler.setDialogCommandLevelMessenger(levelMessenger);
+    }
+
+    public void addObservers(List<LevelViewElement> observers) {
+        observers.addAll(observers);
+    }
+
+    public void removeObservers(List<LevelViewElement> observers) {
+        observers.removeAll(observers);
+    }
+
+    public List<LevelViewElement> getObservers() {
+        return observers;
     }
 }

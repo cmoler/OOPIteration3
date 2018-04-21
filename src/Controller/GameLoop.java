@@ -6,9 +6,12 @@ import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 import Model.Level.GameLoopMessenger;
 import Model.Level.GameModel;
+import Model.Level.Level;
 import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
 import Model.MenuModel.MenuState;
+import View.LevelView.HUDStatsView;
+import View.LevelView.HotbarView;
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
@@ -54,17 +57,23 @@ public class GameLoop {
 
         gameModel = new GameModel(gameLoopMessenger);
 
+        gameModel.init();
+
         renderer = new Renderer();
 
-        ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
+        ((KeyEventImplementor) controls).createMainMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
+        renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
+        renderer.setHotBarView(new HotbarView(gameModel.getPlayer()));
         renderer.closeMenu();
-        ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+        ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
 
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
 
-        gameModel.registerAllLevelObservers();
+        for (Level level : gameModel.getLevels()) {
+            renderer.loadModelSprites(level);
+        }
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
@@ -113,6 +122,7 @@ public class GameLoop {
     }
 
     public void render(GraphicsContext gc){
+        renderer.updateTerrainFog(gameModel.getPlayerPosition(), gameModel.getPlayer().getSight());
         renderer.render(gc, gameModel.getPlayerPosition(), scrollOffSet);
     }
 
@@ -148,7 +158,11 @@ public class GameLoop {
         ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
     }
 
-    public void setScrollOffSet(Point2D scrollOffSet) {
-        this.scrollOffSet = scrollOffSet;
+    public void resetScrollOffSet() {
+        this.scrollOffSet = Point2D.ZERO;
+    }
+
+    public void addScrollOffSet(Point2D mouseOffSet) {
+        this.scrollOffSet = new Point2D(scrollOffSet.getX() + mouseOffSet.getX(), scrollOffSet.getY() + mouseOffSet.getY());
     }
 }

@@ -360,7 +360,7 @@ public class GameLoader {
                         hotBar = processHotBar(element);
                         inventory = processInventory(element);
 
-                        entity = new Entity(new ArrayList<>(), hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
+                        entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
                                 noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                                 inventory, orientation, compatableTerrain, moveable, mount);
 
@@ -1151,7 +1151,7 @@ public class GameLoader {
             hotBar = processHotBar(entityNode);
             inventory = processInventory(entityNode);
 
-            entity = new Entity(new ArrayList<>(), hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
+            entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
                     noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                     inventory, orientation, compatableTerrain, moveable, mount);
 
