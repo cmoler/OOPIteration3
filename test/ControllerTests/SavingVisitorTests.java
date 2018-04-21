@@ -30,6 +30,7 @@ import javafx.geometry.Point3D;
 import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
+
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -116,15 +117,14 @@ public class SavingVisitorTests {
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
                 new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
 
+//        helmet.onTouch(entity);
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
 
         level.addEntityTo(new Point3D(0,0,0), entity);
 
         levels.add(level);
-
         levels.add(new Level());
-        gameModel = new GameModel(level, null, levels, null, null);
-
+        gameModel = new GameModel(level, null, levels, entity, null);
         savingVisitor.visitGameModel(gameModel);
         gameLoader.loadGame("TESTSAVE.xml");
     }

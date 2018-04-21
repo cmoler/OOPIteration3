@@ -56,8 +56,6 @@ public interface Visitor {
 
     void visitItem(OneShotItem item);
 
-    void visitItem(TakeableItem takeableItem);
-
     public void visitTrap(Trap trap);
 
     public void visitRiver(River river);

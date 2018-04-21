@@ -37,7 +37,7 @@ public class GameLoop {
     private Point2D scrollOffSet;
 
     public GameLoop() {
-
+        gameLoopMessenger = new GameLoopMessenger(this);
     }
 
     public void init() {
@@ -51,11 +51,9 @@ public class GameLoop {
             }
         };
 
-        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(this);
-
         menuModel = new MenuModel(this);
 
-        gameModel = new GameModel();
+        gameModel = new GameModel(gameLoopMessenger);
 
         renderer = new Renderer();
 
@@ -81,9 +79,7 @@ public class GameLoop {
 
     public void openDialogWindow(Entity playerEntity, Entity receivingEntity) {
         // TODO: implement
-        if(playerEntity == null || receivingEntity == null) {
-            // do nothing if either entity is null
-        }
+        System.out.println("I (player) am talking to you!");
     }
 
     public void createObservationWindow(String randomEntityFacts) {

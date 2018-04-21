@@ -1,10 +1,12 @@
 package Model.AI.PetAI.PetStates;
 
+import Model.AI.AIState;
 import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
 import Model.Utility.BidiMap;
+import Model.Utility.HexDistanceCalculator;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
@@ -14,52 +16,51 @@ import java.util.Map;
 
 // In CombatState, a pet will frenzy and won't stop until it kills its enemies on the map!
 
-public class CombatPetState implements PetState {
+public class CombatPetState extends AIState {
     private BidiMap<Point3D, Entity> entityMap;
     private PathingAlgorithm pathCalculator;
     private List<Entity> targetList;
 
 
-    public CombatPetState(Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player, List<Entity> TargetingList) {
+    public CombatPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player, List<Entity> TargetingList) {
+        super(pet);
         this.entityMap = entityMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         this.targetList = TargetingList;
     }
 
     @Override
-    public void nextPetMove(Entity pet) {
+    public void nextMove() {
         if (hasNoTarget()){
             return;
         }
 
-        Point3D petPoint = getPetPoint(pet);
-        Point3D nearestTarget = getNearestTarget(petPoint,pet);
+        Point3D petPoint = getPetPoint();
+        Point3D nearestTarget = getNearestTarget(petPoint);
 
-        moveToGoal(pet,petPoint,nearestTarget);
+        moveToGoal(petPoint,nearestTarget);
     }
 
     private boolean hasNoTarget() {
         return targetList.size() == 0;
     }
 
-    private void moveToGoal(Entity pet, Point3D start, Point3D goal){
-        ArrayList<Point3D> path = pathCalculator.getPath(start, goal, pet);
-        Point3D firstStep = path.get(0);
-        pet.addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
+    private void moveToGoal(Point3D start, Point3D goal){
+        Point3D firstStep = pathCalculator.getAStarPoint(start, goal, super.getEntity());
+        super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
-    private Point3D getNearestTarget(Point3D origin, Entity pet) {
+    private Point3D getNearestTarget(Point3D origin) {
         List<Point3D> targetPoints = getTargetPoints();
         Point3D minLocation = targetPoints.get(0);
         double minDistance = Double.MAX_VALUE;
-        double distance;
         for (Point3D point : targetPoints) {
-                distance = origin.distance(point);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    minLocation = point;
-                }
+            double distance = HexDistanceCalculator.getHexDistance(origin,point);
+            if (distance < minDistance) {
+                minDistance = distance;
+                minLocation = point;
             }
+        }
         return minLocation;
     }
 
@@ -71,8 +72,8 @@ public class CombatPetState implements PetState {
         return targetPoints;
     }
 
-    private Point3D getPetPoint(Entity pet) {
-        return entityMap.getKeyFromValue(pet);
+    private Point3D getPetPoint() {
+        return entityMap.getKeyFromValue(super.getEntity());
     }
 
     public void addTarget(Entity ent){

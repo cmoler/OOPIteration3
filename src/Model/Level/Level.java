@@ -361,7 +361,6 @@ public class Level {
             Entity entity = entityLocations.getValueFromKey(point);
 
             EntityView observer = new EntityView(entity, point);
-
             addObservers(observer);
         }
     }
@@ -437,5 +436,9 @@ public class Level {
         }
 
         observers.removeAll(observersToRemove);
+    }
+
+    public void setMovementHandlerDialogCommand(LevelMessenger levelMessenger) {
+        movementHandler.setDialogCommandLevelMessenger(levelMessenger);
     }
 }
