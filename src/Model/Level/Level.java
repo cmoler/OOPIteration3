@@ -361,7 +361,6 @@ public class Level {
             Entity entity = entityLocations.getValueFromKey(point);
 
             EntityView observer = new EntityView(entity, point);
-
             addObservers(observer);
         }
     }

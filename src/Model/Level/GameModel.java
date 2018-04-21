@@ -5,6 +5,7 @@ import Controller.Visitor.Visitable;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
+import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
@@ -36,68 +37,78 @@ public class GameModel implements Visitable {
     private Queue<TeleportTuple> failedTeleportQueue;
 
     public GameModel() {
-            levels = new ArrayList<>();
-            aiMap = new HashMap<>();
-            teleportQueue = new LinkedList<>();
-            failedTeleportQueue = new LinkedList<>();
+        levels = new ArrayList<>();
+        aiMap = new HashMap<>();
+        teleportQueue = new LinkedList<>();
+        failedTeleportQueue = new LinkedList<>();
 
-            currentLevel = new Level();
+        currentLevel = new Level();
 
-            player = new Entity();
+        player = new Entity();
 
-            player.setMoveable(true);
-            player.setNoise(5);
-            player.setSightRadius(new SightRadius(7));
-            currentLevel.addEntityTo(new Point3D(4, 0, -4), player);
-
-
+        player.setMoveable(true);
+        player.setNoise(5);
+        player.setSightRadius(new SightRadius(7));
+        currentLevel.addEntityTo(new Point3D(4, 0, -4), player);
 
 
 
 
-            currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
 
-            RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
-            for(int i = 0; i < 8; i++) {
-                ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
-                for(int j = 0; j < points.size(); j++) {
-                    currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
-                }
+        currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
+
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+
+        for(int i = 0; i < 8; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
+            for(int j = 0; j < points.size(); j++) {
+                currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
             }
+        }
 
-            currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
+        currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
 
-            //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+        //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
 
-            Entity enemy =  new Entity();
-            enemy.setMoveable(true);
-            enemy.setNoise(5);
-            enemy.setSightRadius(new SightRadius(2));
-            ArrayList<Vec3d> path = new ArrayList<>();
-            path.add(new Vec3d(1,0,-1));
-            path.add(new Vec3d(1,0,-1));
-            /*path.add(new Vec3d(-1,1,0));
-            path.add(new Vec3d(-1,1,0));
-            path.add(new Vec3d(0,-1,1));
-            path.add(new Vec3d(0,-1,1));*/
-            path.add(new Vec3d(-1,0,1));
-            path.add(new Vec3d(-1,0,1));
-            /*path.add(new Vec3d(1,-1,0));
-            path.add(new Vec3d(1,-1,0));*/
-            currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
-            List<Entity> list = new ArrayList<>();
-            list.add(player);
-            HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),list);
-            hostileAI.setPatrolPath(new PatrolPath(path));
-            AIController controller = new AIController();
-            controller.setActiveState(hostileAI);
-            List<AIController> AIList = new ArrayList<>();
-            AIList.add(controller);
-            aiMap.put(currentLevel,AIList);
+        Entity enemy =  new Entity();
+        enemy.setMoveable(true);
+        enemy.setNoise(5);
+        enemy.setSightRadius(new SightRadius(2));
+        ArrayList<Vec3d> path = new ArrayList<>();
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(1,-1,0));
+        path.add(new Vec3d(1,-1,0));//*/
+        currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
+        List<Entity> list = new ArrayList<>();
+        list.add(player);
+        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),list);
+        //hostileAI.setPatrolPath(new PatrolPath(path));
+        AIController controller = new AIController();
+        controller.setActiveState(hostileAI);
+        List<AIController> AIList = new ArrayList<>();
+        AIList.add(controller);
+        aiMap.put(currentLevel,AIList);
 
+        Entity pet = new Entity();
+        pet.setMoveable(true);
+        pet.setNoise(5);
+        pet.setSightRadius(new SightRadius(2));
+        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),player);
+        AIController test = new AIController();
+        test.setActiveState(PPS);
+        AIList.add(test);
+        aiMap.put(currentLevel,AIList);
 
-            levels.add(currentLevel);
+        levels.add(currentLevel);
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
