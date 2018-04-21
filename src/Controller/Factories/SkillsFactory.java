@@ -176,7 +176,7 @@ public class SkillsFactory {
     public Skill getPickpocket() {
         if(pickpocketSkill == null) {
             PickPocketCommand pickPocketCommand = new PickPocketCommand(levelMessenger);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 1, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 0, 1, Orientation.NORTH);
 
             pickpocketSkill = new Skill("Pickpocket", linearInfluenceEffect, new PickPocketCommand(levelMessenger), sendInfluenceEffectCommand, 1, 1);
         }
