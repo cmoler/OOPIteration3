@@ -26,7 +26,6 @@ public class LevelView {
     }
 
     public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
-        Canvas canvas = gc.getCanvas();
         int playerOffsetX = hexMathHelper.getXCoord(playerPos);
         int playerOffsetY = hexMathHelper.getYCoord(playerPos);
         //TODO modify offset if user is scrolling viewport

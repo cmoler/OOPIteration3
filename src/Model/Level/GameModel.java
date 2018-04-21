@@ -54,8 +54,8 @@ public class GameModel implements Visitable {
 
         player.setMoveable(true);
         player.setNoise(5);
-        player.setSightRadius(new SightRadius(3));
-        currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
+        player.setSightRadius(new SightRadius(1));
+
 
         RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
@@ -84,7 +84,7 @@ public class GameModel implements Visitable {
         Entity enemy =  new Entity();
         enemy.setMoveable(true);
         enemy.setNoise(5);
-        enemy.setSightRadius(new SightRadius(2));
+        enemy.setSightRadius(new SightRadius(1));
         ArrayList<Vec3d> path = new ArrayList<>();
         path.add(new Vec3d(1,0,-1));
         path.add(new Vec3d(1,0,-1));
@@ -242,6 +242,7 @@ public class GameModel implements Visitable {
         currentLevel.processMoves();
         currentLevel.processInteractions();
         currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
+        currentLevel.updateRenderLocations(getPlayerPosition(), player.getSight());
 
         processTeleportQueue();
     }
