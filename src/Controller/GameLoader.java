@@ -365,6 +365,7 @@ public class GameLoader {
                                 noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                                 inventory, orientation, compatableTerrain, moveable, mount);
 
+                        entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
                         entitiesToAdd.add(entity);
                         entityRef.put(reference, entity);
                     }
@@ -1157,6 +1158,7 @@ public class GameLoader {
                     noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                     inventory, orientation, compatableTerrain, moveable, mount);
             entityRef.put(reference, entity);
+            entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
             return entity;
         }
     }

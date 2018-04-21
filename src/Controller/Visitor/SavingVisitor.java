@@ -495,7 +495,10 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\n");
         this.valueNode.append("</TERRAINLIST>");
         this.valueNode.append("\n");
-        visitMount(entity.getMount());
+
+        if(entity.isMounted()) {
+            visitMount(entity.getMount());
+        }
 
         this.valueNode.append("\n");
         visitEquipment(entity.getEquipment());

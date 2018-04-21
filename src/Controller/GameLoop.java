@@ -73,8 +73,6 @@ public class GameLoop {
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
         renderer.setHotBarView(new HotbarView(gameModel.getPlayer()));
-//        renderer.closeMenu();
-//        ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
 
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
 
@@ -105,6 +103,7 @@ public class GameLoop {
     public void loadGame(int i) {
         try {
             renderer.closeMenu();
+            ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
             gameLoader.loadGame("SMASHER.xml");
             gameModel = gameLoader.getGameModel();
             runGame.startGame();

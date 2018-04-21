@@ -108,7 +108,7 @@ public class MapGenerator extends Application {
                 new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
-                new Mount(Orientation.NORTH, new Speed(10), entityTerrain, new ArrayList<>()));
+                null);
 
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
         entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
@@ -142,7 +142,7 @@ public class MapGenerator extends Application {
                 new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
-                new Mount(Orientation.NORTH, new Speed(10), entityTerrain, new ArrayList<>()));
+                null);
 
         entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
@@ -209,9 +209,14 @@ public class MapGenerator extends Application {
     }
 
     private static void createTerrains(Level level) {
-        for(int i = 0; i < 7; i++) {
-            level.addTerrainTo(new Point3D(i+1, 0, i-1), Terrain.WATER);
-            level.addTerrainTo(new Point3D(i-1, 0, i+1), Terrain.MOUNTAINS);
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+
+        level.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+        for(int i = 0; i < 8; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
+            for(int j = 0; j < points.size(); j++) {
+                level.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
         }
     }
 
