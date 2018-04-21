@@ -71,6 +71,8 @@ public class GameModel implements Visitable {
         this.player = player;
         this.aiMap = aiMap;
 
+
+
         this.currentLevel.setMovementHandlerDialogCommand(this.currentLevelMessenger);
 
         //TODO: Save this
