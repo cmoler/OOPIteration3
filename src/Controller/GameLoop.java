@@ -101,19 +101,10 @@ public class GameLoop {
     }
 
     public void loadGame(int i) {
-        try {
-            renderer.closeMenu();
-            ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
-            gameLoader.loadGame("SMASHER.xml");
-            gameModel = gameLoader.getGameModel();
-            runGame.startGame();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
+        renderer.closeMenu();
+        ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+        gameModel = gameLoader.getGameModel();
+        runGame.startGame();
     }
 
     public void saveGame(int i) {
