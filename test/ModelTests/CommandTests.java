@@ -16,13 +16,19 @@ import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
+import View.LevelView.LevelViewElement;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandTests {
 

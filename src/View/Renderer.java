@@ -1,5 +1,11 @@
 package View;
 
+
+import Model.Level.Level;
+import View.LevelView.HUDStatsView;
+import View.LevelView.HotbarView;
+import View.LevelView.LevelView;
+
 import Model.AreaEffect.AreaEffect;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
@@ -8,6 +14,7 @@ import Model.Level.*;
 import Model.Utility.BidiMap;
 import View.LevelView.*;
 import View.LevelView.EntityView.EntityView;
+
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 
@@ -25,10 +32,14 @@ public class Renderer {
 
     private MenuView menuView;
 
+    List<TerrainView> terrainObservers;
+
     public Renderer() {
         levelView = new LevelView();
 
         menuView = new MenuView();
+
+        terrainObservers = new ArrayList<>();
     }
 
     public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
@@ -49,9 +60,11 @@ public class Renderer {
         menuView.setInMenu(true);
     }
 
-    public void closeMenu() {
-        menuView.setInMenu(false);
+
+    public void setPlayerHUD(HUDStatsView hud) {
+        levelView.setPlayerHUD(hud);
     }
+
 
     public void loadModelSprites(Level level) {
 
@@ -187,6 +200,7 @@ public class Renderer {
         }
 
         return observers;
+
     }
 
     private ArrayList<LevelViewElement> registerItemObservers(Map<Point3D, Item> itemMap) {
@@ -210,8 +224,26 @@ public class Renderer {
             TerrainView observer = new TerrainView(terrain, point);
 
             observers.add(observer);
+            terrainObservers.add(observer);
         }
 
         return observers;
+    }
+
+    public void setHotBarView(HotbarView hbv) { levelView.setHotbarView(hbv);}
+
+    public void closeMenu() {
+        menuView.setInMenu(false);
+    }
+
+    public void updateTerrainFog(Point3D playerPos, int playerSightRadius) {
+        HexMathHelper hexMathHelper = new HexMathHelper();
+        for(TerrainView o: terrainObservers) {
+            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerSightRadius) {
+                o.setShrouded(false);
+            } else {
+                o.setShrouded(true);
+            }
+        }
     }
 }

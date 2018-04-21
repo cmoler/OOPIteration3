@@ -15,7 +15,7 @@
         <key>Enter</key>
     </Bind>
     <Bind type="back">
-        <key>Backspace</key>
+        <key>Esc</key>
     </Bind>
     <Bind type="closeMenu">
         <key>Esc</key>

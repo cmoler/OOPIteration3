@@ -25,10 +25,10 @@ public class InGameMenuBar {
     public void select(int selected) {
         switch (selected){
             case 0:
-                gameLoop.setMenuState(new InventoryMenu(menuModel, player, gameLoop), new InventoryView(menuModel));
+                gameLoop.setMenuState(new StatsMenu(menuModel, player, gameLoop), new StatsView(menuModel));
                 break;
             case 1:
-                gameLoop.setMenuState(new StatsMenu(menuModel, player, gameLoop), new StatsView(menuModel));
+                gameLoop.setMenuState(new InventoryMenu(menuModel, player, gameLoop), new InventoryView(menuModel));
                 break;
             case 2:
                 gameLoop.setMenuState(new LevelUpMenu(menuModel, player, gameLoop), new LevelUpView(menuModel));

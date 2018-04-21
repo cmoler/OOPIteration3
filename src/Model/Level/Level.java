@@ -12,7 +12,6 @@ import View.LevelView.*;
 import javafx.geometry.Point3D;
 
 import java.util.*;
-
 public class Level {
 
     private Map<Point3D, Terrain> terrainLocations;
@@ -48,11 +47,11 @@ public class Level {
         this.tilesSeenByPlayer = new ArrayList<>();
 
         this.movementHandler = new MovementHandler(terrainLocations, obstacleLocations, entityLocations,
-                                                   mountLocations, influenceEffectLocations);
+                mountLocations, influenceEffectLocations);
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
-                                                         trapLocations, mountLocations, influenceEffectLocations,
-                                                         riverLocations, observers);
+                trapLocations, mountLocations, influenceEffectLocations,
+                riverLocations, observers);
 
         this.tilesSeenByPlayer = new ArrayList<>();
     }
@@ -210,7 +209,7 @@ public class Level {
     public Map<Point3D, InfluenceEffect> getInfluencesMap() {
         return influenceEffectLocations;
     }
-    
+
     public boolean hasItem(Item item) {
         return itemLocations.containsValue(item);
     }
@@ -275,16 +274,29 @@ public class Level {
     public void updateTerrainFog(Point3D playerPos, int playerViewDistance) {
         HexMathHelper hexMathHelper = new HexMathHelper();
         if(tilesSeenByPlayer == null) { return; }
-
-        for(TerrainView o: tilesSeenByPlayer) {
+        /*
+        for(TerrainView o: observers) {
             if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {
+
                 o.setShrouded(false);
             } else {
                 o.setShrouded(true);
             }
-        }
+        }*/
     }
 
+    public void updateRenderLocations(Point3D playerPos, int playerViewDistance) {
+        HexMathHelper hexMathHelper = new HexMathHelper();
+
+        for(LevelViewElement o:observers) {
+            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {//If object in view of player, update location
+                o.locationViewedByPlayer();
+            }
+            if(hexMathHelper.getDistance(playerPos, o.getRenderLocation()) <= playerViewDistance) {
+                o.rendererLocationViewedByPlayer();
+            }
+        }
+    }
     public void setMovementHandlerDialogCommand(LevelMessenger levelMessenger) {
         movementHandler.setDialogCommandLevelMessenger(levelMessenger);
     }

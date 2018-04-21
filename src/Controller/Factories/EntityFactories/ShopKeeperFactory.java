@@ -3,9 +3,11 @@ package Controller.Factories.EntityFactories;
 import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
+
 import View.LevelView.EntityView.EntityView;
 import View.LevelView.EntityView.ShopKeepView;
 import javafx.geometry.Point3D;
+
 
 public class ShopKeeperFactory extends EntityFactory {
 
@@ -26,11 +28,12 @@ public class ShopKeeperFactory extends EntityFactory {
                 shopKeep.addItemToInventory(items[i]);
             }
         }
-
         return shopKeep;
     }
+
 
     public void buildEntitySprite(Entity entity) {
         ShopKeepView shopkeeperView = new ShopKeepView(entity, new Point3D(0,0,0));
     }
+
 }

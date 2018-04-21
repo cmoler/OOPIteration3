@@ -9,16 +9,26 @@ import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
+import Model.AI.PatrolPath;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+
+import Model.Item.TakeableItem.ConsumableItem;
+
+
+import View.LevelView.EntityView.EntityView;
+import View.LevelView.EntityView.PetView;
 import View.LevelView.LevelViewElement;
+
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +90,7 @@ public class GameModel implements Visitable {
 
         player.setMoveable(true);
         player.setNoise(5);
-        player.setSightRadius(new SightRadius(7));
+        player.setSightRadius(new SightRadius(2));
         currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
 
         RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
@@ -141,6 +151,7 @@ public class GameModel implements Visitable {
         levels.add(currentLevel);
     }
 
+
     public Level getCurrentLevel(){
         return currentLevel;
     }
@@ -166,7 +177,7 @@ public class GameModel implements Visitable {
 
     public void addToTeleportQueue(TeleportEntityCommand teleportEntityCommand) {
         TeleportTuple tuple = new TeleportTuple(teleportEntityCommand.getEntity(),
-                                                teleportEntityCommand.getDestinationLevel(), teleportEntityCommand.getDestinationPoint());
+                teleportEntityCommand.getDestinationLevel(), teleportEntityCommand.getDestinationPoint());
 
         teleportQueue.add(tuple);
     }
@@ -274,6 +285,7 @@ public class GameModel implements Visitable {
 
         if(hasPlayer()) {
             currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
+            currentLevel.updateRenderLocations(getPlayerPosition(), player.getSight());
         }
 
         processTeleportQueue();

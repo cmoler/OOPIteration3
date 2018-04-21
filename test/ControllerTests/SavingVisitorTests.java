@@ -53,7 +53,7 @@ public class SavingVisitorTests {
             add(helmet);
             add(new RingItem("ring", new ToggleHealthCommand(10)));
         }}, 10);
-        
+
         ItemHotBar itemHotBar = new ItemHotBar();
         itemHotBar.addItem(helmet, 0);
 

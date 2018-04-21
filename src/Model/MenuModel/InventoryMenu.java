@@ -19,8 +19,8 @@ public class InventoryMenu extends InGameMenuState {
 
     @Override
     public void correctParameters() {
-        if(selectedLeftRight < 0) selectedLeftRight = 3;
-        if(selectedLeftRight > 3)selectedLeftRight = 0;
+        if(selectedLeftRight < 0) selectedLeftRight = 2;
+        if(selectedLeftRight > 2)selectedLeftRight = 0;
         if(selectedLeftRight == 0){
             if (selectedUpDown < 0) selectedUpDown = inGameMenuBar.getMaxUp();
             if (selectedUpDown > inGameMenuBar.getMaxUp()) selectedUpDown = 0;

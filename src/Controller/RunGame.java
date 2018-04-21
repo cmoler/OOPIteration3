@@ -89,9 +89,9 @@ public class RunGame extends Application{
             double deltaX = evt.getScreenX() - mouseX;
             double deltaY = evt.getScreenY() - mouseY;
 
-            Point2D mouseOffSet = new Point2D(deltaX, deltaY);
+            Point2D mouseOffSet = new Point2D(deltaX / 10, deltaY / 10);
 
-            gameLoop.setScrollOffSet(mouseOffSet);
+            gameLoop.addScrollOffSet(mouseOffSet);
 
         });
 

@@ -16,15 +16,17 @@ public class LevelView {
 
     private Level currentLevel;
     private HexMathHelper hexMathHelper;
+    private HUDStatsView hudStatsView;
+    private HotbarView hotbarView;
 
     public LevelView() {
 
 
         hexMathHelper = new HexMathHelper();
+
     }
 
     public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
-        Canvas canvas = gc.getCanvas();
         int playerOffsetX = hexMathHelper.getXCoord(playerPos);
         int playerOffsetY = hexMathHelper.getYCoord(playerPos);
         //TODO modify offset if user is scrolling viewport
@@ -41,9 +43,18 @@ public class LevelView {
                 }
             }
         }
+        System.out.println(observers.size());
+        hudStatsView.render(gc);
+        hotbarView.render(gc);
     }
 
     public void setCurrentLevel(Level currentLevel) {
         this.currentLevel = currentLevel;
+    }
+    public void setPlayerHUD(HUDStatsView hud) {
+        hudStatsView = hud;
+    }
+    public void setHotbarView(HotbarView hbv) {
+        hotbarView = hbv;
     }
 }

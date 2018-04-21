@@ -6,10 +6,7 @@ import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Controller.Visitor.SavingVisitor;
 
 import Model.Entity.EntityAttributes.*;
-import Model.Item.TakeableItem.ArmorItem;
-import Model.Item.TakeableItem.RingItem;
-import Model.Item.TakeableItem.TakeableItem;
-import Model.Item.TakeableItem.WeaponItem;
+import Model.Item.TakeableItem.*;
 import Model.Level.Terrain;
 import Model.Level.Mount;
 import View.LevelView.EntityView.EntityView;
@@ -95,6 +92,7 @@ public class Entity {
         velocity = new Vec3d(0,0,0);
 
         sightRadius = new SightRadius();
+        sightRadius.setSight(2);
         noiseLevel = new NoiseLevel();
 
         xpLevel = new XPLevel();
@@ -114,11 +112,24 @@ public class Entity {
         speed.setSpeed(1);
         equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
 
+
+        hotBar.addItem(new ConsumableItem("Sword", new RemoveHealthCommand(5)), 0);
+        levelUp();
+
         compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
         moveable = true;
 
         mount = null;
+
+
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+
+
     }
 
     public boolean isMoveable() {
@@ -387,7 +398,7 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
-    } // TODO: add logic for mana costs, add logic for no weapon equipped
+    } // TODO: add logic for mana costs
 
     public void addItemToHotBar(TakeableItem takeableItem, int index){
         hotBar.addItem(takeableItem, index);
