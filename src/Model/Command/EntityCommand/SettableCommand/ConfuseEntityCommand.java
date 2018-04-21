@@ -47,4 +47,8 @@ public class ConfuseEntityCommand extends GameModelCommand implements SettableCo
     public void accept(SavingVisitor visitor) {
         visitor.visitConfuseEntityCommand(this);
     }
+
+    public Entity getEntity() {
+        return confusedEntity;
+    }
 }

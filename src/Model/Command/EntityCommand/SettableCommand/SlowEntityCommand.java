@@ -49,4 +49,8 @@ public class SlowEntityCommand extends GameModelCommand implements SettableComma
     public void accept(SavingVisitor visitor) {
         visitor.visitSlowEntityCommand(this);
     }
+
+    public Entity getEntity() {
+        return entity;
+    }
 }

@@ -28,6 +28,8 @@ import javafx.geometry.Point3D;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,6 +43,7 @@ public class SavingVisitor implements Visitor {
     private StringBuffer levelList = new StringBuffer("<LEVELLIST>");
     private StringBuffer gameModelString = new StringBuffer("<GAMEMODEL>\n");
     private StringBuffer entityNode = new StringBuffer("<ENTITY>");
+    private ArrayList<String> refStrings = new ArrayList<>();
 
     public SavingVisitor(String fileName) throws IOException {
         writer = new BufferedWriter(new FileWriter(fileName));
@@ -504,7 +507,7 @@ public class SavingVisitor implements Visitor {
 
         for(Map.Entry<Integer, TakeableItem> entry: itemHotBar.getItemBarMap().entrySet()) {
             this.valueNode.append("<INTEGERKEY key=" + "\"" + entry.getKey() + "\"" + "/>");
-            visitItem(entry.getValue());
+            entry.getValue().accept(this);
             this.valueNode.append("\n");
         }
 
@@ -625,7 +628,17 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitItem(WeaponItem item) {
+        StringBuffer weaponString = new StringBuffer("<" + item.getClass().getSimpleName()
+                + " price=" + "\"" + item.getPrice() + "\""
+                + " name=" + "\"" + item.getName() + "\""
+                + " attackDamage=" + "\"" + item.getAttackDamage() + "\""
+                + " attackSpeed=" + "\"" + item.getAttackSpeed()+ "\""
+                + " accuracy=" + "\"" + item.getAccuracy() + "\""
+                + " useCost=" + "\"" + item.getUseCost() + "\""
+                + " range=" + "\"" + item.getRange() + "\">");
 
+        this.valueNode.append(weaponString);
+        this.valueNode.append("</" + item.getClass().getSimpleName() + ">");
     }
 
     @Override
@@ -657,22 +670,6 @@ public class SavingVisitor implements Visitor {
     @Override
     public void visitItem(OneShotItem item) {
         processItem(item);
-    }
-
-    @Override
-    public void visitItem(TakeableItem takeableItem) {
-        //TODO: this is nasty
-        if(!(takeableItem instanceof WeaponItem) && !(takeableItem instanceof ArmorItem)) {
-            processItem(takeableItem);
-        }
-
-        else if(takeableItem instanceof WeaponItem){
-            visitItem((WeaponItem) takeableItem);
-        }
-
-        else if(takeableItem instanceof ArmorItem) {
-            visitItem((ArmorItem) takeableItem);
-        }
     }
 
     private void processItem(Item item) {
@@ -773,12 +770,21 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitDropItemCommand(DropItemCommand dropItemCommand) {
-
+        StringBuffer dropString = new StringBuffer("<" + dropItemCommand.getClass().getSimpleName() + ">");
+        this.valueNode.append(dropString);
+        dropItemCommand.getEntity().accept(this);
+        dropItemCommand.getItem().accept(this);
+        this.valueNode.append("</" + dropItemCommand.getClass().getSimpleName() + ">");
     }
 
     @Override
     public void visitTeleportEntityCommand(TeleportEntityCommand teleportEntityCommand) {
-
+        StringBuffer point = keyToString(teleportEntityCommand.getDestinationPoint());
+        StringBuffer teleportString = new StringBuffer("<" + teleportEntityCommand.getClass().getSimpleName()
+                + "levelReference=" +  "\"" + teleportEntityCommand.levelReference() + "\""
+                + "point=" +  "\"" + point +  "\"" + ">");
+        this.valueNode.append(teleportString);
+        this.valueNode.append("</" + teleportEntityCommand.getClass().getSimpleName() + ">");
     }
 
     @Override
@@ -845,22 +851,53 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitBarterCommand(BarterCommand barterCommand) {
-
+        StringBuffer barterString = new StringBuffer("<" + barterCommand.getClass().getSimpleName()
+                + " barterStrength=" + "\"" + barterCommand.getAmount() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(barterString);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + barterCommand.getClass().getSimpleName() + "/>");
     }
 
     @Override
     public void visitConfuseEntityCommand(ConfuseEntityCommand confuseEntityCommand) {
-
+        StringBuffer confuseString = new StringBuffer("<" + confuseEntityCommand.getClass().getSimpleName()
+                + " confusionDuration=" + "\"" + confuseEntityCommand.getAmount() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(confuseString);
+        confuseEntityCommand.getEntity().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + confuseEntityCommand.getClass().getSimpleName() + "/>");
     }
 
     @Override
     public void visitDisarmTrapCommand(DisarmTrapCommand disarmTrapCommand) {
-
+        StringBuffer disarmString = new StringBuffer("<" + disarmTrapCommand.getClass().getSimpleName()
+                + " disarmStrength=" + "\"" + disarmTrapCommand.getAmount() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(disarmString);
+        disarmTrapCommand.getEntity().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + disarmTrapCommand.getClass().getSimpleName() + "/>");
     }
 
     @Override
     public void visitFreezeEntityCommand(FreezeEntityCommand freezeEntityCommand) {
-
+        StringBuffer freezeString = new StringBuffer("<" + freezeEntityCommand.getClass().getSimpleName()
+                + " freezeDuration=" + "\"" + freezeEntityCommand.getAmount() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(freezeString);
+        freezeEntityCommand.getEntity().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + freezeEntityCommand.getClass().getSimpleName() + "/>");
     }
 
     @Override
@@ -870,12 +907,25 @@ public class SavingVisitor implements Visitor {
 
     @Override
     public void visitPickPocketCommand(PickPocketCommand pickPocketCommand) {
-
+        StringBuffer disarmString = new StringBuffer("<" + pickPocketCommand.getClass().getSimpleName()
+                + " pickpocketStrength=" + "\"" + pickPocketCommand.getAmount() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(disarmString);
+        this.valueNode.append("</" + pickPocketCommand.getClass().getSimpleName() + "/>");
     }
 
     @Override
     public void visitSlowEntityCommand(SlowEntityCommand slowEntityCommand) {
-
+        StringBuffer slowString = new StringBuffer("<" + slowEntityCommand.getClass().getSimpleName()
+                + " slowDuration=" + "\"" + slowEntityCommand.getAmount() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(slowString);
+        slowEntityCommand.getEntity().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + slowEntityCommand.getClass().getSimpleName() + "/>");
     }
 
     @Override

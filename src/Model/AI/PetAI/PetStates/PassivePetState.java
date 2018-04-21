@@ -28,7 +28,6 @@ public class PassivePetState extends AIState {
     @Override
     public void nextMove() {
         Point3D petPoint = getPetPoint();
-        System.out.println("My pet point is:\t"+petPoint);
         Point3D playerPoint = getPlayerPoint();
 
         moveToGoal(petPoint,playerPoint);

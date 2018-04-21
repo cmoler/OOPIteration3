@@ -1,4 +1,4 @@
-/*package ControllerTests;
+package ControllerTests;
 
 import Controller.GameLoader;
 import Controller.Visitor.SavingVisitor;
@@ -30,7 +30,7 @@ import javafx.geometry.Point3D;
 import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
+
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -41,7 +41,7 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 
-/*public class SavingVisitorTests extends ApplicationTest {
+public class SavingVisitorTests {
 
     private SavingVisitor savingVisitor;
     private GameLoader gameLoader;
@@ -85,7 +85,7 @@ import static junit.framework.TestCase.assertTrue;
         ArrayList<Terrain> mountTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); add(Terrain.WATER); }};
         savingVisitor = new SavingVisitor("TESTSAVE.xml");
         gameLoader = new GameLoader();
-        level = new Level(new ArrayList<>());
+        level = new Level();
         level.addTerrainTo(new Point3D(0,0,0), Terrain.GRASS);
         level.addTerrainTo(new Point3D(0,0,1), Terrain.MOUNTAINS);
 
@@ -102,7 +102,7 @@ import static junit.framework.TestCase.assertTrue;
         level.addItemnTo(new Point3D(0,0,3), new RingItem("ring", new ToggleHealthCommand(10)));
         level.addItemnTo(new Point3D(0,0,4), new ConsumableItem("potion", new AddHealthCommand(10)));
 
-        level.addTrapTo(new Point3D(0,0,0), new Trap(null, new RemoveHealthCommand(0), false, false, 10));
+        level.addTrapTo(new Point3D(0,0,0), new Trap(new RemoveHealthCommand(0), false, false, 10));
 
         level.addObstacleTo(new Point3D(0,0,5), new Obstacle());
 
@@ -117,12 +117,13 @@ import static junit.framework.TestCase.assertTrue;
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
                 new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
 
+//        helmet.onTouch(entity);
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
 
         level.addEntityTo(new Point3D(0,0,0), entity);
 
         levels.add(level);
-        levels.add(new Level(new ArrayList<LevelViewElement>()));
+        levels.add(new Level());
         gameModel = new GameModel(level, null, levels, entity, null);
         savingVisitor.visitGameModel(gameModel);
         gameLoader.loadGame("TESTSAVE.xml");
@@ -220,9 +221,4 @@ import static junit.framework.TestCase.assertTrue;
 
         assertTrue(gameLoader.getWorld().get(0).getEntityAtPoint(new Point3D(0,0,0)) == testEntity);
     }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        super.start(stage);
-    }
-}*/
+}
