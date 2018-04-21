@@ -62,11 +62,13 @@ public class GameModel implements Visitable {
 
 
 
+
         currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
 
 
 
         currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+
         for(int i = 0; i < 8; i++) {
             ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
             for (int j = 0; j < points.size(); j++) {
