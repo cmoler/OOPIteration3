@@ -37,6 +37,8 @@ public class MovementHandler {
         moveInfluenceEffects();
     }
 
+
+
     private void moveEntities() {
         for (Entity entity: entityLocations.getValueList()){//For each entry in the map
             Point3D entityPoint = entityLocations.getKeyFromValue(entity);
@@ -45,7 +47,7 @@ public class MovementHandler {
                 Point3D contestedPoint = calculateMove(entityPoint, entity.getVelocity());
 
                 if (!obstacleLocations.containsKey(contestedPoint) && entity.canMoveOnTerrain(terrainLocations.get(contestedPoint))){
-                    if (entityLocations.hasKey(contestedPoint)){
+                    if (entityLocations.hasKey(contestedPoint) && isAlive(entityLocations.getValueFromKey(contestedPoint))){
                         dialogCommand.execute(entity);
 
                     } else {
@@ -73,6 +75,10 @@ public class MovementHandler {
                 entity.decrementVelocity();
             }
         }
+    }
+
+    private boolean isAlive(Entity valueFromKey) {
+        return !valueFromKey.isDead();
     }
 
     private void moveInfluenceEffects() { // TODO: notify influence effect observers on position changed?
