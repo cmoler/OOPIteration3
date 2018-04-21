@@ -7,11 +7,10 @@ import Model.Command.Command;
 import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
 import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
+import Model.Command.EntityCommand.SettableCommand.*;
 import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
-import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
-import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
-import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
@@ -56,6 +55,8 @@ public class GameLoader {
     private HashMap<String, Entity> entityRef = new HashMap<>();
     private HashMap<String, Item> itemRef = new HashMap<>();
     private HashMap<String, Level> levelRef = new HashMap<>();
+    private HashMap<String, Command> commandRef = new HashMap<>();
+    private HashMap<String, Skill> skillRef = new HashMap<>();
 
     public GameLoader() {
         world = new ArrayList<>();
@@ -380,6 +381,7 @@ public class GameLoader {
         Command command;
         String name;
         int maxSize = 0;
+        String itemReference;
 
         NodeList values = element.getElementsByTagName("Inventory");
         for(int i = 0; i < values.getLength(); i++) {
@@ -399,23 +401,47 @@ public class GameLoader {
                     if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
                         command = processCommand(itemNode.getChildNodes());
                         name = itemNode.getAttributes().getNamedItem("name").getTextContent();
-                        switch (itemNode.getNodeName().toLowerCase()) {
-                            case "armoritem":
-                                int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
-                                itemsToAdd.add(new ArmorItem(name, (ToggleableCommand) command, defense));
-                                break;
+                        itemReference = itemNode.getAttributes().getNamedItem("reference").getTextContent();
 
-                            case "consumableitem":
-                                itemsToAdd.add(new ConsumableItem(name, command));
-                                break;
+                        if(itemRef.containsKey(itemReference)) {
+                            itemsToAdd.add((TakeableItem) itemRef.get(itemReference));
+                        }
 
-                            case "ringitem":
-                                itemsToAdd.add(new RingItem(name, (ToggleableCommand) command));
-                                break;
+                        else {
+                            switch (itemNode.getNodeName().toLowerCase()) {
+                                case "armoritem":
+                                    int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
+                                    ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
+                                    armorItem.setCurrentLevelMessenger(levelMessenger);
+                                    armorItem.setDropStrategyEntity(entity);
+                                    itemsToAdd.add(armorItem);
+                                    itemRef.put(armorItem.toString(), armorItem);
+                                    break;
 
-                            case "weaponitem": // TODO: this needs to be changed
-                                itemsToAdd.add(new WeaponItem(name, (SettableCommand) command));
-                                break;
+                                case "consumableitem":
+                                    ConsumableItem consumableItem = new ConsumableItem(name, command);
+                                    consumableItem.setCurrentLevelMessenger(levelMessenger);
+                                    consumableItem.setDropStrategyEntity(entity);
+                                    itemsToAdd.add(consumableItem);
+                                    itemRef.put(consumableItem.toString(), consumableItem);
+                                    break;
+
+                                case "ringitem":
+                                    RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
+                                    ringItem.setCurrentLevelMessenger(levelMessenger);
+                                    ringItem.setDropStrategyEntity(entity);
+                                    itemsToAdd.add(ringItem);
+                                    itemRef.put(ringItem.toString(), ringItem);
+                                    break;
+
+                                case "weaponitem": // TODO: this needs to be changed
+                                    WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command);
+                                    weaponItem.setCurrentLevelMessenger(levelMessenger);
+                                    weaponItem.setDropStrategyEntity(entity);
+                                    itemsToAdd.add(weaponItem);
+                                    itemRef.put(weaponItem.toString(), weaponItem);
+                                    break;
+                            }
                         }
                     }
                 }
@@ -826,78 +852,143 @@ public class GameLoader {
     private Command processCommand(NodeList childNodes) {
         int amount;
         boolean hasFired;
+        int oldSpeed;
+        int oldNoise;
+        boolean firstTimeExecuting;
+        String commandRef;
+
         for(int i = 0; i < childNodes.getLength(); i++) {
             Node commandNode = childNodes.item(i);
 
             if(commandNode.getNodeType() == Node.ELEMENT_NODE) {
-                switch (commandNode.getNodeName().toLowerCase()) {
-                    case "addhealthcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
-                        return new AddHealthCommand(amount);
-                    case "removehealthcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
-                        return new RemoveHealthCommand(amount);
+                commandRef = commandNode.getAttributes().getNamedItem("reference").getTextContent();
 
-                    case "togglehealthcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
-                        hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
-                        return new ToggleHealthCommand(amount, hasFired);
+                if (this.commandRef.containsKey(commandRef)) {
+                    return this.commandRef.get(commandRef);
+                } else {
+                    switch (commandNode.getNodeName().toLowerCase()) {
+                        case "addhealthcommand":
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            AddHealthCommand addHealthCommand = new AddHealthCommand(amount);
+                            this.commandRef.put(addHealthCommand.toString(), addHealthCommand);
+                            return addHealthCommand;
 
-                    case "togglemanacommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
-                        hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
-                        return new ToggleManaCommand(amount, hasFired);
+                        case "removehealthcommand":
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(amount);
+                            this.commandRef.put(removeHealthCommand.toString(), removeHealthCommand);
+                            return removeHealthCommand;
 
-                    case "togglespeedcommand":
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
-                        hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
-                        return new ToggleSpeedCommand(amount, hasFired);
+                        case "togglehealthcommand":
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
+                            ToggleHealthCommand toggleHealthCommand = new ToggleHealthCommand(amount, hasFired);
+                            this.commandRef.put(toggleHealthCommand.toString(), toggleHealthCommand);
+                            return toggleHealthCommand;
 
-                    case "instadeathcommand":
-                        return new InstaDeathCommand();
+                        case "togglemanacommand":
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
+                            ToggleManaCommand toggleManaCommand = new ToggleManaCommand(amount, hasFired);
+                            this.commandRef.put(toggleManaCommand.toString(), toggleManaCommand);
+                            return toggleManaCommand;
 
-                    case "levelupcommand":
-                        return new LevelUpCommand();
+                        case "togglespeedcommand":
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
+                            ToggleSpeedCommand toggleSpeedCommand = new ToggleSpeedCommand(amount, hasFired);
+                            this.commandRef.put(toggleSpeedCommand.toString(), toggleSpeedCommand);
+                            return toggleSpeedCommand;
 
-                    case "setassneakingcommand": // TODO: save stealthAmount var
-                        amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
-                        return new ToggleSneaking(amount);
+                        case "instadeathcommand":
+                            InstaDeathCommand instaDeathCommand = new InstaDeathCommand();
+                            this.commandRef.put(instaDeathCommand.toString(), instaDeathCommand);
+                            return instaDeathCommand;
+
+                        case "levelupcommand":
+                            LevelUpCommand levelUpCommand = new LevelUpCommand();
+                            this.commandRef.put(levelUpCommand.toString(), levelUpCommand);
+                            return levelUpCommand;
+
+                        case "setassneakingcommand":
+                            firstTimeExecuting = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("firstTimeExecuting").getTextContent());
+                            oldSpeed = Integer.parseInt(commandNode.getAttributes().getNamedItem("oldSpeed").getTextContent());
+                            oldNoise = Integer.parseInt(commandNode.getAttributes().getNamedItem("oldNoise").getTextContent());
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
+                            ToggleSneaking toggleSneaking = new ToggleSneaking(hasFired, amount, oldSpeed, oldNoise, firstTimeExecuting);
+                            this.commandRef.put(toggleSneaking.toString(), toggleSneaking);
+                            return toggleSneaking;
 
                      /* Game Loop Commands */
-                    case "bartercommand": // TODO: implement
-                        break;
+                        case "bartercommand":
+                            BarterCommand barterCommand = new BarterCommand(levelMessenger);
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            barterCommand.setAmount(amount);
+                            this.commandRef.put(barterCommand.toString(), barterCommand);
+                            return barterCommand;
 
-                    case "dialogcommand": // TODO: implement
-                        break;
+                        case "dialogcommand": // TODO: implement
+                            break;
 
-                    case "observeentitycommand": // TODO: implement
-                        break;
+                        case "observeentitycommand":
+                            ObserveEntityCommand observeEntityCommand = new ObserveEntityCommand(levelMessenger);
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            observeEntityCommand.setAmount(amount);
+                            this.commandRef.put(observeEntityCommand.toString(), observeEntityCommand);
+                            return observeEntityCommand;
 
                     /* Game Model Commands */
-                    case "confuseentitycommand": // TODO: implement
-                        break;
+                        case "confuseentitycommand":
+                            ConfuseEntityCommand confuseEntityCommand = new ConfuseEntityCommand(levelMessenger);
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            confuseEntityCommand.setAmount(amount);
+                            this.commandRef.put(confuseEntityCommand.toString(), confuseEntityCommand);
+                            return confuseEntityCommand;
 
-                    case "freezeentitycommand": // TODO: implement
-                        break;
+                        case "freezeentitycommand":
+                            FreezeEntityCommand freezeEntityCommand = new FreezeEntityCommand(levelMessenger);
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            freezeEntityCommand.setAmount(amount);
+                            this.commandRef.put(freezeEntityCommand.toString(), freezeEntityCommand);
+                            return freezeEntityCommand;
 
-                    case "slowentitycommand": // TODO: implement
-                        break;
+                        case "slowentitycommand":
+                            SlowEntityCommand slowEntityCommand = new SlowEntityCommand(levelMessenger);
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            slowEntityCommand.setAmount(amount);
+                            this.commandRef.put(slowEntityCommand.toString(), slowEntityCommand);
+                            return slowEntityCommand;
 
-                    case "teleportentitycommand": // TODO: implement
-                        break;
+                        case "teleportentitycommand":
+                            String reference = commandNode.getAttributes().getNamedItem("levelReference").getTextContent();
+                            Level level = levelRef.get(reference);
+                            Point3D point3D = toPoint3D(commandNode.getAttributes().getNamedItem("point").getTextContent());
+                            TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level, point3D);
+                            this.commandRef.put(teleportEntityCommand.toString(), teleportEntityCommand);
+                            return teleportEntityCommand;
 
                     /* Level Commands */
-                    case "disarmtrapcommand": // TODO: implement
-                        break;
+                        case "disarmtrapcommand":
+                            DisarmTrapCommand disarmTrapCommand = new DisarmTrapCommand(levelMessenger);
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            disarmTrapCommand.setAmount(amount);
+                            this.commandRef.put(disarmTrapCommand.toString(), disarmTrapCommand);
+                            return disarmTrapCommand;
 
-                    case "dropitemcommand": // TODO: implement
-                        break;
+                        case "dropitemcommand": // TODO: implement
+                            break;
 
-                    case "pickpocketcommand": // TODO: implement
-                        break;
+                        case "pickpocketcommand":
+                            PickPocketCommand pickPocketCommand = new PickPocketCommand(levelMessenger);
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            pickPocketCommand.setAmount(amount);
+                            this.commandRef.put(pickPocketCommand.toString(), pickPocketCommand);
+                            return pickPocketCommand;
 
-                    case "sendinfluencecommand": // TODO: implement
-                        break;
+                        case "sendinfluencecommand": // TODO: implement
+                            break;
+                    }
                 }
             }
         }
@@ -1094,20 +1185,12 @@ public class GameLoader {
     private Level processLevel(NodeList nodeList, Level level) {
         String reference;
         for(int i = 0; i < nodeList.getLength(); i++) {
-
             Node node = nodeList.item(i);
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 reference = element.getAttribute("reference");
-
-                if(levelRef.containsKey(reference)) {
-                    return levelRef.get(reference);
-                }
-
-                else {
-                    loadMaps(element.getChildNodes(), level);
-                    levelRef.put(level.toString(), level);
-                }
+                levelRef.put(reference, level);
+                loadMaps(element.getChildNodes(), level);
             }
         }
 
@@ -1159,6 +1242,11 @@ public class GameLoader {
     private Vec3d toVector(String flowRate) {
         String[] point = flowRate.split(",");
         return new Vec3d(Integer.parseInt(point[0]), Integer.parseInt(point[1]), Integer.parseInt(point[2]));
+    }
+
+    private Point3D toPoint3D(String point) {
+        String[] stringPoint = point.split(",");
+        return new Point3D(Integer.parseInt(stringPoint[0]), Integer.parseInt(stringPoint[1]), Integer.parseInt(stringPoint[2]));
     }
 
     public Level getCurrentLevel() {

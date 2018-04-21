@@ -5,13 +5,14 @@ import Controller.Visitor.SavingVisitor;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
+import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
+import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
-import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
-import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.*;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.*;
 import Model.InfluenceEffect.AngularInfluenceEffect;
@@ -51,10 +52,11 @@ public class SavingVisitorTests {
 
     @Before
     public void initVars() throws IOException, ParserConfigurationException, SAXException {
+        LevelMessenger levelMessenger = new LevelMessenger(null, null);
         ArmorItem helmet = new ArmorItem("helemet", new ToggleHealthCommand(10), 10);
         Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
             add(helmet);
-            add(new RingItem("ring", new ToggleHealthCommand(10)));
+            add(new RingItem("ring", new ToggleSpeedCommand(10)));
         }}, 10);
         
         ItemHotBar itemHotBar = new ItemHotBar();
@@ -62,7 +64,7 @@ public class SavingVisitorTests {
 
         Equipment equipment = new Equipment(null,
                 new ArmorItem("helemet", new ToggleHealthCommand(10), 10),
-                new RingItem("ring", new ToggleHealthCommand(10)));
+                new RingItem("ring", new ToggleManaCommand(10)));
 
         ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
             add(new Skill("BRAWL",
@@ -91,6 +93,15 @@ public class SavingVisitorTests {
 
         level.addAreaEffectTo(new Point3D(0,0,0), new InfiniteAreaEffect(new RemoveHealthCommand(5)));
         level.addAreaEffectTo(new Point3D(0,0,1), new OneShotAreaEffect(new AddHealthCommand(10)));
+        level.addAreaEffectTo(new Point3D(0,0,2), new OneShotAreaEffect(new TeleportEntityCommand(levelMessenger, level, new Point3D(0,0,0))));
+        level.addAreaEffectTo(new Point3D(0,0,3), new OneShotAreaEffect(new FreezeEntityCommand(levelMessenger)));
+        level.addAreaEffectTo(new Point3D(0,0,4), new OneShotAreaEffect(new SlowEntityCommand(levelMessenger)));
+        level.addAreaEffectTo(new Point3D(0,0,5), new OneShotAreaEffect(new ConfuseEntityCommand(levelMessenger)));
+        level.addAreaEffectTo(new Point3D(0,0,6), new OneShotAreaEffect(new InstaDeathCommand()));
+        level.addAreaEffectTo(new Point3D(0,0,7), new OneShotAreaEffect(new LevelUpCommand()));
+        level.addAreaEffectTo(new Point3D(0,0,8), new OneShotAreaEffect(new DisarmTrapCommand(levelMessenger)));
+        level.addAreaEffectTo(new Point3D(0,0,9), new OneShotAreaEffect(new PickPocketCommand(levelMessenger)));
+        level.addAreaEffectTo(new Point3D(0,0,10), new OneShotAreaEffect(new ObserveEntityCommand(levelMessenger)));
 
         level.addInfluenceEffectTo(new Point3D(0,0,0), new LinearInfluenceEffect(new AddHealthCommand(5), 0, 0, Orientation.NORTH));
         level.addInfluenceEffectTo(new Point3D(0,0,1), new RadialInfluenceEffect(new AddHealthCommand(5), 0, 0, Orientation.NORTH));
@@ -143,6 +154,7 @@ public class SavingVisitorTests {
         Map<Point3D, AreaEffect> areasToTest = levelToTest.getAreaEffectLocations();
         assertTrue(areasToTest.get(new Point3D(0,0,0)) instanceof InfiniteAreaEffect);
         assertTrue(areasToTest.get(new Point3D(0,0,1)) instanceof OneShotAreaEffect);
+        assertTrue(((OneShotAreaEffect)areasToTest.get(new Point3D(0,0,2))).getCommand() instanceof TeleportEntityCommand);
     }
 
     @Test

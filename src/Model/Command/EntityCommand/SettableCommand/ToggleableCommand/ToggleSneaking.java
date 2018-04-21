@@ -12,6 +12,14 @@ public class ToggleSneaking extends ToggleableCommand implements SettableCommand
     private int oldNoise;
     private boolean firstTimeExecuting;
 
+    public ToggleSneaking(boolean hasFired, int stealthAmount, int oldSpeed, int oldNoise, boolean firstTimeExecuting) {
+        super(hasFired);
+        this.stealthAmount = stealthAmount;
+        this.oldSpeed = oldSpeed;
+        this.oldNoise = oldNoise;
+        this.firstTimeExecuting = firstTimeExecuting;
+    }
+
     public ToggleSneaking(int amount) {
         super();
         this.stealthAmount = amount;
@@ -54,5 +62,17 @@ public class ToggleSneaking extends ToggleableCommand implements SettableCommand
 
     public void accept(Visitor visitor) {
         visitor.visitToggleSneaking(this);
+    }
+
+    public int getOldSpeed() {
+        return oldSpeed;
+    }
+
+    public int getOldNoise() {
+        return oldNoise;
+    }
+
+    public boolean hasFirstTimeExecuted() {
+        return firstTimeExecuting;
     }
 }

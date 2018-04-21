@@ -42,7 +42,7 @@ public abstract class TakeableItem extends Item implements Visitable {
 
     protected abstract void setItemStrategyEntity(Entity entity);
 
-    private void setDropStrategyEntity(Entity entity) {
+    public void setDropStrategyEntity(Entity entity) {
         dropStrategy.setEntity(entity);
     }
 

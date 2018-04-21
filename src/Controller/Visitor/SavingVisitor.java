@@ -545,7 +545,8 @@ public class SavingVisitor implements Visitor {
 
     private void visitSettableCommand(SettableCommand behavior) {
         StringBuffer commandString = new StringBuffer("<" + behavior.getClass().getSimpleName()
-                + " amount=" + "\"" + behavior.getAmount() + "\"/>");
+                + " amount=" + "\"" + behavior.getAmount() + "\""
+                + " reference=" + "\"" + behavior.toString() + "\"" + "/>");
         this.valueNode.append(commandString);
     }
 
@@ -743,14 +744,17 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append("\t");
-        this.valueNode.append("<" + removeHealthCommand.getClass().getSimpleName() + " amount=" + "\"" + removeHealthCommand.getAmount() + "\"" + "/>");
+        this.valueNode.append("<" + removeHealthCommand.getClass().getSimpleName()
+                + " amount=" + "\"" + removeHealthCommand.getAmount() + "\""
+                + " reference=" + "\"" + removeHealthCommand.toString() + "\"/>");
     }
 
     public void visitLevelUpCommand(LevelUpCommand levelUpCommand) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append("\t");
-        this.valueNode.append("<" + levelUpCommand.getClass().getSimpleName() + "/>");
+        this.valueNode.append("<" + levelUpCommand.getClass().getSimpleName()
+                + " reference=" + "\"" + levelUpCommand.toString() + "\"/>");
     }
 
     public void visitSendInfluenceEffectCommand(SendInfluenceEffectCommand sendInfluenceEffectCommand) {
@@ -758,7 +762,8 @@ public class SavingVisitor implements Visitor {
     }
 
     public void visitDropItemCommand(DropItemCommand dropItemCommand) {
-        StringBuffer dropString = new StringBuffer("<" + dropItemCommand.getClass().getSimpleName() + ">");
+        StringBuffer dropString = new StringBuffer("<" + dropItemCommand.getClass().getSimpleName()
+                + " reference=" + "\"" + dropItemCommand.toString() + "\">");
         this.valueNode.append(dropString);
         dropItemCommand.getEntity().accept(this);
         dropItemCommand.getItem().accept(this);
@@ -766,12 +771,15 @@ public class SavingVisitor implements Visitor {
     }
 
     public void visitTeleportEntityCommand(TeleportEntityCommand teleportEntityCommand) {
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("\t");
         StringBuffer point = keyToString(teleportEntityCommand.getDestinationPoint());
         StringBuffer teleportString = new StringBuffer("<" + teleportEntityCommand.getClass().getSimpleName()
-                + "levelReference=" +  "\"" + teleportEntityCommand.levelReference() + "\""
-                + "point=" +  "\"" + point +  "\"" + ">");
+                + " levelReference=" +  "\"" + teleportEntityCommand.levelReference() + "\""
+                + " point=" +  "\"" + point +  "\""
+                + " reference=" +  "\"" + teleportEntityCommand.toString() +  "\"/>");
         this.valueNode.append(teleportString);
-        this.valueNode.append("</" + teleportEntityCommand.getClass().getSimpleName() + ">");
     }
 
     public void visitDialogCommand(DialogCommand dialogCommand) {
@@ -782,7 +790,8 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append("\t");
-        this.valueNode.append("<" + instaDeathCommand.getClass().getSimpleName() + "/>");
+        this.valueNode.append("<" + instaDeathCommand.getClass().getSimpleName()
+                + " reference=" +  "\"" + instaDeathCommand.toString() +  "\"/>");
     }
 
     public void visitToggleHealthCommand(ToggleHealthCommand toggleHealthCommand) {
@@ -791,7 +800,8 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\t");
         this.valueNode.append("<" + toggleHealthCommand.getClass().getSimpleName()
                 + " amount=" + "\"" + toggleHealthCommand.getAmount() + "\""
-                + " hasFired=" + "\"" + toggleHealthCommand.hasFired() + "\"" + "/>");
+                + " hasFired=" + "\"" + toggleHealthCommand.hasFired() + "\""
+                + " reference=" + "\"" + toggleHealthCommand.toString() + "\"/>");
     }
 
     public void visitToggleManaCommand(ToggleManaCommand toggleManaCommand) {
@@ -800,7 +810,8 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\t");
         this.valueNode.append("<" + toggleManaCommand.getClass().getSimpleName()
                 + " amount=" + "\"" + toggleManaCommand.getAmount() + "\""
-                + " hasFired=" + "\"" + toggleManaCommand.hasFired() + "\"" + "/>");
+                + " hasFired=" + "\"" + toggleManaCommand.hasFired() + "\""
+                + " reference=" + "\"" + toggleManaCommand.toString() + "\"/>");
     }
 
     public void visitSpeedCommand(ToggleSpeedCommand toggleSpeedCommand) {
@@ -809,7 +820,8 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\t");
         this.valueNode.append("<" + toggleSpeedCommand.getClass().getSimpleName()
                 + " amount=" + "\"" + toggleSpeedCommand.getAmount() + "\""
-                + " hasFired=" + "\"" + toggleSpeedCommand.hasFired() + "\"" + "/>");
+                + " hasFired=" + "\"" + toggleSpeedCommand.hasFired() + "\""
+                + " reference=" + "\"" + toggleSpeedCommand.toString() + "\"/>");
     }
 
     public void visitToggleSneaking(ToggleSneaking toggleSneaking) {
@@ -818,20 +830,26 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\t");
         this.valueNode.append("<" + toggleSneaking.getClass().getSimpleName()
                 + " amount=" + "\"" + toggleSneaking.getAmount() + "\""
-                + " hasFired=" + "\"" + toggleSneaking.hasFired() + "\"" + "/>");
+                + " hasFired=" + "\"" + toggleSneaking.hasFired() + "\""
+                + " oldSpeed=" + "\"" + toggleSneaking.getOldSpeed() + "\""
+                + " oldNoise=" + "\"" + toggleSneaking.getOldNoise() + "\""
+                + " firstTimeExecuting=" + "\"" + toggleSneaking.hasFirstTimeExecuted() + "\""
+                + " reference=" + "\"" + toggleSneaking.toString() + "\"/>");
     }
 
     public void visitAddHealthCommand(AddHealthCommand addHealthCommand) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append("\t");
-        this.valueNode.append("<" + addHealthCommand.getClass().getSimpleName() + " amount=" +
-                "\"" +addHealthCommand.getAmount() + "\"" + "/>");
+        this.valueNode.append("<" + addHealthCommand.getClass().getSimpleName()
+                + " amount=" + "\"" + addHealthCommand.getAmount() + "\""
+                + " reference=" + "\"" + addHealthCommand.toString() + "\"/>");
     }
 
     public void visitBarterCommand(BarterCommand barterCommand) {
         StringBuffer barterString = new StringBuffer("<" + barterCommand.getClass().getSimpleName()
-                + " barterStrength=" + "\"" + barterCommand.getAmount() + "\">");
+                + " amount=" + "\"" + barterCommand.getAmount() + "\""
+                + " reference=" + "\"" + barterCommand.toString() + "\">");
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append(barterString);
@@ -842,63 +860,73 @@ public class SavingVisitor implements Visitor {
 
     public void visitConfuseEntityCommand(ConfuseEntityCommand confuseEntityCommand) {
         StringBuffer confuseString = new StringBuffer("<" + confuseEntityCommand.getClass().getSimpleName()
-                + " confusionDuration=" + "\"" + confuseEntityCommand.getAmount() + "\">");
+                + " amount=" + "\"" + confuseEntityCommand.getAmount() + "\""
+                + " reference=" + "\"" + confuseEntityCommand.toString() + "\"/>");
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append(confuseString);
-        confuseEntityCommand.getEntity().accept(this);
-        this.valueNode.append("\n");
-        this.valueNode.append("\t");
-        this.valueNode.append("</" + confuseEntityCommand.getClass().getSimpleName() + "/>");
+//        confuseEntityCommand.getEntity().accept(this);
+//        this.valueNode.append("\n");
+//        this.valueNode.append("\t");
+//        this.valueNode.append("</" + confuseEntityCommand.getClass().getSimpleName() + "/>");
     }
 
     public void visitDisarmTrapCommand(DisarmTrapCommand disarmTrapCommand) {
         StringBuffer disarmString = new StringBuffer("<" + disarmTrapCommand.getClass().getSimpleName()
-                + " disarmStrength=" + "\"" + disarmTrapCommand.getAmount() + "\">");
+                + " amount=" + "\"" + disarmTrapCommand.getAmount() + "\""
+                + " reference=" + "\"" + disarmTrapCommand.toString() + "\"/>");
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append(disarmString);
-        disarmTrapCommand.getEntity().accept(this);
-        this.valueNode.append("\n");
-        this.valueNode.append("\t");
-        this.valueNode.append("</" + disarmTrapCommand.getClass().getSimpleName() + "/>");
+//        disarmTrapCommand.getEntity().accept(this);
+//        this.valueNode.append("\n");
+//        this.valueNode.append("\t");
+//        this.valueNode.append("</" + disarmTrapCommand.getClass().getSimpleName() + "/>");
     }
 
     public void visitFreezeEntityCommand(FreezeEntityCommand freezeEntityCommand) {
         StringBuffer freezeString = new StringBuffer("<" + freezeEntityCommand.getClass().getSimpleName()
-                + " freezeDuration=" + "\"" + freezeEntityCommand.getAmount() + "\">");
+                + " amount=" + "\"" + freezeEntityCommand.getAmount() + "\""
+                + " reference=" + "\"" + freezeEntityCommand.toString() + "\"/>");
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append(freezeString);
-        freezeEntityCommand.getEntity().accept(this);
-        this.valueNode.append("\n");
-        this.valueNode.append("\t");
-        this.valueNode.append("</" + freezeEntityCommand.getClass().getSimpleName() + "/>");
+//        freezeEntityCommand.getEntity().accept(this);
+//        this.valueNode.append("\n");
+//        this.valueNode.append("\t");
+//        this.valueNode.append("</" + freezeEntityCommand.getClass().getSimpleName() + "/>");
     }
 
     public void visitObserveEntityCommand(ObserveEntityCommand observeEntityCommand) {
-
+        StringBuffer observeString = new StringBuffer("<" + observeEntityCommand.getClass().getSimpleName()
+                + " amount=" + "\"" + observeEntityCommand.getAmount() + "\""
+                + " reference=" + "\"" + observeEntityCommand.toString() + "\"/>");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(observeString);
     }
 
     public void visitPickPocketCommand(PickPocketCommand pickPocketCommand) {
         StringBuffer disarmString = new StringBuffer("<" + pickPocketCommand.getClass().getSimpleName()
-                + " pickpocketStrength=" + "\"" + pickPocketCommand.getAmount() + "\">");
+                + " amount=" + "\"" + pickPocketCommand.getAmount() + "\""
+                + " reference=" + "\"" + pickPocketCommand.toString() + "\">");
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append(disarmString);
-        this.valueNode.append("</" + pickPocketCommand.getClass().getSimpleName() + "/>");
+        this.valueNode.append("</" + pickPocketCommand.getClass().getSimpleName() + ">");
     }
 
     public void visitSlowEntityCommand(SlowEntityCommand slowEntityCommand) {
         StringBuffer slowString = new StringBuffer("<" + slowEntityCommand.getClass().getSimpleName()
-                + " slowDuration=" + "\"" + slowEntityCommand.getAmount() + "\">");
+                + " amount=" + "\"" + slowEntityCommand.getAmount() + "\""
+                + " reference=" + "\"" + slowEntityCommand.toString() + "\"/>");
         this.valueNode.append("\n");
         this.valueNode.append("\t");
         this.valueNode.append(slowString);
-        slowEntityCommand.getEntity().accept(this);
-        this.valueNode.append("\n");
-        this.valueNode.append("\t");
-        this.valueNode.append("</" + slowEntityCommand.getClass().getSimpleName() + "/>");
+//        slowEntityCommand.getEntity().accept(this);
+//        this.valueNode.append("\n");
+//        this.valueNode.append("\t");
+//        this.valueNode.append("</" + slowEntityCommand.getClass().getSimpleName() + "/>");
     }
 
     public void visitInfluenceEffect(InfluenceEffect influenceEffect) {
@@ -906,7 +934,8 @@ public class SavingVisitor implements Visitor {
                 +" speed=" + "\"" + influenceEffect.getSpeed() + "\""
                 +" range=" + "\"" + influenceEffect.getRange() + "\""
                 +" movesRemaining=" + "\"" + influenceEffect.getMovesRemaining() + "\""
-                +" orientation=" + "\"" + influenceEffect.getOrientation() + "\"" +">");
+                +" orientation=" + "\"" + influenceEffect.getOrientation() + "\""
+                +" reference=" + "\"" + influenceEffect.toString() + "\">");
 
         this.valueNode.append("\n");
         this.valueNode.append("\t");
