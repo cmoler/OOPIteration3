@@ -99,6 +99,7 @@ public class GameModel implements Visitable {
 
         RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
+        currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
         for(int i = 0; i < 8; i++) {
             ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
             for(int j = 0; j < points.size(); j++) {
@@ -242,26 +243,44 @@ public class GameModel implements Visitable {
 
     private void changeLevels(Entity entity, Level destinationLevel, Point3D destinationPoint) {
         if(!destinationLevel.hasEntityAtPoint(destinationPoint)) {
-            destinationLevel.addEntityTo(destinationPoint, entity);
-
-            List<LevelViewElement> observers = new ArrayList<>();
-            observers.add(entity.getObserver());
-
-            destinationLevel.addObservers(observers);
-
-            currentLevel.removeEntityFrom(entity);
-            currentLevel.removeObservers(observers);
+            moveEntityToLevel(entity, destinationLevel, destinationPoint);
 
             if (entity.equals(player)) {
-                currentLevel = destinationLevel;
-                currentLevelMessenger.setLevel(currentLevel);
-                currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
-                // TODO: notify pets when player teleports, so we can teleport them as well
-                // TODO: change logic for teleporting on a tile that is occupied by another entity
+                changeCurrentLevelToDestination(destinationLevel);
             }
         } else {
-            failedTeleportQueue.add(new TeleportTuple(entity, destinationLevel, destinationPoint));
+            if(entity.equals(player)) {
+                Point3D point3D = destinationLevel.findNearestOpenPointForEntity(destinationPoint);
+
+                destinationLevel.moveEntityFromFirstPointToSecondPoint(destinationPoint, point3D, destinationLevel.getEntityAtPoint(destinationPoint));
+
+                if(point3D != null) {
+                    moveEntityToLevel(entity, destinationLevel, destinationPoint);
+                    changeCurrentLevelToDestination(destinationLevel);
+                }
+            } else {
+                failedTeleportQueue.add(new TeleportTuple(entity, destinationLevel, destinationPoint));
+            }
         }
+    }
+
+    private void moveEntityToLevel(Entity entity, Level destinationLevel, Point3D destinationPoint) {
+        destinationLevel.addEntityTo(destinationPoint, entity);
+
+        List<LevelViewElement> observers = new ArrayList<>();
+        observers.add(entity.getObserver());
+
+        destinationLevel.addObservers(observers);
+
+        currentLevel.removeEntityFrom(entity);
+        currentLevel.removeObservers(observers);
+    }
+
+    private void changeCurrentLevelToDestination(Level destinationLevel) {
+        currentLevel = destinationLevel;
+        currentLevelMessenger.setLevel(currentLevel);
+        currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
+        // TODO: notify pets when player teleports, so we can teleport them as well
     }
 
     public void advance() {
@@ -294,6 +313,10 @@ public class GameModel implements Visitable {
 
     public Point3D getPlayerPosition() {
         return currentLevel.getEntityPoint(player);
+    }
+
+    public void setPlayer(Entity player) {
+        this.player = player;
     }
 
     public Entity getPlayer() {
