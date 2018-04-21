@@ -26,9 +26,7 @@ public class ConfuseEntityCommand extends GameModelCommand implements SettableCo
         aiController.setActiveState(new ConfusedAI(previousState.getEntity(), aiController, previousState, confusionDuration));
     }
 
-    public void receiveLevel(Level level) {
-        // TODO: is this POOP? we arent overriding an operation (we are extending/implementing it), but by default, I cannot find a reason to do anything here
-    }
+    public void receiveLevel(Level level) {}
 
     public void execute(Entity entity) {
         this.confusedEntity = entity;

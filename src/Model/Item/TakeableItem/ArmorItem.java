@@ -11,7 +11,7 @@ public class ArmorItem extends TakeableItem {
     private ArmorEquipStrategy armorEquipStrategy;
     private int defense;
 
-    public ArmorItem(String name, Command command, int defense) {
+    public ArmorItem(String name, ToggleableCommand command, int defense) {
         super(name, command);
 
         armorEquipStrategy = new ArmorEquipStrategy(this);

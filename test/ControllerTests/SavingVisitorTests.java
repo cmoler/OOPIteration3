@@ -51,7 +51,7 @@ public class SavingVisitorTests {
 
     @Before
     public void initVars() throws IOException, ParserConfigurationException, SAXException {
-        ArmorItem helmet = new ArmorItem("helemet", new AddHealthCommand(10), 10);
+        ArmorItem helmet = new ArmorItem("helemet", new ToggleHealthCommand(10), 10);
         Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
             add(helmet);
             add(new RingItem("ring", new ToggleHealthCommand(10)));
@@ -61,7 +61,7 @@ public class SavingVisitorTests {
         itemHotBar.addItem(helmet, 0);
 
         Equipment equipment = new Equipment(null,
-                new ArmorItem("helemet", new AddHealthCommand(10), 10),
+                new ArmorItem("helemet", new ToggleHealthCommand(10), 10),
                 new RingItem("ring", new ToggleHealthCommand(10)));
 
         ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
@@ -98,7 +98,7 @@ public class SavingVisitorTests {
 
         level.addItemnTo(new Point3D(0,0,0), new InteractiveItem("door", new ToggleManaCommand(10)));
         level.addItemnTo(new Point3D(0,0,1), new OneShotItem("bomb", new ToggleSpeedCommand(10)));
-        level.addItemnTo(new Point3D(0,0,2), new ArmorItem("helemet", new AddHealthCommand(10), 10));
+        level.addItemnTo(new Point3D(0,0,2), new ArmorItem("helemet", new ToggleHealthCommand(10), 10));
         level.addItemnTo(new Point3D(0,0,3), new RingItem("ring", new ToggleHealthCommand(10)));
         level.addItemnTo(new Point3D(0,0,4), new ConsumableItem("potion", new AddHealthCommand(10)));
 

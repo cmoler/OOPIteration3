@@ -16,6 +16,7 @@ import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneak
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Equipment;
 import Model.Entity.EntityAttributes.Inventory;
+import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
@@ -113,4 +114,6 @@ public interface Visitor {
     void visitInfluenceEffect(InfluenceEffect linearInfluenceEffect);
 
     void visitObstacle(Obstacle obstacle);
+
+    void visitSkill(Skill skill);
 }

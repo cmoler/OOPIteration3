@@ -50,10 +50,7 @@ public class WeaponItem extends TakeableItem{
         int skillLevel = entity.getSkillLevel(hostSKill);
 
         if(skillLevel != 0) {
-            //TODO: figure out what else to put here
             // TODO: figure out how to get skills to modify stats for stuff like attacks
-            //int modifier = skillLevel.getSkillLevel();
-            //int damage = (attackDamage * modifier) / accuracy;
             hostSKill.setInfluence(influenceEffect);
             hostSKill.setBehavior((SettableCommand) getCommand());  // TODO: is this POOP? even if it is casting, I would say that it does not violate OCP (as we know that weaponItems will always take in a SettableCommand)
             hostSKill.fire(entity);
