@@ -21,6 +21,7 @@ import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -31,6 +32,15 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class LevelTests {
+
+    private GameLoop gameLoop;
+    private GameLoopMessenger gameLoopMessenger;
+
+    @Before
+    public void init() {
+        gameLoop = new GameLoop();
+        gameLoopMessenger = new GameLoopMessenger(gameLoop);
+    }
 
     @Test
     public void testAreaEffectInteractions() {
@@ -116,7 +126,11 @@ public class LevelTests {
         Map<Point3D, Mount> mountLocations = new HashMap<Point3D, Mount>();
         Map<Point3D, InfluenceEffect> influenceEffectLocations = new HashMap<Point3D, InfluenceEffect>();
 
+        Level level = new Level();
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(gameLoopMessenger, new GameModel(gameLoopMessenger)), level);
+
         MovementHandler MH = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations, influenceEffectLocations);
+        MH.setDialogCommandLevelMessenger(levelMessenger);
 
         // Case 1: Attempting to move onto an impassable Terrain
         terrainLocations.put(new Point3D(2,2,2),Terrain.WATER);
@@ -148,11 +162,12 @@ public class LevelTests {
         Entity ent1 = new Entity();
         entityLocations.place(new Point3D(2,2,2), ent1);
 
-        ent.setVelocity(new Vec3d(1,0,0));
-        entityLocations.place(new Point3D(1,2,2), ent);
+        ent.setVelocity(new Vec3d(0,-1,-1));
+        entityLocations.place(new Point3D(2,1,3), ent);
+        ent.setOrientation(Orientation.NORTH);
 
         MH.processMoves();
-        Assert.assertTrue(entityLocations.getValueFromKey(new Point3D(1,2,2)).equals(ent));
+        Assert.assertTrue(entityLocations.getValueFromKey(new Point3D(2,1,3)).equals(ent));
         Assert.assertEquals(new Vec3d(0, 0, 0),ent.getVelocity());
 
         entityLocations.clear();
@@ -225,7 +240,7 @@ public class LevelTests {
         SettableCommand damageCommand2 = new RemoveHealthCommand(40);
 
         Level level = new Level();
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(gameLoopMessenger, new GameModel(gameLoopMessenger)), level);
 
         Entity entity = new Entity();
         Entity dummy = new Entity();

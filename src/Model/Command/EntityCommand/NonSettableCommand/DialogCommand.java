@@ -22,7 +22,9 @@ public class DialogCommand extends GameLoopCommand implements Command {
     }
 
     public void receiveGameLoop(GameLoop gameLoop) {
-        gameLoop.openDialogWindow(invokingEntity, receivingEntity);
+        if(invokingEntity != null && receivingEntity != null) {
+            gameLoop.openDialogWindow(invokingEntity, receivingEntity);
+        }
     }
 
     public void receiveGameModel(GameModel gameModel) {
