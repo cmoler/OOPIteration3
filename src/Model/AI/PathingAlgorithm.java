@@ -11,13 +11,24 @@ import javafx.util.Pair;
 
 import java.util.*;
 
+import static Model.Entity.EntityAttributes.Orientation.*;
+
 public class PathingAlgorithm {
     private Map<Point3D, Terrain> terrainMap;
     private Map<Point3D, Obstacle> obstacleMap;
+    private List<Vec3d> cardinalVelocities;
 
     public PathingAlgorithm(Map<Point3D, Terrain> terrainMap, Map<Point3D, Obstacle> obstacleMap) {
         this.terrainMap = terrainMap;
         this.obstacleMap = obstacleMap;
+        cardinalVelocities = new ArrayList<>();
+        /*cardinalVelocities.add(new Vec3d(0, 1, -1));
+        cardinalVelocities.add(new Vec3d(-1, 1, 0));
+        cardinalVelocities.add(new Vec3d(1, -1, 0));
+        cardinalVelocities.add(new Vec3d(1, 0, -1));
+        cardinalVelocities.add(new Vec3d(-1, 0, 1));
+        cardinalVelocities.add(new Vec3d(0, -1, 1));*/
+
     }
 
     public Point3D getAStarPoint(Point3D start, Point3D goal, Entity mover){
@@ -68,6 +79,28 @@ public class PathingAlgorithm {
 
     private boolean isValidPointToMoveTo(Point3D p, ArrayList<Point3D> visited, Entity e){
         return (e.canMoveOnTerrain(terrainMap.get(p)) && !obstacleMap.containsKey(p) || !visited.contains(p));
+    }
+
+    public static Model.Entity.EntityAttributes.Orientation calculateOrientation(Point3D position, Point3D goal) {
+        Vec3d oriVector = VectorToPointCalculator.calculateNewVelocity(position,goal);
+        if (oriVector.equals(new Vec3d(0, 1, -1))){
+            return NORTH;
+        }
+        else if (oriVector.equals(new Vec3d(-1, 1, 0))){
+            return NORTHWEST;
+        }
+        else if (oriVector.equals(new Vec3d(1, -1, 0))){
+            return NORTHEAST;
+        }
+        else if (oriVector.equals(new Vec3d(1, 0, -1))){
+            return SOUTHEAST;
+        }
+        else if (oriVector.equals(new Vec3d(-1, 0, 1))){
+            return SOUTHWEST;
+        }
+        else {
+            return SOUTH;
+        }
     }
 
     public List<Point3D> getAdjacentList(Point3D p) {

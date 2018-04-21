@@ -249,10 +249,10 @@ public class LevelTests {
         InfluenceEffect linear2 = new LinearInfluenceEffect(new RemoveHealthCommand(2130), 5,1, Orientation.SOUTHEAST);
 
         Skill swordSkill = new Skill("Sword Skill", null, new AddHealthCommand(10), new SendInfluenceEffectCommand(levelMessenger), 1, 0);
-        WeaponItem sword = new WeaponItem("Sword", damageCommand, null, swordSkill,
+        WeaponItem sword = new WeaponItem("Sword", damageCommand, swordSkill,
                 linear1, 10, 10, 10, 10, 5);
 
-        WeaponItem sword2 = new WeaponItem("Sword", damageCommand2, null, swordSkill,
+        WeaponItem sword2 = new WeaponItem("Sword", damageCommand2, swordSkill,
                 linear2, 10,10, 10, 10, 5);
 
         level.addEntityTo(new Point3D(0,0 ,0), entity);

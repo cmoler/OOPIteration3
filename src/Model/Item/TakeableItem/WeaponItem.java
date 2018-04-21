@@ -20,10 +20,10 @@ public class WeaponItem extends TakeableItem{
     private int useCost;
     private int range; // I think we need this?
 
-    public WeaponItem(String name, SettableCommand command, WeaponEquipStrategy weaponEquipStrategy, Skill hostSKill,
+    public WeaponItem(String name, SettableCommand command, Skill hostSKill,
                       InfluenceEffect influenceEffect, int attackDamage, int attackSpeed, int accuracy, int useCost, int range) {
         super(name, command);
-        this.weaponEquipStrategy = weaponEquipStrategy;
+        this.weaponEquipStrategy = new WeaponEquipStrategy(this);
         this.hostSKill = hostSKill;
         this.influenceEffect = influenceEffect;
         this.attackDamage = attackDamage;
