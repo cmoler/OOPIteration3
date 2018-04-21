@@ -4,6 +4,13 @@ import Configs.Commons;
 import Model.MenuModel.MenuModel;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.FillRule;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.io.File;
 
@@ -17,7 +24,7 @@ public abstract class InGameMenuView extends MenuViewState {
         super(menuModel);
         String workingDir = System.getProperty("user.dir");
 
-        File file = new File(workingDir + "/src/View/Assets/BLUE_AOE.png");
+        File file = new File(workingDir + "/src/View/Assets/BLACK_AOE.png");
         selected = new Image(file.toURI().toString());
     }
 
@@ -35,25 +42,31 @@ public abstract class InGameMenuView extends MenuViewState {
         int boxWidth = Commons.SCREEN_WIDTH / 4;
         int boxHeight = Commons.SCREEN_HEIGHT / 5;
 
-        gc.rect(startX, startY, boxWidth, boxHeight);
-        gc.fillText("Stats", (startX), (startY+boxHeight/4));
+        gc.setFill(Color.GREEN);
+        gc.fillRect(0, 0, boxWidth, Commons.SCREEN_HEIGHT);
 
-        gc.rect(startX, startY + boxHeight, boxWidth, boxHeight);
-        gc.fillText("Inventory", (startX), (startY + boxHeight+boxHeight/4));
+        gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
+        gc.setFill(Color.WHITESMOKE);
+        gc.fillText("Stats", (startX+ boxWidth / 4), (startY+3*boxHeight/5));
+        gc.fillText("Inventory", (startX + boxWidth / 4), (startY + boxHeight+3*boxHeight/5));
+        gc.fillText("LevelUp", (startX+ boxWidth / 4), (startY + 2*boxHeight+3*boxHeight/5));
+        gc.fillText("Save", (startX+ boxWidth / 4), (startY + 3*boxHeight+3*boxHeight/5));
+        gc.fillText("Exit", (startX+ boxWidth / 4), (startY + 4*boxHeight+3*boxHeight/5));
 
-        gc.rect(startX, startY + 2*boxHeight, boxWidth, boxHeight);
-        gc.fillText("LevelUp", (startX), (startY + 2*boxHeight+boxHeight/4));
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(startX, startY, boxWidth, boxHeight);
+        gc.strokeRect(startX, startY + boxHeight, boxWidth, boxHeight);
+        gc.strokeRect(startX, startY + 2*boxHeight, boxWidth, boxHeight);
+        gc.strokeRect(startX, startY + 3*boxHeight, boxWidth, boxHeight);
+        gc.strokeRect(startX, startY + 4*boxHeight, boxWidth, boxHeight);
 
-        gc.rect(startX, startY + 2*boxHeight, boxWidth, boxHeight);
-        gc.fillText("Save", (startX), (startY + 3*boxHeight+boxHeight/4));
-
-        gc.rect(startX, startY + 2*boxHeight, boxWidth, boxHeight);
-        gc.fillText("Exit", (startX), (startY + 4*boxHeight+boxHeight/4));
 
         if(selectedX == 0) {
             int selectionBoxX = startX;
             int selectionBoxY = startY + selectedY * boxHeight;
 
+            gc.setLineWidth(10.0f);
+            //gc.strokeOval(selectionBoxX, selectionBoxY, boxWidth, boxHeight);
             gc.drawImage(selected, selectionBoxX, selectionBoxY, boxWidth, boxHeight);
         }
 

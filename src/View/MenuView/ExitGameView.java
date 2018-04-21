@@ -5,10 +5,12 @@ import Configs.TextBoxInfo;
 import Model.MenuModel.MenuModel;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.io.File;
 
-public class ExitGameView extends InGameMenuView {
+public class ExitGameView extends MenuViewState {
 
     private int selectedY;
     private int selectedX;
@@ -18,33 +20,51 @@ public class ExitGameView extends InGameMenuView {
         super(menuModel);
         String workingDir = System.getProperty("user.dir");
 
-        File file = new File(workingDir + "/src/View/Assets/BLUE_AOE.png");
+        File file = new File(workingDir + "/src/View/Assets/BLACK_AOE.png");
         selected = new Image(file.toURI().toString());
     }
 
     @Override
-    protected void renderSubMenu(GraphicsContext gc) {
+    public void render(GraphicsContext gc) {
 
         gc.clearRect(0, 0, Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
 
         selectedX = menuModel.getSelectedHorizontal();
         selectedY = menuModel.getSelectedVertical();
 
-        int startX = Configs.Commons.SCREEN_WIDTH/2 - TextBoxInfo.TEXTBOX_WIDTH;
-        int startY = Commons.SCREEN_HEIGHT/4;
+        int topStartX = Configs.Commons.SCREEN_WIDTH/6;
+        int bottomStartX = Configs.Commons.SCREEN_WIDTH / 7;
+        int startY = Commons.SCREEN_HEIGHT/3;
 
-        gc.fillText("Are you Sure, unsaved changes wont be saved", (startX), (startY));
+        int width = 5*Commons.SCREEN_WIDTH / 18;
 
-        gc.rect(startX, startY + TextBoxInfo.TEXTBOX_HEIGHT, TextBoxInfo.TEXTBOX_WIDTH, TextBoxInfo.TEXTBOX_HEIGHT);
-        gc.fillText("No",startX, startY + TextBoxInfo.TEXTBOX_HEIGHT+TextBoxInfo.TEXTBOX_HEIGHT/4);
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0,0, Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
 
-        gc.rect(startX + TextBoxInfo.TEXTBOX_WIDTH, startY + TextBoxInfo.TEXTBOX_HEIGHT, TextBoxInfo.TEXTBOX_WIDTH, TextBoxInfo.TEXTBOX_HEIGHT);
-        gc.fillText("Exit Game", (startX + TextBoxInfo.TEXTBOX_WIDTH), (startY + TextBoxInfo.TEXTBOX_HEIGHT+TextBoxInfo.TEXTBOX_HEIGHT/4));
+        gc.setFill(Color.GREEN);
+        gc.fillRect(Commons.SCREEN_WIDTH / 9, Commons.SCREEN_HEIGHT / 4, 3 * Commons.SCREEN_WIDTH / 4, Commons.SCREEN_HEIGHT / 4);
 
-        int selectedXPos = startX + TextBoxInfo.TEXTBOX_HEIGHT * selectedX;
-        int selectedYPos = startY + TextBoxInfo.TEXTBOX_HEIGHT;
+        gc.setFill(Color.WHITESMOKE);
 
-        if(selectedX != 0)
-        gc.drawImage(selected, selectedXPos, selectedYPos, TextBoxInfo.TEXTBOX_WIDTH, TextBoxInfo.TEXTBOX_HEIGHT);
+        gc.fillText("Are you Sure? Unsaved changes wont be saved.", (topStartX), (startY));
+
+        gc.rect(bottomStartX, startY + TextBoxInfo.TEXTBOX_HEIGHT, width, TextBoxInfo.TEXTBOX_HEIGHT);
+        gc.fillText("Go to Title Screen",bottomStartX, startY + TextBoxInfo.TEXTBOX_HEIGHT+TextBoxInfo.TEXTBOX_HEIGHT/4);
+
+        gc.rect(bottomStartX + width, startY + TextBoxInfo.TEXTBOX_HEIGHT, width, TextBoxInfo.TEXTBOX_HEIGHT);
+        gc.fillText("Return to Game", (bottomStartX + width), (startY + TextBoxInfo.TEXTBOX_HEIGHT+TextBoxInfo.TEXTBOX_HEIGHT/4));
+
+        gc.rect(bottomStartX + width, startY + TextBoxInfo.TEXTBOX_HEIGHT, width, TextBoxInfo.TEXTBOX_HEIGHT);
+        gc.fillText("Exit Game", (bottomStartX + 2 * width), (startY + TextBoxInfo.TEXTBOX_HEIGHT+TextBoxInfo.TEXTBOX_HEIGHT/4));
+
+        int selectedXPos = bottomStartX + width * selectedX;
+        int selectedYPos = startY + TextBoxInfo.TEXTBOX_HEIGHT/2;
+
+        if(selectedX != 2)
+            gc.drawImage(selected, selectedXPos, selectedYPos, width, TextBoxInfo.TEXTBOX_HEIGHT);
+
+        if(selectedX == 2)
+            gc.drawImage(selected, selectedXPos, selectedYPos, 2 * width / 3, TextBoxInfo.TEXTBOX_HEIGHT);
+
     }
 }
