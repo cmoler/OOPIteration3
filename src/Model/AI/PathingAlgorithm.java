@@ -34,7 +34,7 @@ public class PathingAlgorithm {
     }
 
     private int getCost(Point3D point, Point3D goal){
-        return (int) HexDistanceCalculator.getHexDistance(point,goal);
+        return HexDistanceCalculator.getHexDistance(point,goal);
     }
 
     public ArrayList<Point3D> getReachablePoints(Point3D start, int rangeLimit, Entity actor){
