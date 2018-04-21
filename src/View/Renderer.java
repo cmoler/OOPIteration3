@@ -170,7 +170,7 @@ public class Renderer {
 
             EntityView observer = new EntityView(entity, point);
 
-            observers.add(observer);
+            observers.add(observer); // TODO: refactor logic for this method once we integrate factory functionality for entity sprites
         }
 
         return observers;
