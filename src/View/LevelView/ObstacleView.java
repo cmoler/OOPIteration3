@@ -31,9 +31,10 @@ public class ObstacleView extends LevelViewElement{
 
     }
 
+    @Override
+    public void notifyViewElementDeath() {
 
-
-
+    }
 
 
 }

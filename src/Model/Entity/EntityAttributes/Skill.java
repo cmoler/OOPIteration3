@@ -80,8 +80,8 @@ public class Skill {
         return sendInfluenceEffectCommand;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSendInfluenceEffectCommand(SendInfluenceEffectCommand sendInfluenceEffectCommand) {
+        this.sendInfluenceEffectCommand = sendInfluenceEffectCommand;
     }
 
     public String getName(){

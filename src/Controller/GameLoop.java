@@ -121,8 +121,19 @@ public class GameLoop {
         renderer.setActiveMenuState(menuViewState);
     }
 
+    private void setGameOver() {
+        //TODO: new state for game over screen*/
+        //menuModel.setActiveState();
+    }
+
     public void tick() {
-        gameModel.advance();
+        if(gameModel.playerIsDead()) {
+            gameModel.resetPlayer();
+            setGameOver();
+        }
+        else{
+            gameModel.advance();
+        }
     }
 
     public void render(GraphicsContext gc){

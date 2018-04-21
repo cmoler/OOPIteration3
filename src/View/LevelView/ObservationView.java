@@ -43,6 +43,12 @@ public class ObservationView extends LevelViewElement {
         gc.fillText(observationText, (int)((xOffset*width)*.75) + Commons.SCREEN_WIDTH/2 + scrollOffset.getX(), (yOffset*(height/2)) + Commons.SCREEN_HEIGHT/2 + scrollOffset.getY());
         duration--;
     }
+
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
+
     @Override
     public void notifyViewElement() {
 

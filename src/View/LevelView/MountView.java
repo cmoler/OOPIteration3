@@ -26,5 +26,10 @@ public class MountView extends LevelViewElement {
         setOrientation(mount.getOrientation());
     }
 
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
+
 
 }

@@ -24,5 +24,10 @@ public class AreaEffectView extends LevelViewElement { // TODO: implement
 
     }
 
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
+
 
 }
