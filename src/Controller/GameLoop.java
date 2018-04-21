@@ -151,7 +151,11 @@ public class GameLoop {
         ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
     }
 
-    public void setScrollOffSet(Point2D scrollOffSet) {
-        this.scrollOffSet = scrollOffSet;
+    public void resetScrollOffSet() {
+        this.scrollOffSet = Point2D.ZERO;
+    }
+
+    public void addScrollOffSet(Point2D mouseOffSet) {
+        this.scrollOffSet = new Point2D(scrollOffSet.getX() + mouseOffSet.getX(), scrollOffSet.getY() + mouseOffSet.getY());
     }
 }
