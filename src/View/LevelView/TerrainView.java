@@ -55,6 +55,7 @@ public class TerrainView extends LevelViewElement{
 
     @Override
     public void render(GraphicsContext gc, Point2D playerPos, Point2D scrollOffset) {
+
         if(!isSeen()) {//Tile hasn't been seen yet, render black hex
             renderHex(gc, playerPos, scrollOffset, blackHex);
             return;

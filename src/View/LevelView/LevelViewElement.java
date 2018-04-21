@@ -21,7 +21,7 @@ public abstract class LevelViewElement {
     private Image fogSprite;
     private HexMathHelper hexMathHelper;
 
-    LevelViewElement(Point3D location, int renderPriority) {
+    protected LevelViewElement(Point3D location, int renderPriority) {
         this.location = location;
         renderLocation = location;
         orientation = Orientation.NORTH;

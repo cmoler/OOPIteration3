@@ -43,6 +43,7 @@ public class LevelView {
                 }
             }
         }
+        System.out.println(observers.size());
         hudStatsView.render(gc);
         hotbarView.render(gc);
     }
