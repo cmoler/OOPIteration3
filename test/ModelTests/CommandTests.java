@@ -244,6 +244,98 @@ public class CommandTests {
     }
 
     @Test
+    public void testTeleportCommandOccupiedDestination() {
+        Level level1 = new Level();
+        Level level2 = new Level();
+
+        Entity entity = new Entity();
+
+        GameLoop gameLoop = new GameLoop();
+        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+
+        GameModel gameModel = new GameModel(gameLoopMessenger);
+
+        gameModel.addLevel(level2);
+        gameModel.addLevel(level1);
+
+        gameModel.setCurrentLevel(level1);
+
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(gameModel.getLevelMessenger(), level2, new Point3D(1,3,2));
+
+        AreaEffect areaEffect = new OneShotAreaEffect(teleportEntityCommand);
+
+        level1.addEntityTo(new Point3D(0,0,0), entity);
+        level1.addAreaEffectTo(new Point3D(0,0,0), areaEffect);
+
+        level2.addTerrainTo(new Point3D(1,3,2), Terrain.GRASS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTH), Terrain.GRASS);
+
+        Entity entity2 = new Entity();
+
+        level2.addEntityTo(new Point3D(1,3,2), entity2);
+
+        gameModel.setPlayer(entity);
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), entity);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity2);
+
+        gameModel.advance();
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), null);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity);
+        Assert.assertEquals(level2.getEntityAtPoint(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTH)), entity2);
+    }
+
+    @Test
+    public void testTeleportCommandOccupiedDestinationMoreThanOneLevel() {
+        Level level1 = new Level();
+        Level level2 = new Level();
+
+        Entity entity = new Entity();
+
+        GameLoop gameLoop = new GameLoop();
+        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+
+        GameModel gameModel = new GameModel(gameLoopMessenger);
+
+        gameModel.addLevel(level2);
+        gameModel.addLevel(level1);
+
+        gameModel.setCurrentLevel(level1);
+
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(gameModel.getLevelMessenger(), level2, new Point3D(1,3,2));
+
+        AreaEffect areaEffect = new OneShotAreaEffect(teleportEntityCommand);
+
+        level1.addEntityTo(new Point3D(0,0,0), entity);
+        level1.addAreaEffectTo(new Point3D(0,0,0), areaEffect);
+
+        level2.addTerrainTo(new Point3D(1,3,2), Terrain.GRASS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTH), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTHWEST), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTHEAST), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTH), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTHWEST), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTHEAST), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTHEAST), Orientation.SOUTHWEST), Terrain.GRASS);
+
+        Entity entity2 = new Entity();
+
+        level2.addEntityTo(new Point3D(1,3,2), entity2);
+
+        gameModel.setPlayer(entity);
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), entity);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity2);
+
+        gameModel.advance();
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), null);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity);
+        Assert.assertEquals(level2.getEntityAtPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTHEAST), Orientation.SOUTHWEST)), entity2);
+    }
+
+    @Test
     public void testDropItemAllPointsFree() {
         Level level = new Level();
 
