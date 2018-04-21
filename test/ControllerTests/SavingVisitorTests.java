@@ -117,7 +117,7 @@ public class SavingVisitorTests {
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
                 new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
 
-        helmet.onTouch(entity);
+//        helmet.onTouch(entity);
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
 
         level.addEntityTo(new Point3D(0,0,0), entity);
