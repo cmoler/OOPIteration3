@@ -1,14 +1,13 @@
 package Model.Level;
 
+import Model.Command.EntityCommand.NonSettableCommand.DialogCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Utility.BidiMap;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MovementHandler {
     private Map<Point3D,Terrain> terrainLocations;
@@ -17,16 +16,19 @@ public class MovementHandler {
     private Map<Point3D, Mount> mountLocations;
     private Map<Point3D, InfluenceEffect> influenceEffectLocations;
 
+    private DialogCommand dialogCommand;
+
     public MovementHandler(Map<Point3D, Terrain> terrainLocations,
                            Map<Point3D, Obstacle> obstacleLocations,
                            BidiMap<Point3D, Entity> entityLocations,
                            Map<Point3D, Mount> mountLocations,
                            Map<Point3D, InfluenceEffect> influenceEffectLocations) {
+
         this.terrainLocations = terrainLocations;
         this.obstacleLocations = obstacleLocations;
         this.entityLocations = entityLocations;
         this.mountLocations = mountLocations;
-        this.influenceEffectLocations = influenceEffectLocations;
+        this.influenceEffectLocations = influenceEffectLocations;;
     }
 
     public void processMoves(){
@@ -36,14 +38,16 @@ public class MovementHandler {
     }
 
     private void moveEntities() {
-        for (Entity entity : entityLocations.getValueList()) { //For each entry in the map
+        for (Entity entity: entityLocations.getValueList()){//For each entry in the map
             Point3D entityPoint = entityLocations.getKeyFromValue(entity);
+
             if (entity.isMoving()){
                 Point3D contestedPoint = calculateMove(entityPoint, entity.getVelocity());
+
                 if (!obstacleLocations.containsKey(contestedPoint) && entity.canMoveOnTerrain(terrainLocations.get(contestedPoint))){
                     if (entityLocations.hasKey(contestedPoint)){
-                        // TODO: Figure out this use case.
-                        System.out.println("Hello Entity! I, another Entity, is interacting with you!");
+                        dialogCommand.execute(entity);
+
                     } else {
                         //Update entity movement
                         entityLocations.removeByKey(entityPoint);
@@ -51,11 +55,14 @@ public class MovementHandler {
 
                         if (entity.isMounted()) {
                             Mount mount = mountLocations.get(entityPoint);
-                            mountLocations.remove(entityPoint);
                             mount.setOrientation(entity.getOrientation());
+
+                            mountLocations.remove(entityPoint);
                             mountLocations.put(contestedPoint, mount);
+
                             mount.notifyObservers(contestedPoint);
                         }
+
                         if (mountLocations.containsKey(contestedPoint) && !entity.isMounted()) {
                             entity.mountVehicle(mountLocations.get(contestedPoint));
                         }
@@ -68,7 +75,7 @@ public class MovementHandler {
         }
     }
 
-    private void moveInfluenceEffects() {
+    private void moveInfluenceEffects() { // TODO: notify influence effect observers on position changed?
         List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
         for(Point3D oldPoint : influenceEffectPoints) {
@@ -99,5 +106,9 @@ public class MovementHandler {
         if (Math.abs(velocity.z)>0) { newZ = newZ+(velocity.z/Math.abs(velocity.z));}
 
         return new Point3D(newX,newY,newZ);
+    }
+
+    public void setDialogCommandLevelMessenger(LevelMessenger levelMessenger) {
+        this.dialogCommand = new DialogCommand(levelMessenger);
     }
 }

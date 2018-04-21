@@ -1,7 +1,7 @@
 package Model.AI;
 
 import Model.Entity.Entity;
-import Model.Entity.EntityAttributes.VectorToPointCalculator;
+import Model.Utility.VectorToPointCalculator;
 import Model.Utility.BidiMap;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;

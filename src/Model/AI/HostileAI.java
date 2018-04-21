@@ -13,12 +13,11 @@ import java.util.*;
 public class HostileAI extends AIState{
     private BidiMap<Point3D, Entity> entityMap;
     private List<Entity> targetList;
-    private Entity player;
     private PathingAlgorithm pathCalculator;
     private PatrolPath patrolPath;
     private Point3D origin;
     private double chaseRadius;
-    private Boolean moveToOrigin;
+    private Boolean originalState;
 
     public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, List<Entity> targetList) {
         super(ent);
@@ -26,8 +25,8 @@ public class HostileAI extends AIState{
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         origin = getEntityPoint(super.getEntity(), entityMap);
         chaseRadius = getEntity().getSight();
-        moveToOrigin = false;
         this.targetList = targetList;
+        originalState = true;
     }
 
     @Override
@@ -35,69 +34,68 @@ public class HostileAI extends AIState{
         Point3D position = getEntityPoint(super.getEntity(), entityMap);
         Point3D goal = getTarget(position);
 
-        if (isOutsideChaseRadius(position)){
-            setReturnToOrigin();
+        if(isReachable(position,goal,super.getEntity())){
+            moveToGoal(position, goal);
+            if (isInOriginalState()) {
+                setOriginalState();
+            }
         }
+        else{
+            if (!isInOriginalState()){
+                getToOriginalState(position);
+            }
+            else {
+                performDefaultAction();
+            }
+        }
+    }
 
-        if (isOutsideSightRange(position,goal)){
+    private void performDefaultAction() {
+        if (hasPatrolSet()){
             moveAlongPatrol();
         }
-        else if (isMovingToOrigin()){
-            moveToGoal(position,origin);
+    }
+
+    private void setOriginalState() {
+        originalState = false;
+    }
+
+    private void getToOriginalState(Point3D position) {
+        if (isAtOrigin(position)){
+            resetOriginalState();
         }
-        else {
-            moveToGoal(position, goal);
+        else{
+            moveToOrigin(position);
         }
+    }
+
+    private void resetOriginalState() {
+        originalState = true;
+    }
+
+    private boolean isInOriginalState() {
+        return originalState;
+    }
+
+    private void moveToOrigin(Point3D position) {
+        moveToGoal(position,origin);
+    }
+
+    private boolean hasPatrolSet() {
+        return patrolPath != null;
+    }
+
+    private boolean isAtOrigin(Point3D currentPosition) {
+        return currentPosition.distance(origin) == 0;
     }
 
     private Point3D getTarget(Point3D position){
-        Point3D playerPoint = getEntityPoint(player,entityMap);
-        Point3D targetPoint = getNearestTarget(position);
-
-        if (isSamePoint(playerPoint,targetPoint)){
-            return playerPoint;
-        }
-        else if (isEquidistant(position,playerPoint,targetPoint)){
-            return playerPoint; //Player takes highest priority
-        }
-        else{
-            return getClosestPoint(origin,playerPoint,targetPoint);
-        }
+        return getNearestTarget(position);
     }
 
-    private boolean isSamePoint(Point3D point1, Point3D point2){
-        return point1.equals(point2);
-    }
-
-    private Point3D getClosestPoint(Point3D origin, Point3D playerPoint, Point3D targetPoint) {
-        double playerDistance = origin.distance(playerPoint);
-        double targetDistance = origin.distance(targetPoint);
-        if (playerDistance > targetDistance) {
-            return targetPoint;
-        }
-        else{
-            return playerPoint;
-        }
-    }
-
-    private boolean isEquidistant(Point3D origin, Point3D point1, Point3D point2){
-        return (origin.distance(point1) == origin.distance(point2));
-    }
-
-    private boolean isOutsideChaseRadius(Point3D position){
-        return position.distance(origin) > chaseRadius;
-    }
-
-    private void setReturnToOrigin(){
-        moveToOrigin = true;
-    }
-
-    private boolean isMovingToOrigin(){
-        return moveToOrigin;
-    }
-
-    private boolean isOutsideSightRange(Point3D position, Point3D goal){
-        return position.distance(goal) >= player.getNoise() && !moveToOrigin;
+    private boolean isReachable(Point3D position, Point3D goal, Entity ent){
+        ArrayList<Point3D> reachable = pathCalculator.getReachablePoints(position, (int) chaseRadius, ent);
+        return reachable.contains(goal);
     }
 
     private void moveAlongPatrol() {
@@ -110,8 +108,7 @@ public class HostileAI extends AIState{
     }
 
     private void moveToGoal(Point3D start, Point3D goal){
-        ArrayList<Point3D> path = pathCalculator.getPath(start, goal, player);
-        Point3D firstStep = path.get(0);
+        Point3D firstStep = pathCalculator.getAStarPoint(start, goal, super.getEntity());
         super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
@@ -133,12 +130,10 @@ public class HostileAI extends AIState{
         double minDistance = Double.MAX_VALUE;
         double distance;
         for (Point3D point : targetPoints) {
-            if (!entityMap.getValueFromKey(point).equals(player)) { //TODO: Possible LoD violation?
-                distance = origin.distance(point);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    minLocation = point;
-                }
+            distance = origin.distance(point);
+            if (distance < minDistance) {
+                minDistance = distance;
+                minLocation = point;
             }
         }
         return minLocation;

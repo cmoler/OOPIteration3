@@ -11,7 +11,7 @@ public class MountView extends LevelViewElement {
     private Mount mount;
 
     public MountView(Mount mount, Point3D location) {
-        super(location);
+        super(location,2);
         this.mount = mount;
         String workingDir = System.getProperty("user.dir");
 
@@ -26,8 +26,5 @@ public class MountView extends LevelViewElement {
         setOrientation(mount.getOrientation());
     }
 
-    @Override
-    public int getRenderPriority() {
-        return 1;
-    }
+
 }

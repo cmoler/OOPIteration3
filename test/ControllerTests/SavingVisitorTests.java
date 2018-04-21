@@ -30,6 +30,7 @@ import javafx.geometry.Point3D;
 import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
+
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -122,10 +123,8 @@ public class SavingVisitorTests {
         level.addEntityTo(new Point3D(0,0,0), entity);
 
         levels.add(level);
-
         levels.add(new Level());
-        gameModel = new GameModel(level, null, levels, null, null);
-
+        gameModel = new GameModel(level, null, levels, entity, null);
         savingVisitor.visitGameModel(gameModel);
         gameLoader.loadGame("TESTSAVE.xml");
     }

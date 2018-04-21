@@ -34,8 +34,7 @@ public class PassivePetState implements PetState {
     }
 
     private void moveToGoal(Entity pet, Point3D start, Point3D goal){
-        ArrayList<Point3D> path = pathCalculator.getPath(start, goal, pet);
-        Point3D firstStep = path.get(0);
+        Point3D firstStep = pathCalculator.getAStarPoint(start, goal, pet);
         pet.addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 

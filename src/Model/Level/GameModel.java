@@ -3,10 +3,13 @@ package Model.Level;
 import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
 import Model.AI.AIController;
+import Model.AI.HostileAI;
+import Model.AI.PatrolPath;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
+import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -32,17 +35,26 @@ public class GameModel implements Visitable {
     private Queue<TeleportTuple> teleportQueue;
     private Queue<TeleportTuple> failedTeleportQueue;
 
-    public GameModel() {
+    public GameModel(GameLoopMessenger gameLoopMessenger) {
+            gameModelMessenger = new GameModelMessenger(gameLoopMessenger, this);
+            currentLevel = new Level();
+            currentLevelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
+            currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
+
             levels = new ArrayList<>();
+            levels.add(currentLevel);
+
             aiMap = new HashMap<>();
             teleportQueue = new LinkedList<>();
             failedTeleportQueue = new LinkedList<>();
 
-            currentLevel = new Level();
-
             player = new Entity();
 
-            currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
+            player.setMoveable(true);
+            player.setNoise(5);
+            player.setSightRadius(new SightRadius(7));
+            currentLevel.addEntityTo(new Point3D(4, 0, -4), player);
+            currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
 
             RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
@@ -55,9 +67,33 @@ public class GameModel implements Visitable {
 
             currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
 
-            currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+            //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
 
-            levels.add(currentLevel);
+            Entity enemy =  new Entity();
+            enemy.setMoveable(true);
+            enemy.setNoise(5);
+            enemy.setSightRadius(new SightRadius(2));
+            ArrayList<Vec3d> path = new ArrayList<>();
+            path.add(new Vec3d(1,0,-1));
+            path.add(new Vec3d(1,0,-1));
+            /*path.add(new Vec3d(-1,1,0));
+            path.add(new Vec3d(-1,1,0));
+            path.add(new Vec3d(0,-1,1));
+            path.add(new Vec3d(0,-1,1));*/
+            path.add(new Vec3d(-1,0,1));
+            path.add(new Vec3d(-1,0,1));
+            /*path.add(new Vec3d(1,-1,0));
+            path.add(new Vec3d(1,-1,0));*/
+            currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
+            List<Entity> list = new ArrayList<>();
+            list.add(player);
+            HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),list);
+            hostileAI.setPatrolPath(new PatrolPath(path));
+            AIController controller = new AIController();
+            controller.setActiveState(hostileAI);
+            List<AIController> AIList = new ArrayList<>();
+            AIList.add(controller);
+            aiMap.put(currentLevel,AIList);
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
@@ -67,6 +103,8 @@ public class GameModel implements Visitable {
         this.levels = levels;
         this.player = player;
         this.aiMap = aiMap;
+
+        this.currentLevel.setMovementHandlerDialogCommand(this.currentLevelMessenger);
     }
 
     public Level getCurrentLevel(){
@@ -113,9 +151,7 @@ public class GameModel implements Visitable {
             if(player != null) {
                 visitor.visitPlayerEntity(player);
             }
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -155,7 +191,6 @@ public class GameModel implements Visitable {
     }
 
     private void changeLevels(Entity entity, Level destinationLevel, Point3D destinationPoint) {
-
         if(!destinationLevel.hasEntityAtPoint(destinationPoint)) {
             destinationLevel.addEntityTo(destinationPoint, entity);
             destinationLevel.registerEntityObserver(entity);
@@ -166,6 +201,7 @@ public class GameModel implements Visitable {
             if (entity.equals(player)) {
                 currentLevel = destinationLevel;
                 currentLevelMessenger.setLevel(currentLevel);
+                currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
                 // TODO: notify pets when player teleports, so we can teleport them as well
             }
         } else {
@@ -174,11 +210,23 @@ public class GameModel implements Visitable {
     }
 
     public void advance() {
-
+        processAIMoves();
         currentLevel.processMoves();
         currentLevel.processInteractions();
+        currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
 
         processTeleportQueue();
+    }
+
+    private void processAIMoves(){
+
+        if(aiMap.containsKey(currentLevel)) {
+            List<AIController> aiControllers = aiMap.get(currentLevel);
+
+            for (AIController AI : aiControllers) {
+                AI.processMove();
+            }
+        }
     }
 
     public boolean playerIsDead() {
@@ -202,16 +250,15 @@ public class GameModel implements Visitable {
 
         if(currentLevelMessenger != null) {
             currentLevelMessenger.setLevel(currentLevel);
+
         } else {
             if(gameModelMessenger == null) {
                 throw new RuntimeException("GameModel's messenger not set!");
             }
             currentLevelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
         }
-    }
 
-    public void setGameModelMessenger(GameModelMessenger gameModelMessenger) {
-        this.gameModelMessenger = gameModelMessenger;
+        currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
     }
 
     public void registerAllLevelObservers() {

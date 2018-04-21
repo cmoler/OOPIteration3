@@ -29,10 +29,16 @@ public class ItemTests {
     private Level level;
     private Entity entity;
 
+    private GameLoop gameLoop;
+    private GameLoopMessenger messenger;
+
     @Before
     public void init() {
         level = new Level();
         entity = new Entity();
+
+        gameLoop = new GameLoop();
+        messenger = new GameLoopMessenger(gameLoop);
     }
 
     @Test
@@ -107,7 +113,8 @@ public class ItemTests {
     @Test
     public void testWeaponEquip() {
         Level level = new Level();
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
+
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(messenger, new GameModel(messenger)), level);
 
         Entity entity = new Entity();
 
@@ -171,7 +178,7 @@ public class ItemTests {
     @Test
     public void testArmorEquipping() {
         Level level = new Level();
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(messenger, new GameModel(messenger)), level);
 
         Entity entity = new Entity();
 
@@ -235,7 +242,7 @@ public class ItemTests {
     @Test
     public void testRingEquipping() {
         Level level = new Level();
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(messenger, new GameModel(messenger)), level);
 
         Entity entity = new Entity();
 
@@ -304,12 +311,12 @@ public class ItemTests {
 
         WeaponItem equippableSword = new WeaponItem("Sword", new AddHealthCommand(20));
         equippableSword.setSkill(oneHand);
-        equippableSword.setCurrentLevelMessenger(new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level));
+        equippableSword.setCurrentLevelMessenger(new LevelMessenger(new GameModelMessenger(messenger, new GameModel(messenger)), level));
         equippableSword.onTouch(entity);
 
         WeaponItem nonEquippableSword = new WeaponItem("Sword", new AddHealthCommand(20));
         nonEquippableSword.setSkill(new Skill());
-        nonEquippableSword.setCurrentLevelMessenger(new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level));
+        nonEquippableSword.setCurrentLevelMessenger(new LevelMessenger(new GameModelMessenger(messenger, new GameModel(messenger)), level));
         nonEquippableSword.onTouch(entity);
 
         equippableSword.select();
