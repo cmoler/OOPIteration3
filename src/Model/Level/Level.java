@@ -312,4 +312,43 @@ public class Level {
     public List<LevelViewElement> getObservers() {
         return observers;
     }
+
+    public Point3D findNearestOpenPointForEntity(Point3D destinationPoint) {
+
+        Queue<Point3D> pointsToProcess = new LinkedList<>();
+        List<Point3D> pointsProcessed = new ArrayList<>();
+
+        pointsToProcess.add(destinationPoint);
+
+        while(!pointsToProcess.isEmpty()) {
+            Point3D point = ((LinkedList<Point3D>) pointsToProcess).getFirst();
+
+            System.out.println("PROCESSING "+point.toString());
+
+            for(Orientation orientation : Orientation.values()) {
+                if(canPlaceEntityAtPoint(Orientation.getAdjacentPoint(point, orientation), entityLocations.getValueFromKey(destinationPoint))) {
+                    return Orientation.getAdjacentPoint(point, orientation);
+                } else {
+                    if (!pointsProcessed.contains(point)) {
+                        pointsToProcess.add(Orientation.getAdjacentPoint(point, orientation));
+                    }
+                }
+            }
+
+            pointsProcessed.add(point);
+            pointsToProcess.remove(point);
+        }
+
+        return null;
+    }
+
+    private boolean canPlaceEntityAtPoint(Point3D point3D, Entity entityToPlace) {
+        return !entityLocations.hasKey(point3D) && terrainLocations.containsKey(point3D)
+                && !obstacleLocations.containsKey(point3D) && entityToPlace.canMoveOnTerrain(terrainLocations.get(point3D));
+    }
+
+    public void moveEntityFromFirstPointToSecondPoint(Point3D destinationPoint, Point3D pointToAddTo, Entity entityAtPoint) {
+        entityLocations.removeByKey(destinationPoint);
+        entityLocations.place(pointToAddTo, entityAtPoint);
+    }
 }
