@@ -32,6 +32,11 @@ public class EntityView extends LevelViewElement{
         setOrientation(entity.getOrientation());
     }
 
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
+
 
     public void setAsPet() {
         String workingDir = System.getProperty("user.dir");

@@ -26,5 +26,10 @@ public class RiverView extends LevelViewElement{
 
     }
 
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
+
 
 }

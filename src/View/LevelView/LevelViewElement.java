@@ -81,4 +81,6 @@ public abstract class LevelViewElement {
     public Orientation getOrientation() {
         return orientation;
     }
+
+    public abstract void notifyViewElementDeath();
 }

@@ -27,5 +27,10 @@ public class TrapView extends LevelViewElement{
 
     }
 
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
+
 
 }

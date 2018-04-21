@@ -104,4 +104,9 @@ public class TerrainView extends LevelViewElement{
         }
         return super.getRenderPriority();
     }
+
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
 }

@@ -20,13 +20,13 @@ public class HostileAI extends AIState{
     private double chaseRadius;
     private Boolean originalState;
 
-    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, List<Entity> targetList) {
+    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
         super(ent);
         this.entityMap = entityMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         origin = getEntityPoint(super.getEntity(), entityMap);
         chaseRadius = getEntity().getSight();
-        this.targetList = targetList;
+        this.targetList = ent.getTargetingList();
         originalState = true;
     }
 
@@ -55,13 +55,12 @@ public class HostileAI extends AIState{
     }
 
     private void attack(Point3D position, Point3D goal) {
-        System.out.println("I am attacking!");
         super.getEntity().setOrientation(PathingAlgorithm.calculateOrientation(position,goal));
         super.getEntity().attack();
     }
 
     private boolean isInAttackRange(Point3D position, Point3D goal) {
-        return HexDistanceCalculator.getHexDistance(position,goal) == 1;
+        return HexDistanceCalculator.getHexDistance(position,goal) <= super.getEntity().getRange();
     }
 
 
@@ -160,13 +159,5 @@ public class HostileAI extends AIState{
             targetPoints.add(entityMap.getKeyFromValue(ent));
         }
         return targetPoints;
-    }
-
-    public void addTarget(Entity ent){
-        targetList.add(ent);
-    }
-
-    public void removeTarget(Entity ent){
-        targetList.remove(ent);
     }
 }

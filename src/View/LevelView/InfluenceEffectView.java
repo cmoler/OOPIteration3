@@ -24,5 +24,10 @@ public class InfluenceEffectView extends LevelViewElement { // TODO: implement
 
     }
 
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
+
 
 }

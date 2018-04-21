@@ -24,5 +24,10 @@ public class DecalView extends LevelViewElement { // TODO: implement
 
     }
 
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
+
 
 }

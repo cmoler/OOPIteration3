@@ -441,4 +441,16 @@ public class Level {
     public void setMovementHandlerDialogCommand(LevelMessenger levelMessenger) {
         movementHandler.setDialogCommandLevelMessenger(levelMessenger);
     }
+
+    public ArrayList<Entity> clearDeadEntities(Entity player) {
+        ArrayList<Entity> deadpool = new ArrayList<>();
+        for(Entity ent: entityLocations.getValueList()){
+            if (ent.isDead() && !ent.equals(player)){
+                ent.notifyUponDeath();
+                ent.setMoveable(false);
+                deadpool.add(ent);
+            }
+        }
+        return deadpool;
+    }
 }

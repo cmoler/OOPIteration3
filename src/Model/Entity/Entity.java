@@ -53,6 +53,7 @@ public class Entity {
     private boolean moveable;
 
     private Mount mount;
+    private List<Entity> targetingList;
 
     public Entity(List<LevelViewElement> observers, ItemHotBar hotBar, List<Skill> weaponSkills,
                   List<Skill> nonWeaponSkills, HashMap<Skill, SkillLevel> skillLevelsMap,
@@ -81,6 +82,7 @@ public class Entity {
         this.compatableTerrain = compatableTerrain;
         this.moveable = moveable;
         this.mount = mount;
+        targetingList = new ArrayList<>();
     }
 
     public Entity() {
@@ -111,14 +113,13 @@ public class Entity {
 
         speed = new Speed();
         speed.setSpeed(1);
-        equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
-
 
         compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
         moveable = true;
 
         mount = null;
+        targetingList = new ArrayList<>();
 
     }
 
@@ -137,6 +138,10 @@ public class Entity {
     public void setOrientation(Orientation o){
         orientation = o;
         notifyObservers(null);
+    }
+
+    public int getRange(){
+        return equipment.getRange();
     }
 
     public void addItemToInventory(TakeableItem item) {
@@ -226,6 +231,26 @@ public class Entity {
         speed.increaseSpeed(amt);
     }
 
+    public List<Entity> getTargetingList() {
+        return targetingList;
+    }
+
+    public void setTargetingList(List<Entity> targetingList) {
+        this.targetingList = targetingList;
+    }
+
+    public boolean targets(Entity entity){
+        return targetingList.contains(entity);
+    }
+
+    public void addTarget(Entity ent){
+        targetingList.add(ent);
+    }
+
+    public void removeTarget(Entity ent){
+        targetingList.remove(ent);
+    }
+
     public void decreaseSpeed(int amt){
         speed.decreaseSpeed(amt);
     }
@@ -257,6 +282,12 @@ public class Entity {
 
     public void setVelocity(Vec3d velocity) {
         this.velocity = velocity;
+    }
+
+    public void notifyUponDeath(){
+        for (LevelViewElement o : observers) {
+            o.notifyViewElementDeath();
+        }
     }
 
     public void notifyObservers(Point3D position){
@@ -588,5 +619,10 @@ public class Entity {
 
     public Equipment getEquipment() {
         return equipment;
+    }
+
+    public void reset() {
+        health.refill();
+        mana.refill();
     }
 }
