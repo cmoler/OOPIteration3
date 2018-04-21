@@ -31,7 +31,7 @@ public class ChangeToFriendlyAICommand extends GameModelCommand implements Comma
 
     @Override
     public void receiveLevel(Level level) { // What I need to get from the receiving Level - Called Second
-        friendlyAI = new FriendlyAI(changedEntity,level.getTerrainLocations(),level.getEntityLocations(),level.getObstacleLocations());
+        friendlyAI = new FriendlyAI(changedEntity,level.getTerrainMap(),level.getEntityMap(),level.getObstacleMap());
     }
 
 

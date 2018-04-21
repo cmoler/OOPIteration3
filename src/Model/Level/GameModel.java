@@ -4,7 +4,6 @@ import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
-import Model.AI.PatrolPath;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
@@ -14,7 +13,6 @@ import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +85,7 @@ public class GameModel implements Visitable {
         currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
         List<Entity> list = new ArrayList<>();
         list.add(player);
-        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),list);
+        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),list);
         //hostileAI.setPatrolPath(new PatrolPath(path));
         AIController controller = new AIController();
         controller.setActiveState(hostileAI);
@@ -100,7 +98,7 @@ public class GameModel implements Visitable {
         pet.setNoise(5);
         pet.setSightRadius(new SightRadius(2));
         currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
-        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),player);
+        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
         AIController test = new AIController();
         test.setActiveState(PPS);
         AIList.add(test);
@@ -203,16 +201,17 @@ public class GameModel implements Visitable {
     private void changeLevels(Entity entity, Level destinationLevel, Point3D destinationPoint) {
         if(!destinationLevel.hasEntityAtPoint(destinationPoint)) {
             destinationLevel.addEntityTo(destinationPoint, entity);
-            destinationLevel.registerEntityObserver(entity);
+            destinationLevel.addObservers(entity.getObservers());
 
             currentLevel.removeEntityFrom(entity);
-            currentLevel.deregisterEntityObserver(entity);
+            currentLevel.removeObservers(entity.getObservers());
 
             if (entity.equals(player)) {
                 currentLevel = destinationLevel;
                 currentLevelMessenger.setLevel(currentLevel);
                 currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
                 // TODO: notify pets when player teleports, so we can teleport them as well
+                // TODO: change logic for teleporting on a tile that is occupied by another entity
             }
         } else {
             failedTeleportQueue.add(new TeleportTuple(entity, destinationLevel, destinationPoint));
@@ -269,12 +268,6 @@ public class GameModel implements Visitable {
         }
 
         currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
-    }
-
-    public void registerAllLevelObservers() {
-        for(Level level : levels) {
-            level.registerObservers();
-        }
     }
 
     public void accept(Visitor visitor) {

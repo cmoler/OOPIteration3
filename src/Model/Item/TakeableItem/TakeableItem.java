@@ -34,8 +34,6 @@ public abstract class TakeableItem extends Item implements Visitable {
         dropStrategy.useStrategy();
     }
 
-
-
     public void setCurrentLevelMessenger(LevelMessenger levelMessenger) {
         dropStrategy = new DropStrategy(this, new DropItemCommand(levelMessenger));
     }

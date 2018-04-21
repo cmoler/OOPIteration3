@@ -3,6 +3,8 @@ package Controller.Factories.EntityFactories;
 import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
+import View.LevelView.EntityView;
+import javafx.geometry.Point3D;
 
 public class SmasherFactory extends EntityFactory {
 
@@ -25,5 +27,9 @@ public class SmasherFactory extends EntityFactory {
         );
 
         return smasher;
+    }
+
+    public void buildEntitySprite(Entity entity) { // TODO: subclass entityView to make monster sprite
+        EntityView smasherView = new EntityView(entity, new Point3D(0,0,0));
     }
 }

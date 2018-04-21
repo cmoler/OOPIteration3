@@ -4,6 +4,8 @@ import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
+import View.LevelView.EntityView;
+import javafx.geometry.Point3D;
 
 public class ShopKeeperFactory extends EntityFactory {
 
@@ -24,7 +26,11 @@ public class ShopKeeperFactory extends EntityFactory {
                 shopKeep.addItemToInventory(items[i]);
             }
         }
+
         return shopKeep;
     }
 
+    public void buildEntitySprite(Entity entity) { // TODO: subclass entityView to make monster sprite
+        EntityView shopkeeperView = new EntityView(entity, new Point3D(0,0,0));
+    }
 }

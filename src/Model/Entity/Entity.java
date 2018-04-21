@@ -390,7 +390,7 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
-    } // TODO: add logic for mana costs
+    } // TODO: add logic for mana costs, add logic for no weapon equipped
 
     public void addItemToHotBar(TakeableItem takeableItem, int index){
         hotBar.addItem(takeableItem, index);

@@ -3,12 +3,16 @@ package Controller;
 import Controller.Factories.ControllerSetFactory;
 import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Visitor.SavingVisitor;
+import Model.AreaEffect.AreaEffect;
 import Model.Entity.Entity;
-import Model.Level.GameLoopMessenger;
-import Model.Level.GameModel;
+import Model.InfluenceEffect.InfluenceEffect;
+import Model.Item.Item;
+import Model.Level.*;
 import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
 import Model.MenuModel.MenuState;
+import Model.Utility.BidiMap;
+import View.LevelView.*;
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
@@ -16,8 +20,12 @@ import View.Renderer;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
+
+import java.util.List;
+import java.util.Map;
 
 
 public class GameLoop {
@@ -56,15 +64,17 @@ public class GameLoop {
 
         renderer = new Renderer();
 
-        ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
+        ((KeyEventImplementor) controls).createMainMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
         renderer.closeMenu();
-        ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+        ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
 
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
 
-        gameModel.registerAllLevelObservers();
+        for (Level level : gameModel.getLevels()) {
+            renderer.loadModelSprites(level);
+        }
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {

@@ -6,7 +6,6 @@ import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
-import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
@@ -24,10 +23,8 @@ import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import Model.Utility.BidiMap;
-import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
-import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -132,7 +129,7 @@ public class SavingVisitorTests {
     @Test
     public void testSavingTerrains() {
         Level levelToTest = gameLoader.getCurrentLevel();
-        Map<Point3D, Terrain> terrainsToTest = levelToTest.getTerrainLocations();
+        Map<Point3D, Terrain> terrainsToTest = levelToTest.getTerrainMap();
         assertTrue(terrainsToTest.get(new Point3D(0,0,0)) == Terrain.GRASS);
         assertTrue(terrainsToTest.get(new Point3D(0,0,1)) == Terrain.MOUNTAINS);
     }
@@ -140,7 +137,7 @@ public class SavingVisitorTests {
     @Test
     public void testSavingAreaEffectsAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
-        Map<Point3D, AreaEffect> areasToTest = levelToTest.getAreaEffectLocations();
+        Map<Point3D, AreaEffect> areasToTest = levelToTest.getAreaEffectMap();
         assertTrue(areasToTest.get(new Point3D(0,0,0)) instanceof InfiniteAreaEffect);
         assertTrue(areasToTest.get(new Point3D(0,0,1)) instanceof OneShotAreaEffect);
     }
@@ -157,7 +154,7 @@ public class SavingVisitorTests {
     @Test
     public void testSavingItemsAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
-        Map<Point3D, Item> itemsToTest = levelToTest.getItemLocations();
+        Map<Point3D, Item> itemsToTest = levelToTest.getItemMap();
         assertTrue(itemsToTest.get(new Point3D(0,0,0)) instanceof InteractiveItem);
         assertTrue(itemsToTest.get(new Point3D(0,0,1)) instanceof OneShotItem);
         assertTrue(itemsToTest.get(new Point3D(0,0,2)) instanceof ArmorItem);
@@ -171,28 +168,28 @@ public class SavingVisitorTests {
     @Test
     public void testTrapsSaveAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
-        Map<Point3D, Trap> trapsToTest = levelToTest.getTrapLocations();
+        Map<Point3D, Trap> trapsToTest = levelToTest.getTrapMap();
         assertTrue(trapsToTest.get(new Point3D(0,0,0)) instanceof Trap);
     }
 
     @Test
     public void testObstaclesSaveAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
-        Map<Point3D, Obstacle> testedObstacles = levelToTest.getObstacleLocations();
+        Map<Point3D, Obstacle> testedObstacles = levelToTest.getObstacleMap();
         assertTrue(!testedObstacles.isEmpty());
     }
 
     @Test
     public void testRiversSaveAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
-        Map<Point3D, River> riverMap = levelToTest.getRiverLocations();
+        Map<Point3D, River> riverMap = levelToTest.getRiverMap();
         assertTrue(!riverMap.isEmpty());
     }
 
     @Test
     public void testMountsSaveAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
-        Map<Point3D, Mount> mountMap = levelToTest.getMountLocations();
+        Map<Point3D, Mount> mountMap = levelToTest.getMountMap();
         assertTrue(!mountMap.isEmpty());
         assertTrue(mountMap.get(new Point3D(0,0,0)).speedToString().equals("10"));
         assertTrue(mountMap.get(new Point3D(0,0,0)).getPassableTerrain().get(0) == Terrain.GRASS);
@@ -203,7 +200,7 @@ public class SavingVisitorTests {
     @Test
     public void testEntitySaveAndLoad() {
         Level level = gameLoader.getCurrentLevel();
-        BidiMap<Point3D, Entity> entityMap = level.getEntityLocations();
+        BidiMap<Point3D, Entity> entityMap = level.getEntityMap();
         assertTrue(!entityMap.isEmpty());
 
         Entity testEntity = entityMap.getValueFromKey(new Point3D(0,0,0));
