@@ -347,7 +347,7 @@ public class GameLoader {
                         hotBar = processHotBar(element);
                         inventory = processInventory(element);
 
-                        entity = new Entity(new ArrayList<>(), hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
+                        entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
                                 noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                                 inventory, orientation, compatableTerrain, moveable, mount);
 
@@ -390,7 +390,7 @@ public class GameLoader {
                         switch (itemNode.getNodeName().toLowerCase()) {
                             case "armoritem":
                                 int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
-                                itemsToAdd.add(new ArmorItem(name, command, defense));
+                                itemsToAdd.add(new ArmorItem(name, (ToggleableCommand) command, defense));
                                 break;
 
                             case "consumableitem":
@@ -401,7 +401,7 @@ public class GameLoader {
                                 itemsToAdd.add(new RingItem(name, (ToggleableCommand) command));
                                 break;
 
-                            case "weaponitem": //TODO: this needs to be changed
+                            case "weaponitem": // TODO: this needs to be changed
                                 itemsToAdd.add(new WeaponItem(name, (SettableCommand) command));
                                 break;
                         }
@@ -450,7 +450,7 @@ public class GameLoader {
 
                                         else {
                                             int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
-                                            ArmorItem armorItem = new ArmorItem(name, command, defense);
+                                            ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                             itemHotBar.addItem(armorItem, index);
                                             itemRef.put(armorItem.toString(), armorItem);
                                         }
@@ -530,7 +530,7 @@ public class GameLoader {
 
                             else {
                                 int defense = Integer.parseInt(equipNode.getAttributes().getNamedItem("defense").getTextContent());
-                                armorItem = new ArmorItem(name, command, defense);
+                                armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                 itemRef.put(armorItem.toString(), armorItem);
                             }
                             break;
@@ -641,7 +641,7 @@ public class GameLoader {
                 if (skillNode.getNodeType() == Node.ELEMENT_NODE) {
                     command = processCommand(skillNode.getChildNodes());
 
-                    if(command != null) {
+                    if(command != null) { // TODO: change order of skill level?
                         name = skillNode.getAttributes().getNamedItem("name").getTextContent();
                         useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
                         accuracy = Integer.parseInt(skillNode.getAttributes().getNamedItem("accuracy").getTextContent());
@@ -696,7 +696,7 @@ public class GameLoader {
 
                                 case "armoritem":
                                     int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
-                                    ArmorItem armorItem = new ArmorItem(name, command, defense);
+                                    ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                     itemsToAdd.add(armorItem);
                                     itemRef.put(armorItem.toString(), armorItem);
                                     break;
@@ -852,39 +852,39 @@ public class GameLoader {
                         return new ToggleSneaking(amount);
 
                      /* Game Loop Commands */
-                    case "bartercommand":
+                    case "bartercommand": // TODO: implement
                         break;
 
-                    case "dialogcommand":
+                    case "dialogcommand": // TODO: implement
                         break;
 
-                    case "observeentitycommand":
+                    case "observeentitycommand": // TODO: implement
                         break;
 
                     /* Game Model Commands */
-                    case "confuseentitycommand":
+                    case "confuseentitycommand": // TODO: implement
                         break;
 
-                    case "freezeentitycommand":
+                    case "freezeentitycommand": // TODO: implement
                         break;
 
-                    case "slowentitycommand":
+                    case "slowentitycommand": // TODO: implement
                         break;
 
-                    case "teleportentitycommand":
+                    case "teleportentitycommand": // TODO: implement
                         break;
 
                     /* Level Commands */
-                    case "disarmtrapcommand":
+                    case "disarmtrapcommand": // TODO: implement
                         break;
 
-                    case "dropitemcommand":
+                    case "dropitemcommand": // TODO: implement
                         break;
 
-                    case "pickpocketcommand":
+                    case "pickpocketcommand": // TODO: implement
                         break;
 
-                    case "sendinfluencecommand":
+                    case "sendinfluencecommand": // TODO: implement
                         break;
                 }
             }
@@ -1046,7 +1046,7 @@ public class GameLoader {
             hotBar = processHotBar(entityNode);
             inventory = processInventory(entityNode);
 
-            entity = new Entity(new ArrayList<>(), hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
+            entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
                     noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                     inventory, orientation, compatableTerrain, moveable, mount);
 

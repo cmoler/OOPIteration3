@@ -1,9 +1,12 @@
 package Controller.Factories.EntityFactories;
 
-import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
+
+import View.LevelView.EntityView.PetView;
+import javafx.geometry.Point3D;
+
 
 public class PetFactory extends EntityFactory {
 
@@ -30,6 +33,11 @@ public class PetFactory extends EntityFactory {
         );
 
         return pet;
+    }
+
+
+    public void buildEntitySprite(Entity entity) {
+        PetView petView = new PetView(entity, new Point3D(0,0,0));
     }
 
 }

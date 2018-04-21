@@ -2,20 +2,6 @@ package Controller;
 
 import Configs.Commons;
 
-import Model.Entity.Entity;
-import Model.InfluenceEffect.AngularInfluenceEffect;
-import Model.InfluenceEffect.LinearInfluenceEffect;
-import Model.InfluenceEffect.RadialInfluenceEffect;
-import Model.Level.GameModel;
-import Model.Level.Level;
-import Model.MenuModel.MainMenuState;
-import Model.MenuModel.MenuModel;
-import View.LevelView.EntityView;
-import View.LevelView.LevelViewElement;
-import View.LevelView.TerrainView;
-import View.MenuView.MenuView;
-import View.MenuView.TitleScreenView;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 
@@ -103,9 +89,9 @@ public class RunGame extends Application{
             double deltaX = evt.getScreenX() - mouseX;
             double deltaY = evt.getScreenY() - mouseY;
 
-            Point2D mouseOffSet = new Point2D(deltaX, deltaY);
+            Point2D mouseOffSet = new Point2D(deltaX / 10, deltaY / 10);
 
-            gameLoop.setScrollOffSet(mouseOffSet);
+            gameLoop.addScrollOffSet(mouseOffSet);
 
         });
 

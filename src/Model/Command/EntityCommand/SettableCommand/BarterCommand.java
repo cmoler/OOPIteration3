@@ -1,8 +1,7 @@
 package Model.Command.EntityCommand.SettableCommand;
 
 import Controller.GameLoop;
-import Controller.Visitor.SavingVisitor;
-import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Controller.Visitor.Visitor;
 import Model.Command.GameLoopCommand.GameLoopCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
@@ -53,8 +52,7 @@ public class BarterCommand extends GameLoopCommand implements SettableCommand {
         return playerBarterStrength;
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitBarterCommand(this);
     }
 }

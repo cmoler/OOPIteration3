@@ -4,6 +4,8 @@ import Configs.Commons;
 import Model.Entity.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class HUDStatsView {
     private Entity player;
@@ -21,6 +23,8 @@ public class HUDStatsView {
         renderHealthBar(gc);
         renderExperienceBar(gc);
         renderManaBar(gc);
+
+        renderPlayerLevel(gc);
     }
 
     public void renderHealthBar(GraphicsContext gc) {
@@ -28,7 +32,8 @@ public class HUDStatsView {
         float maxHealth = (float) player.getMaxHealth();
         float healthPercentage = currentHealth/maxHealth;
 
-        renderStatBar(Commons.SCREEN_WIDTH-statBarWidth, 0, statBarWidth, statBarHeight, healthPercentage, Color.RED, gc);
+        renderStatBar((int)(statBarHeight*2.5), 0, statBarWidth, statBarHeight, healthPercentage, Color.RED, gc);
+
 
     }
 
@@ -37,7 +42,7 @@ public class HUDStatsView {
         float maxMana = (float) player.getMaxMana();
         float manaPercentage = currentMana/maxMana;
 
-        renderStatBar(Commons.SCREEN_WIDTH-statBarWidth, statBarHeight, statBarWidth, statBarHeight, manaPercentage, Color.BLUE, gc);
+        renderStatBar((int)(statBarHeight*2.5), statBarHeight, statBarWidth, statBarHeight, manaPercentage, Color.BLUE, gc);
     }
 
     public void renderExperienceBar(GraphicsContext gc) {
@@ -45,7 +50,20 @@ public class HUDStatsView {
         float experienceAtLevelUp = currentExperience + (float) player.getExperienceToNextLevel();
         float experiencePercentage = currentExperience/experienceAtLevelUp;
 
-        renderStatBar(Commons.SCREEN_WIDTH-statBarWidth, statBarHeight*2, statBarWidth, statBarHeight/2, experiencePercentage, Color.GOLD, gc);
+        renderStatBar((int)(statBarHeight*2.5), statBarHeight*2, statBarWidth, statBarHeight/2, experiencePercentage, Color.GOLD, gc);
+    }
+
+    public void renderPlayerLevel(GraphicsContext gc) {
+        int level = player.getLevel();
+
+        gc.setFill(Color.GOLDENROD);
+        gc.fillRect(0, 0, (statBarHeight*2.5), (statBarHeight*2.5));
+
+
+        gc.setFill(Color.BLACK);
+        gc.setFont(Font.font ("Verdana", FontWeight.BOLD, 30));
+
+        gc.fillText(Integer.toString(level), 15, 35);
     }
 
 
@@ -57,6 +75,8 @@ public class HUDStatsView {
         gc.setFill(fillColor);
         gc.fillRect(x, y, width*percentFill, height);
     }
+
+
 
 
 }

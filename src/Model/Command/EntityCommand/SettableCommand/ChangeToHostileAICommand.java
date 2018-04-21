@@ -1,6 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.Command.Command;
@@ -40,11 +40,10 @@ public class ChangeToHostileAICommand extends GameModelCommand implements Comman
         Point3D aggroPoint = Orientation.getAdjacentPoint(level.getEntityPoint(attacker),attacker.getOrientation());
         List<Entity> targetList = new ArrayList<>();
         targetList.add(level.getEntityAtPoint(aggroPoint));
-        hostileAI = new HostileAI(aggroEnt,level.getTerrainLocations(),level.getEntityLocations(),level.getObstacleLocations());
+        hostileAI = new HostileAI(aggroEnt,level.getTerrainMap(),level.getEntityMap(),level.getObstacleMap());
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         //TODO: Implement This
     }
 }

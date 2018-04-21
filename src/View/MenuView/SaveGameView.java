@@ -21,16 +21,16 @@ public class SaveGameView extends InGameMenuView {
 
         int numberOfSaves = Commons.MAX_SAVE_SLOTS;
 
-        int sizeOfSaveSlotX = (TextBoxInfo.TEXTBOX_WIDTH);
+        int boxWidth = Commons.SCREEN_WIDTH / 4;
         int sizeOfSaveSlotY = (Commons.SCREEN_WIDTH/4)/numberOfSaves;
 
         for(int i = 0; i < numberOfSaves; ++i){
-            gc.rect(startX, startY + sizeOfSaveSlotY * i, sizeOfSaveSlotX, sizeOfSaveSlotY);
-            gc.fillText("Save "+(i+1), (startX), ( startY + sizeOfSaveSlotY * i+TextBoxInfo.TEXTBOX_HEIGHT/4));
+            gc.strokeRect(startX, startY + sizeOfSaveSlotY * i, boxWidth, sizeOfSaveSlotY);
+            gc.fillText("Save "+(i+1), (startX + boxWidth / 4), ( startY + sizeOfSaveSlotY * i + 3*sizeOfSaveSlotY/5));
         }
 
         int selectionBoxY = startY + selectedY * sizeOfSaveSlotY;
 
-        gc.drawImage(selected, startX, selectionBoxY, sizeOfSaveSlotX, sizeOfSaveSlotY);
+        if(selectedX != 0) gc.drawImage(selected, startX, selectionBoxY, boxWidth, sizeOfSaveSlotY);
     }
 }

@@ -1,10 +1,11 @@
 package Model.Entity.EntityAttributes;
 
-import Model.AreaEffect.InfiniteAreaEffect;
+import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
+import Model.InfluenceEffect.LinearInfluenceEffect;
 
 public class Skill {
 
@@ -17,7 +18,7 @@ public class Skill {
 
     public Skill() {
         name = "NEED NAME HERE";
-        influenceEffect = null;
+        influenceEffect = new LinearInfluenceEffect(new RemoveHealthCommand(5), 5, 5, Orientation.NORTH);
         behavior = null;
         accuracy = 0;
         useCost = 0;
@@ -34,7 +35,6 @@ public class Skill {
     }
 
     public void fire(Entity callingEntity) {
-        // TODO: figure out how to get skills to modify stats for stuff like trap disarm or pickpocket, etc.
         influenceEffect.setOrientation(callingEntity.getOrientation());
 
         // for each skill level, get behaviors current value, add 10 to it

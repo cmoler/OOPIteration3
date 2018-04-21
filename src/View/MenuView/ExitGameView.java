@@ -7,6 +7,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.io.File;
 
@@ -45,7 +47,7 @@ public class ExitGameView extends MenuViewState {
         gc.fillRect(Commons.SCREEN_WIDTH / 9, Commons.SCREEN_HEIGHT / 4, 3 * Commons.SCREEN_WIDTH / 4, Commons.SCREEN_HEIGHT / 4);
 
         gc.setFill(Color.WHITESMOKE);
-
+        gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.fillText("Are you Sure? Unsaved changes wont be saved.", (topStartX), (startY));
 
         gc.rect(bottomStartX, startY + TextBoxInfo.TEXTBOX_HEIGHT, width, TextBoxInfo.TEXTBOX_HEIGHT);
@@ -66,5 +68,6 @@ public class ExitGameView extends MenuViewState {
         if(selectedX == 2)
             gc.drawImage(selected, selectedXPos, selectedYPos, 2 * width / 3, TextBoxInfo.TEXTBOX_HEIGHT);
 
+        gc.restore();
     }
 }

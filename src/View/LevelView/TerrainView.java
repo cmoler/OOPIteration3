@@ -55,6 +55,7 @@ public class TerrainView extends LevelViewElement{
 
     @Override
     public void render(GraphicsContext gc, Point2D playerPos, Point2D scrollOffset) {
+
         if(!isSeen()) {//Tile hasn't been seen yet, render black hex
             renderHex(gc, playerPos, scrollOffset, blackHex);
             return;
@@ -86,20 +87,22 @@ public class TerrainView extends LevelViewElement{
     }
 
     public void setShrouded(boolean shrouded) {
-        if(!shrouded) { setSeen(true); }//Tile is unshrouded at least once, therefor seen
+        if(!shrouded) {
+            setSeen(true);
+        }//Tile is unshrouded at least once, therefor seen
         isShrouded = shrouded;
     }
 
     private void setSeen(boolean seen) {
         this.isSeen = seen;
     }
-    private boolean isSeen() {
+    public boolean isSeen() {
         return isSeen;
     }
 
     @Override
     public int getRenderPriority() {
-        if(isShrouded() || !isSeen()) {
+        if(!isSeen()) {
             return 0;
         }
         return super.getRenderPriority();

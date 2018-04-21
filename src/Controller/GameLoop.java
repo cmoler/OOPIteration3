@@ -6,10 +6,13 @@ import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 import Model.Level.GameLoopMessenger;
 import Model.Level.GameModel;
+import Model.Level.Level;
 import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
 import Model.MenuModel.MenuState;
 import View.LevelView.HUDStatsView;
+import View.LevelView.HotbarView;
+import View.LevelView.ObservationView;
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
@@ -17,6 +20,7 @@ import View.Renderer;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -55,19 +59,23 @@ public class GameLoop {
 
         gameModel = new GameModel(gameLoopMessenger);
 
+        gameModel.init();
+
         renderer = new Renderer();
 
-        ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
+        ((KeyEventImplementor) controls).createMainMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
         renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
+        renderer.setHotBarView(new HotbarView(gameModel.getPlayer()));
         renderer.closeMenu();
-        ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+        ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
 
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
 
-
-        gameModel.registerAllLevelObservers();
+        for (Level level : gameModel.getLevels()) {
+            renderer.loadModelSprites(level);
+        }
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
@@ -82,8 +90,9 @@ public class GameLoop {
         System.out.println("I (player) am talking to you!");
     }
 
-    public void createObservationWindow(String randomEntityFacts) {
+    public void createObservationWindow(Point3D entityLocation, String randomEntityFacts) {
         // TODO: implement
+        renderer.addObservationView(new ObservationView(entityLocation, randomEntityFacts));
     }
 
     public void startTimer() {
@@ -127,6 +136,7 @@ public class GameLoop {
     }
 
     public void render(GraphicsContext gc){
+        renderer.updateTerrainFog(gameModel.getPlayerPosition(), gameModel.getPlayer().getSight());
         renderer.render(gc, gameModel.getPlayerPosition(), scrollOffSet);
     }
 
@@ -162,7 +172,11 @@ public class GameLoop {
         ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
     }
 
-    public void setScrollOffSet(Point2D scrollOffSet) {
-        this.scrollOffSet = scrollOffSet;
+    public void resetScrollOffSet() {
+        this.scrollOffSet = Point2D.ZERO;
+    }
+
+    public void addScrollOffSet(Point2D mouseOffSet) {
+        this.scrollOffSet = new Point2D(scrollOffSet.getX() + mouseOffSet.getX(), scrollOffSet.getY() + mouseOffSet.getY());
     }
 }

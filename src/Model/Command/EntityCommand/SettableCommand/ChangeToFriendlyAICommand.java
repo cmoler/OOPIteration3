@@ -1,6 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.FriendlyAI;
 import Model.Command.Command;
@@ -31,11 +31,11 @@ public class ChangeToFriendlyAICommand extends GameModelCommand implements Comma
 
     @Override
     public void receiveLevel(Level level) { // What I need to get from the receiving Level - Called Second
-        friendlyAI = new FriendlyAI(changedEntity,level.getTerrainLocations(),level.getEntityLocations(),level.getObstacleLocations());
+        friendlyAI = new FriendlyAI(changedEntity,level.getTerrainMap(),level.getEntityMap(),level.getObstacleMap());
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+
+    public void accept(Visitor visitor) {
         //TODO: Implement This
     }
 }

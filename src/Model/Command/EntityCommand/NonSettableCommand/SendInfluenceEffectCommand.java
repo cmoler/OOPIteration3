@@ -1,6 +1,6 @@
 package Model.Command.EntityCommand.NonSettableCommand;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.Command;
 import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
@@ -30,11 +30,6 @@ public class SendInfluenceEffectCommand extends LevelCommand implements Command 
         sendCommandToLevel();
     }
 
-    @Override
-    public void accept(SavingVisitor savingVisitor) {
-        savingVisitor.visitSendInfluenceEffectCommand(this);
-    }
-
     public void setInfluenceEffect(InfluenceEffect influenceEffect) {
         this.influenceEffect = influenceEffect;
     }
@@ -45,5 +40,9 @@ public class SendInfluenceEffectCommand extends LevelCommand implements Command 
 
     public Entity getEntity() {
         return entity;
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitSendInfluenceEffectCommand(this);
     }
 }

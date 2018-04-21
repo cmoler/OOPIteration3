@@ -1,5 +1,5 @@
 package Controller.Visitor;
 
 public interface Visitable {
-    void accept(SavingVisitor visitor);
+    void accept(Visitor visitor);
 }

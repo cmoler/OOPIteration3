@@ -65,46 +65,46 @@ public class CommandTests {
         level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST), new Trap(new RemoveHealthCommand(20), 0));
         level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST), new Trap(new RemoveHealthCommand(20), 0));
 
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
 
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsDisarmed());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsDisarmed());
 
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsDisarmed());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsDisarmed());
 
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsDisarmed());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsDisarmed());
 
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsDisarmed());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsDisarmed());
 
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsDisarmed());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsDisarmed());
 
         entity.useSkill(0);
 
         level.processMoves();
         level.processInteractions();
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsDisarmed());
 
         Assert.assertEquals(100, entity.getCurrentHealth());
 
@@ -113,23 +113,23 @@ public class CommandTests {
         level.processMoves();
         level.processInteractions();
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsVisible());
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsVisible());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsVisible());
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsVisible());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsVisible());
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsVisible());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsVisible());
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsVisible());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsDisarmed());
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsVisible());
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsVisible());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsDisarmed());
 
         Assert.assertEquals(100, entity.getCurrentHealth());
     }
@@ -153,16 +153,16 @@ public class CommandTests {
 
         level.addTrapTo(Orientation.getAdjacentPoint(center, Orientation.NORTH), new Trap(new RemoveHealthCommand(50), 100));
 
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
-        Assert.assertFalse(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
+        Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
 
         entity.useSkill(0);
 
         level.processMoves();
         level.processInteractions();
 
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
-        Assert.assertTrue(level.getTrapLocations().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
+        Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
 
         Assert.assertEquals(50, entity.getCurrentHealth());
     }
@@ -219,7 +219,6 @@ public class CommandTests {
     @Test
     public void testTeleportCommand() {
         Level level1 = new Level();
-
         Level level2 = new Level();
 
         Entity entity = new Entity();
@@ -228,15 +227,13 @@ public class CommandTests {
         GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
 
         GameModel gameModel = new GameModel(gameLoopMessenger);
-        GameModelMessenger gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
 
-        LevelMessenger messenger = new LevelMessenger(gameModelMessenger, level1);
         gameModel.addLevel(level2);
         gameModel.addLevel(level1);
 
         gameModel.setCurrentLevel(level1);
 
-        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(messenger, level2, new Point3D(1,3,2));
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(gameModel.getLevelMessenger(), level2, new Point3D(1,3,2));
 
         AreaEffect areaEffect = new OneShotAreaEffect(teleportEntityCommand);
 
@@ -250,6 +247,98 @@ public class CommandTests {
 
         Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), null);
         Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity);
+    }
+
+    @Test
+    public void testTeleportCommandOccupiedDestination() {
+        Level level1 = new Level();
+        Level level2 = new Level();
+
+        Entity entity = new Entity();
+
+        GameLoop gameLoop = new GameLoop();
+        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+
+        GameModel gameModel = new GameModel(gameLoopMessenger);
+
+        gameModel.addLevel(level2);
+        gameModel.addLevel(level1);
+
+        gameModel.setCurrentLevel(level1);
+
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(gameModel.getLevelMessenger(), level2, new Point3D(1,3,2));
+
+        AreaEffect areaEffect = new OneShotAreaEffect(teleportEntityCommand);
+
+        level1.addEntityTo(new Point3D(0,0,0), entity);
+        level1.addAreaEffectTo(new Point3D(0,0,0), areaEffect);
+
+        level2.addTerrainTo(new Point3D(1,3,2), Terrain.GRASS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTH), Terrain.GRASS);
+
+        Entity entity2 = new Entity();
+
+        level2.addEntityTo(new Point3D(1,3,2), entity2);
+
+        gameModel.setPlayer(entity);
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), entity);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity2);
+
+        gameModel.advance();
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), null);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity);
+        Assert.assertEquals(level2.getEntityAtPoint(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTH)), entity2);
+    }
+
+    @Test
+    public void testTeleportCommandOccupiedDestinationMoreThanOneLevel() {
+        Level level1 = new Level();
+        Level level2 = new Level();
+
+        Entity entity = new Entity();
+
+        GameLoop gameLoop = new GameLoop();
+        GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+
+        GameModel gameModel = new GameModel(gameLoopMessenger);
+
+        gameModel.addLevel(level2);
+        gameModel.addLevel(level1);
+
+        gameModel.setCurrentLevel(level1);
+
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(gameModel.getLevelMessenger(), level2, new Point3D(1,3,2));
+
+        AreaEffect areaEffect = new OneShotAreaEffect(teleportEntityCommand);
+
+        level1.addEntityTo(new Point3D(0,0,0), entity);
+        level1.addAreaEffectTo(new Point3D(0,0,0), areaEffect);
+
+        level2.addTerrainTo(new Point3D(1,3,2), Terrain.GRASS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTH), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTHWEST), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.NORTHEAST), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTH), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTHWEST), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTHEAST), Terrain.MOUNTAINS);
+        level2.addTerrainTo(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTHEAST), Orientation.SOUTHWEST), Terrain.GRASS);
+
+        Entity entity2 = new Entity();
+
+        level2.addEntityTo(new Point3D(1,3,2), entity2);
+
+        gameModel.setPlayer(entity);
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), entity);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity2);
+
+        gameModel.advance();
+
+        Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), null);
+        Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), entity);
+        Assert.assertEquals(level2.getEntityAtPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(new Point3D(1,3,2), Orientation.SOUTHEAST), Orientation.SOUTHWEST)), entity2);
     }
 
     @Test

@@ -1,7 +1,6 @@
 package Model.InfluenceEffect;
 
-import Controller.Visitor.SavingVisitor;
-import Model.Command.Command;
+import Controller.Visitor.Visitor;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
@@ -53,8 +52,7 @@ public class RadialInfluenceEffect extends InfluenceEffect{
         return new RadialInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitInfluenceEffect(this);
     }
 }

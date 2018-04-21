@@ -1,6 +1,6 @@
 package Model.Item;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.Command;
 import Model.Entity.Entity;
 
@@ -15,8 +15,7 @@ public class OneShotItem extends Item {
         setToBeDeleted();
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitItem(this);
     }
 }

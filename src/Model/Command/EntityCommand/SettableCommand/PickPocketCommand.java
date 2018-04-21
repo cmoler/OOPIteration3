@@ -1,9 +1,7 @@
 package Model.Command.EntityCommand.SettableCommand;
 
 import Controller.Visitor.SavingVisitor;
-import Model.AI.AIController;
-import Model.AI.AIState;
-import Model.AI.ConfusedAI;
+import Controller.Visitor.Visitor;
 import Model.AI.HostileAI;
 import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Entity.Entity;
@@ -81,8 +79,7 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
         return pickPocketStrength;
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitPickPocketCommand(this);
     }
 }

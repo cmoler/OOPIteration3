@@ -28,11 +28,9 @@ import javafx.geometry.Point3D;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class SavingVisitor implements Visitor {
 
@@ -67,6 +65,89 @@ public class SavingVisitor implements Visitor {
         pointStr.append(",");
         pointStr.append((int)vec.z);
         return pointStr;
+    }
+
+    public void visitGameModel(GameModel gameModel) {
+        try {
+            writer.write(gameModelString.toString());
+
+            try {
+                if(gameModel.hasCurrentLevel()) {
+                    saveCurrentLevel(gameModel.getCurrentLevel());
+                }
+
+                if(gameModel.hasLevels()) {
+                    saveLevelList(gameModel.getLevels());
+                }
+
+                if(gameModel.hasPlayer()) {
+                    visitPlayerEntity(gameModel.getPlayer());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            writer.write("</GAMEMODEL>");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void visitLevel(Level level) {
+        Map<Point3D, Terrain> terrainLocations = level.getTerrainMap();
+        Map<Point3D, Item> itemLocations = level.getItemMap();
+        Map<Point3D, Obstacle> obstacleLocations = level.getObstacleMap();
+        BidiMap<Point3D, Entity> entityLocations = level.getEntityMap();
+        Map<Point3D, AreaEffect> areaEffectLocations = level.getAreaEffectMap();
+        Map<Point3D, Trap> trapLocations = level.getTrapMap();
+        Map<Point3D, River> riverLocations = level.getRiverMap();
+        Map<Point3D, Mount> mountLocations = level.getMountMap();
+        Map<Point3D, InfluenceEffect> influenceEffectLocations = level.getInfluenceEffectMap();
+        Map<Point3D, Decal> decalLocations = level.getDecalMap(); // TODO: save decal locations and decal type
+
+        try {
+            levelString.append("\n");
+            levelString.append(processTerrains(terrainLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processAreaEffects(areaEffectLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processInfluenceEffects(influenceEffectLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processItems(itemLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processTraps(trapLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processObstacles(obstacleLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processRivers(riverLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processMounts(mountLocations));
+            levelString.append("\n");
+
+            levelString.append("\n");
+            levelString.append(processEntities(entityLocations));
+            levelString.append("\n");
+
+
+            levelString.append("</LEVEL>");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private StringBuffer processTerrains(Map<Point3D, Terrain> terrainLocations) throws IOException {
@@ -163,7 +244,7 @@ public class SavingVisitor implements Visitor {
         return levelMapOpen;
     }
 
-    private StringBuffer processitems(Map<Point3D, Item> itemLocations) {
+    private StringBuffer processItems(Map<Point3D, Item> itemLocations) {
         StringBuffer levelMapOpen = new StringBuffer("<LEVELMAP id=\"ITEM\">");
         StringBuffer levelMapClosed = new StringBuffer("</LEVELMAP>");
 
@@ -351,76 +432,6 @@ public class SavingVisitor implements Visitor {
         return levelMapOpen;
     }
 
-    @Override
-    public void visitGameModel(GameModel gameModel) {
-        try {
-            writer.write(gameModelString.toString());
-            gameModel.accept(this);
-            writer.write("</GAMEMODEL>");
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void visitLevel(Level level) {
-        Map<Point3D, Terrain> terrainLocations = level.getTerrainLocations();
-        Map<Point3D, Item> itemLocations = level.getItemLocations();
-        Map<Point3D, Obstacle> obstacleLocations = level.getObstacleLocations();
-        BidiMap<Point3D, Entity> entityLocations = level.getEntityLocations();
-        Map<Point3D, AreaEffect> areaEffectLocations = level.getAreaEffectLocations();
-        Map<Point3D, Trap> trapLocations = level.getTrapLocations();
-        Map<Point3D, River> riverLocations = level.getRiverLocations();
-        Map<Point3D, Mount> mountLocations = level.getMountLocations();
-        Map<Point3D, InfluenceEffect> influenceEffectLocations = level.getInfluenceEffectLocations();
-        Map<Point3D, Decal> decalLocations = level.getDecalLocations();
-
-        try {
-            levelString.append("\n");
-            levelString.append(processTerrains(terrainLocations));
-            levelString.append("\n");
-
-            levelString.append("\n");
-            levelString.append(processAreaEffects(areaEffectLocations));
-            levelString.append("\n");
-
-            levelString.append("\n");
-            levelString.append(processInfluenceEffects(influenceEffectLocations));
-            levelString.append("\n");
-
-            levelString.append("\n");
-            levelString.append(processitems(itemLocations));
-            levelString.append("\n");
-
-            levelString.append("\n");
-            levelString.append(processTraps(trapLocations));
-            levelString.append("\n");
-
-            levelString.append("\n");
-            levelString.append(processObstacles(obstacleLocations));
-            levelString.append("\n");
-
-            levelString.append("\n");
-            levelString.append(processRivers(riverLocations));
-            levelString.append("\n");
-
-            levelString.append("\n");
-            levelString.append(processMounts(mountLocations));
-            levelString.append("\n");
-
-            levelString.append("\n");
-            levelString.append(processEntities(entityLocations));
-            levelString.append("\n");
-
-
-            levelString.append("</LEVEL>");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void visitEntity(Entity entity) {
         StringBuffer entityString = new StringBuffer("<" + entity.getClass().getSimpleName()
                 + " velocity=" + "\"" + vecToString(entity.getVelocity()) + "\""
@@ -498,6 +509,22 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + entity.getClass().getSimpleName() + ">");
     }
 
+    private void processSkill(Skill skill, int skillLevel) {
+        StringBuffer skillString = new StringBuffer("<" + skill.getClass().getSimpleName()
+                + " name=" + "\"" + skill.getName() + "\""
+                + " accuracy=" + "\"" + skill.getAccuracy() + "\""
+                + " useCost=" + "\"" + skill.getUseCost()  + "\""
+                + " level=" + "\"" + skillLevel + "\"" + ">");
+
+        this.valueNode.append(skillString);
+        visitInfluenceEffect(skill.getInfluenceEffect());
+        visitSettableCommand(skill.getBehavior());
+        visitSendInfluenceEffectCommand(skill.getSendInfluenceEffectCommand());
+        this.valueNode.append("</" + skill.getClass().getSimpleName() + ">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+    }
+
     private void visitItemHotBar(ItemHotBar itemHotBar) {
         StringBuffer hotBarString = new StringBuffer("<" + itemHotBar.getClass().getSimpleName() + ">");
         this.valueNode.append(hotBarString);
@@ -516,29 +543,12 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + itemHotBar.getClass().getSimpleName() + ">");
     }
 
-    private void processSkill(Skill weaponSkill, int skillLevel) {
-        StringBuffer skillString = new StringBuffer("<" + weaponSkill.getClass().getSimpleName()
-                + " name=" + "\"" + weaponSkill.getName() + "\""
-                + " accuracy=" + "\"" + weaponSkill.getAccuracy() + "\""
-                + " useCost=" + "\"" + weaponSkill.getUseCost()  + "\""
-                + " level=" + "\"" + skillLevel + "\"" + ">");
-
-        this.valueNode.append(skillString);
-        visitInfluenceEffect(weaponSkill.getInfluenceEffect());
-        visitSettableCommand(weaponSkill.getBehavior());
-        visitSendInfluenceEffectCommand(weaponSkill.getSendInfluenceEffectCommand());
-        this.valueNode.append("</" + weaponSkill.getClass().getSimpleName() + ">");
-        this.valueNode.append("\n");
-        this.valueNode.append("\t");
-    }
-
     private void visitSettableCommand(SettableCommand behavior) {
         StringBuffer commandString = new StringBuffer("<" + behavior.getClass().getSimpleName()
                 + " amount=" + "\"" + behavior.getAmount() + "\"/>");
         this.valueNode.append(commandString);
     }
 
-    @Override
     public void visitEquipment(Equipment equipment) {
         StringBuffer equipString = new StringBuffer("<" + equipment.getClass().getSimpleName() + ">");
         this.valueNode.append(equipString);
@@ -559,7 +569,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + equipment.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitInventory(Inventory inventory) {
         StringBuffer invString = new StringBuffer("<" + inventory.getClass().getSimpleName()
                 + " maxSize=" + "\"" + inventory.getMaxSize() + "\">");
@@ -571,7 +580,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + inventory.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitInfiniteAreaEffect(InfiniteAreaEffect infiniteAreaEffect) {
         StringBuffer areaEffect = new StringBuffer("<" + infiniteAreaEffect.getClass().getSimpleName() + ">");
 
@@ -584,7 +592,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + infiniteAreaEffect.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitOneShotAreaEffect(OneShotAreaEffect oneShotAreaEffect) {
         StringBuffer areaEffect = new StringBuffer("<" + oneShotAreaEffect.getClass().getSimpleName() +
                 " hasNotFired=" + "\"" + oneShotAreaEffect.hasNotFired() + "\"" + ">");
@@ -598,7 +605,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + oneShotAreaEffect.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitMount(Mount mount) {
         StringBuffer mountString = new StringBuffer("<" + mount.getClass().getSimpleName()
                 + " orientation=" + "\"" + mount.getOrientation() + "\""
@@ -621,12 +627,10 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + mount.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitItem(ConsumableItem item) {
         processItem(item);
     }
 
-    @Override
     public void visitItem(WeaponItem item) {
         StringBuffer weaponString = new StringBuffer("<" + item.getClass().getSimpleName()
                 + " price=" + "\"" + item.getPrice() + "\""
@@ -641,12 +645,10 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + item.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitItem(InteractiveItem item) {
         processItem(item);
     }
 
-    @Override
     public void visitItem(ArmorItem armorItem) {
         StringBuffer itemString = new StringBuffer("<" + armorItem.getClass().getSimpleName()
                 + " name=" + "\"" + armorItem.getName() + "\""
@@ -662,12 +664,10 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + armorItem.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitItem(RingItem item) {
         processItem(item);
     }
 
-    @Override
     public void visitItem(OneShotItem item) {
         processItem(item);
     }
@@ -686,7 +686,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + item.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitTrap(Trap trap) {
         StringBuffer trapString = new StringBuffer("<" + trap.getClass().getSimpleName()
                 + " isVisible=" + "\"" + trap.getIsVisible() + "\""
@@ -702,7 +701,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + trap.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitRiver(River river) {
         StringBuffer vectorString = vecToString(river.getFlowrate());
         StringBuffer riverString = new StringBuffer("<" + river.getClass().getSimpleName() +
@@ -717,37 +715,30 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\t");
     }
 
-    @Override
     public void visitTerrain(Terrain terrain) {
-
+        // TODO: implement?
     }
 
-    @Override
     public void visitDecal(Decal decal) {
-
+        // TODO: implement?
     }
 
-    @Override
     public void visitConfusedAI(ConfusedAI confusedAI) {
-
+        // TODO: implement?
     }
 
-    @Override
     public void visitFriendlyAI(FriendlyAI friendlyAI) {
-
+        // TODO: implement?
     }
 
-    @Override
     public void visitHostileAI(HostileAI hostileAI) {
-
+        // TODO: implement?
     }
 
-    @Override
     public void visitFrozenAI(FrozenAI frozenAI) {
-
+        // TODO: implement?
     }
 
-    @Override
     public void visitRemoveHealthCommand(RemoveHealthCommand removeHealthCommand) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
@@ -755,7 +746,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("<" + removeHealthCommand.getClass().getSimpleName() + " amount=" + "\"" + removeHealthCommand.getAmount() + "\"" + "/>");
     }
 
-    @Override
     public void visitLevelUpCommand(LevelUpCommand levelUpCommand) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
@@ -763,12 +753,10 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("<" + levelUpCommand.getClass().getSimpleName() + "/>");
     }
 
-    @Override
     public void visitSendInfluenceEffectCommand(SendInfluenceEffectCommand sendInfluenceEffectCommand) {
-
+        // TODO: implement?
     }
 
-    @Override
     public void visitDropItemCommand(DropItemCommand dropItemCommand) {
         StringBuffer dropString = new StringBuffer("<" + dropItemCommand.getClass().getSimpleName() + ">");
         this.valueNode.append(dropString);
@@ -777,7 +765,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + dropItemCommand.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitTeleportEntityCommand(TeleportEntityCommand teleportEntityCommand) {
         StringBuffer point = keyToString(teleportEntityCommand.getDestinationPoint());
         StringBuffer teleportString = new StringBuffer("<" + teleportEntityCommand.getClass().getSimpleName()
@@ -787,12 +774,10 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + teleportEntityCommand.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitDialogCommand(DialogCommand dialogCommand) {
-
+        // TODO: implement?
     }
 
-    @Override
     public void visitInstaDeathCommand(InstaDeathCommand instaDeathCommand) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
@@ -800,7 +785,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("<" + instaDeathCommand.getClass().getSimpleName() + "/>");
     }
 
-    @Override
     public void visitToggleHealthCommand(ToggleHealthCommand toggleHealthCommand) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
@@ -810,7 +794,6 @@ public class SavingVisitor implements Visitor {
                 + " hasFired=" + "\"" + toggleHealthCommand.hasFired() + "\"" + "/>");
     }
 
-    @Override
     public void visitToggleManaCommand(ToggleManaCommand toggleManaCommand) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
@@ -820,7 +803,6 @@ public class SavingVisitor implements Visitor {
                 + " hasFired=" + "\"" + toggleManaCommand.hasFired() + "\"" + "/>");
     }
 
-    @Override
     public void visitSpeedCommand(ToggleSpeedCommand toggleSpeedCommand) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
@@ -830,7 +812,6 @@ public class SavingVisitor implements Visitor {
                 + " hasFired=" + "\"" + toggleSpeedCommand.hasFired() + "\"" + "/>");
     }
 
-    @Override
     public void visitToggleSneaking(ToggleSneaking toggleSneaking) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
@@ -840,7 +821,6 @@ public class SavingVisitor implements Visitor {
                 + " hasFired=" + "\"" + toggleSneaking.hasFired() + "\"" + "/>");
     }
 
-    @Override
     public void visitAddHealthCommand(AddHealthCommand addHealthCommand) {
         this.valueNode.append("\n");
         this.valueNode.append("\t");
@@ -849,7 +829,6 @@ public class SavingVisitor implements Visitor {
                 "\"" +addHealthCommand.getAmount() + "\"" + "/>");
     }
 
-    @Override
     public void visitBarterCommand(BarterCommand barterCommand) {
         StringBuffer barterString = new StringBuffer("<" + barterCommand.getClass().getSimpleName()
                 + " barterStrength=" + "\"" + barterCommand.getAmount() + "\">");
@@ -861,7 +840,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + barterCommand.getClass().getSimpleName() + "/>");
     }
 
-    @Override
     public void visitConfuseEntityCommand(ConfuseEntityCommand confuseEntityCommand) {
         StringBuffer confuseString = new StringBuffer("<" + confuseEntityCommand.getClass().getSimpleName()
                 + " confusionDuration=" + "\"" + confuseEntityCommand.getAmount() + "\">");
@@ -874,7 +852,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + confuseEntityCommand.getClass().getSimpleName() + "/>");
     }
 
-    @Override
     public void visitDisarmTrapCommand(DisarmTrapCommand disarmTrapCommand) {
         StringBuffer disarmString = new StringBuffer("<" + disarmTrapCommand.getClass().getSimpleName()
                 + " disarmStrength=" + "\"" + disarmTrapCommand.getAmount() + "\">");
@@ -887,7 +864,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + disarmTrapCommand.getClass().getSimpleName() + "/>");
     }
 
-    @Override
     public void visitFreezeEntityCommand(FreezeEntityCommand freezeEntityCommand) {
         StringBuffer freezeString = new StringBuffer("<" + freezeEntityCommand.getClass().getSimpleName()
                 + " freezeDuration=" + "\"" + freezeEntityCommand.getAmount() + "\">");
@@ -900,12 +876,10 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + freezeEntityCommand.getClass().getSimpleName() + "/>");
     }
 
-    @Override
     public void visitObserveEntityCommand(ObserveEntityCommand observeEntityCommand) {
 
     }
 
-    @Override
     public void visitPickPocketCommand(PickPocketCommand pickPocketCommand) {
         StringBuffer disarmString = new StringBuffer("<" + pickPocketCommand.getClass().getSimpleName()
                 + " pickpocketStrength=" + "\"" + pickPocketCommand.getAmount() + "\">");
@@ -915,7 +889,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + pickPocketCommand.getClass().getSimpleName() + "/>");
     }
 
-    @Override
     public void visitSlowEntityCommand(SlowEntityCommand slowEntityCommand) {
         StringBuffer slowString = new StringBuffer("<" + slowEntityCommand.getClass().getSimpleName()
                 + " slowDuration=" + "\"" + slowEntityCommand.getAmount() + "\">");
@@ -928,7 +901,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + slowEntityCommand.getClass().getSimpleName() + "/>");
     }
 
-    @Override
     public void visitInfluenceEffect(InfluenceEffect influenceEffect) {
         StringBuffer areaEffect = new StringBuffer("<" + influenceEffect.getClass().getSimpleName()
                 +" speed=" + "\"" + influenceEffect.getSpeed() + "\""
@@ -945,7 +917,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("</" + influenceEffect.getClass().getSimpleName() + ">");
     }
 
-    @Override
     public void visitObstacle(Obstacle obstacle) {
         StringBuffer obstacleString = new StringBuffer("<" + obstacle.getClass().getSimpleName() + "/>");
         this.valueNode.append("\n");
