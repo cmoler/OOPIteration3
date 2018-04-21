@@ -438,4 +438,8 @@ public class Level {
 
         observers.removeAll(observersToRemove);
     }
+
+    public void setMovementHandlerDialogCommand(LevelMessenger levelMessenger) {
+        movementHandler.setDialogCommandLevelMessenger(levelMessenger);
+    }
 }
