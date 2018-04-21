@@ -25,4 +25,8 @@ public class AIController {
     public void processMove(){
         activeState.nextMove();
     }
+
+    public boolean wantToTalk(){
+        return activeState.wantToTalk();
+    }
 }

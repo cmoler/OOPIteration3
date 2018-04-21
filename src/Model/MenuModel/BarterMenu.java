@@ -6,7 +6,7 @@ import Model.Entity.EntityAttributes.Inventory;
 import Model.Item.Item;
 import Model.Item.TakeableItem.TakeableItem;
 
-public class TradingMenu extends MenuState {
+public class BarterMenu extends MenuState {
 
     private Entity player;
     private Entity npc;
@@ -14,7 +14,7 @@ public class TradingMenu extends MenuState {
     private Inventory npcInventory;
 
 
-    public TradingMenu(MenuModel menuModel, GameLoop gameLoop, Entity player, Entity npc) {
+    public BarterMenu(MenuModel menuModel, GameLoop gameLoop, int barterStrength, Entity player, Entity npc) {
         super(menuModel, gameLoop);
         this.player = player;
         this.playerInventory = player.getInventory();
@@ -62,5 +62,13 @@ public class TradingMenu extends MenuState {
             npc.removeItemFromInventory(itemBuying);
             player.addItemToInventory(itemBuying);
         }
+    }
+
+    public Inventory getPlayerInventory(){
+        return playerInventory;
+    }
+
+    public Inventory getNpcInventory() {
+        return npcInventory;
     }
 }

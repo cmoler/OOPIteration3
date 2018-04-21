@@ -154,4 +154,9 @@ public class HostileAI extends AIState{
     public void removeTarget(Entity ent){
         targetList.remove(ent);
     }
+
+    @Override
+    public boolean wantToTalk(){
+        return false;
+    }
 }
