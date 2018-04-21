@@ -6,7 +6,7 @@ import Model.Entity.EntityAttributes.Inventory;
 import Model.Item.Item;
 import Model.Item.TakeableItem.TakeableItem;
 
-public class TradingMenu extends MenuState {
+public class BarterMenu extends MenuState {
 
     private Entity player;
     private Entity npc;
@@ -14,7 +14,7 @@ public class TradingMenu extends MenuState {
     private Inventory npcInventory;
 
 
-    public TradingMenu(MenuModel menuModel, GameLoop gameLoop, Entity player, Entity npc) {
+    public BarterMenu(MenuModel menuModel, GameLoop gameLoop, int barterStrength, Entity player, Entity npc) {
         super(menuModel, gameLoop);
         this.player = player;
         this.playerInventory = player.getInventory();
@@ -50,17 +50,39 @@ public class TradingMenu extends MenuState {
 
     private void sell() {
         TakeableItem itemSelling = playerInventory.getItem(selectedUpDown);
-        player.removeItemFromInventory(itemSelling);
-        player.addGold(itemSelling.getPrice());
-        npc.addItemToInventory(itemSelling);
+        if(itemSelling == null) return;
+        if(npc.getGold() >= itemSelling.getPrice()) {
+            player.removeItemFromInventory(itemSelling);
+            player.addGold(itemSelling.getPrice());
+            npc.removeGold(itemSelling.getPrice());
+            npc.addItemToInventory(itemSelling);
+        }
     }
 
     private void buy() {
         TakeableItem itemBuying = npcInventory.getItem(selectedUpDown);
+        if(itemBuying == null) return;
         if(player.getGold() >= itemBuying.getPrice()) {
             player.removeGold(itemBuying.getPrice());
             npc.removeItemFromInventory(itemBuying);
+            npc.addGold(itemBuying.getPrice());
             player.addItemToInventory(itemBuying);
         }
+    }
+
+    public Inventory getPlayerInventory(){
+        return playerInventory;
+    }
+
+    public Inventory getNpcInventory() {
+        return npcInventory;
+    }
+
+    public int getPlayerGold(){
+        return player.getGold();
+    }
+
+    public int getNPCGold(){
+        return npc.getGold();
     }
 }

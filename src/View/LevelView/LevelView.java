@@ -10,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class LevelView {
@@ -49,9 +50,16 @@ public class LevelView {
         }
 
 
+        Iterator itr = observationViews.iterator();
+        while (itr.hasNext()) {//Render observation windows
+            ObservationView observationView = (ObservationView)itr.next();
+            observationView.setPosition(currentLevel.getEntityPoint(observationView.getEntity()));
+            observationView.locationViewedByPlayer();
+            observationView.render(gc, offset, scrollOffset);
 
-        for(ObservationView o: observationViews) {
-            o.render(gc, offset, scrollOffset);
+            if(observationView.readyToBeRemoved()) {
+                itr.remove();
+            }
         }
 
 

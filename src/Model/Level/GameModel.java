@@ -12,8 +12,10 @@ import Model.AI.HostileAI;
 import Model.AI.PetAI.PetStates.CombatPetState;
 import Model.AI.PetAI.PetStates.ItemPetState;
 import Model.AI.PetAI.PetStates.PassivePetState;
+import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
@@ -22,6 +24,7 @@ import Model.Entity.EntityAttributes.SightRadius;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
@@ -84,9 +87,44 @@ public class GameModel implements Visitable {
         entityFactory = new SmasherFactory(skillsFactory);
 
         player = entityFactory.buildEntity();
-        if (player == null){
-            System.out.println("Ha");
-        }
+
+        ConsumableItem potion = new ConsumableItem("potion", new AddHealthCommand(20));
+        potion.setCurrentLevelMessenger(currentLevelMessenger);
+        potion.setPrice(2);
+        potion.onTouch(player);
+
+        ConsumableItem manapotion = new ConsumableItem("manapotion", new AddHealthCommand(20));
+        manapotion.setCurrentLevelMessenger(currentLevelMessenger);
+        manapotion.setPrice(2);
+        manapotion.onTouch(player);
+
+        ConsumableItem healthpotion = new ConsumableItem("healthpotion", new AddHealthCommand(20));
+        healthpotion.setCurrentLevelMessenger(currentLevelMessenger);
+        healthpotion.setPrice(2);
+        healthpotion.onTouch(player);
+
+        ConsumableItem beer = new ConsumableItem("beer", new AddHealthCommand(20));
+        beer.setCurrentLevelMessenger(currentLevelMessenger);
+        beer.setPrice(2);
+        beer.onTouch(player);
+
+        ConsumableItem wine = new ConsumableItem("wine", new AddHealthCommand(20));
+        wine.setCurrentLevelMessenger(currentLevelMessenger);
+        wine.setPrice(2);
+        wine.onTouch(player);
+
+        ConsumableItem gin = new ConsumableItem("gin", new AddHealthCommand(20));
+        gin.setCurrentLevelMessenger(currentLevelMessenger);
+        gin.setPrice(2);
+        gin.onTouch(player);
+
+        player.addItemToInventory(potion);
+        player.addItemToInventory(manapotion);
+        player.addItemToInventory(healthpotion);
+        player.addItemToInventory(beer);
+        player.addItemToInventory(wine);
+        player.addItemToInventory(gin);
+
         entityFactory.buildEntitySprite(player);
 
         player.setMoveable(true);
@@ -112,7 +150,8 @@ public class GameModel implements Visitable {
         }
 
         currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
-
+        currentLevel.addAreaEffectTo(new Point3D(-2, 1, 1), new InfiniteAreaEffect(new RemoveHealthCommand(10)));
+        currentLevel.addObstacleTo(new Point3D(-2, 2, 0), new Obstacle());
         //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
 
         entityFactory = new MonsterFactory(skillsFactory);

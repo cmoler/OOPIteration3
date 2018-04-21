@@ -160,4 +160,17 @@ public class HostileAI extends AIState{
         }
         return targetPoints;
     }
+
+    public void addTarget(Entity ent){
+        targetList.add(ent);
+    }
+
+    public void removeTarget(Entity ent){
+        targetList.remove(ent);
+    }
+
+    @Override
+    public boolean wantToTalk(){
+        return false;
+    }
 }

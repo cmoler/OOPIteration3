@@ -15,4 +15,8 @@ public abstract class AIState {
     public Entity getEntity() {
         return entity;
     }
+
+    public boolean wantToTalk(){
+        return true;
+    }
 }
