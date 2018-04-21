@@ -618,4 +618,8 @@ public class Entity {
         health.refill();
         mana.refill();
     }
+
+    public void regenerateMana() {
+        mana.regenerate();
+    }
 }

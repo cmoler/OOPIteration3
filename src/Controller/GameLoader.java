@@ -311,7 +311,7 @@ public class GameLoader {
 
                         manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
                         maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
-                        mana = new Mana(manaPoints, maxMana);
+                        mana = new Mana(manaPoints, maxMana, 0); // TODO: BRYAN ADD THIS REGENRATE PLS
 
                         attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
                         attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());
@@ -1010,7 +1010,7 @@ public class GameLoader {
 
             manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
             maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
-            mana = new Mana(manaPoints, maxMana);
+            mana = new Mana(manaPoints, maxMana, 0 );  // TODO: BRYAN ADD THIS REGENRATE PLS
 
             attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
             attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());
