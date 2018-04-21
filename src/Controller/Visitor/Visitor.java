@@ -28,21 +28,21 @@ import Model.Level.*;
 
 public interface Visitor {
 
-    public void visitGameModel(GameModel gameModel);
+    void visitGameModel(GameModel gameModel);
 
-    public void visitLevel(Level level);
+    void visitLevel(Level level);
 
-    public void visitEntity(Entity entity);
+    void visitEntity(Entity entity);
 
-    public void visitEquipment(Equipment equipment);
+    void visitEquipment(Equipment equipment);
 
-    public void visitInventory(Inventory inventory);
+    void visitInventory(Inventory inventory);
 
-    public void visitInfiniteAreaEffect(InfiniteAreaEffect infiniteAreaEffect);
+    void visitInfiniteAreaEffect(InfiniteAreaEffect infiniteAreaEffect);
 
-    public void visitOneShotAreaEffect(OneShotAreaEffect oneShotAreaEffect);
+    void visitOneShotAreaEffect(OneShotAreaEffect oneShotAreaEffect);
 
-    public void visitMount(Mount mount);
+    void visitMount(Mount mount);
 
     void visitItem(ConsumableItem item);
 
@@ -56,21 +56,21 @@ public interface Visitor {
 
     void visitItem(OneShotItem item);
 
-    public void visitTrap(Trap trap);
+    void visitTrap(Trap trap);
 
-    public void visitRiver(River river);
+    void visitRiver(River river);
 
-    public void visitTerrain(Terrain terrain);
+    void visitTerrain(Terrain terrain);
 
-    public void visitDecal(Decal decal);
+    void visitDecal(Decal decal);
 
-    public void visitConfusedAI(ConfusedAI confusedAI);
+    void visitConfusedAI(ConfusedAI confusedAI);
 
-    public void visitFriendlyAI(FriendlyAI friendlyAI);
+    void visitFriendlyAI(FriendlyAI friendlyAI);
 
-    public void visitHostileAI(HostileAI hostileAI);
+    void visitHostileAI(HostileAI hostileAI);
 
-    public void visitFrozenAI(FrozenAI frozenAI);
+    void visitFrozenAI(FrozenAI frozenAI);
 
     void visitRemoveHealthCommand(RemoveHealthCommand removeHealthCommand);
 

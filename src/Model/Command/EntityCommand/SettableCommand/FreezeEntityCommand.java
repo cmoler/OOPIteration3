@@ -1,10 +1,9 @@
 package Model.Command.EntityCommand.SettableCommand;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.AIState;
 import Model.AI.FrozenAI;
-import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Entity.Entity;
 import Model.Level.GameModel;
@@ -46,12 +45,11 @@ public class FreezeEntityCommand extends GameModelCommand implements SettableCom
         return freezeDuration;
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        visitor.visitFreezeEntityCommand(this);
-    }
-
     public Entity getEntity() {
         return entity;
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitFreezeEntityCommand(this);
     }
 }

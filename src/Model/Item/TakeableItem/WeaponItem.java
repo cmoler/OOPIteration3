@@ -1,11 +1,9 @@
 package Model.Item.TakeableItem;
 
-import Controller.Visitor.SavingVisitor;
-import Model.Command.Command;
+import Controller.Visitor.Visitor;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
-import Model.Entity.EntityAttributes.SkillLevel;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.TakeableItem.InventoryStrategy.WeaponEquipStrategy;
 
@@ -71,11 +69,6 @@ public class WeaponItem extends TakeableItem{
         weaponEquipStrategy.setEntity(entity);
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        visitor.visitItem(this);
-    }
-
     public int getAttackDamage() {
         return attackDamage;
     }
@@ -95,4 +88,9 @@ public class WeaponItem extends TakeableItem{
     public int getRange() {
         return range;
     }
+
+    public void accept(Visitor visitor) {
+        visitor.visitItem(this);
+    }
+
 }

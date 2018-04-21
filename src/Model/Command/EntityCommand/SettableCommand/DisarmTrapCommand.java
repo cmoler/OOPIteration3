@@ -1,7 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
-import Controller.Visitor.SavingVisitor;
-import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Controller.Visitor.Visitor;
 import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
 import Model.Level.Level;
@@ -35,12 +34,11 @@ public class DisarmTrapCommand extends LevelCommand implements SettableCommand {
         return disarmStrength;
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        visitor.visitDisarmTrapCommand(this);
-    }
-
     public Entity getEntity() {
         return entity;
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitDisarmTrapCommand(this);
     }
 }

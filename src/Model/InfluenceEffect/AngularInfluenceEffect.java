@@ -1,6 +1,6 @@
 package Model.InfluenceEffect;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
@@ -57,8 +57,7 @@ public class AngularInfluenceEffect extends InfluenceEffect {
         return new AngularInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitInfluenceEffect(this);
     }
 }

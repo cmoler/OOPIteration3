@@ -212,9 +212,9 @@ public class SavingVisitorTests {
         assertTrue(testInventory.getItem(0) instanceof ArmorItem);
         assertTrue(testInventory.getItem(1) instanceof RingItem);
 
-        Equipment testEquippment = testEntity.getEquipment();
-        assertTrue(testEquippment.hasRing());
-        assertTrue(testEquippment.hasArmor());
+        Equipment testEquipment = testEntity.getEquipment();
+        assertTrue(testEquipment.hasRing());
+        assertTrue(testEquipment.hasArmor());
 
         ItemHotBar itemHotBar = testEntity.getItemHotBar();
         assertTrue(itemHotBar.getItem(0) instanceof ArmorItem);

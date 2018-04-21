@@ -1,6 +1,7 @@
 package Model.Command.EntityCommand.NonSettableCommand;
 
 import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.Command;
 import Model.Entity.Entity;
 
@@ -10,8 +11,7 @@ public class LevelUpCommand implements Command {
         entity.levelUp();
     }
 
-    @Override
-    public void accept(SavingVisitor savingVisitor) {
-        savingVisitor.visitLevelUpCommand(this);
+    public void accept(Visitor visitor) {
+        visitor.visitLevelUpCommand(this);
     }
 }

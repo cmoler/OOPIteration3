@@ -1,7 +1,7 @@
 package Model.Level;
 
-import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
+import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
@@ -111,6 +111,10 @@ public class GameModel implements Visitable {
         return currentLevel;
     }
 
+    public List<Level> getLevels() {
+        return levels;
+    }
+
     public AIController getAIForEntity(Entity entity) {
         ArrayList<AIController> ais = (ArrayList)aiMap.get(currentLevel);
         for(int i = 0; i < ais.size(); ++i){
@@ -137,23 +141,16 @@ public class GameModel implements Visitable {
         return entity.equals(player);
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        try {
-            if(currentLevel != null) {
-                visitor.saveCurrentLevel(currentLevel);
-            }
+    public boolean hasLevels() {
+        return !levels.isEmpty();
+    }
 
-            if(!levels.isEmpty()) {
-                visitor.saveLevelList(levels);
-            }
+    public boolean hasPlayer() {
+        return player != null;
+    }
 
-            if(player != null) {
-                visitor.visitPlayerEntity(player);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public boolean hasCurrentLevel() {
+        return currentLevel != null;
     }
 
     private class TeleportTuple {
@@ -265,5 +262,9 @@ public class GameModel implements Visitable {
         for(Level level : levels) {
             level.registerObservers();
         }
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitGameModel(this);
     }
 }

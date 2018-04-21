@@ -1,6 +1,6 @@
 package Model.AreaEffect;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.Command;
 import Model.Entity.Entity;
 
@@ -21,16 +21,15 @@ public class OneShotAreaEffect implements AreaEffect {
         }
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        visitor.visitOneShotAreaEffect(this);
-    }
-
     public Command getCommand() {
         return command;
     }
 
     public boolean hasNotFired() {
         return hasNotFired;
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitOneShotAreaEffect(this);
     }
 }

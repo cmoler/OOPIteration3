@@ -1,7 +1,7 @@
 package Model.Level;
 
-import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
+import Controller.Visitor.Visitor;
 import Model.Command.Command;
 import Model.Entity.Entity;
 import View.LevelView.LevelViewElement;
@@ -9,7 +9,6 @@ import View.LevelView.LevelViewElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class Trap implements Visitable {
 
@@ -81,7 +80,7 @@ public class Trap implements Visitable {
 
     public Command getCommand() { return command; }
 
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitTrap(this);
     }
 

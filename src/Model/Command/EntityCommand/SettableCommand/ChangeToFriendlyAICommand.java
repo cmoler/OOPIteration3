@@ -1,6 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.FriendlyAI;
 import Model.Command.Command;
@@ -34,8 +34,8 @@ public class ChangeToFriendlyAICommand extends GameModelCommand implements Comma
         friendlyAI = new FriendlyAI(changedEntity,level.getTerrainLocations(),level.getEntityLocations(),level.getObstacleLocations());
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+
+    public void accept(Visitor visitor) {
         //TODO: Implement This
     }
 }

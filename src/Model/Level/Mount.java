@@ -2,8 +2,8 @@
 
 package Model.Level;
 
-import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
+import Controller.Visitor.Visitor;
 import View.LevelView.LevelViewElement;
 import Model.Entity.EntityAttributes.Speed;
 import Model.Entity.EntityAttributes.Orientation;
@@ -82,8 +82,7 @@ public class Mount implements Visitable {
         }
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitMount(this);
     }
 }

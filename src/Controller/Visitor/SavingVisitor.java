@@ -355,7 +355,27 @@ public class SavingVisitor implements Visitor {
     public void visitGameModel(GameModel gameModel) {
         try {
             writer.write(gameModelString.toString());
-            gameModel.accept(this);
+
+            try {
+                if(gameModel.hasCurrentLevel()) {
+                    saveCurrentLevel(gameModel.getCurrentLevel());
+                    System.out.println("here1");
+                }
+
+                if(gameModel.hasLevels()) {
+                    saveLevelList(gameModel.getLevels());
+                    System.out.println("here2");
+                }
+
+                if(gameModel.hasPlayer()) {
+                    visitPlayerEntity(gameModel.getPlayer());
+                    System.out.println("here3");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
             writer.write("</GAMEMODEL>");
             writer.close();
         } catch (IOException e) {

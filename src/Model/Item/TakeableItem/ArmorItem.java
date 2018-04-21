@@ -1,6 +1,6 @@
 package Model.Item.TakeableItem;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Command.Command;
 import Model.Entity.Entity;
@@ -39,7 +39,7 @@ public class ArmorItem extends TakeableItem {
     }
 
     @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitItem(this);
     }
 
