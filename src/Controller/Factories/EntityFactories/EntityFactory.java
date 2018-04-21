@@ -13,6 +13,8 @@ public abstract class EntityFactory {
 
     public abstract Entity buildEntity();
 
+    public abstract void buildEntitySprite(Entity entity);
+
     protected SkillsFactory getSkillsFactory() {
         return skillsFactory;
     }
