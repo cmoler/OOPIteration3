@@ -9,6 +9,8 @@ import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
+import Model.AI.PetAI.PetStates.CombatPetState;
+import Model.AI.PetAI.PetStates.ItemPetState;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
@@ -82,6 +84,9 @@ public class GameModel implements Visitable {
         entityFactory = new SmasherFactory(skillsFactory);
 
         player = entityFactory.buildEntity();
+        if (player == null){
+            System.out.println("Ha");
+        }
         entityFactory.buildEntitySprite(player);
 
         player.setMoveable(true);
@@ -157,21 +162,27 @@ public class GameModel implements Visitable {
         skill1.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand rawr = new RemoveHealthCommand(5);
         WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 1,100,0,1);
-        enemy.addItemToInventory(claw);
-        enemy.equipWeapon(claw);
+        pet.addItemToInventory(claw);
+        pet.equipWeapon(claw);
         pet.setSightRadius(new SightRadius(2));
         list.add(pet);
-        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
-        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
-        AIController test = new AIController();
-
-       /* List<Entity> petList = new ArrayList<>();
+        List<Entity> petList = new ArrayList<>();
         petList.add(enemy);
         pet.setTargetingList(petList);
-        CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player,petList);
-        test.setActiveState(CPS);*/
+        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+        AIController test = new AIController();
 
-       test.setActiveState(PPS);
+        // Passive Pet AI
+       /* PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
+        test.setActiveState(PPS);*/
+
+        // Combat Pet AI
+        CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
+        test.setActiveState(CPS);
+
+       // Item Pet AI
+        /*ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, skillsFactory.getPickpocket());
+        test.setActiveState(IPS);*/
 
         AIList.add(test);
         aiMap.put(currentLevel,AIList);
@@ -322,14 +333,6 @@ public class GameModel implements Visitable {
         }
     }
 
-    private void printEntHealth() {
-        System.out.println();
-        for (Entity e : currentLevel.getEntityMap().getValueList()) {
-            System.out.println(e + " health is :\t" + e.getCurrentHealth());
-        }
-        System.out.println();
-    }
-
     private void moveEntityToLevel(Entity entity, Level destinationLevel, Point3D destinationPoint) {
         destinationLevel.addEntityTo(destinationPoint, entity);
 
@@ -350,7 +353,6 @@ public class GameModel implements Visitable {
     }
 
     public void advance() {
-        printEntHealth();
         processDeadEntities();
         processAIMoves();
         currentLevel.processMoves();

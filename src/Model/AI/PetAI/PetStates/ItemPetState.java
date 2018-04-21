@@ -37,16 +37,14 @@ public class ItemPetState extends AIState {
 
     @Override
     public void nextMove() {
-        if (!hasItemsToLoot()){
-            return;
-        }
-
         Point3D petPoint = getPetPoint();
         Point3D nearestItem = getNearestItem(petPoint);
         Point3D nearestTarget = getNearestEntity(petPoint);
 
-        if(isInStealingRange(petPoint,nearestItem) && targetHasItemsToSteal(nearestItem)){
-            // TODO: Issue command to steal
+        if (!hasItemsToLoot()){
+            moveToGoal(petPoint,getEntityPoint(player,entityMap));
+        }
+        else if(isInStealingRange(petPoint,nearestItem) && targetHasItemsToSteal(nearestItem)){
             executePickpocket(super.getEntity());
         }
         else{
@@ -103,10 +101,9 @@ public class ItemPetState extends AIState {
         }
     }
 
-
     private Point3D getNearestItem(Point3D origin) {
         List<Point3D> itemPoints = new ArrayList<>(itemMap.keySet());
-        Point3D minLocation = itemPoints.get(0);
+        Point3D minLocation = new Point3D(Double.MAX_VALUE,Double.MAX_VALUE,Double.MAX_VALUE);
         double minDistance = Double.MAX_VALUE;
         for (Point3D point : itemPoints) {
             double distance = HexDistanceCalculator.getHexDistance(origin,point);
@@ -116,6 +113,10 @@ public class ItemPetState extends AIState {
             }
         }
         return minLocation;
+    }
+
+    private Point3D getEntityPoint(Entity entity, BidiMap<Point3D, Entity> entityLocations) {
+        return entityLocations.getKeyFromValue(entity);
     }
 
     private Point3D getNearestEntity(Point3D origin) {
