@@ -7,9 +7,9 @@ import Model.Item.Item;
 import Model.Level.*;
 import Model.Utility.BidiMap;
 import View.LevelView.*;
+import View.LevelView.EntityView.EntityView;
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
-import View.MenuView.TitleScreenView;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
@@ -168,9 +168,10 @@ public class Renderer {
         for(Point3D point : entityMap.getKeyList()) {
             Entity entity = entityMap.getValueFromKey(point);
 
-            EntityView observer = new EntityView(entity, point);
+            LevelViewElement observer = entity.getObserver();
+            observer.setPosition(point);
 
-            observers.add(observer); // TODO: refactor logic for this method once we integrate factory functionality for entity sprites
+            observers.add(observer);
         }
 
         return observers;

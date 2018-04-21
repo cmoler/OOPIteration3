@@ -18,7 +18,7 @@ public abstract class LevelViewElement {
     private HexMathHelper hexMathHelper;
     protected boolean isWaitingToRender;
 
-    LevelViewElement(Point3D location, int renderPriority) {
+    protected LevelViewElement(Point3D location, int renderPriority) {
         this.location = location;
         orientation = Orientation.NORTH;
         hexMathHelper = new HexMathHelper();

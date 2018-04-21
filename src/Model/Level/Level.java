@@ -179,7 +179,6 @@ public class Level {
         return entityLocations.getKeyFromValue(entity);
     }
 
-
     public Entity getEntityAtPoint(Point3D point) {
         return entityLocations.getValueFromKey(point);
     }

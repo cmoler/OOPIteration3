@@ -1,5 +1,10 @@
 package Model.Level;
 
+import Controller.Factories.EntityFactories.EntityFactory;
+import Controller.Factories.EntityFactories.MonsterFactory;
+import Controller.Factories.EntityFactories.PetFactory;
+import Controller.Factories.EntityFactories.SmasherFactory;
+import Controller.Factories.SkillsFactory;
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
@@ -11,6 +16,7 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import java.util.ArrayList;
@@ -34,20 +40,43 @@ public class GameModel implements Visitable {
     private Queue<TeleportTuple> teleportQueue;
     private Queue<TeleportTuple> failedTeleportQueue;
 
+    private SkillsFactory skillsFactory;
+    private EntityFactory entityFactory;
+
     public GameModel(GameLoopMessenger gameLoopMessenger) {
         gameModelMessenger = new GameModelMessenger(gameLoopMessenger, this);
-        currentLevel = new Level();
         currentLevelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
-        currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
 
         levels = new ArrayList<>();
-        levels.add(currentLevel);
-
         aiMap = new HashMap<>();
         teleportQueue = new LinkedList<>();
         failedTeleportQueue = new LinkedList<>();
+    }
 
-        player = new Entity();
+    public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
+                     Map<Level, List<AIController>> aiMap) {
+        this.currentLevel = currentLevel;
+        this.currentLevelMessenger = currentLevelMessenger;
+        this.levels = levels;
+        this.player = player;
+        this.aiMap = aiMap;
+
+        this.currentLevel.setMovementHandlerDialogCommand(this.currentLevelMessenger);
+    }
+
+    public void init() {
+        currentLevel = new Level();
+        currentLevelMessenger.setLevel(currentLevel);
+        currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
+
+        levels.add(currentLevel);
+
+        skillsFactory = new SkillsFactory(currentLevelMessenger);
+
+        entityFactory = new SmasherFactory(skillsFactory);
+
+        player = entityFactory.buildEntity();
+        entityFactory.buildEntitySprite(player);
 
         player.setMoveable(true);
         player.setNoise(5);
@@ -67,7 +96,10 @@ public class GameModel implements Visitable {
 
         //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
 
-        Entity enemy =  new Entity();
+        entityFactory = new MonsterFactory(skillsFactory);
+        Entity enemy = entityFactory.buildEntity();
+        entityFactory.buildEntitySprite(enemy);
+
         enemy.setMoveable(true);
         enemy.setNoise(5);
         enemy.setSightRadius(new SightRadius(2));
@@ -93,7 +125,9 @@ public class GameModel implements Visitable {
         AIList.add(controller);
         aiMap.put(currentLevel,AIList);
 
-        Entity pet = new Entity();
+        entityFactory = new PetFactory(skillsFactory);
+        Entity pet = entityFactory.buildEntity();
+        entityFactory.buildEntitySprite(pet);
         pet.setMoveable(true);
         pet.setNoise(5);
         pet.setSightRadius(new SightRadius(2));
@@ -105,17 +139,6 @@ public class GameModel implements Visitable {
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);
-    }
-
-    public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
-                     Map<Level, List<AIController>> aiMap) {
-        this.currentLevel = currentLevel;
-        this.currentLevelMessenger = currentLevelMessenger;
-        this.levels = levels;
-        this.player = player;
-        this.aiMap = aiMap;
-
-        this.currentLevel.setMovementHandlerDialogCommand(this.currentLevelMessenger);
     }
 
     public Level getCurrentLevel(){
@@ -164,6 +187,10 @@ public class GameModel implements Visitable {
         return currentLevel != null;
     }
 
+    public LevelMessenger getLevelMessenger() {
+        return currentLevelMessenger;
+    }
+
     private class TeleportTuple {
         private Entity entity;
         private Level destLevel;
@@ -201,10 +228,14 @@ public class GameModel implements Visitable {
     private void changeLevels(Entity entity, Level destinationLevel, Point3D destinationPoint) {
         if(!destinationLevel.hasEntityAtPoint(destinationPoint)) {
             destinationLevel.addEntityTo(destinationPoint, entity);
-            destinationLevel.addObservers(entity.getObservers());
+
+            List<LevelViewElement> observers = new ArrayList<>();
+            observers.add(entity.getObserver());
+
+            destinationLevel.addObservers(observers);
 
             currentLevel.removeEntityFrom(entity);
-            currentLevel.removeObservers(entity.getObservers());
+            currentLevel.removeObservers(observers);
 
             if (entity.equals(player)) {
                 currentLevel = destinationLevel;
@@ -222,7 +253,10 @@ public class GameModel implements Visitable {
         processAIMoves();
         currentLevel.processMoves();
         currentLevel.processInteractions();
-        currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
+
+        if(hasPlayer()) {
+            currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
+        }
 
         processTeleportQueue();
     }

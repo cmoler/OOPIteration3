@@ -213,7 +213,6 @@ public class CommandTests {
     @Test
     public void testTeleportCommand() {
         Level level1 = new Level();
-
         Level level2 = new Level();
 
         Entity entity = new Entity();
@@ -222,15 +221,13 @@ public class CommandTests {
         GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
 
         GameModel gameModel = new GameModel(gameLoopMessenger);
-        GameModelMessenger gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
 
-        LevelMessenger messenger = new LevelMessenger(gameModelMessenger, level1);
         gameModel.addLevel(level2);
         gameModel.addLevel(level1);
 
         gameModel.setCurrentLevel(level1);
 
-        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(messenger, level2, new Point3D(1,3,2));
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(gameModel.getLevelMessenger(), level2, new Point3D(1,3,2));
 
         AreaEffect areaEffect = new OneShotAreaEffect(teleportEntityCommand);
 

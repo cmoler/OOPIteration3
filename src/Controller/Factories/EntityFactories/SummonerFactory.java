@@ -1,9 +1,9 @@
 package Controller.Factories.EntityFactories;
 
-import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
-import View.LevelView.EntityView;
+import View.LevelView.EntityView.EntityView;
+import View.LevelView.EntityView.SummonerView;
 import javafx.geometry.Point3D;
 
 public class SummonerFactory extends EntityFactory {
@@ -32,7 +32,7 @@ public class SummonerFactory extends EntityFactory {
         return summoner;
     }
 
-    public void buildEntitySprite(Entity entity) { // TODO: subclass entityView to make monster sprite
-        EntityView summonerView = new EntityView(entity, new Point3D(0,0,0));
+    public void buildEntitySprite(Entity entity) {
+        SummonerView summonerView = new SummonerView(entity, new Point3D(0,0,0));
     }
 }

@@ -107,7 +107,7 @@ public class SavingVisitorTests {
 
         level.addMountTo(new Point3D(0,0,0), new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
 
-        entity = new Entity(new ArrayList<>(), itemHotBar, new ArrayList<>(),
+        entity = new Entity(null, itemHotBar, new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),

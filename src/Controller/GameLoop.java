@@ -62,6 +62,8 @@ public class GameLoop {
 
         gameModel = new GameModel(gameLoopMessenger);
 
+        gameModel.init();
+
         renderer = new Renderer();
 
         ((KeyEventImplementor) controls).createMainMenuSet(menuModel);
