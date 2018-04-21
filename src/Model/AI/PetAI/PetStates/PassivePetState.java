@@ -1,5 +1,6 @@
 package Model.AI.PetAI.PetStates;
 
+import Model.AI.AIState;
 import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
 import Model.Level.Obstacle;
@@ -7,40 +8,38 @@ import Model.Level.Terrain;
 import Model.Utility.BidiMap;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
-
-import java.util.ArrayList;
 import java.util.Map;
 
 // In PassiveState, a pet will only follow its master!
 
-public class PassivePetState implements PetState {
+public class PassivePetState extends AIState {
     private BidiMap<Point3D, Entity> entityMap;
     private Entity player;
     private PathingAlgorithm pathCalculator;
 
 
-    public PassivePetState(Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
+    public PassivePetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
+        super(pet);
         this.entityMap = entityMap;
         this.player = player;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
     }
 
     @Override
-    public void nextPetMove(Entity pet) {
-        Point3D petPoint = getPetPoint(pet);
+    public void nextMove() {
+        Point3D petPoint = getPetPoint();
         Point3D playerPoint = getPlayerPoint();
 
-        moveToGoal(pet,petPoint,playerPoint);
+        moveToGoal(petPoint,playerPoint);
     }
 
-    private void moveToGoal(Entity pet, Point3D start, Point3D goal){
-        ArrayList<Point3D> path = pathCalculator.getPath(start, goal, pet);
-        Point3D firstStep = path.get(0);
-        pet.addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
+    private void moveToGoal(Point3D start, Point3D goal){
+        Point3D firstStep = pathCalculator.getAStarPoint(start, goal, super.getEntity());
+        super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
-    private Point3D getPetPoint(Entity pet) {
-        return entityMap.getKeyFromValue(pet);
+    private Point3D getPetPoint() {
+        return entityMap.getKeyFromValue(super.getEntity());
     }
 
     private Point3D getPlayerPoint() {

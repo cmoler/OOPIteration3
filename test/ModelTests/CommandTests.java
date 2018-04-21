@@ -32,10 +32,19 @@ import java.util.List;
 
 public class CommandTests {
 
+    private GameLoop gameLoop;
+    private GameLoopMessenger gameLoopMessenger;
+
+    @Before
+    public void init() {
+        gameLoop = new GameLoop();
+        gameLoopMessenger = new GameLoopMessenger(gameLoop);
+    }
+
     @Test
     public void testTrapDisarm() {
         Level level = new Level();
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(gameLoopMessenger, new GameModel(gameLoopMessenger)), level);
 
         InfluenceEffect linear1 = new LinearInfluenceEffect(new RemoveHealthCommand(10), 0,1, Orientation.SOUTHWEST);
 
@@ -128,7 +137,7 @@ public class CommandTests {
     @Test
     public void testTrapDisarmFailure() {
         Level level = new Level();
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(gameLoopMessenger, new GameModel(gameLoopMessenger)), level);
 
         InfluenceEffect linear1 = new LinearInfluenceEffect(new RemoveHealthCommand(10), 0,1, Orientation.SOUTHWEST);
 
@@ -161,7 +170,7 @@ public class CommandTests {
     @Test
     public void testPickPocket() {
         Level level = new Level();
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(gameLoopMessenger, new GameModel(gameLoopMessenger)), level);
 
         SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
 
@@ -216,14 +225,12 @@ public class CommandTests {
         Entity entity = new Entity();
 
         GameLoop gameLoop = new GameLoop();
-        GameModel gameModel = new GameModel();
-
         GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+
+        GameModel gameModel = new GameModel(gameLoopMessenger);
         GameModelMessenger gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
+
         LevelMessenger messenger = new LevelMessenger(gameModelMessenger, level1);
-
-        gameModel.setGameModelMessenger(gameModelMessenger);
-
         gameModel.addLevel(level2);
         gameModel.addLevel(level1);
 
@@ -252,8 +259,9 @@ public class CommandTests {
         Entity entity = new Entity();
 
         GameLoop gameLoop = new GameLoop();
-        GameModel gameModel = new GameModel();
         GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+
+        GameModel gameModel = new GameModel(gameLoopMessenger);
         GameModelMessenger gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
         LevelMessenger messenger = new LevelMessenger(gameModelMessenger, level);
 
@@ -339,8 +347,9 @@ public class CommandTests {
         Entity entity = new Entity();
 
         GameLoop gameLoop = new GameLoop();
-        GameModel gameModel = new GameModel();
         GameLoopMessenger gameLoopMessenger = new GameLoopMessenger(gameLoop);
+
+        GameModel gameModel = new GameModel(gameLoopMessenger);
         GameModelMessenger gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
         LevelMessenger messenger = new LevelMessenger(gameModelMessenger, level);
 
@@ -425,7 +434,7 @@ public class CommandTests {
     @Test
     public void testSneakCommand() {
         Level level = new Level();
-        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(new GameLoopMessenger(new GameLoop()), new GameModel()), level);
+        LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(gameLoopMessenger, new GameModel(gameLoopMessenger)), level);
 
         SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
 

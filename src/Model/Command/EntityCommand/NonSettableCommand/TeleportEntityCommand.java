@@ -1,6 +1,6 @@
 package Model.Command.EntityCommand.NonSettableCommand;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.Command;
 import Model.Command.GameModelCommand.GameModelCommand;
 import Model.Entity.Entity;
@@ -46,8 +46,11 @@ public class TeleportEntityCommand extends GameModelCommand implements Command {
         sendCommandToGameModel();
     }
 
-    @Override
-    public void accept(SavingVisitor savingVisitor) {
-        savingVisitor.visitTeleportEntityCommand(this);
+    public String levelReference() {
+        return destinationLevel.toString();
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitTeleportEntityCommand(this);
     }
 }

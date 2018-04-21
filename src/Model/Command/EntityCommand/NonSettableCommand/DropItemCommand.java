@@ -1,14 +1,12 @@
 package Model.Command.EntityCommand.NonSettableCommand;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.Command;
-import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.LevelCommand.LevelCommand;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
-import javafx.geometry.Point3D;
 
 public class DropItemCommand extends LevelCommand implements Command {
 
@@ -29,12 +27,19 @@ public class DropItemCommand extends LevelCommand implements Command {
         sendCommandToLevel();
     }
 
-    @Override
-    public void accept(SavingVisitor savingVisitor) {
-        savingVisitor.visitDropItemCommand(this);
-    }
-
     public void setItem(TakeableItem item) {
         this.item = item;
+    }
+
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public TakeableItem getItem() {
+        return item;
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitDropItemCommand(this);
     }
 }

@@ -1,7 +1,7 @@
 package Model.Entity.EntityAttributes;
 
-import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
+import Controller.Visitor.Visitor;
 import Model.Item.TakeableItem.TakeableItem;
 
 import java.util.ArrayList;
@@ -71,14 +71,13 @@ public class Inventory implements Visitable {
         return item;
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        for(TakeableItem item: inventory) {
-            visitor.visitItem(item);
-        }
-    }
-
     public int getMaxSize() {
         return maxSize;
+    }
+
+    public void accept(Visitor visitor) { // TODO: change? if so how prevent LoD?
+        for(TakeableItem item: inventory) {
+            item.accept(visitor);
+        }
     }
 }

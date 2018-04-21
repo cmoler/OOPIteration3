@@ -1,7 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
-import Controller.Visitor.SavingVisitor;
-import Model.Command.EntityCommand.SettableCommand.SettableCommand;
+import Controller.Visitor.Visitor;
 import Model.Entity.Entity;
 
 public class AddHealthCommand implements SettableCommand {
@@ -24,8 +23,7 @@ public class AddHealthCommand implements SettableCommand {
         return healAmount;
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitAddHealthCommand(this);
     }
 }

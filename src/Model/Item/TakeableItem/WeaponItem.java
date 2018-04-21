@@ -1,11 +1,9 @@
 package Model.Item.TakeableItem;
 
-import Controller.Visitor.SavingVisitor;
-import Model.Command.Command;
+import Controller.Visitor.Visitor;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
-import Model.Entity.EntityAttributes.SkillLevel;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.TakeableItem.InventoryStrategy.WeaponEquipStrategy;
 
@@ -52,10 +50,7 @@ public class WeaponItem extends TakeableItem{
         int skillLevel = entity.getSkillLevel(hostSKill);
 
         if(skillLevel != 0) {
-            //TODO: figure out what else to put here
             // TODO: figure out how to get skills to modify stats for stuff like attacks
-            //int modifier = skillLevel.getSkillLevel();
-            //int damage = (attackDamage * modifier) / accuracy;
             hostSKill.setInfluence(influenceEffect);
             hostSKill.setBehavior((SettableCommand) getCommand());  // TODO: is this POOP? even if it is casting, I would say that it does not violate OCP (as we know that weaponItems will always take in a SettableCommand)
             hostSKill.fire(entity);
@@ -71,8 +66,28 @@ public class WeaponItem extends TakeableItem{
         weaponEquipStrategy.setEntity(entity);
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+
+    public int getAttackSpeed() {
+        return attackSpeed;
+    }
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+
+    public int getUseCost() {
+        return useCost;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public void accept(Visitor visitor) {
         visitor.visitItem(this);
     }
+
 }

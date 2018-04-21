@@ -94,6 +94,7 @@ public class Entity {
         velocity = new Vec3d(0,0,0);
 
         sightRadius = new SightRadius();
+        sightRadius.setSight(2);
         noiseLevel = new NoiseLevel();
 
         xpLevel = new XPLevel();

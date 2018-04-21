@@ -1,4 +1,4 @@
 package Model.Level;
 
-public class Decal {
+public class Decal { // TODO: implement me
 }

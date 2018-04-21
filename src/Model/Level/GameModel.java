@@ -1,16 +1,18 @@
 package Model.Level;
 
-import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
+import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
+import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import View.LevelView.EntityView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import java.io.IOException;
@@ -35,61 +37,92 @@ public class GameModel implements Visitable {
     private Queue<TeleportTuple> teleportQueue;
     private Queue<TeleportTuple> failedTeleportQueue;
 
-    public GameModel() {
-            levels = new ArrayList<>();
-            aiMap = new HashMap<>();
-            teleportQueue = new LinkedList<>();
-            failedTeleportQueue = new LinkedList<>();
+    public GameModel(GameLoopMessenger gameLoopMessenger) {
+        gameModelMessenger = new GameModelMessenger(gameLoopMessenger, this);
+        currentLevel = new Level();
+        currentLevelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
+        currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
 
-            currentLevel = new Level();
+        levels = new ArrayList<>();
+        levels.add(currentLevel);
 
-            player = new Entity();
+        aiMap = new HashMap<>();
+        teleportQueue = new LinkedList<>();
+        failedTeleportQueue = new LinkedList<>();
 
-            player.setMoveable(true);
-            player.setNoise(5);
-            currentLevel.addEntityTo(new Point3D(0, -4, 4), player);
+        player = new Entity();
+
+        player.setMoveable(true);
+        player.setNoise(5);
+        player.setSightRadius(new SightRadius(3));
+        currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
+
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
 
 
 
+        currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
 
 
-            currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
 
-            RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
-
-            currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
-            for(int i = 0; i < 8; i++) {
-                ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
-                for(int j = 0; j < points.size(); j++) {
-                    currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
-                }
+        currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+        for(int i = 0; i < 8; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
+            for (int j = 0; j < points.size(); j++) {
+                currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
             }
-
-            currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
-
-            //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
-
-            Entity enemy =  new Entity();
-            enemy.setMoveable(true);
-            enemy.setNoise(5);
-            enemy.setSightRadius(new SightRadius(2));
-            ArrayList<Vec3d> path = new ArrayList<>();
-            path.add(new Vec3d(0,1,-1));
-            path.add(new Vec3d(0,-1,1));
-            currentLevel.addEntityTo(new Point3D(0, 2, -2),enemy);
-            List<Entity> list = new ArrayList<>();
-            list.add(player);
-            HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),list);
-            //hostileAI.setPatrolPath(new PatrolPath(path));
-            AIController controller = new AIController();
-            controller.setActiveState(hostileAI);
-            List<AIController> AIList = new ArrayList<>();
-            AIList.add(controller);
-            aiMap.put(currentLevel,AIList);
+        }
 
 
-            levels.add(currentLevel);
+        currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
+
+        currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+
+        Entity enemy =  new Entity();
+        enemy.setMoveable(true);
+        enemy.setNoise(5);
+        enemy.setSightRadius(new SightRadius(2));
+        ArrayList<Vec3d> path = new ArrayList<>();
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(1,-1,0));
+        path.add(new Vec3d(1,-1,0));//*/
+        currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
+        List<Entity> list = new ArrayList<>();
+        list.add(player);
+        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),list);
+        //hostileAI.setPatrolPath(new PatrolPath(path));
+        AIController controller = new AIController();
+        controller.setActiveState(hostileAI);
+        List<AIController> AIList = new ArrayList<>();
+        AIList.add(controller);
+        aiMap.put(currentLevel,AIList);
+
+        Entity pet = new Entity();
+        pet.setMoveable(true);
+        pet.setNoise(5);
+        pet.setSightRadius(new SightRadius(2));
+
+        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),player);
+        EntityView petView = new EntityView(pet, new Point3D(5, -5, 0));
+        petView.setAsPet();
+        pet.addObserver(petView);
+
+        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+
+        AIController test = new AIController();
+        test.setActiveState(PPS);
+        AIList.add(test);
+        aiMap.put(currentLevel,AIList);
+
+        levels.add(currentLevel);
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
@@ -99,10 +132,16 @@ public class GameModel implements Visitable {
         this.levels = levels;
         this.player = player;
         this.aiMap = aiMap;
+
+        this.currentLevel.setMovementHandlerDialogCommand(this.currentLevelMessenger);
     }
 
     public Level getCurrentLevel(){
         return currentLevel;
+    }
+
+    public List<Level> getLevels() {
+        return levels;
     }
 
     public AIController getAIForEntity(Entity entity) {
@@ -131,25 +170,16 @@ public class GameModel implements Visitable {
         return entity.equals(player);
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        try {
-            if(currentLevel != null) {
-                visitor.saveCurrentLevel(currentLevel);
-            }
+    public boolean hasLevels() {
+        return !levels.isEmpty();
+    }
 
-            if(!levels.isEmpty()) {
-                visitor.saveLevelList(levels);
-            }
+    public boolean hasPlayer() {
+        return player != null;
+    }
 
-            if(player != null) {
-                visitor.visitPlayerEntity(player);
-            }
-        }
-
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    public boolean hasCurrentLevel() {
+        return currentLevel != null;
     }
 
     private class TeleportTuple {
@@ -187,7 +217,6 @@ public class GameModel implements Visitable {
     }
 
     private void changeLevels(Entity entity, Level destinationLevel, Point3D destinationPoint) {
-
         if(!destinationLevel.hasEntityAtPoint(destinationPoint)) {
             destinationLevel.addEntityTo(destinationPoint, entity);
             destinationLevel.registerEntityObserver(entity);
@@ -198,6 +227,7 @@ public class GameModel implements Visitable {
             if (entity.equals(player)) {
                 currentLevel = destinationLevel;
                 currentLevelMessenger.setLevel(currentLevel);
+                currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
                 // TODO: notify pets when player teleports, so we can teleport them as well
             }
         } else {
@@ -215,10 +245,13 @@ public class GameModel implements Visitable {
     }
 
     private void processAIMoves(){
-        List<AIController> aiControllers = aiMap.get(currentLevel);
 
-        for (AIController AI: aiControllers) {
-            AI.processMove();
+        if(aiMap.containsKey(currentLevel)) {
+            List<AIController> aiControllers = aiMap.get(currentLevel);
+
+            for (AIController AI : aiControllers) {
+                AI.processMove();
+            }
         }
     }
 
@@ -243,21 +276,24 @@ public class GameModel implements Visitable {
 
         if(currentLevelMessenger != null) {
             currentLevelMessenger.setLevel(currentLevel);
+
         } else {
             if(gameModelMessenger == null) {
                 throw new RuntimeException("GameModel's messenger not set!");
             }
             currentLevelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
         }
-    }
 
-    public void setGameModelMessenger(GameModelMessenger gameModelMessenger) {
-        this.gameModelMessenger = gameModelMessenger;
+        currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
     }
 
     public void registerAllLevelObservers() {
         for(Level level : levels) {
             level.registerObservers();
         }
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitGameModel(this);
     }
 }

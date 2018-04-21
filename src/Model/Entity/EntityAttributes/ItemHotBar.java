@@ -1,13 +1,10 @@
 package Model.Entity.EntityAttributes;
 
-import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
-import Model.Item.Item;
+import Controller.Visitor.Visitor;
 import Model.Item.TakeableItem.TakeableItem;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class ItemHotBar implements Visitable {
 
@@ -38,17 +35,16 @@ public class ItemHotBar implements Visitable {
         return itemMap;
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        for(TakeableItem item: items) {
-            visitor.visitItem(item);
-        }
-    }
-
     public TakeableItem getItem(int i) {
         if(i < 5 && i >= 0)
             return items[i];
         else
             return null;
+    }
+
+    public void accept(Visitor visitor) { // TODO: change? if so how prevent LoD?
+        for(TakeableItem item: items) {
+            item.accept(visitor);
+        }
     }
 }
