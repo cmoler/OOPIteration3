@@ -240,6 +240,12 @@ public class CommandTests {
         level1.addEntityTo(new Point3D(0,0,0), entity);
         level1.addAreaEffectTo(new Point3D(0,0,0), areaEffect);
 
+
+        Entity player = new Entity();
+        gameModel.setPlayer(player);
+
+        level1.addEntityTo(new Point3D(1,1,1), player);
+
         Assert.assertEquals(level1.getEntityAtPoint(new Point3D(0,0,0)), entity);
         Assert.assertEquals(level2.getEntityAtPoint(new Point3D(1,3,2)), null);
 
