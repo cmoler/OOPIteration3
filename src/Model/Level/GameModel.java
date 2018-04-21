@@ -257,6 +257,8 @@ public class GameModel implements Visitable {
             }
             currentLevelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
         }
+
+        currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
     }
 
     public void registerAllLevelObservers() {
