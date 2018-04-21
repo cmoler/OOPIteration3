@@ -51,7 +51,7 @@ public class InventoryView extends InGameMenuView {
     private void drawItemDetails(GraphicsContext gc) {
 
         TakeableItem takeableItem = ((InventoryMenu)menuModel.getActiveState()).getSelectedItem();
-
+        if(takeableItem == null) return;
 
         int startX = 3 * Commons.SCREEN_WIDTH / 5;
         int startY = Commons.SCREEN_HEIGHT / 4;
