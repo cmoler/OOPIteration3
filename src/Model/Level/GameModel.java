@@ -117,7 +117,7 @@ public class GameModel implements Visitable {
         Entity enemy =  new Entity();
         enemy.setMoveable(true);
         enemy.setNoise(5);
-        enemy.setSightRadius(new SightRadius(1));
+        enemy.setSightRadius(new SightRadius(3));
         ArrayList<Vec3d> path = new ArrayList<>();
         path.add(new Vec3d(1,0,-1));
         path.add(new Vec3d(1,0,-1));
@@ -143,7 +143,7 @@ public class GameModel implements Visitable {
         Entity pet = new Entity();
         pet.setMoveable(true);
         pet.setNoise(5);
-        pet.setSightRadius(new SightRadius(2));
+        pet.setSightRadius(new SightRadius(3));
 
         PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),player);
         EntityView petView = new EntityView(pet, new Point3D(5, -5, 0));
