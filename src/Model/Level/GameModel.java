@@ -10,8 +10,10 @@ import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.AI.PetAI.PetStates.PassivePetState;
+import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
@@ -20,6 +22,7 @@ import Model.Entity.EntityAttributes.SightRadius;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
@@ -145,7 +148,8 @@ public class GameModel implements Visitable {
         }
 
         currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
-
+        currentLevel.addAreaEffectTo(new Point3D(-2, 1, 1), new InfiniteAreaEffect(new RemoveHealthCommand(10)));
+        currentLevel.addObstacleTo(new Point3D(-2, 2, 0), new Obstacle());
         //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
 
         entityFactory = new MonsterFactory(skillsFactory);
