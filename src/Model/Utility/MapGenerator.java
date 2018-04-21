@@ -1,0 +1,233 @@
+package Model.Utility;
+
+import Controller.Factories.EntityFactories.EntityFactory;
+import Controller.Factories.EntityFactories.SummonerFactory;
+import Controller.Factories.SkillsFactory;
+import Controller.GameLoader;
+import Controller.Visitor.SavingVisitor;
+import Model.AreaEffect.InfiniteAreaEffect;
+import Model.AreaEffect.OneShotAreaEffect;
+import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
+import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
+import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
+import Model.Command.EntityCommand.SettableCommand.*;
+import Model.Entity.Entity;
+import Model.Entity.EntityAttributes.*;
+import Model.InfluenceEffect.AngularInfluenceEffect;
+import Model.InfluenceEffect.LinearInfluenceEffect;
+import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.InteractiveItem;
+import Model.Item.OneShotItem;
+import Model.Item.TakeableItem.*;
+import Model.Level.*;
+import com.sun.javafx.geom.Vec3d;
+import javafx.geometry.Point3D;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class MapGenerator {
+    private static SavingVisitor savingVisitor;
+    private static Level level;
+    private static Level levelToTeleportTo;
+    private static Entity entity;
+    private static GameModel gameModel;
+    private static LevelMessenger levelMessenger;
+    private static SkillsFactory skillsFactory;
+    private static EntityFactory entityFactory;
+
+    public MapGenerator() throws IOException {
+        savingVisitor = new SavingVisitor("SMASHER.xml");
+        skillsFactory = new SkillsFactory(levelMessenger);
+    }
+
+    private static void generateDemoMap() {
+        ArrayList<Level> levels = new ArrayList<>();
+        levelMessenger = new LevelMessenger(null, null);
+
+        level = new Level();
+        levelToTeleportTo = new Level();
+
+        createTerrains(level);
+        createAreaEffects(level);
+        createInfluenceAreas(level);
+        createItems(level);
+        createMounts(level);
+        createTraps(level);
+        createObstacle(level);
+        createRivers(level);
+        createEnities(level);
+
+        levels.add(level);
+
+        gameModel = new GameModel(level, null, levels, entity, null);
+        savingVisitor.visitGameModel(gameModel);
+    }
+
+    private static void createEnities(Level level) {
+        level.addEntityTo(new Point3D(0,1,-1), entity);
+    }
+
+    private static void createSummoner() {
+        ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
+        ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
+        RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
+
+        Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
+            add(helmet);
+            add(ringItem);
+        }}, 15);
+
+        Equipment equipment = new Equipment(null, helmet, ringItem);
+
+        ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
+            add(skillsFactory.getBaneSkill());
+            add(skillsFactory.getBoonSkill());
+            add(skillsFactory.getEnchantSkill());
+            add(skillsFactory.getStaffSkill());
+        }};
+
+        ArrayList<Skill> nonWeaponSkills = new ArrayList<Skill>() {{
+            add(skillsFactory.getObserveSkill());
+            add(skillsFactory.getBargainSkill());
+            add(skillsFactory.getBindWounds());
+        }};
+
+        entity = new Entity(new ArrayList<>(), new ItemHotBar(), weaponSkills,
+                nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
+                new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
+                new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
+                equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
+                new Mount(Orientation.NORTH, new Speed(10), entityTerrain, new ArrayList<>()));
+
+        entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
+    }
+
+    private static void createSmasher() {
+        ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
+        ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
+        RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
+
+        Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
+            add(helmet);
+            add(ringItem);
+        }}, 15);
+
+        Equipment equipment = new Equipment(null, helmet, ringItem);
+
+        ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
+            add(skillsFactory.getOneHandedSkill());
+            add(skillsFactory.getTwoHandedSkill());
+            add(skillsFactory.getBrawlerSkill());
+        }};
+
+        ArrayList<Skill> nonWeaponSkills = new ArrayList<Skill>() {{
+            add(skillsFactory.getObserveSkill());
+            add(skillsFactory.getBargainSkill());
+            add(skillsFactory.getBindWounds());
+        }};
+        entity = new Entity(new ArrayList<>(), new ItemHotBar(), weaponSkills,
+                nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
+                new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
+                new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
+                equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
+                new Mount(Orientation.NORTH, new Speed(10), entityTerrain, new ArrayList<>()));
+
+        entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
+    }
+
+    private static void createSneak() {
+        ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
+        ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
+        RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
+
+        Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
+            add(helmet);
+            add(ringItem);
+        }}, 15);
+
+        Equipment equipment = new Equipment(null, helmet, ringItem);
+
+        ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
+            add(skillsFactory.getRangeSkill());
+        }};
+
+        ArrayList<Skill> nonWeaponSkills = new ArrayList<Skill>() {{
+            add(skillsFactory.getObserveSkill());
+            add(skillsFactory.getBargainSkill());
+            add(skillsFactory.getBindWounds());
+            add(skillsFactory.DisarmTrapSkill());
+            add(skillsFactory.getSneakSkill());
+        }};
+
+        entity = new Entity(new ArrayList<>(), new ItemHotBar(), weaponSkills,
+                nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
+                new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
+                new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
+                equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
+                new Mount(Orientation.NORTH, new Speed(10), entityTerrain, new ArrayList<>()));
+
+        entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
+    }
+
+    private static void createRivers(Level level) {
+        level.addRiverTo(new Point3D(10,0,0), new River(new Vec3d(1,0,0)));
+    }
+
+    private static void createObstacle(Level level) {
+        level.addObstacleTo(new Point3D(0,0,5), new Obstacle());
+    }
+
+    private static void createTraps(Level level) {
+        level.addTrapTo(new Point3D(0,-2,2), new Trap(new RemoveHealthCommand(10), false, false, 10));
+    }
+
+    private static void createMounts(Level level) {
+        ArrayList<Terrain> mountTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); add(Terrain.WATER); }};
+        level.addMountTo(new Point3D(0,2,-2), new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
+    }
+
+    private static void createItems(Level level) {
+//        level.addItemnTo(new Point3D(0,0,0), new InteractiveItem("Door", new ToggleManaCommand(10)));
+        level.addItemnTo(new Point3D(4,-4,0), new OneShotItem("The Bomb", new RemoveHealthCommand(20)));
+        level.addItemnTo(new Point3D(4,-3,1), new ArmorItem("Plain Helmet", new ToggleHealthCommand(10), 1));
+        level.addItemnTo(new Point3D(4,-5,1), new RingItem("The Flash's Ring", new ToggleSpeedCommand(10)));
+        level.addItemnTo(new Point3D(5,-4,-1), new ConsumableItem("Healing Potion", new AddHealthCommand(10)));
+    }
+
+    private static void createTerrains(Level level) {
+        for(int i = 0; i < 7; i++) {
+            level.addTerrainTo(new Point3D(i+1, 0, i-1), Terrain.WATER);
+            level.addTerrainTo(new Point3D(i-1, 0, i+1), Terrain.MOUNTAINS);
+        }
+    }
+
+    private static void createAreaEffects(Level level) {
+        InfiniteAreaEffect damage = new InfiniteAreaEffect(new RemoveHealthCommand(5));
+        level.addAreaEffectTo(new Point3D(-4,4,0), damage);
+        level.addAreaEffectTo(new Point3D(-4,3,1), damage);
+        level.addAreaEffectTo(new Point3D(-4,5,-1), damage);
+        level.addAreaEffectTo(new Point3D(-5,4,1), damage);
+        level.addAreaEffectTo(new Point3D(-3,4,-1), damage);
+        level.addAreaEffectTo(new Point3D(-5,5,0), damage);
+        level.addAreaEffectTo(new Point3D(-3,3,0), damage);
+    }
+
+    private static void createInfluenceAreas(Level level) {
+    }
+
+    public static void main(String... args) {
+        try {
+            new MapGenerator();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        createSmasher();
+        generateDemoMap();
+    }
+}
