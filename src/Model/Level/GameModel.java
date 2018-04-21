@@ -72,6 +72,10 @@ public class GameModel implements Visitable {
         this.aiMap = aiMap;
 
         this.currentLevel.setMovementHandlerDialogCommand(this.currentLevelMessenger);
+
+        //TODO: Save this
+        teleportQueue = new LinkedList<>();
+        failedTeleportQueue = new LinkedList<>();
     }
 
     public void init() {

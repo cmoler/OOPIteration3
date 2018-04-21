@@ -25,6 +25,7 @@ import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
+import View.LevelView.EntityView.SmasherView;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -58,9 +59,9 @@ public class GameLoader {
     private HashMap<String, Command> commandRef = new HashMap<>();
     private HashMap<String, Skill> skillRef = new HashMap<>();
 
-    public GameLoader() {
+    public GameLoader(GameLoop gameLoop) {
         world = new ArrayList<>();
-        this.gameLoopMessenger = new GameLoopMessenger(new GameLoop());
+        this.gameLoopMessenger = new GameLoopMessenger(gameLoop);
         gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
         levelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
     }
@@ -259,7 +260,7 @@ public class GameLoader {
     private void processEntities(Element element, Level level) {
         List<Point3D> pointsToAdd = getKeyPoints(element);
         List<Entity> entitiesToAdd = new ArrayList<>();
-        Entity entity;
+        Entity entity = new Entity();
         ItemHotBar hotBar;
         List<Skill> weaponSkills = new ArrayList<>();
         List<Skill> nonWeaponSkills = new ArrayList<>();
@@ -372,6 +373,7 @@ public class GameLoader {
         }
 
         for(int i = 0; i < pointsToAdd.size(); i++) {
+            entity.setObserver(new SmasherView(entitiesToAdd.get(i), pointsToAdd.get(i)));
             level.addEntityTo(pointsToAdd.get(i), entitiesToAdd.get(i));
         }
     }
@@ -1038,7 +1040,7 @@ public class GameLoader {
         this.levelMessenger.setLevel(this.currentLevel);
         this.world = loadWorld(levelList);
         this.entity = loadPlayer(player);
-        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, null);
+        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, new HashMap<>());
     }
 
     private Entity loadPlayer(NodeList player) {
@@ -1154,7 +1156,6 @@ public class GameLoader {
             entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
                     noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                     inventory, orientation, compatableTerrain, moveable, mount);
-
             entityRef.put(reference, entity);
             return entity;
         }
@@ -1255,5 +1256,9 @@ public class GameLoader {
 
     public List<Level> getWorld() {
         return world;
+    }
+
+    public GameModel getGameModel() {
+        return gameModel;
     }
 }

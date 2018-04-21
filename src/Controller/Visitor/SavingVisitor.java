@@ -855,7 +855,7 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append(barterString);
         this.valueNode.append("\n");
         this.valueNode.append("\t");
-        this.valueNode.append("</" + barterCommand.getClass().getSimpleName() + "/>");
+        this.valueNode.append("</" + barterCommand.getClass().getSimpleName() + ">");
     }
 
     public void visitConfuseEntityCommand(ConfuseEntityCommand confuseEntityCommand) {
@@ -962,7 +962,7 @@ public class SavingVisitor implements Visitor {
         this.currentLevel.append("\n");
         this.currentLevel.append("</CURRENTLEVEL>");
         this.currentLevel.append("\n");
-        levelString = new StringBuffer("<LEVEL>");
+        levelString = new StringBuffer("<LEVEL");
         writer.write(this.currentLevel.toString());
     }
 
@@ -971,7 +971,7 @@ public class SavingVisitor implements Visitor {
         for(Level curLevel: levels) {
             visitLevel(curLevel);
             this.levelList.append(levelString);
-            levelString = new StringBuffer("<LEVEL>");
+            levelString = new StringBuffer("<LEVEL");
         }
 
         this.levelList.append("\n");

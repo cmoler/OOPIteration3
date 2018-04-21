@@ -24,14 +24,19 @@ import Model.Item.InteractiveItem;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
+import View.LevelView.EntityView.SmasherView;
+import View.LevelView.EntityView.SneakView;
+import View.LevelView.EntityView.SummonerView;
 import com.sun.javafx.geom.Vec3d;
+import javafx.application.Application;
 import javafx.geometry.Point3D;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MapGenerator {
+public class MapGenerator extends Application {
     private static SavingVisitor savingVisitor;
     private static Level level;
     private static Level levelToTeleportTo;
@@ -98,7 +103,7 @@ public class MapGenerator {
             add(skillsFactory.getBindWounds());
         }};
 
-        entity = new Entity(new ArrayList<>(), new ItemHotBar(), weaponSkills,
+        entity = new Entity(null, new ItemHotBar(), weaponSkills,
                 nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
@@ -106,6 +111,7 @@ public class MapGenerator {
                 new Mount(Orientation.NORTH, new Speed(10), entityTerrain, new ArrayList<>()));
 
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
+        entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
     }
 
     private static void createSmasher() {
@@ -131,13 +137,14 @@ public class MapGenerator {
             add(skillsFactory.getBargainSkill());
             add(skillsFactory.getBindWounds());
         }};
-        entity = new Entity(new ArrayList<>(), new ItemHotBar(), weaponSkills,
+        entity = new Entity(null, new ItemHotBar(), weaponSkills,
                 nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
                 new Mount(Orientation.NORTH, new Speed(10), entityTerrain, new ArrayList<>()));
 
+        entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
     }
 
@@ -165,7 +172,7 @@ public class MapGenerator {
             add(skillsFactory.getSneakSkill());
         }};
 
-        entity = new Entity(new ArrayList<>(), new ItemHotBar(), weaponSkills,
+        entity = new Entity(null, new ItemHotBar(), weaponSkills,
                 nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
@@ -173,6 +180,7 @@ public class MapGenerator {
                 new Mount(Orientation.NORTH, new Speed(10), entityTerrain, new ArrayList<>()));
 
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
+        entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
     }
 
     private static void createRivers(Level level) {
@@ -222,11 +230,17 @@ public class MapGenerator {
     }
 
     public static void main(String... args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
         try {
             new MapGenerator();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         createSmasher();
         generateDemoMap();
     }

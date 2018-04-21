@@ -1,6 +1,7 @@
 package ControllerTests;
 
 import Controller.GameLoader;
+import Controller.GameLoop;
 import Controller.Visitor.SavingVisitor;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
@@ -8,6 +9,7 @@ import Model.AreaEffect.OneShotAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
 import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
@@ -83,7 +85,7 @@ public class SavingVisitorTests {
         ArrayList<Level> levels = new ArrayList<>();
         ArrayList<Terrain> mountTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); add(Terrain.WATER); }};
         savingVisitor = new SavingVisitor("TESTSAVE.xml");
-        gameLoader = new GameLoader();
+        gameLoader = new GameLoader(new GameLoop());
         level = new Level();
         level.addTerrainTo(new Point3D(0,0,0), Terrain.GRASS);
         level.addTerrainTo(new Point3D(0,0,1), Terrain.MOUNTAINS);

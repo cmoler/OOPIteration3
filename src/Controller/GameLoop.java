@@ -21,6 +21,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 
 public class GameLoop {
@@ -37,43 +41,46 @@ public class GameLoop {
     private EventHandler<KeyEvent> controls;
     private RunGame runGame;
     private Point2D scrollOffSet;
+    private GameLoader gameLoader;
 
     public GameLoop() {
         gameLoopMessenger = new GameLoopMessenger(this);
+        gameLoader = new GameLoader(this);
     }
 
     public void init() {
-        //TODO: Add loading from file logic
+        try {
+            gameLoader.loadGame("SMASHER.xml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+
         scrollOffSet = new Point2D(0, 0);
         controls = new KeyEventImplementor(this);
-        loopTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                gameModel.advance();
-            }
-        };
-
         menuModel = new MenuModel(this);
 
-        gameModel = new GameModel(gameLoopMessenger);
-
-        gameModel.init();
+        gameModel = gameLoader.getGameModel();
 
         renderer = new Renderer();
 
         ((KeyEventImplementor) controls).createMainMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
-        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
         renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
         renderer.setHotBarView(new HotbarView(gameModel.getPlayer()));
-        renderer.closeMenu();
-        ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+//        renderer.closeMenu();
+//        ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
 
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
 
         for (Level level : gameModel.getLevels()) {
             renderer.loadModelSprites(level);
         }
+
+        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
@@ -92,16 +99,19 @@ public class GameLoop {
         // TODO: implement
     }
 
-    public void startTimer() {
-        loopTimer.start();
-    }
-
-    public void pauseTimer() {
-        loopTimer.stop();
-    }
-
     public void loadGame(int i) {
-
+        try {
+            renderer.closeMenu();
+            gameLoader.loadGame("SMASHER.xml");
+            gameModel = gameLoader.getGameModel();
+            runGame.startGame();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveGame(int i) {

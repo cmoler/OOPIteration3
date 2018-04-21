@@ -22,6 +22,8 @@ public class RunGame extends Application{
     private Canvas canvas;
     private double mouseX;
     private double mouseY;
+    private AnimationTimer loop;
+    private AnimationTimer menuRender;
 
     public static void main(String[] args) {
         launch(args);
@@ -45,28 +47,6 @@ public class RunGame extends Application{
 
         canvas.setFocusTraversable(true);
 
-        /*
-        List<LevelViewElement> observers = new ArrayList<>();
-        Level level = new Level(observers);
-
-        Entity entity = new Entity();
-        entity.setOrientation(Orientation.NORTH);
-        EntityView ev = new EntityView(entity);
-
-        level.addEntityTo(new Point3D(0, 0, 0), entity);
-
-        ArrayList<LevelViewElement> terrains = new ArrayList<>();
-        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
-
-        for(int i = 0; i < 8; i++) {
-            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
-            for(int j = 0; j < points.size(); j++) {
-                terrains.add(new TerrainView(points.get(j), 100));
-            }
-        }
-
-*/
-        
         GameLoop gameLoop = new GameLoop();
         gameLoop.init();
         gameLoop.setRunGame(this);
@@ -76,9 +56,7 @@ public class RunGame extends Application{
 
         // TODO: get rid of these when loading from file logic is done ^^^^
 
-
         canvas.setOnKeyPressed(gameLoop.getControls());
-
 
         canvas.setOnMousePressed(evt -> {
             mouseX = evt.getScreenX();
@@ -95,27 +73,34 @@ public class RunGame extends Application{
 
         });
 
-        new AnimationTimer() {
-            /*
-            public void handle(long currentNanoTime) {
-                for(int i = 0; i < terrains.size(); i++) {
-                    terrains.get(i).render(gc);
-                }
-                ev.render(gc);
-            }
-            */
+        menuRender = new AnimationTimer() {
             public void handle(long currentNanoTime){
+                gameLoop.render(gc);
+            }
+        };
+
+        loop = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
                 gameLoop.tick();
                 gameLoop.render(gc);
             }
-        }.start();
+        };
 
-
+        menuRender.start();
         mainStage.show();
 
     }
 
     public void setInput(EventHandler<KeyEvent> keyEventEventHandler){
         canvas.setOnKeyPressed(keyEventEventHandler);
+    }
+
+    public void startGame() {
+        loop.start();
+    }
+
+    public void pauseGame() {
+        loop.stop();
     }
 }
