@@ -11,14 +11,14 @@ import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 
 public abstract class LevelViewElement {
-    private Point3D location;
-    private Point3D renderLocation;
-    private Orientation orientation;
-    private Orientation renderOrientation;
+    protected Point3D location;
+    protected Point3D renderLocation;
+    protected Orientation orientation;
+    protected Orientation renderOrientation;
     private int size;
     private int renderPriority;
-    private Image sprite;
-    private Image fogSprite;
+    protected Image sprite;
+    protected Image fogSprite;
     private HexMathHelper hexMathHelper;
 
     protected LevelViewElement(Point3D location, int renderPriority) {

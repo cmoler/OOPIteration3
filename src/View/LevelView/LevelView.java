@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LevelView {
@@ -18,11 +19,14 @@ public class LevelView {
     private HexMathHelper hexMathHelper;
     private HUDStatsView hudStatsView;
     private HotbarView hotbarView;
+    private List<ObservationView> observationViews;
 
     public LevelView() {
 
 
         hexMathHelper = new HexMathHelper();
+
+        observationViews = new ArrayList<>();
 
     }
 
@@ -43,7 +47,14 @@ public class LevelView {
                 }
             }
         }
-        System.out.println(observers.size());
+
+
+
+        for(ObservationView o: observationViews) {
+            o.render(gc, offset, scrollOffset);
+        }
+
+
         hudStatsView.render(gc);
         hotbarView.render(gc);
     }
@@ -56,5 +67,9 @@ public class LevelView {
     }
     public void setHotbarView(HotbarView hbv) {
         hotbarView = hbv;
+    }
+
+    public void addObservationView(ObservationView observationView) {
+        observationViews.add(observationView);
     }
 }
