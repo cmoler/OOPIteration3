@@ -292,12 +292,14 @@ public class GameModel implements Visitable {
     }
 
     private void clearDeadAI(ArrayList<Entity> deadpool, List<AIController> currentAiMap) {
-        Iterator<AIController> it = currentAiMap.iterator();
-        while (it.hasNext()){
-            AIController ai = it.next();
-            if (deadpool.contains(ai.getEntity())){
-                it.remove();
-                aiMap.get(currentLevel).remove(ai);
+        if (currentAiMap != null) {
+            Iterator<AIController> it = currentAiMap.iterator();
+            while (it.hasNext()) {
+                AIController ai = it.next();
+                if (deadpool.contains(ai.getEntity())) {
+                    it.remove();
+                    aiMap.get(currentLevel).remove(ai);
+                }
             }
         }
     }
