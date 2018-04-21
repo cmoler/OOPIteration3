@@ -17,6 +17,7 @@ public class LevelView {
     private Level currentLevel;
     private HexMathHelper hexMathHelper;
     private HUDStatsView hudStatsView;
+    private HotbarView hotbarView;
 
     public LevelView() {
 
@@ -42,8 +43,8 @@ public class LevelView {
                 }
             }
         }
-
-       hudStatsView.render(gc);
+        hudStatsView.render(gc);
+        hotbarView.render(gc);
     }
 
     public void setCurrentLevel(Level currentLevel) {
@@ -51,5 +52,8 @@ public class LevelView {
     }
     public void setPlayerHUD(HUDStatsView hud) {
         hudStatsView = hud;
+    }
+    public void setHotbarView(HotbarView hbv) {
+        hotbarView = hbv;
     }
 }

@@ -10,6 +10,7 @@ import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
 import Model.MenuModel.MenuState;
 import View.LevelView.HUDStatsView;
+import View.LevelView.HotbarView;
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
@@ -61,6 +62,7 @@ public class GameLoop {
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
         renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
+        renderer.setHotBarView(new HotbarView(gameModel.getPlayer()));
         renderer.closeMenu();
         ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
 

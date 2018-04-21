@@ -6,10 +6,7 @@ import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Controller.Visitor.SavingVisitor;
 
 import Model.Entity.EntityAttributes.*;
-import Model.Item.TakeableItem.ArmorItem;
-import Model.Item.TakeableItem.RingItem;
-import Model.Item.TakeableItem.TakeableItem;
-import Model.Item.TakeableItem.WeaponItem;
+import Model.Item.TakeableItem.*;
 import Model.Level.Terrain;
 import Model.Level.Mount;
 import View.LevelView.LevelViewElement;
@@ -114,6 +111,7 @@ public class Entity {
         speed.setSpeed(1);
         equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
 
+        hotBar.addItem(new ConsumableItem("Sword", new RemoveHealthCommand(5)), 0);
         levelUp();
         compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
