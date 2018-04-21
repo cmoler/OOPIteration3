@@ -45,6 +45,9 @@ public abstract class InGameMenuView extends MenuViewState {
         gc.setFill(Color.GREEN);
         gc.fillRect(0, 0, boxWidth, Commons.SCREEN_HEIGHT);
 
+        gc.setFill(Color.LIGHTGREEN);
+        gc.fillRect(boxWidth, 0, 3 * Commons.SCREEN_WIDTH/4, Commons.SCREEN_HEIGHT);
+
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.WHITESMOKE);
         gc.fillText("Stats", (startX+ boxWidth / 4), (startY+3*boxHeight/5));
