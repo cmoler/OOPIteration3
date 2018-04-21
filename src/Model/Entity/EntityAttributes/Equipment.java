@@ -79,6 +79,15 @@ public class Equipment {
         }
     }
 
+    public int getRange(){
+        if (equippedWeapon != null){
+            return equippedWeapon.getRange();
+        }
+        else{
+            return 0;
+        }
+    }
+
     public WeaponItem getEquippedWeapon() {
         return equippedWeapon;
     }

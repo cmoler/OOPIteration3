@@ -17,4 +17,9 @@ public class PetView extends EntityView {
 
         setSprite(new Image(file.toURI().toString()));
     }
+
+    @Override
+    public void notifyViewElementDeath() {
+
+    }
 }

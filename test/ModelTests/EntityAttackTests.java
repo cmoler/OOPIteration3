@@ -37,7 +37,7 @@ public class EntityAttackTests {
     @Test
     public void entityFiresAttackTest() {
         Skill swordSkill = new Skill("Sword Skill", null, null, new SendInfluenceEffectCommand(levelMessenger), 1, 0);
-        WeaponItem sword = new WeaponItem("Sword", new RemoveHealthCommand(20), null, swordSkill,
+        WeaponItem sword = new WeaponItem("Sword", new RemoveHealthCommand(20), swordSkill,
                 new LinearInfluenceEffect(new RemoveHealthCommand(10), 1,0, entity.getOrientation()), 10,
                 10, 10, 10, 0);
 

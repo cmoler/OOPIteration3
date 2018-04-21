@@ -47,4 +47,8 @@ public class Health {
     public int getCurrentHealth() {
         return currentHealth;
     }
+
+    public void refill() {
+        currentHealth = maxHealth;
+    }
 }

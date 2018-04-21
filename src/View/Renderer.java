@@ -1,11 +1,6 @@
 package View;
 
 
-import Model.Level.Level;
-import View.LevelView.HUDStatsView;
-import View.LevelView.HotbarView;
-import View.LevelView.LevelView;
-
 import Model.AreaEffect.AreaEffect;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
@@ -13,11 +8,8 @@ import Model.Item.Item;
 import Model.Level.*;
 import Model.Utility.BidiMap;
 import View.LevelView.*;
-import View.LevelView.EntityView.EntityView;
-
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
-
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
@@ -69,28 +61,29 @@ public class Renderer {
     public void loadModelSprites(Level level) {
 
         List<LevelViewElement> observers = new ArrayList<>();
+        if (level != null) {
+            observers.addAll(registerTerrainObservers(level.getTerrainMap()));
 
-        observers.addAll(registerTerrainObservers(level.getTerrainMap()));
+            observers.addAll(registerItemObservers(level.getItemMap()));
 
-        observers.addAll(registerItemObservers(level.getItemMap()));
+            observers.addAll(registerObstacleObservers(level.getObstacleMap()));
 
-        observers.addAll(registerObstacleObservers(level.getObstacleMap()));
+            observers.addAll(registerEntityObservers(level.getEntityMap()));
 
-        observers.addAll(registerEntityObservers(level.getEntityMap()));
+            observers.addAll(registerAreaEffectObservers(level.getAreaEffectMap()));
 
-        observers.addAll(registerAreaEffectObservers(level.getAreaEffectMap()));
+            observers.addAll(registerTrapObservers(level.getTrapMap()));
 
-        observers.addAll(registerTrapObservers(level.getTrapMap()));
+            observers.addAll(registerRiverObservers(level.getRiverMap()));
 
-        observers.addAll(registerRiverObservers(level.getRiverMap()));
+            observers.addAll(registerMountObservers(level.getMountMap()));
 
-        observers.addAll(registerMountObservers(level.getMountMap()));
+            observers.addAll(registerInfluenceEffectObservers(level.getInfluenceEffectMap()));
 
-        observers.addAll(registerInfluenceEffectObservers(level.getInfluenceEffectMap()));
+            observers.addAll(registerDecalObservers(level.getDecalMap()));
 
-        observers.addAll(registerDecalObservers(level.getDecalMap()));
-
-        level.setObservers(observers);
+            level.setObservers(observers);
+        }
     }
 
     private ArrayList<LevelViewElement> registerDecalObservers(Map<Point3D, Decal> decalMap) {

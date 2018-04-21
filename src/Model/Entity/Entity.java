@@ -1,15 +1,14 @@
 package Model.Entity;
 
 
-import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
-
 import Controller.Visitor.SavingVisitor;
-
 import Model.Entity.EntityAttributes.*;
-import Model.Item.TakeableItem.*;
-import Model.Level.Terrain;
+import Model.Item.TakeableItem.ArmorItem;
+import Model.Item.TakeableItem.RingItem;
+import Model.Item.TakeableItem.TakeableItem;
+import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.Mount;
-import View.LevelView.EntityView.EntityView;
+import Model.Level.Terrain;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -51,6 +50,7 @@ public class Entity {
     private boolean moveable;
 
     private Mount mount;
+    private List<Entity> targetingList;
 
     public Entity(LevelViewElement observer, ItemHotBar hotBar, List<Skill> weaponSkills,
                   List<Skill> nonWeaponSkills, HashMap<Skill, SkillLevel> skillLevelsMap,
@@ -79,6 +79,7 @@ public class Entity {
         this.compatableTerrain = compatableTerrain;
         this.moveable = moveable;
         this.mount = mount;
+        targetingList = new ArrayList<>();
     }
 
     public Entity() {
@@ -116,6 +117,7 @@ public class Entity {
         moveable = true;
 
         mount = null;
+        targetingList = new ArrayList<>();
     }
 
     public boolean isMoveable() {
@@ -133,6 +135,10 @@ public class Entity {
     public void setOrientation(Orientation o){
         orientation = o;
         notifyObservers(null);
+    }
+
+    public int getRange(){
+        return equipment.getRange();
     }
 
     public void addItemToInventory(TakeableItem item) {
@@ -222,6 +228,26 @@ public class Entity {
         speed.increaseSpeed(amt);
     }
 
+    public List<Entity> getTargetingList() {
+        return targetingList;
+    }
+
+    public void setTargetingList(List<Entity> targetingList) {
+        this.targetingList = targetingList;
+    }
+
+    public boolean targets(Entity entity){
+        return targetingList.contains(entity);
+    }
+
+    public void addTarget(Entity ent){
+        targetingList.add(ent);
+    }
+
+    public void removeTarget(Entity ent){
+        targetingList.remove(ent);
+    }
+
     public void decreaseSpeed(int amt){
         speed.decreaseSpeed(amt);
     }
@@ -253,6 +279,10 @@ public class Entity {
 
     public void setVelocity(Vec3d velocity) {
         this.velocity = velocity;
+    }
+
+    public void notifyUponDeath(){
+        observer.notifyViewElementDeath();
     }
 
     public void notifyObservers(Point3D position) {
@@ -582,5 +612,10 @@ public class Entity {
 
     public Equipment getEquipment() {
         return equipment;
+    }
+
+    public void reset() {
+        health.refill();
+        mana.refill();
     }
 }

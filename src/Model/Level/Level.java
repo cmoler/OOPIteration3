@@ -351,4 +351,17 @@ public class Level {
         entityLocations.removeByKey(destinationPoint);
         entityLocations.place(pointToAddTo, entityAtPoint);
     }
+
+    public ArrayList<Entity> clearDeadEntities(Entity player) {
+        ArrayList<Entity> deadpool = new ArrayList<>();
+        for(Entity ent: entityLocations.getValueList()){
+            if (ent.isDead() && !ent.equals(player)){
+                ent.notifyUponDeath();
+                ent.setMoveable(false);
+                deadpool.add(ent);
+            }
+        }
+        return deadpool;
+    }
+
 }

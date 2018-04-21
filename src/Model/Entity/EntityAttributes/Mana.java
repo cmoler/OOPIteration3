@@ -42,4 +42,8 @@ public class Mana {
     public int getMaxMana() {
         return maxMana;
     }
+
+    public void refill() {
+        manaPoints = maxMana;
+    }
 }
