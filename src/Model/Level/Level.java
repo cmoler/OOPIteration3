@@ -145,6 +145,9 @@ public class Level {
     }
 
     public void addEntityTo(Point3D point, Entity entity) {
+        if(entity.getObservers().size() == 0) {
+            entity.addObserver(new EntityView(entity, point));
+        }
         entityLocations.place(point, entity);
     }
 
@@ -165,7 +168,6 @@ public class Level {
     }
 
     public void addMountTo(Point3D point, Mount mount) {
-        System.out.println(point);
         mountLocations.put(point, mount);
     }
 
@@ -360,7 +362,10 @@ public class Level {
         for(Point3D point : entityLocations.getKeyList()) {
             Entity entity = entityLocations.getValueFromKey(point);
 
-            EntityView observer = new EntityView(entity, point);
+            //EntityView observer = new EntityView(entity, point);
+            if(entity.getObservers().size() < 1) { continue; }
+            LevelViewElement observer = entity.getObservers().get(0);
+
             addObservers(observer);
         }
     }

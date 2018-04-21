@@ -1,6 +1,6 @@
 package Model.Command.EntityCommand.SettableCommand;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.Command.Command;
@@ -43,8 +43,7 @@ public class ChangeToHostileAICommand extends GameModelCommand implements Comman
         hostileAI = new HostileAI(aggroEnt,level.getTerrainLocations(),level.getEntityLocations(),level.getObstacleLocations(),targetList);
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         //TODO: Implement This
     }
 }

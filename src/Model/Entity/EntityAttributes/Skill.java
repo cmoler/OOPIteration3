@@ -1,6 +1,5 @@
 package Model.Entity.EntityAttributes;
 
-import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
@@ -34,7 +33,6 @@ public class Skill {
     }
 
     public void fire(Entity callingEntity) {
-        // TODO: figure out how to get skills to modify stats for stuff like trap disarm or pickpocket, etc.
         influenceEffect.setOrientation(callingEntity.getOrientation());
 
         // for each skill level, get behaviors current value, add 10 to it
@@ -78,6 +76,10 @@ public class Skill {
 
     public SendInfluenceEffectCommand getSendInfluenceEffectCommand() {
         return sendInfluenceEffectCommand;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName(){

@@ -1,7 +1,7 @@
 package Model.Level;
 
-import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
+import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
@@ -12,6 +12,7 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import View.LevelView.EntityView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import java.io.IOException;
@@ -53,17 +54,28 @@ public class GameModel implements Visitable {
 
         player.setMoveable(true);
         player.setNoise(5);
-        player.setSightRadius(new SightRadius(7));
+        player.setSightRadius(new SightRadius(3));
         currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
 
         RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
+
+
+
+
+        currentLevel.addEntityTo(new Point3D(0, 0, 0), player);
+
+
+
+        currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+
         for(int i = 0; i < 8; i++) {
             ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
-            for(int j = 0; j < points.size(); j++) {
+            for (int j = 0; j < points.size(); j++) {
                 currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
             }
         }
+
 
         currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
 
@@ -99,8 +111,14 @@ public class GameModel implements Visitable {
         pet.setMoveable(true);
         pet.setNoise(5);
         pet.setSightRadius(new SightRadius(2));
-        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+
         PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityLocations(),currentLevel.getObstacleLocations(),player);
+        EntityView petView = new EntityView(pet, new Point3D(5, -5, 0));
+        petView.setAsPet();
+        pet.addObserver(petView);
+
+        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+
         AIController test = new AIController();
         test.setActiveState(PPS);
         AIList.add(test);
@@ -122,6 +140,10 @@ public class GameModel implements Visitable {
 
     public Level getCurrentLevel(){
         return currentLevel;
+    }
+
+    public List<Level> getLevels() {
+        return levels;
     }
 
     public AIController getAIForEntity(Entity entity) {
@@ -150,23 +172,16 @@ public class GameModel implements Visitable {
         return entity.equals(player);
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        try {
-            if(currentLevel != null) {
-                visitor.saveCurrentLevel(currentLevel);
-            }
+    public boolean hasLevels() {
+        return !levels.isEmpty();
+    }
 
-            if(!levels.isEmpty()) {
-                visitor.saveLevelList(levels);
-            }
+    public boolean hasPlayer() {
+        return player != null;
+    }
 
-            if(player != null) {
-                visitor.visitPlayerEntity(player);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public boolean hasCurrentLevel() {
+        return currentLevel != null;
     }
 
     private class TeleportTuple {
@@ -278,5 +293,9 @@ public class GameModel implements Visitable {
         for(Level level : levels) {
             level.registerObservers();
         }
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitGameModel(this);
     }
 }

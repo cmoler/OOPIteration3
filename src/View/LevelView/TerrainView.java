@@ -86,14 +86,16 @@ public class TerrainView extends LevelViewElement{
     }
 
     public void setShrouded(boolean shrouded) {
-        if(!shrouded) { setSeen(true); }//Tile is unshrouded at least once, therefor seen
+        if(!shrouded) {
+            setSeen(true);
+        }//Tile is unshrouded at least once, therefor seen
         isShrouded = shrouded;
     }
 
     private void setSeen(boolean seen) {
         this.isSeen = seen;
     }
-    private boolean isSeen() {
+    public boolean isSeen() {
         return isSeen;
     }
 

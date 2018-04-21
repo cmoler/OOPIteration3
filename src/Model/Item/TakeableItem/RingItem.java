@@ -1,11 +1,11 @@
 package Model.Item.TakeableItem;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleableCommand;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.InventoryStrategy.RingEquipStrategy;
 
-public class RingItem extends TakeableItem{
+public class RingItem extends TakeableItem {
 
     private RingEquipStrategy ringEquipStrategy;
 
@@ -28,8 +28,7 @@ public class RingItem extends TakeableItem{
         executeCommand(entity);
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitItem(this);
     }
 }

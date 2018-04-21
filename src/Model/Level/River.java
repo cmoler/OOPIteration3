@@ -1,7 +1,7 @@
 package Model.Level;
 
-import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
+import Controller.Visitor.Visitor;
 import com.sun.javafx.geom.Vec3d;
 
 public class River implements Visitable {
@@ -19,8 +19,7 @@ public class River implements Visitable {
         this.flowrate = flowrate;
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
+    public void accept(Visitor visitor) {
         visitor.visitRiver(this);
     }
 }

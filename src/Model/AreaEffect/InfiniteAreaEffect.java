@@ -1,6 +1,6 @@
 package Model.AreaEffect;
 
-import Controller.Visitor.SavingVisitor;
+import Controller.Visitor.Visitor;
 import Model.Command.Command;
 import Model.Entity.Entity;
 
@@ -16,12 +16,11 @@ public class InfiniteAreaEffect implements AreaEffect {
         command.execute(entity);
     }
 
-    @Override
-    public void accept(SavingVisitor visitor) {
-        visitor.visitInfiniteAreaEffect(this);
-    }
-
     public Command getCommand() {
         return command;
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visitInfiniteAreaEffect(this);
     }
 }
