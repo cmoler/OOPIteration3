@@ -465,8 +465,6 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append("\t");
 
         for(Skill weaponSkill: entity.getWeaponSkills()) {
-            //weaponSkill.accept(this);
-            //this.valueNode.append(entity.getSkillLevel(weaponSkill));
             processSkill(weaponSkill, entity.getSkillLevel(weaponSkill));
         }
 
@@ -509,10 +507,6 @@ public class SavingVisitor implements Visitor {
         visitItemHotBar(entity.getItemHotBar());
         this.valueNode.append("\n");
         this.valueNode.append("</" + entity.getClass().getSimpleName() + ">");
-    }
-
-    public void visitSkill(Skill skill) {
-
     }
 
     private void processSkill(Skill skill, int skillLevel) {

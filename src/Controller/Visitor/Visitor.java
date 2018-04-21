@@ -114,6 +114,4 @@ public interface Visitor {
     void visitInfluenceEffect(InfluenceEffect linearInfluenceEffect);
 
     void visitObstacle(Obstacle obstacle);
-
-    void visitSkill(Skill skill);
 }

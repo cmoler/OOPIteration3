@@ -1,13 +1,11 @@
 package Model.Entity.EntityAttributes;
 
-import Controller.Visitor.Visitable;
-import Controller.Visitor.Visitor;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 
-public class Skill implements Visitable {
+public class Skill {
 
     private String name;
     private InfluenceEffect influenceEffect;
@@ -80,11 +78,11 @@ public class Skill implements Visitable {
         return sendInfluenceEffectCommand;
     }
 
-    public String getName(){
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void accept(Visitor visitor) {
-        visitor.visitSkill(this);
+    public String getName(){
+        return name;
     }
 }
