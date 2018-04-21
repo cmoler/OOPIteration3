@@ -90,9 +90,10 @@ public class GameLoop {
         System.out.println("I (player) am talking to you!");
     }
 
-    public void createObservationWindow(Point3D entityLocation, String randomEntityFacts) {
+    public void createObservationWindow(Entity entity, String randomEntityFacts) {
         // TODO: implement
-        renderer.addObservationView(new ObservationView(entityLocation, randomEntityFacts));
+        renderer.addObservationView(new ObservationView(entity, randomEntityFacts));
+
     }
 
     public void startTimer() {

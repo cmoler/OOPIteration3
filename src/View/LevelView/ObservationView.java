@@ -3,6 +3,7 @@ package View.LevelView;
 
 
 import Configs.Commons;
+import Model.Entity.Entity;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
@@ -14,9 +15,10 @@ import javafx.scene.text.FontWeight;
 public class ObservationView extends LevelViewElement {
     private String observationText;
     private int duration;
-    public ObservationView(Point3D location, String observationText) {
-        super(location, 0);
-
+    private Entity entity;
+    public ObservationView(Entity entity, String observationText) {
+        super(new Point3D(0, 0, 0), 0);
+        this.entity = entity;
         this.observationText = observationText;
         duration = 100;
     }
@@ -45,5 +47,7 @@ public class ObservationView extends LevelViewElement {
     public boolean readyToBeRemoved() {
         return duration <= 0;
     }
+
+    public Entity getEntity() { return entity; }
 }
 

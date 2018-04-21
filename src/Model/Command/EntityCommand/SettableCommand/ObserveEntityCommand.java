@@ -26,7 +26,7 @@ public class ObserveEntityCommand extends GameLoopCommand implements SettableCom
 
     public void receiveGameLoop(GameLoop gameLoop) {
         if (playerIsNotDead) {
-            gameLoop.createObservationWindow(entityLocation, randomEntityFacts);
+            gameLoop.createObservationWindow(observedEntity, randomEntityFacts);
         }
     }
 

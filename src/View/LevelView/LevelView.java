@@ -51,6 +51,8 @@ public class LevelView {
 
 
         for(ObservationView o: observationViews) {
+            o.setPosition(currentLevel.getEntityPoint(o.getEntity()));
+            o.locationViewedByPlayer();
             o.render(gc, offset, scrollOffset);
         }
 
