@@ -246,4 +246,8 @@ public class Renderer {
             }
         }
     }
+
+    public void addObservationView(ObservationView observationView) {
+        levelView.addObservationView(observationView);
+    }
 }

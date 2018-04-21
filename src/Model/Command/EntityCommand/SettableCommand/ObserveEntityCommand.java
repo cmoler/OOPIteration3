@@ -7,10 +7,12 @@ import Model.Entity.Entity;
 import Model.Level.GameModel;
 import Model.Level.Level;
 import Model.Level.LevelMessenger;
+import javafx.geometry.Point3D;
 
 public class ObserveEntityCommand extends GameLoopCommand implements SettableCommand {
 
     private Entity observedEntity;
+    private Point3D entityLocation;
     private String randomEntityFacts;
 
     int observeAccuracy;
@@ -24,7 +26,7 @@ public class ObserveEntityCommand extends GameLoopCommand implements SettableCom
 
     public void receiveGameLoop(GameLoop gameLoop) {
         if (playerIsNotDead) {
-            gameLoop.createObservationWindow(randomEntityFacts);
+            gameLoop.createObservationWindow(observedEntity, randomEntityFacts);
         }
     }
 
@@ -35,13 +37,16 @@ public class ObserveEntityCommand extends GameLoopCommand implements SettableCom
     }
 
     public void receiveLevel(Level level) {
+        System.out.println("Received");
         // remove projectiles that fired this command so we only observe one entity, and don't execute this command a bunch of times
         level.removeInfluenceEffectsWithCommand(this);
+        entityLocation = level.getEntityPoint(observedEntity);
     }
 
     public void execute(Entity entity) {
         this.observedEntity = entity;
         randomEntityFacts = observedEntity.getRandomFacts(observeAccuracy);
+        System.out.println(randomEntityFacts);
         sendCommandToGameLoop();
     }
 

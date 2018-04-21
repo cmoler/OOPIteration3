@@ -110,26 +110,12 @@ public class Entity {
 
         speed = new Speed();
         speed.setSpeed(1);
-        equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
-
-
-        hotBar.addItem(new ConsumableItem("Sword", new RemoveHealthCommand(5)), 0);
-        levelUp();
 
         compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
         moveable = true;
 
         mount = null;
-
-
-        nonWeaponSkills.add(new Skill());
-        nonWeaponSkills.add(new Skill());
-        nonWeaponSkills.add(new Skill());
-        nonWeaponSkills.add(new Skill());
-        nonWeaponSkills.add(new Skill());
-
-
     }
 
     public boolean isMoveable() {

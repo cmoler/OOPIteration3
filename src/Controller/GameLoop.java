@@ -13,11 +13,19 @@ import Model.MenuModel.MenuModel;
 import Model.MenuModel.MenuState;
 import View.LevelView.HUDStatsView;
 import View.LevelView.HotbarView;
+
 import View.MenuView.*;
+
+import View.LevelView.ObservationView;
+import View.MenuView.MenuView;
+import View.MenuView.MenuViewState;
+import View.MenuView.TitleScreenView;
+
 import View.Renderer;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -94,8 +102,10 @@ public class GameLoop {
         setInGameMenuKeySet();
     }
 
-    public void createObservationWindow(String randomEntityFacts) {
+    public void createObservationWindow(Entity entity, String randomEntityFacts) {
         // TODO: implement
+        renderer.addObservationView(new ObservationView(entity, randomEntityFacts));
+
     }
 
     public void startTimer() {

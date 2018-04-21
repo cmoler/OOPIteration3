@@ -15,7 +15,7 @@ public class HotKey4KeyAction extends ModelKeyAction {
     @Override
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
-            entity.useHotBar(4);
+            entity.useSkill(3);
         }
     }
 
