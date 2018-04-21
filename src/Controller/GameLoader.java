@@ -48,6 +48,9 @@ public class GameLoader {
 
     private Level currentLevel;
     private GameModel gameModel;
+    private GameLoopMessenger gameLoopMessenger;
+    private GameModelMessenger gameModelMessenger;
+    private LevelMessenger levelMessenger;
     private List<Level> world;
     private Entity entity;
     private HashMap<String, Entity> entityRef = new HashMap<>();
@@ -56,6 +59,16 @@ public class GameLoader {
 
     public GameLoader() {
         world = new ArrayList<>();
+        this.gameLoopMessenger = new GameLoopMessenger(new GameLoop());
+        gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
+        levelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
+    }
+
+    public GameLoader(GameLoopMessenger gameLoopMessenger) {
+        world = new ArrayList<>();
+        this.gameLoopMessenger = gameLoopMessenger;
+        gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
+        levelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
     }
 
     public void loadGame(String fileName) throws IOException, SAXException, ParserConfigurationException {
@@ -70,7 +83,6 @@ public class GameLoader {
     private void loadMaps(NodeList nodeList, Level level) {
         for (int temp = 0; temp < nodeList.getLength(); temp++) {
             Node node = nodeList.item(temp);
-
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element)node;
 
@@ -247,11 +259,11 @@ public class GameLoader {
         List<Point3D> pointsToAdd = getKeyPoints(element);
         List<Entity> entitiesToAdd = new ArrayList<>();
         Entity entity;
-        ItemHotBar hotBar = null;
+        ItemHotBar hotBar;
         List<Skill> weaponSkills = new ArrayList<>();
         List<Skill> nonWeaponSkills = new ArrayList<>();
         HashMap<Skill, SkillLevel> skillLevelsMap = new HashMap<>();
-        Vec3d velocity = null;
+        Vec3d velocity;
         NoiseLevel noiseLevel;
         SightRadius sightRadius;
         XPLevel xpLevel;
@@ -261,8 +273,8 @@ public class GameLoader {
         Gold gold;
         Attack attack;
         Defense defense;
-        Equipment equipment = null;
-        Inventory inventory = null;
+        Equipment equipment;
+        Inventory inventory;
         Orientation orientation;
         List<Terrain> compatableTerrain = new ArrayList<>();
         Mount mount;
@@ -283,7 +295,7 @@ public class GameLoader {
         int currentExperience;
         int levelAmount;
         int experienceToNextLevel;
-        String reference = "";
+        String reference;
 
         NodeList entityValues = element.getElementsByTagName("VALUE");
         for(int i = 0; i < entityValues.getLength(); i++) {
@@ -365,7 +377,7 @@ public class GameLoader {
 
     private Inventory processInventory(Element element) {
         List<TakeableItem> itemsToAdd = new ArrayList<>();
-        Command command = null;
+        Command command;
         String name;
         int maxSize = 0;
 
@@ -641,7 +653,7 @@ public class GameLoader {
                 if (skillNode.getNodeType() == Node.ELEMENT_NODE) {
                     command = processCommand(skillNode.getChildNodes());
 
-                    if(command != null) { // TODO: change order of skill level?
+                    if(command != null) {
                         name = skillNode.getAttributes().getNamedItem("name").getTextContent();
                         useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
                         accuracy = Integer.parseInt(skillNode.getAttributes().getNamedItem("accuracy").getTextContent());
@@ -932,8 +944,10 @@ public class GameLoader {
         NodeList levelList = document.getElementsByTagName("LEVELLIST");
         NodeList player = document.getElementsByTagName("PLAYER");
         this.currentLevel = loadLevel(currentLevel);
+        this.levelMessenger.setLevel(this.currentLevel);
         this.world = loadWorld(levelList);
         this.entity = loadPlayer(player);
+        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, null);
     }
 
     private Entity loadPlayer(NodeList player) {
@@ -1078,12 +1092,22 @@ public class GameLoader {
     }
 
     private Level processLevel(NodeList nodeList, Level level) {
+        String reference;
         for(int i = 0; i < nodeList.getLength(); i++) {
 
             Node node = nodeList.item(i);
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                loadMaps(element.getChildNodes(), level);
+                reference = element.getAttribute("reference");
+
+                if(levelRef.containsKey(reference)) {
+                    return levelRef.get(reference);
+                }
+
+                else {
+                    loadMaps(element.getChildNodes(), level);
+                    levelRef.put(level.toString(), level);
+                }
             }
         }
 
@@ -1092,6 +1116,7 @@ public class GameLoader {
 
     private ArrayList<Level> processLevelList(NodeList nodeList) {
         ArrayList<Level> levelList = new ArrayList<>();
+        String reference;
 
         for(int i = 0; i < nodeList.getLength(); i++) {
 
@@ -1099,8 +1124,18 @@ public class GameLoader {
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Level level = new Level();
                 Element element = (Element) node;
-                loadMaps(element.getChildNodes(), level);
-                levelList.add(level);
+
+                reference = element.getAttribute("reference");
+
+                if(levelRef.containsKey(reference)) {
+                    levelList.add(levelRef.get(reference));
+                }
+
+                else {
+                    loadMaps(element.getChildNodes(), level);
+                    levelList.add(level);
+                    levelRef.put(level.toString(), level);
+                }
             }
         }
 

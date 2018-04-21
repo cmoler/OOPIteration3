@@ -37,11 +37,10 @@ public class SavingVisitor implements Visitor {
     private BufferedWriter writer;
     private StringBuffer valueNode = new StringBuffer("<VALUE>");
     private StringBuffer currentLevel = new StringBuffer("<CURRENTLEVEL>");
-    private StringBuffer levelString = new StringBuffer("<LEVEL>");
+    private StringBuffer levelString = new StringBuffer("<LEVEL");
     private StringBuffer levelList = new StringBuffer("<LEVELLIST>");
     private StringBuffer gameModelString = new StringBuffer("<GAMEMODEL>\n");
     private StringBuffer entityNode = new StringBuffer("<ENTITY>");
-    private ArrayList<String> refStrings = new ArrayList<>();
 
     public SavingVisitor(String fileName) throws IOException {
         writer = new BufferedWriter(new FileWriter(fileName));
@@ -106,6 +105,7 @@ public class SavingVisitor implements Visitor {
         Map<Point3D, InfluenceEffect> influenceEffectLocations = level.getInfluenceEffectLocations();
         Map<Point3D, Decal> decalLocations = level.getDecalLocations(); // TODO: save decal locations and decal type
 
+        levelString.append(" reference=" + "\"" + level.toString() + "\">");
         try {
             levelString.append("\n");
             levelString.append(processTerrains(terrainLocations));
