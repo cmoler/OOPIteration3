@@ -70,6 +70,7 @@ public class GameLoop {
 
 
         gameModel.registerAllLevelObservers();
+        
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
