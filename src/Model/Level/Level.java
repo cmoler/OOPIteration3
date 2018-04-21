@@ -96,8 +96,24 @@ public class Level {
         return decalLocations;
     }
 
-    public void processInteractions() {
+    public void advance() {
+        processMoves();
+        processInteractions();
+        regenEntitiesMana();
+    }
+
+    private void processMoves() {
+        movementHandler.processMoves();
+    }
+
+    private void processInteractions() {
         interactionHandler.processInteractions();
+    }
+
+    private void regenEntitiesMana() {
+        for(Entity entity : entityLocations.getValueList()) {
+            entity.regenerateMana();
+        }
     }
 
     public void addItemnTo(Point3D point, Item item) {
@@ -214,10 +230,6 @@ public class Level {
         return itemLocations.containsValue(item);
     }
 
-    public void processMoves() {
-        movementHandler.processMoves();
-    }
-
     public void disarmTrapFromEntity(Entity entity, int disarmStrength) {
         for(Point3D point : entityLocations.getKeyList()) {
             if(entityLocations.getValueFromKey(point).equals(entity)) {
@@ -269,20 +281,6 @@ public class Level {
                 influenceEffectLocations.remove(point, influenceEffect);
             }
         }
-    }
-
-    public void updateTerrainFog(Point3D playerPos, int playerViewDistance) {
-        HexMathHelper hexMathHelper = new HexMathHelper();
-        if(tilesSeenByPlayer == null) { return; }
-        /*
-        for(TerrainView o: observers) {
-            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {
-
-                o.setShrouded(false);
-            } else {
-                o.setShrouded(true);
-            }
-        }*/
     }
 
     public void updateRenderLocations(Point3D playerPos, int playerViewDistance) {
@@ -363,5 +361,4 @@ public class Level {
         }
         return deadpool;
     }
-
 }

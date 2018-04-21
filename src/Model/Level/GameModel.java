@@ -395,12 +395,9 @@ public class GameModel implements Visitable {
         printEntHealth();
         processDeadEntities();
         processAIMoves();
-        currentLevel.processMoves();
-        currentLevel.processInteractions();
-        currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
+        currentLevel.advance();
 
         if(hasPlayer()) {
-            currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
             currentLevel.updateRenderLocations(getPlayerPosition(), player.getSight());
         }
 
