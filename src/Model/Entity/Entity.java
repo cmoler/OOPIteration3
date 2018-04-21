@@ -119,6 +119,12 @@ public class Entity {
 
         mount = null;
 
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+        nonWeaponSkills.add(new Skill());
+
     }
 
     public boolean isMoveable() {

@@ -3,10 +3,13 @@ package View.LevelView;
 import Configs.Commons;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.ItemHotBar;
+import Model.Entity.EntityAttributes.Skill;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.util.List;
 
 public class HotbarView {
     private Entity player;
@@ -23,6 +26,9 @@ public class HotbarView {
 
         renderItemHotBarOverlay(gc);
         renderHotBarItems(gc, hotBar);
+
+        renderSkillBarOverlay(gc, player.getNonWeaponSkills());
+        renderSkillBarItems(gc, player.getNonWeaponSkills());
     }
 
     private void renderItemHotBarOverlay(GraphicsContext gc) {
@@ -49,6 +55,32 @@ public class HotbarView {
             } else {
                 gc.fillText(hotBar.getItem(i).getName(), Commons.SCREEN_WIDTH - itemSize + 15, itemHotBarStartY + (itemSize * i) + 40);
             }
+        }
+    }
+
+    private void renderSkillBarOverlay(GraphicsContext gc, List<Skill> playerSkills) {
+
+
+        gc.setFill(Color.GRAY);
+        gc.fillRect(Commons.SCREEN_WIDTH/2 - (itemSize*playerSkills.size())/2, 0, itemSize*playerSkills.size(), itemSize);
+
+
+        gc.setFont(Font.font ("Verdana", FontWeight.BOLD, 16));
+        for(int i = 0; i < playerSkills.size(); i++) {
+            renderSquareBorder(gc, (Commons.SCREEN_WIDTH/2)-(itemSize*playerSkills.size())/2 + itemSize*i, 0, itemSize);
+            gc.setFill(Color.WHITE);
+            gc.fillText(Integer.toString(i+1), (Commons.SCREEN_WIDTH/2)-(itemSize*playerSkills.size())/2 + (itemSize*i) + 10, 20);
+        }
+
+    }
+
+    private void renderSkillBarItems(GraphicsContext gc, List<Skill> playerSkills) {
+        gc.setFill(Color.BLACK);
+        gc.setFont(Font.font ("Verdana", FontWeight.BOLD, 10));
+        for(int i = 0; i < playerSkills.size(); i++) {
+
+            gc.fillText(playerSkills.get(i).getName(), (Commons.SCREEN_WIDTH/2)-(itemSize*playerSkills.size())/2 + (itemSize*i) + 25, 30);
+
         }
     }
 

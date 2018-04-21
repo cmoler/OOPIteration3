@@ -34,6 +34,7 @@ public class HUDStatsView {
 
         renderStatBar((int)(statBarHeight*2.5), 0, statBarWidth, statBarHeight, healthPercentage, Color.RED, gc);
 
+
     }
 
     public void renderManaBar(GraphicsContext gc) {
@@ -74,6 +75,8 @@ public class HUDStatsView {
         gc.setFill(fillColor);
         gc.fillRect(x, y, width*percentFill, height);
     }
+
+
 
 
 }
