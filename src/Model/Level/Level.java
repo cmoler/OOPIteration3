@@ -401,9 +401,23 @@ public class Level {
 
         for(TerrainView o: terrainObservers) {
             if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {
+                o.locationViewedByPlayer();
                 o.setShrouded(false);
             } else {
                 o.setShrouded(true);
+            }
+        }
+    }
+
+    public void updateRenderLocations(Point3D playerPos, int playerViewDistance) {
+        HexMathHelper hexMathHelper = new HexMathHelper();
+
+        for(LevelViewElement o:observers) {
+            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {//If object in view of player, update location
+                o.locationViewedByPlayer();
+            }
+            if(hexMathHelper.getDistance(playerPos, o.getRenderLocation()) <= playerViewDistance) {
+                o.rendererLocationViewedByPlayer();
             }
         }
     }

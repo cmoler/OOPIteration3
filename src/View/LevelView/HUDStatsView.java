@@ -4,6 +4,8 @@ import Configs.Commons;
 import Model.Entity.Entity;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class HUDStatsView {
     private Entity player;
@@ -21,6 +23,8 @@ public class HUDStatsView {
         renderHealthBar(gc);
         renderExperienceBar(gc);
         renderManaBar(gc);
+
+        renderPlayerLevel(gc);
     }
 
     public void renderHealthBar(GraphicsContext gc) {
@@ -46,6 +50,19 @@ public class HUDStatsView {
         float experiencePercentage = currentExperience/experienceAtLevelUp;
 
         renderStatBar(Commons.SCREEN_WIDTH-statBarWidth, statBarHeight*2, statBarWidth, statBarHeight/2, experiencePercentage, Color.GOLD, gc);
+    }
+
+    public void renderPlayerLevel(GraphicsContext gc) {
+        int level = player.getLevel();
+
+        gc.setFill(Color.GOLDENROD);
+        gc.fillRect(Commons.SCREEN_WIDTH-statBarWidth-(statBarHeight*2.5), 0, (statBarHeight*2.5), (statBarHeight*2.5));
+
+
+        gc.setFill(Color.BLACK);
+        gc.setFont(Font.font ("Verdana", FontWeight.BOLD, 30));
+
+        gc.fillText(Integer.toString(level), Commons.SCREEN_WIDTH-statBarWidth-(statBarHeight*2.5)+15, 35);
     }
 
 

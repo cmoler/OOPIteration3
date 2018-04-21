@@ -101,7 +101,7 @@ public class TerrainView extends LevelViewElement{
 
     @Override
     public int getRenderPriority() {
-        if(isShrouded() || !isSeen()) {
+        if(!isSeen()) {
             return 0;
         }
         return super.getRenderPriority();

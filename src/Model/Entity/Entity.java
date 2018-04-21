@@ -114,7 +114,7 @@ public class Entity {
         speed.setSpeed(1);
         equipment.equipWeapon(new WeaponItem("Test", new RemoveHealthCommand(5)), this);
 
-
+        levelUp();
         compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
         moveable = true;
