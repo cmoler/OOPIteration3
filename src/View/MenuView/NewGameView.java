@@ -2,10 +2,14 @@ package View.MenuView;
 
 import Configs.Commons;
 import Configs.TextBoxInfo;
+import Model.Item.TakeableItem.ConsumableItem;
 import Model.MenuModel.KeyBindings;
 import Model.MenuModel.MenuModel;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.io.File;
 
@@ -19,34 +23,56 @@ public class NewGameView extends MenuViewState {
         super(menuModel);
         String workingDir = System.getProperty("user.dir");
 
-        File file = new File(workingDir + "/src/View/Assets/BLUE_AOE.png");
+        File file = new File(workingDir + "/src/View/Assets/BLACK_AOE.png");
         selected = new Image(file.toURI().toString());
     }
 
     @Override
     public void render(GraphicsContext gc) {
+        selectedX = menuModel.getSelectedHorizontal();
+        selectedY = menuModel.getSelectedVertical();
+
         gc.clearRect(0, 0, Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0,0, Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
 
         selectedX = menuModel.getSelectedHorizontal();
         selectedY = menuModel.getSelectedVertical();
 
-        int startX = Configs.Commons.SCREEN_WIDTH/2 - TextBoxInfo.TEXTBOX_WIDTH;
-        int startY = Commons.SCREEN_HEIGHT/8;
+        int topStartX = Configs.Commons.SCREEN_WIDTH/4;
+        int topStartY = Commons.SCREEN_HEIGHT / 20;
+        int topWidth = Commons.SCREEN_WIDTH / 2;
+        int topHeight = Commons.SCREEN_HEIGHT / 8;
+        gc.setFill(Color.GREEN);
+        gc.fillRect(topStartX, topStartY, topWidth, topHeight);
 
-        gc.fillText("Select Your Class", (startX), (startY + TextBoxInfo.TEXTBOX_HEIGHT/2));
+        gc.setFill(Color.WHITESMOKE);
+        gc.setFont(new Font(60.0f).font("System", FontWeight.BOLD, 60.0f));
+        gc.fillText("Select Your Class", (topStartX + topWidth / 8), (topStartY + 4*topHeight/5));
 
-        gc.rect(startX, startY + TextBoxInfo.TEXTBOX_HEIGHT, TextBoxInfo.TEXTBOX_WIDTH, TextBoxInfo.TEXTBOX_HEIGHT);
-        gc.fillText("Smasher",startX , startY + TextBoxInfo.TEXTBOX_HEIGHT + TextBoxInfo.TEXTBOX_HEIGHT / 2);
 
-        gc.rect(startX, startY + 2 * TextBoxInfo.TEXTBOX_HEIGHT, TextBoxInfo.TEXTBOX_WIDTH, TextBoxInfo.TEXTBOX_HEIGHT);
-        gc.fillText("Summoner",startX,startY + TextBoxInfo.TEXTBOX_HEIGHT * 2 + TextBoxInfo.TEXTBOX_HEIGHT / 2);
+        int bottomLeftStartX = Configs.Commons.SCREEN_WIDTH / 18;
+        int bottomLeftStartY = Commons.SCREEN_HEIGHT / 4;
+        int bottomLeftWidth = 5*Commons.SCREEN_WIDTH / 18;
+        int bottomLeftHeight = Commons.SCREEN_HEIGHT / 5;
+        gc.setFill(Color.GREEN);
+        gc.fillRect(bottomLeftStartX, bottomLeftStartY, bottomLeftWidth, bottomLeftHeight * 3);
 
-        gc.rect(startX, startY + 3 * TextBoxInfo.TEXTBOX_HEIGHT, TextBoxInfo.TEXTBOX_WIDTH, TextBoxInfo.TEXTBOX_HEIGHT);
-        gc.fillText("Sneak",startX,startY + TextBoxInfo.TEXTBOX_HEIGHT * 3 + TextBoxInfo.TEXTBOX_HEIGHT / 2);
+        gc.setFill(Color.WHITESMOKE);
+        gc.setFont(new Font(60.0f).font("System", FontWeight.BOLD, 60.0f));
+        gc.fillText("Smasher", (bottomLeftStartX + bottomLeftWidth / 8), (bottomLeftStartY + 3*bottomLeftHeight/5));
+        gc.fillText("Summoner", (bottomLeftStartX + bottomLeftWidth / 8), (bottomLeftStartY + bottomLeftHeight+3*bottomLeftHeight/5));
+        gc.fillText("Sneak", (bottomLeftStartX + bottomLeftWidth / 8), (bottomLeftStartY + 2*bottomLeftHeight+3*bottomLeftHeight/5));
 
-        int selectionBoxY = startY + TextBoxInfo.TEXTBOX_HEIGHT + selectedY * TextBoxInfo.TEXTBOX_WIDTH;
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(10.0f);
+        gc.strokeRect(bottomLeftStartX, bottomLeftStartY, bottomLeftWidth, bottomLeftHeight);
+        gc.strokeRect(bottomLeftStartX, bottomLeftStartY + bottomLeftHeight, bottomLeftWidth, bottomLeftHeight);
+        gc.strokeRect(bottomLeftStartX, bottomLeftStartY + 2*bottomLeftHeight, bottomLeftWidth, bottomLeftHeight);
 
-        gc.drawImage(selected, startX, selectionBoxY, TextBoxInfo.TEXTBOX_WIDTH, TextBoxInfo.TEXTBOX_HEIGHT);
+        int selectionBoxY = bottomLeftStartY + selectedY * bottomLeftHeight;
+
+        gc.drawImage(selected, bottomLeftStartX, selectionBoxY, bottomLeftWidth, bottomLeftHeight);
 
     }
 }
