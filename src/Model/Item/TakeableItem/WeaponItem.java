@@ -75,4 +75,24 @@ public class WeaponItem extends TakeableItem{
     public void accept(SavingVisitor visitor) {
         visitor.visitItem(this);
     }
+
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+
+    public int getAttackSpeed() {
+        return attackSpeed;
+    }
+
+    public int getAccuracy() {
+        return accuracy;
+    }
+
+    public int getUseCost() {
+        return useCost;
+    }
+
+    public int getRange() {
+        return range;
+    }
 }

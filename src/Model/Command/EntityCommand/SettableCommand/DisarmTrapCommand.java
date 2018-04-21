@@ -39,4 +39,8 @@ public class DisarmTrapCommand extends LevelCommand implements SettableCommand {
     public void accept(SavingVisitor visitor) {
         visitor.visitDisarmTrapCommand(this);
     }
+
+    public Entity getEntity() {
+        return entity;
+    }
 }

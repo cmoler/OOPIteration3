@@ -50,4 +50,8 @@ public class FreezeEntityCommand extends GameModelCommand implements SettableCom
     public void accept(SavingVisitor visitor) {
         visitor.visitFreezeEntityCommand(this);
     }
+
+    public Entity getEntity() {
+        return entity;
+    }
 }

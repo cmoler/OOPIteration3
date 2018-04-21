@@ -74,7 +74,7 @@ public class Inventory implements Visitable {
     @Override
     public void accept(SavingVisitor visitor) {
         for(TakeableItem item: inventory) {
-            visitor.visitItem(item);
+            item.accept(visitor);
         }
     }
 

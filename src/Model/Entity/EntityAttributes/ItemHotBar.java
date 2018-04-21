@@ -41,7 +41,7 @@ public class ItemHotBar implements Visitable {
     @Override
     public void accept(SavingVisitor visitor) {
         for(TakeableItem item: items) {
-            visitor.visitItem(item);
+            item.accept(visitor);
         }
     }
 

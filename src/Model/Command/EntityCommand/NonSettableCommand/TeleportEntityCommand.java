@@ -50,4 +50,8 @@ public class TeleportEntityCommand extends GameModelCommand implements Command {
     public void accept(SavingVisitor savingVisitor) {
         savingVisitor.visitTeleportEntityCommand(this);
     }
+
+    public String levelReference() {
+        return destinationLevel.toString();
+    }
 }
