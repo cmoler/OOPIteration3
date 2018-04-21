@@ -20,7 +20,7 @@ public class DialogMenu extends MenuState {
     public void correctParameters() {
         if(selectedUpDown != 0) selectedUpDown = 0;
         if(wantToTalk){
-            if(selectedLeftRight < 0) selectedLeftRight = 0;
+            if(selectedLeftRight < 0) selectedLeftRight = 1;
             if(selectedLeftRight > 1) selectedLeftRight = 0;
         }else{
             if(selectedLeftRight!=0) selectedLeftRight = 0;
@@ -29,6 +29,11 @@ public class DialogMenu extends MenuState {
 
     @Override
     public void select() {
-        if(selectedLeftRight == 1) gameLoop.openBarterWindow(player, player, npc);
+        if(selectedLeftRight == 0) gameLoop.closeMenu();
+        if(selectedLeftRight == 1) gameLoop.openBarterWindow(player, 1, npc);
+    }
+
+    public boolean getWantToTalk(){
+        return wantToTalk;
     }
 }

@@ -25,7 +25,10 @@ public class InventoryView extends InGameMenuView {
         int startY = Commons.SCREEN_HEIGHT / 60;
 
         int width = Commons.SCREEN_WIDTH / 4;
-        int height = 59 * Commons.SCREEN_HEIGHT / 60 / inventory.size();
+
+        int height;
+        if(inventory.size() == 0) height = 0;
+        else height = 59 * Commons.SCREEN_HEIGHT / 60 / inventory.size();
 
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.WHITESMOKE);

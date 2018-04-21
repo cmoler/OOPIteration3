@@ -31,18 +31,39 @@ public class BarterView extends MenuViewState {
         selectedX = menuModel.getSelectedHorizontal();
         selectedY = menuModel.getSelectedVertical();
 
+        int startX = Commons.SCREEN_WIDTH / 3;
+        int startY = Commons.SCREEN_HEIGHT / 20;
+        int width = Commons.SCREEN_WIDTH / 3;
+        int height = Commons.SCREEN_HEIGHT / 12;
+
+        gc.setFill(Color.GREEN);
+        gc.fillRect(startX, startY, width, height);
+
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(10.0f);
+        gc.strokeRect(startX, startY, width, height);
+
+        gc.setFill(Color.WHITESMOKE);
+        gc.setFont(new Font(60.0f).font("System", FontWeight.BOLD, 60.0f));
+        gc.fillText("Barter", startX + width / 3, startY + 4*height/5);
+
         renderPlayer(gc);
         renderNPC(gc);
     }
 
     private void renderPlayer(GraphicsContext gc) {
         Inventory playerInventory = ((BarterMenu)menuModel.getActiveState()).getPlayerInventory();
-        int startX = Commons.SCREEN_WIDTH / 5;
-        int startY = Commons.SCREEN_HEIGHT / 4;
+        int startX = Commons.SCREEN_WIDTH / 6;
+        int startY = Commons.SCREEN_HEIGHT / 6;
         int width = Commons.SCREEN_WIDTH / 4;
         int totalHeight = 3 * Commons.SCREEN_HEIGHT / 4;
 
-        int itemHeight = totalHeight / playerInventory.size();
+        int itemHeight;
+        if(playerInventory.size() == 0) itemHeight = 0;
+        else itemHeight = totalHeight / playerInventory.size();
+
+        gc.setFill(Color.GREEN);
+        gc.fillRect(startX, startY, width, totalHeight);
 
         gc.setFont(new Font(40.0f));
         gc.setFill(Color.WHITESMOKE);
@@ -61,11 +82,16 @@ public class BarterView extends MenuViewState {
     private void renderNPC(GraphicsContext gc) {
         Inventory npcInventory = ((BarterMenu)menuModel.getActiveState()).getNpcInventory();
         int startX = 3 * Commons.SCREEN_WIDTH / 5;
-        int startY = Commons.SCREEN_HEIGHT / 4;
+        int startY = Commons.SCREEN_HEIGHT / 6;
         int width = Commons.SCREEN_WIDTH / 4;
         int totalHeight = 3 * Commons.SCREEN_HEIGHT / 4;
 
-        int itemHeight = totalHeight / npcInventory.size();
+        int itemHeight;
+        if(npcInventory.size() == 0) itemHeight = 0;
+        else itemHeight = totalHeight / npcInventory.size();
+
+        gc.setFill(Color.GREEN);
+        gc.fillRect(startX, startY, width, totalHeight);
 
         gc.setFont(new Font(40.0f));
         gc.setFill(Color.WHITESMOKE);

@@ -90,7 +90,8 @@ public class GameLoop {
         System.out.println("I (player) am talking to you!");
 
         boolean wantToTalk = gameModel.getAIForEntity(receivingEntity).wantToTalk();
-        setMenuState(new DialogMenu(menuModel, this, wantToTalk), new DialogView(menuModel));
+        setMenuState(new DialogMenu(menuModel, this, wantToTalk, playerEntity, receivingEntity), new DialogView(menuModel));
+        setInGameMenuKeySet();
     }
 
     public void createObservationWindow(String randomEntityFacts) {
