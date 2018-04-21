@@ -66,5 +66,6 @@ public class ExitGameView extends MenuViewState {
         if(selectedX == 2)
             gc.drawImage(selected, selectedXPos, selectedYPos, 2 * width / 3, TextBoxInfo.TEXTBOX_HEIGHT);
 
+        gc.restore();
     }
 }

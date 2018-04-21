@@ -7,11 +7,13 @@ import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.TakeableItem.ConsumableItem;
 import View.LevelView.EntityView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -51,6 +53,37 @@ public class GameModel implements Visitable {
         failedTeleportQueue = new LinkedList<>();
 
         player = new Entity();
+
+        ConsumableItem potion = new ConsumableItem("potion", new AddHealthCommand(20));
+        potion.setCurrentLevelMessenger(currentLevelMessenger);
+        potion.onTouch(player);
+
+        ConsumableItem manapotion = new ConsumableItem("manapotion", new AddHealthCommand(20));
+        manapotion.setCurrentLevelMessenger(currentLevelMessenger);
+        manapotion.onTouch(player);
+
+        ConsumableItem healthpotion = new ConsumableItem("healthpotion", new AddHealthCommand(20));
+        healthpotion.setCurrentLevelMessenger(currentLevelMessenger);
+        healthpotion.onTouch(player);
+
+        ConsumableItem beer = new ConsumableItem("beer", new AddHealthCommand(20));
+        beer.setCurrentLevelMessenger(currentLevelMessenger);
+        beer.onTouch(player);
+
+        ConsumableItem wine = new ConsumableItem("wine", new AddHealthCommand(20));
+        wine.setCurrentLevelMessenger(currentLevelMessenger);
+        wine.onTouch(player);
+
+        ConsumableItem gin = new ConsumableItem("gin", new AddHealthCommand(20));
+        gin.setCurrentLevelMessenger(currentLevelMessenger);
+        gin.onTouch(player);
+
+        player.addItemToInventory(potion);
+        player.addItemToInventory(manapotion);
+        player.addItemToInventory(healthpotion);
+        player.addItemToInventory(beer);
+        player.addItemToInventory(wine);
+        player.addItemToInventory(gin);
 
         player.setMoveable(true);
         player.setNoise(5);

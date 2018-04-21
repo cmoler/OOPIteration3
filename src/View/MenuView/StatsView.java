@@ -6,6 +6,8 @@ import Model.MenuModel.MenuModel;
 import Model.MenuModel.StatsMenu;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class StatsView extends InGameMenuView {
 
@@ -26,6 +28,7 @@ public class StatsView extends InGameMenuView {
         int width = Commons.SCREEN_WIDTH / 16;
         int height = Commons.SCREEN_HEIGHT / 8;
 
+        gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.BLACK);
         gc.fillText("Health: " + Integer.toString(player.getCurrentHealth()), startX, startY);
         gc.fillText("Mana: " + Integer.toString(player.getCurrentMana()), startX, startY+height);
