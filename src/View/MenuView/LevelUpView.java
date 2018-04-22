@@ -45,6 +45,9 @@ public class LevelUpView extends InGameMenuView {
         int width = Commons.SCREEN_WIDTH / 5;
         int height = Commons.SCREEN_HEIGHT / 16;
 
+        gc.setFill(Color.LIMEGREEN);
+        gc.fillRect(startX, startY, width, height);
+
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.WHITESMOKE);
         gc.setStroke(Color.BLACK);
@@ -70,6 +73,9 @@ public class LevelUpView extends InGameMenuView {
         int height;
         if(playersSkills.size() == 0) height = 0;
         else height = 40 * Commons.SCREEN_HEIGHT / 60 / playersSkills.size();
+
+        gc.setFill(Color.LIMEGREEN);
+        gc.fillRect(startX, startY, 8 * width / 3, height * playersSkills.size());
 
         gc.setFont(new Font(30.0f));
         gc.setFill(Color.WHITESMOKE);

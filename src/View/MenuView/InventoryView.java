@@ -30,6 +30,9 @@ public class InventoryView extends InGameMenuView {
         if(inventory.size() == 0) height = 0;
         else height = 59 * Commons.SCREEN_HEIGHT / 60 / inventory.size();
 
+        gc.setFill(Color.LIMEGREEN);
+        gc.fillRect(startX, startY, width, height * inventory.size());
+
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.WHITESMOKE);
         gc.setStroke(Color.BLACK);
@@ -75,6 +78,9 @@ public class InventoryView extends InGameMenuView {
 
         boolean itemUsable = ((InventoryMenu)menuModel.getActiveState()).getItemUsableByPlayer();
         if(itemUsable) {
+            gc.setFill(Color.LIMEGREEN);
+            gc.fillRect(optionsStartX, optionsStartY, width, height * 3);
+
             gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
             gc.setFill(Color.WHITESMOKE);
             gc.fillText("use", (optionsStartX + width / 6), (optionsStartY + 4 * height / 5));
@@ -91,6 +97,9 @@ public class InventoryView extends InGameMenuView {
             if (selectedX == 2)
                 gc.drawImage(selected, optionsStartX, optionsStartY + selectedY * height, width, height);
         }else{
+            gc.setFill(Color.LIMEGREEN);
+            gc.fillRect(startX, optionsStartY + 2 * height, width, height);
+
             gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
             gc.setFill(Color.WHITESMOKE);
             gc.fillText("drop", (optionsStartX + width / 6), (optionsStartY + 2 * height + 4 * height / 5));

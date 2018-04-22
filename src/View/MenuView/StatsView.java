@@ -59,6 +59,9 @@ public class StatsView extends InGameMenuView {
         ArmorItem armorItem = player.getEquipment().getEquippedArmor();
         RingItem ringItem = player.getEquipment().getEquippedRing();
 
+        gc.setFill(Color.LIMEGREEN);
+        gc.fillRect(startX, startY, width * 3, height);
+
         gc.setFont(new Font(30.0f).font("System", FontWeight.BOLD, 30.0f));
         gc.setFill(Color.BLACK);
         gc.setStroke(Color.BLACK);
