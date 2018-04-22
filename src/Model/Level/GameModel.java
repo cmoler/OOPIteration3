@@ -8,7 +8,6 @@ import Model.AI.AIController;
 import Model.AI.FriendlyAI;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
-import Model.AI.PetAI.PetStates.CombatPetState;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
@@ -181,7 +180,7 @@ public class GameModel implements Visitable {
         List<Entity> list = new ArrayList<>();
         list.add(player);
         enemy.setTargetingList(list);
-        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap());
+        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
         hostileAI.setPatrolPath(new PatrolPath(path));
         AIController controller = new AIController();
         controller.setActiveState(hostileAI);
@@ -212,17 +211,17 @@ public class GameModel implements Visitable {
         AIController test = new AIController();
 
         // Passive Pet AI
-        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
+        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player, currentLevel.getRiverMap());
         test.setActiveState(PPS);
 
         // Combat Pet AI
-        /*CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
+        /*CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player, currentLevel.getRiverMap());
         test.setActiveState(CPS);*/
 
        // Item Pet AI
         /*Skill pickpock = skillsFactory.getPickpocket();
         pet.setSkillLevel(pickpock,1000);
-        ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, pickpock);
+        ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, pickpock, currentLevel.getRiverMap());
         test.setActiveState(IPS);
 */
         ShopKeeperFactory friendlyFactory = new ShopKeeperFactory(skillsFactory);
@@ -237,7 +236,7 @@ public class GameModel implements Visitable {
 
         currentLevel.addEntityTo(new Point3D(0,-1,1),friendly);
 
-        FriendlyAI friendlyAI = new FriendlyAI(friendly,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap());
+        FriendlyAI friendlyAI = new FriendlyAI(friendly,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
         AIController best = new AIController();
         best.setActiveState(friendlyAI);
 

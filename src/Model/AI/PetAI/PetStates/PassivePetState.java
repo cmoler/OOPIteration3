@@ -4,6 +4,7 @@ import Model.AI.AIState;
 import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
 import Model.Level.Obstacle;
+import Model.Level.River;
 import Model.Level.Terrain;
 import Model.Utility.BidiMap;
 import com.sun.javafx.geom.Vec3d;
@@ -18,11 +19,11 @@ public class PassivePetState extends AIState {
     private PathingAlgorithm pathCalculator;
 
 
-    public PassivePetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
+    public PassivePetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player, Map<Point3D, River> riverMap) {
         super(pet);
         this.entityMap = entityMap;
         this.player = player;
-        pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
+        pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap,riverMap , entityMap);
     }
 
     @Override
