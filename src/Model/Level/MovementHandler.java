@@ -91,16 +91,14 @@ public class MovementHandler {
             if(!influenceEffect.readyToMove()) { continue; }
             if(!influenceEffect.isStartPoint()) {
                 influenceEffect.clearInfluenceEffectViews();
+                influenceEffectLocations.remove(oldPoint);
                 continue;
             }
 
             List<Point3D> nextEffectPoints = influenceEffect.nextMove(oldPoint); // Get list of points to move effect to
             influenceEffect.decreaseCommandAmount();
 
-            System.out.println("Checking: " + oldPoint);
-            for(Point3D point: nextEffectPoints) {
-                System.out.println("Adding to: " + point.toString());
-            }
+
             //if (!nextEffectPoints.isEmpty()) {
                 //influenceEffectLocations.remove(oldPoint, influenceEffect); // remove all old positions of the influence effect
                 influenceEffect.clearInfluenceEffectViews();
