@@ -71,12 +71,6 @@ public class RunGame extends Application{
         gameLoop.init();
         gameLoop.setRunGame(this);
 
-
-        // TODO: get rid of these when loading from file logic is done vvvv
-
-        // TODO: get rid of these when loading from file logic is done ^^^^
-
-
         canvas.setOnKeyPressed(gameLoop.getControls());
 
 

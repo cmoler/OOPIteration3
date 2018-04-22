@@ -287,7 +287,7 @@ public class Entity {
     }
 
     public void addVelocity(Vec3d add){
-        velocity.add(add);
+        if(isMoveable()) velocity.add(add);
     }
 
     public void addVelocityFromControllerInput(Vec3d add){
@@ -641,5 +641,13 @@ public class Entity {
 
     public void regenerateMana() {
         mana.regenerate();
+    }
+
+    public int getSkillPoints() {
+        return xpLevel.getPointsAvailable();
+    }
+
+    public void setSkillPointsAvaiable(int amount){
+        xpLevel.setPointsAvailable(amount);
     }
 }

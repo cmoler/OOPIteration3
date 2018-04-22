@@ -145,7 +145,7 @@ public class SavingVisitorTests {
     @Test
     public void testSavingInfluencesAndLoad() {
         Level levelToTest = gameLoader.getCurrentLevel();
-        Map<Point3D, InfluenceEffect> influencesToTest = levelToTest.getInfluencesMap();
+        Map<Point3D, InfluenceEffect> influencesToTest = levelToTest.getInfluenceEffectMap();
         assertTrue(influencesToTest.get(new Point3D(0,0,0)) instanceof LinearInfluenceEffect);
         assertTrue(influencesToTest.get(new Point3D(0,0,1)) instanceof RadialInfluenceEffect);
         assertTrue(influencesToTest.get(new Point3D(0,0,2)) instanceof AngularInfluenceEffect);

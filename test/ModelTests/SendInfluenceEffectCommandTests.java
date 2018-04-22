@@ -40,7 +40,7 @@ public class SendInfluenceEffectCommandTests {
         sendInfluenceEffectCommand.setInfluenceEffect(influenceEffect);
         sendInfluenceEffectCommand.execute(entity);
 
-        Map<Point3D,InfluenceEffect> influencesMap = level.getInfluencesMap();
+        Map<Point3D,InfluenceEffect> influencesMap = level.getInfluenceEffectMap();
         assertTrue(influencesMap.containsValue(influenceEffect));
     }
 }
