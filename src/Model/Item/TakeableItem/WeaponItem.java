@@ -62,9 +62,6 @@ public class WeaponItem extends TakeableItem{
 
             setNextAttackTime();
         }
-        else {
-            System.out.println("You should have waited!");
-        }
     }
 
     private boolean canAttack() {

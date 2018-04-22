@@ -7,7 +7,9 @@ import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.FriendlyAI;
 import Model.AI.HostileAI;
+import Model.AI.PatrolPath;
 import Model.AI.PetAI.PetStates.CombatPetState;
+import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
@@ -180,7 +182,7 @@ public class GameModel implements Visitable {
         list.add(player);
         enemy.setTargetingList(list);
         HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap());
-        //hostileAI.setPatrolPath(new PatrolPath(path));
+        hostileAI.setPatrolPath(new PatrolPath(path));
         AIController controller = new AIController();
         controller.setActiveState(hostileAI);
 
@@ -210,12 +212,12 @@ public class GameModel implements Visitable {
         AIController test = new AIController();
 
         // Passive Pet AI
-       /* PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
-        test.setActiveState(PPS);*/
+        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
+        test.setActiveState(PPS);
 
         // Combat Pet AI
-        CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
-        test.setActiveState(CPS);
+        /*CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
+        test.setActiveState(CPS);*/
 
        // Item Pet AI
         /*Skill pickpock = skillsFactory.getPickpocket();
