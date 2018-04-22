@@ -5,7 +5,6 @@ import Controller.GameLoop;
 import Controller.ModelKeyAction.*;
 import Model.Entity.Entity;
 import Model.MenuModel.MenuModel;
-import Model.MenuModel.BarterMenu;
 
 import java.util.ArrayList;
 
@@ -65,8 +64,11 @@ public class ControllerSetFactory {
         newKeySet.add(new MoveSWKeyAction(keyBindingParser.parsePlayerKey("moveSW"), player, gameLoop));
         newKeySet.add(new MoveNWKeyAction(keyBindingParser.parsePlayerKey("moveNW"), player, gameLoop));
 
+        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parsePlayerKey("scrollUp"), player));
+        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parsePlayerKey("scrollDown"), player));
         newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parsePlayerKey("scrollLeft"), player));
         newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parsePlayerKey("scrollRight"), player));
+        newKeySet.add(new SelectItemKeyAction(keyBindingParser.parsePlayerKey("selectItem"), player));
         newKeySet.add(new SelectKeyAction(keyBindingParser.parsePlayerKey("select"), player));
 
 

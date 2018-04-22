@@ -8,6 +8,7 @@ import View.LevelView.InfluenceEffectView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.*;
 
 public class MovementHandler {
@@ -95,30 +96,33 @@ public class MovementHandler {
         return !valueFromKey.isDead();
     }
 
-    private void moveInfluenceEffects() { // TODO: notify influence effect observers on position changed?
+    private void moveInfluenceEffects() {
         List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
-        for(Point3D oldPoint : influenceEffectPoints) {
+        List<InfluenceEffect> influenceEffects = new ArrayList<>(influenceEffectLocations.values());
 
-            InfluenceEffect influenceEffect = influenceEffectLocations.get(oldPoint); // Get current influence effect
-            if(!influenceEffect.readyToMove()) {
-                continue;
-            }
-            if(!influenceEffect.isStartPoint()) {
+        for(InfluenceEffect effect : influenceEffects) {
+            List<Point3D> newPoints = effect.nextMove(effect.getOriginPoint());
 
-                influenceEffect.clearInfluenceEffectViews();
-                influenceEffectLocations.remove(oldPoint);
-                continue;
+            if (!newPoints.isEmpty()) {
+                removeOldEffectLocations(influenceEffectPoints, effect);
+
+                placeEffectAtNewLocations(effect, newPoints);
             }
-            List<Point3D> nextEffectPoints = influenceEffect.nextMove(oldPoint); // Get list of points to move effect to
-            influenceEffect.decreaseCommandAmount();
-            influenceEffect.clearInfluenceEffectViews();
-            InfluenceEffect newInfluenceEffect = influenceEffect.cloneInfluenceEffect();
-            newInfluenceEffect.setIsStartPoint(false);
-            for (Point3D newPoint : nextEffectPoints) {
-                newInfluenceEffect.addInfluenceEffectView(new InfluenceEffectView(newPoint));
-                influenceEffectLocations.put(newPoint, newInfluenceEffect); // put influence effect at its new position
+        }
+    }
+
+    private void removeOldEffectLocations(List<Point3D> influenceEffectPoints, InfluenceEffect effect) {
+        for (Point3D point : influenceEffectPoints) {
+            if (influenceEffectLocations.get(point).equals(effect)) {
+                influenceEffectLocations.remove(point, effect);
             }
+        }
+    }
+
+    private void placeEffectAtNewLocations(InfluenceEffect effect, List<Point3D> newPoints) {
+        for (Point3D point : newPoints) {
+            influenceEffectLocations.put(point, effect);
         }
     }
 

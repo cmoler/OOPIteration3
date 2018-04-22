@@ -32,15 +32,17 @@ public class Renderer {
         menuView = new MenuView();
 
         terrainObservers = new ArrayList<>();
+
+        Sprites.getInstance().initSprites();
     }
 
     public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
         if(menuView.inMenu()) {
             menuView.render(gc);
         } else {
+         //   levelView.refreshInfluenceEffectSprites();
             levelView.render(gc, playerPos, scrollOffset);
         }
-
     }
 
     public void renderMenu(GraphicsContext gc) {
@@ -63,7 +65,6 @@ public class Renderer {
         levelView.setPlayerHUD(hud);
     }
 
-
     public void loadModelSprites(Level level) {
 
         List<LevelViewElement> observers = new ArrayList<>();
@@ -84,7 +85,7 @@ public class Renderer {
 
             observers.addAll(registerMountObservers(level.getMountMap()));
 
-            observers.addAll(registerInfluenceEffectObservers(level.getInfluenceEffectMap()));
+            //observers.addAll(registerInfluenceEffectObservers(level.getInfluenceEffectMap()));
 
             observers.addAll(registerDecalObservers(level.getDecalMap()));
 
@@ -106,19 +107,19 @@ public class Renderer {
         return observers;
     }
 
-    private ArrayList<LevelViewElement> registerInfluenceEffectObservers(Map<Point3D, InfluenceEffect> influenceEffectMap) {
+   /* private ArrayList<LevelViewElement> registerInfluenceEffectObservers(Map<Point3D, InfluenceEffect> influenceEffectMap) {
         ArrayList<LevelViewElement> observers = new ArrayList<>();
 
         for(Point3D point : influenceEffectMap.keySet()) {
-            //   InfluenceEffect effect = influenceEffectLocations.get(point); TODO: needed?
+            InfluenceEffect effect = influenceEffectMap.get(point);
 
-            InfluenceEffectView observer = new InfluenceEffectView(point);
+            InfluenceEffectView observer = new InfluenceEffectView(effect, point);
 
             observers.add(observer);
         }
 
         return observers;
-    }
+    }*/
 
     private ArrayList<LevelViewElement> registerMountObservers(Map<Point3D, Mount> mountMap) {
         ArrayList<LevelViewElement> observers = new ArrayList<>();

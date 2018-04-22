@@ -9,6 +9,7 @@ import Model.AI.AIController;
 import Model.AI.FriendlyAI;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
+import Model.AI.PetAI.PetStates.GeneralPetState;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
@@ -23,7 +24,9 @@ import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
+import Model.Item.TakeableItem.RingItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
@@ -85,6 +88,21 @@ public class GameModel implements Visitable {
 
         levels.add(currentLevel);
 
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 8, 0, Orientation.NORTH);
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
+        //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+        currentLevel.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(0,0,0), Orientation.SOUTH), Terrain.GRASS);
+        for(int i = 0; i < 8; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
+            for(int j = 0; j < points.size(); j++) {
+                currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
+        }
+
+        currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
+        currentLevel.addAreaEffectTo(new Point3D(-2, 1, 1), new InfiniteAreaEffect(new RemoveHealthCommand(10)));
+        currentLevel.addObstacleTo(new Point3D(-2, 2, 0), new Obstacle());
+
         skillsFactory = new SkillsFactory(currentLevelMessenger);
 
         entityFactory = new SummonerFactory(skillsFactory);
@@ -130,33 +148,15 @@ public class GameModel implements Visitable {
         player.addWeaponSkills(attack);
         player.setSpeed(0500000000l);
 
-        RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-        LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
-        SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(currentLevelMessenger);
         Skill oneHandedSkill = skillsFactory.getOneHandedSkill();
         player.addWeaponSkills(oneHandedSkill);
         attack.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand og = new RemoveHealthCommand(1000);
-        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new RadialInfluenceEffect(og,3,10, Orientation.NORTH), 1000, 1,100,100,2);
+        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new RadialInfluenceEffect(og,5,0250000000l, Orientation.NORTH), 1000, 0500000000l,100,100,2);
         player.addItemToInventory(mace);
-        player.equipWeapon(mace);
+        //player.equipWeapon(mace);
         player.setSightRadius(new SightRadius(7));
         currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
-
-        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
-
-        currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
-        for(int i = 0; i < 8; i++) {
-            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
-            for(int j = 0; j < points.size(); j++) {
-                currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
-            }
-        }
-
-        currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
-        currentLevel.addAreaEffectTo(new Point3D(-2, 1, 1), new InfiniteAreaEffect(new RemoveHealthCommand(10)));
-        currentLevel.addObstacleTo(new Point3D(-2, 2, 0), new Obstacle());
-        //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
 
         entityFactory = new MonsterFactory(skillsFactory);
         Entity enemy = entityFactory.buildEntity();
@@ -169,7 +169,7 @@ public class GameModel implements Visitable {
         enemy.setSpeed(1500000000l);
         skill.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand bleh = new RemoveHealthCommand(5);
-        WeaponItem sword = new WeaponItem("Sword of Darkness", bleh, skill, new LinearInfluenceEffect(bleh,2,10,Orientation.NORTH), 5, 1,1,450,2);
+        WeaponItem sword = new WeaponItem("Sword of Darkness", bleh, skill, new LinearInfluenceEffect(bleh,2,10,Orientation.NORTH), 5, 0500000000l,1,450,2);
         enemy.addItemToInventory(sword);
         enemy.equipWeapon(sword);
 
@@ -186,9 +186,6 @@ public class GameModel implements Visitable {
         path.add(new Vec3d(1,-1,0));
         path.add(new Vec3d(1,-1,0));
         currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
-        List<Entity> list = new ArrayList<>();
-        list.add(player);
-        enemy.setTargetingList(list);
         HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
         hostileAI.setPatrolPath(new PatrolPath(path));
         AIController controller = new AIController();
@@ -202,18 +199,24 @@ public class GameModel implements Visitable {
         entityFactory.buildEntitySprite(pet);
         pet.setMoveable(true);
         pet.setNoise(5);
+        pet.setName("McNugget");
         pet.setSpeed(1000000000l);
+        pet.addTarget(enemy);
+        enemy.addTarget(pet);
+        enemy.addTarget(player);
         Skill skill1 = new Skill();
         enemy.addWeaponSkills(skill1);
         skill1.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand rawr = new RemoveHealthCommand(5);
         WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 10000000l,100,450,1);
-        enemy.addItemToInventory(claw);
-        enemy.equipWeapon(claw);
-        pet.setSightRadius(new SightRadius(2));
-        list.add(pet);
+
+        pet.addItemToInventory(claw);
+        pet.equipWeapon(claw);
+        pet.setSightRadius(new SightRadius(5));
         currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
         AIController test = new AIController();
+
+
 
         //AIList.add(test);
 
@@ -235,8 +238,15 @@ public class GameModel implements Visitable {
         /*Skill pickpock = skillsFactory.getPickpocket();
         pet.setSkillLevel(pickpock,1000);
         ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, pickpock, currentLevel.getRiverMap());
-        test.setActiveState(IPS);
-*/
+        test.setActiveState(IPS);*/
+
+        // General Pet AI
+        Skill pickpock = skillsFactory.getPickpocket();
+        pet.setSkillLevel(pickpock,1000);
+        GeneralPetState GPS = new GeneralPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(), pickpock,player,currentLevel.getRiverMap());
+        test.setActiveState(GPS);
+
+
         ShopKeeperFactory friendlyFactory = new ShopKeeperFactory(skillsFactory);
         Entity friendly = friendlyFactory.buildEntity();
         friendlyFactory.buildEntitySprite(friendly);
@@ -257,10 +267,15 @@ public class GameModel implements Visitable {
         AIList.add(best);
         AIList.add(test);
         AIList.add(controller);
-        ConsumableItem potion1 = itemFactory.getManaPotion();
-        potion1.notifyObserver(new Point3D(3, -3, 0));
+        ArmorItem lightArmor = itemFactory.getHeavyArmor();
+        lightArmor.notifyObserver(new Point3D(3, -3, 0));
+        currentLevel.addItemTo(new Point3D(3, -3, 0), lightArmor);
 
-        currentLevel.addItemTo(new Point3D(3, -3, 0), potion1);
+        RingItem ringItem = itemFactory.getHealthRing();
+        ringItem.notifyObserver(new Point3D(4, -4, 0));
+        currentLevel.addItemTo(new Point3D(4, -4, 0), ringItem);
+
+        player.addFriendly(pet);
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);
@@ -497,6 +512,10 @@ public class GameModel implements Visitable {
                 AI.processMove();
             }
         }
+    }
+
+    public SkillsFactory getSkillsFactory() {
+        return skillsFactory;
     }
 
     public boolean playerIsDead() {

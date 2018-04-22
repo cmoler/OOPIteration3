@@ -839,7 +839,7 @@ public class GameLoader {
 
     private InfluenceEffect processInfluenceEffect(NodeList childNodes) {
         Command command;
-        int nextMoveTime;
+        int movesRemaining;
         long speed;
         int range;
         Orientation orientation;
@@ -850,20 +850,22 @@ public class GameLoader {
             if(influenceNode.getNodeType() == Node.ELEMENT_NODE) {
                 command = processCommand(influenceNode.getChildNodes());
                 if(command != null) {
-                    nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
+                    Point3D point3D;
+                    movesRemaining =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
                     speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
                     range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
                     orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
+                    point3D = toPoint3D(influenceNode.getAttributes().getNamedItem("origin").getTextContent());
 
                     switch (influenceNode.getNodeName().toLowerCase()) {
                         case "angularinfluenceeffect":
-                            return new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+                            return new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0,point3D);
 
                         case "linearinfluenceeffect":
-                            return new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+                            return new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0,point3D);
 
                         case "radialinfluenceeffect":
-                            return new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+                            return new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0,point3D);
                     }
                 }
             }
@@ -972,7 +974,7 @@ public class GameLoader {
 
     private InfluenceEffect processWeaponInfluenceEffect(NodeList childNodes) {
         Command command;
-        int nextMoveTime;
+        int movesRemaining;
         long speed;
         int range;
         Orientation orientation;
@@ -984,20 +986,21 @@ public class GameLoader {
                 if (influenceNode.getNodeName().contains("InfluenceEffect")) {
                     command = processCommand(influenceNode.getChildNodes());
                     if (command != null) {
-                        nextMoveTime = Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
+                        movesRemaining = Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
                         speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
                         range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
                         orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
+                        Point3D point3D = toPoint3D(influenceNode.getAttributes().getNamedItem("point").getTextContent());
 
                         switch (influenceNode.getNodeName().toLowerCase()) {
                             case "angularinfluenceeffect":
-                                return new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+                                return new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0,point3D);
 
                             case "linearinfluenceeffect":
-                                return new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+                                return new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0,point3D);
 
                             case "radialinfluenceeffect":
-                                return new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+                                return new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0,point3D);
                         }
                     }
                 }
@@ -1072,7 +1075,7 @@ public class GameLoader {
         List<Point3D> pointsToAdd = getKeyPoints(element);
         List<InfluenceEffect> influencesToAdd = new ArrayList<>();
         Command command;
-        int nextMoveTime;
+        int movesRemaining;
         long speed;
         Orientation orientation;
         int range;
@@ -1087,22 +1090,23 @@ public class GameLoader {
                     command = processCommand(influenceNode.getChildNodes());
 
                     if(command != null) {
-                        nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
+                        movesRemaining =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
                         speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
                         range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
                         orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
+                        Point3D point3D = toPoint3D(influenceNode.getAttributes().getNamedItem("point").getTextContent());
 
                         switch (influenceNode.getNodeName().toLowerCase()) {
                             case "angularinfluenceeffect":
-                                influencesToAdd.add(new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
+                               influencesToAdd.add(new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0,point3D));
                                 break;
 
                             case "linearinfluenceeffect":
-                                influencesToAdd.add(new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
+                                influencesToAdd.add(new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0,point3D));
                                 break;
 
                             case "radialinfluenceeffect":
-                                influencesToAdd.add(new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
+                                influencesToAdd.add(new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0,point3D));
                                 break;
                         }
                     }

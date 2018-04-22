@@ -6,20 +6,26 @@ import Model.Entity.EntityAttributes.Inventory;
 import Model.Item.Item;
 import Model.Item.TakeableItem.TakeableItem;
 
+import java.util.Random;
+
 public class BarterMenu extends MenuState {
 
     private Entity player;
     private Entity npc;
     private Inventory playerInventory;
     private Inventory npcInventory;
+    private int barterStrength;
+    private double modifier;
 
-    // TODO: have barter skill matter
     public BarterMenu(MenuModel menuModel, GameLoop gameLoop, int barterStrength, Entity player, Entity npc) {
         super(menuModel, gameLoop);
+        this.barterStrength = barterStrength;
         this.player = player;
         this.playerInventory = player.getInventory();
         this.npc = npc;
         this.npcInventory = npc.getInventory();
+        Random random = new Random();
+        modifier = (random.nextInt(99 - barterStrength) / 20);
     }
 
     @Override
@@ -51,22 +57,24 @@ public class BarterMenu extends MenuState {
     private void sell() {
         TakeableItem itemSelling = playerInventory.getItem(selectedUpDown);
         if(itemSelling == null) return;
-        if(npc.getGold() >= itemSelling.getPrice()) {
+        int price = (int)(itemSelling.getPrice() / modifier);
+        if(npc.getGold() >= price) {
             player.removeItemFromInventory(itemSelling);
-            player.addGold(itemSelling.getPrice());
-            npc.removeGold(itemSelling.getPrice());
-            npc.addItemToInventory(itemSelling);
+            player.addGold(price);
+            npc.removeGold(price);
+            itemSelling.onTouch(npc);
         }
     }
 
     private void buy() {
         TakeableItem itemBuying = npcInventory.getItem(selectedUpDown);
         if(itemBuying == null) return;
-        if(player.getGold() >= itemBuying.getPrice()) {
-            player.removeGold(itemBuying.getPrice());
+        int price = (int)(itemBuying.getPrice() * modifier);
+        if(player.getGold() >= price) {
+            player.removeGold(price);
             npc.removeItemFromInventory(itemBuying);
-            npc.addGold(itemBuying.getPrice());
-            player.addItemToInventory(itemBuying);
+            npc.addGold(price);
+            itemBuying.onTouch(player);
         }
     }
 
@@ -84,5 +92,9 @@ public class BarterMenu extends MenuState {
 
     public int getNPCGold(){
         return npc.getGold();
+    }
+
+    public double getModifier() {
+        return modifier;
     }
 }

@@ -48,6 +48,8 @@ public class CommandTests {
 
         entity.addNonWeaponSkills(disarmTrap);
 
+        entity.setSkillLevel(disarmTrap, 99);
+
         Point3D center = new Point3D(0,0,0);
 
         level.addEntityTo(center, entity);
@@ -534,20 +536,18 @@ public class CommandTests {
         entity.addNonWeaponSkills(sneakSkill);
 
         Assert.assertEquals(entity.getNoise(), 1, 0);
-        Assert.assertEquals(entity.getSpeed(),1, 0);
+        Assert.assertEquals(entity.getSpeed(),0500000000l, 0);
 
         entity.useSkill(0);
-        level.advance();
         level.advance();
 
         Assert.assertEquals(entity.getNoise(), 0, 0);
-        Assert.assertEquals(entity.getSpeed(),0, 0);
+        Assert.assertEquals(entity.getSpeed(),100000000l, (long) 0770000000l);
 
         entity.useSkill(0);
         level.advance();
-        level.advance();
 
         Assert.assertEquals(entity.getNoise(), 1, 0);
-        Assert.assertEquals(entity.getSpeed(),1, 0);
+        Assert.assertEquals(entity.getSpeed(),0500000000l, 0);
     }
 }

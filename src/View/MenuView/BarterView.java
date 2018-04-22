@@ -39,13 +39,21 @@ public class BarterView extends MenuViewState {
         gc.setFill(Color.GREEN);
         gc.fillRect(startX, startY, width, height);
 
+        gc.fillRect(startX, startY + height, width, height);
+
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(10.0f);
         gc.strokeRect(startX, startY, width, height);
+        gc.strokeRect(startX, startY + height, width, height);
 
         gc.setFill(Color.WHITESMOKE);
         gc.setFont(new Font(60.0f).font("System", FontWeight.BOLD, 60.0f));
         gc.fillText("Barter", startX + width / 4, startY + 4*height/5);
+
+        gc.setFont(new Font(50.0f));
+        double modifier = ((BarterMenu)menuModel.getActiveState()).getModifier();
+        gc.fillText("Modifier: " + modifier, startX + width / 16, startY + 9*height/5);
+
 
         renderPlayer(gc);
         renderNPC(gc);
@@ -83,8 +91,11 @@ public class BarterView extends MenuViewState {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(10.0f);
         for(int i = 0; i < playerInventory.size(); ++i){
-            gc.fillText(playerInventory.getItem(i).getName(), startX+ width / 6, startY + i * itemHeight+4*itemHeight/6);
-            gc.fillText(Integer.toString(playerInventory.getItem(i).getPrice()), startX+ 3 * width / 4, startY + i * itemHeight+4*itemHeight/6);
+            if(playerInventory.getItem(i).getObserver() != null) {
+                gc.drawImage(playerInventory.getItem(i).getObserver().getSprite(), startX+ width / 6 - 40, startY + i * itemHeight+4*itemHeight/6 - 40, 40, 40);
+            }
+            gc.fillText(playerInventory.getItem(i).getName(), startX+ width / 6 + 30, startY + i * itemHeight+4*itemHeight/6);
+            gc.fillText(Integer.toString(playerInventory.getItem(i).getPrice()), startX+ 3 * width / 4 + 30, startY + i * itemHeight+4*itemHeight/6);
             gc.strokeRect(startX, startY + i * itemHeight, width, itemHeight);
         }
 
@@ -125,8 +136,11 @@ public class BarterView extends MenuViewState {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(10.0f);
         for(int i = 0; i < npcInventory.size(); ++i){
-            gc.fillText(npcInventory.getItem(i).getName(), startX+ width / 6, startY + i * itemHeight+4*itemHeight/6);
-            gc.fillText(Integer.toString(npcInventory.getItem(i).getPrice()), startX+ 3 * width / 4, startY + i * itemHeight+4*itemHeight/6);
+            if(npcInventory.getItem(i).getObserver() != null) {
+                gc.drawImage(npcInventory.getItem(i).getObserver().getSprite(), startX+ width / 6 - 40, startY + i * itemHeight+4*itemHeight/6 -40, 40, 40);
+            }
+            gc.fillText(npcInventory.getItem(i).getName(), startX+ width / 6 + 30, startY + i * itemHeight+4*itemHeight/6);
+            gc.fillText(Integer.toString(npcInventory.getItem(i).getPrice()), startX+ 3 * width / 4 + 30, startY + i * itemHeight+4*itemHeight/6);
             gc.strokeRect(startX, startY + i * itemHeight, width, itemHeight);
         }
 

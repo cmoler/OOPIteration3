@@ -42,7 +42,7 @@ public class ToggleSneaking extends ToggleableCommand implements SettableCommand
         }
 
         if(!hasFired()) {
-            entity.decreaseSpeed(stealthAmount);
+            entity.setSpeed(oldSpeed + oldSpeed);
             entity.decreaseNoiseLevel(stealthAmount);
             toggleHasFired();
         } else {

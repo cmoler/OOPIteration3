@@ -34,6 +34,16 @@ public class Mana {
         }
     }
 
+    public void increateMaxMana(int amount) {
+        maxMana += amount;
+    }
+
+    public void decreaseMaxMana(int amount) {
+        maxMana -= amount;
+        if(getCurrentMana() > getMaxMana()) {
+            manaPoints = maxMana;
+        }
+    }
     public int getCurrentMana() {
         return manaPoints;
     }

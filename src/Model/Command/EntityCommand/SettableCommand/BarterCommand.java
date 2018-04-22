@@ -22,7 +22,7 @@ public class BarterCommand extends GameLoopCommand implements SettableCommand {
     }
 
     public void receiveGameLoop(GameLoop gameLoop) {
-        gameLoop.openBarterWindow(invokingEntity, playerBarterStrength, receivingEntity);
+        gameLoop.openBarterWindow(invokingEntity, receivingEntity);
     }
 
     public void receiveGameModel(GameModel gameModel) {

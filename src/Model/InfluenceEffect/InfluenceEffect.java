@@ -7,55 +7,59 @@ import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import View.LevelView.InfluenceEffectView;
+import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class InfluenceEffect implements Visitable {
+
+    private LevelViewElement observer;
     private SettableCommand command;
     private int movesRemaining;
-    private long nextMoveTime;
+    private long nextMoveTime = 0;
     private long speed;
     private Orientation orientation;
     private int range;
-    private List<InfluenceEffectView> influenceEffectViews;
-    protected int count;
-    private long lastFireTime;
-    private boolean isStartPoint;
-
+    private Point3D originPoint;
 
     public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation) {
         this.command = command;
         this.movesRemaining = range;
         this.range = range;
-
         this.speed = speed;
-        //TODO: make nextMoveTime based on speed
         this.orientation = orientation;
-        count = 0;
-        influenceEffectViews = new ArrayList<>();
-        this.speed = 2000000000/speed;
-        lastFireTime = System.nanoTime();
-        isStartPoint = true;
     }
 
-    public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining) {
+    public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining, long nextMoveTime, Point3D originPoint) {
         this.command = command;
         this.movesRemaining = movesRemaining;
         this.range = range;
-
         this.speed = speed;
-        //TODO: make nextMoveTime based on speed
         this.orientation = orientation;
-        influenceEffectViews = new ArrayList<>();
-        lastFireTime = System.nanoTime();
-        isStartPoint = true;
+        this.nextMoveTime = nextMoveTime;
+        this.originPoint = originPoint;
     }
 
     public abstract ArrayList<Point3D> nextMove(Point3D point);
 
     public abstract InfluenceEffect cloneInfluenceEffect();
+
+    public void setOriginPoint(Point3D originPoint) {
+        this.originPoint = originPoint;
+    }
+
+    public Point3D getOriginPoint() {
+        return originPoint;
+    }
+
+    protected boolean movingAtOrigin(Point3D point) {
+        return  (originPoint.getX() == point.getX()) &&
+                (originPoint.getY() == point.getY()) &&
+                (originPoint.getZ() == point.getZ());
+
+    }
 
     public void hitEntity(Entity entity) {
         command.execute(entity);
@@ -73,8 +77,12 @@ public abstract class InfluenceEffect implements Visitable {
         return movesRemaining;
     }
 
+    protected long getNextMoveTime() {
+        return nextMoveTime;
+    }
+
     public boolean noMovesRemaining() {
-        return movesRemaining == 0;
+        return movesRemaining < 0;
     }
 
     public int getRange() {
@@ -115,36 +123,19 @@ public abstract class InfluenceEffect implements Visitable {
         this.command = command;
     }
 
-    public void addInfluenceEffectView(InfluenceEffectView influenceEffectView) {
-        if(influenceEffectViews == null) {
-            System.out.println("null");
-        }
-        influenceEffectViews.add(influenceEffectView);
-    }
-    public List<InfluenceEffectView> getInfluenceEffectViews() {
-        return influenceEffectViews;
-    }
-    public void clearInfluenceEffectViews() {
-        influenceEffectViews.clear();
+    public LevelViewElement getObserver() {
+        return observer;
     }
 
-    public boolean readyToMove() {
-        if(System.nanoTime()-lastFireTime > speed) {
-            lastFireTime = System.nanoTime();
-            return true;
-        }
-        return false;
-
-
-
-
+    protected boolean canMove() {
+        return System.nanoTime() > nextMoveTime;
     }
 
-    public boolean isStartPoint() {
-        return isStartPoint;
+    protected void setNextMoveTime() {
+        nextMoveTime = System.nanoTime() + speed;
     }
 
-    public void setIsStartPoint(boolean startPoint) {
-        isStartPoint = startPoint;
+    public void setObserver(InfluenceEffectView influenceEffectView) {
+        this.observer = influenceEffectView;
     }
 }

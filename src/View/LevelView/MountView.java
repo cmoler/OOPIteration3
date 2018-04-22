@@ -30,6 +30,4 @@ public class MountView extends LevelViewElement {
     public void notifyViewElementDeath() {
 
     }
-
-
 }

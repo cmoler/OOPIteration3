@@ -28,6 +28,11 @@ public class ArmorItem extends TakeableItem {
         armorEquipStrategy.useStrategy();
     }
 
+    @Override
+    public boolean usableByEntity(Entity entity) {
+        return true;
+    }
+
     public void setItemStrategyEntity(Entity entity) {
         armorEquipStrategy.setEntity(entity);
     }

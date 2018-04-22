@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class ItemHotBar implements Visitable {
 
     private TakeableItem[] items = new TakeableItem[5];
+    private int selectedIndex;
 
     public ItemHotBar(){
 
@@ -50,11 +51,21 @@ public class ItemHotBar implements Visitable {
     }
 
     public void setStrategies(Entity entity) {
-        for(TakeableItem item: items) {
-            if(item != null) {
+        for (TakeableItem item : items) {
+            if (item != null) {
                 item.setDropStrategyEntity(entity);
                 item.setItemStrategyEntity(entity);
             }
+        }
+    }
+
+    public int getSize() {
+        return items.length;
+    }
+
+    public void removeItem(int i) {
+        if(i < 5 && i >= 0) {
+            items[i] = null;
         }
     }
 }

@@ -7,7 +7,6 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import java.util.Map;
 
 public class LevelView {
 
-
     private Level currentLevel;
     private HexMathHelper hexMathHelper;
     private HUDStatsView hudStatsView;
@@ -25,12 +23,9 @@ public class LevelView {
     private List<ObservationView> observationViews;
 
     public LevelView() {
-
-
         hexMathHelper = new HexMathHelper();
 
         observationViews = new ArrayList<>();
-
     }
 
     public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
@@ -50,19 +45,21 @@ public class LevelView {
             }
         }
 
-
-
         Map<Point3D, InfluenceEffect> influenceEffects = currentLevel.getInfluenceEffectMap();
-        //System.out.println(influenceEffects.size());
-        List<InfluenceEffectView> influenceEffectViews;
-        for(InfluenceEffect influenceEffect: influenceEffects.values()) {
-            influenceEffectViews = influenceEffect.getInfluenceEffectViews();
-            for(InfluenceEffectView influenceEffectView:influenceEffectViews) {
-                influenceEffectView.render(gc, offset, scrollOffset);
-            }
 
+        List<LevelViewElement> influenceEffectViews = new ArrayList<>();
+
+        for(Point3D point3D : influenceEffects.keySet()) {
+            influenceEffectViews.add(new InfluenceEffectView(influenceEffects.get(point3D), point3D));
         }
 
+     //   for(InfluenceEffect influenceEffect : influenceEffects.values()) {
+    //        influenceEffectViews.add(new InfluenceEffectView(influenceEffect, influenceEffects.key));
+    //    }
+
+        for(LevelViewElement influenceEffectView : influenceEffectViews) {
+            influenceEffectView.render(gc, offset, scrollOffset);
+        }
 
         Iterator itr = observationViews.iterator();
         while (itr.hasNext()) {//Render observation windows
@@ -76,7 +73,6 @@ public class LevelView {
             }
         }
 
-
         hudStatsView.render(gc);
         hotbarView.render(gc);
     }
@@ -84,9 +80,15 @@ public class LevelView {
     public void setCurrentLevel(Level currentLevel) {
         this.currentLevel = currentLevel;
     }
+
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+
     public void setPlayerHUD(HUDStatsView hud) {
         hudStatsView = hud;
     }
+
     public void setHotbarView(HotbarView hbv) {
         hotbarView = hbv;
     }
@@ -94,4 +96,26 @@ public class LevelView {
     public void addObservationView(ObservationView observationView) {
         observationViews.add(observationView);
     }
+
+   /* public void refreshInfluenceEffectSprites() {
+        currentLevel.clearInfluenceEffectObservers();
+
+        createInfluenceEffectObservers(currentLevel.getInfluenceEffectMap());
+
+        currentLevel.addInfluenceEffectObservers();
+    }*/
+
+    /*private ArrayList<LevelViewElement> createInfluenceEffectObservers(Map<Point3D, InfluenceEffect> influenceEffectMap) {
+        ArrayList<LevelViewElement> observers = new ArrayList<>();
+
+        for(Point3D point : influenceEffectMap.keySet()) {
+            InfluenceEffect effect = influenceEffectMap.get(point);
+
+            InfluenceEffectView observer = new InfluenceEffectView(effect, point);
+
+            observers.add(observer);
+        }
+
+        return observers;
+    }*/
 }

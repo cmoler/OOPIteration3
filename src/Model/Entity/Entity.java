@@ -24,6 +24,7 @@ public class Entity {
 
     private HashMap<Skill, SkillLevel> skillLevelsMap;
     private int currentlySelectedSkill;
+    private int currentlySelectedItem;
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
 
@@ -52,6 +53,9 @@ public class Entity {
 
     private Mount mount;
     private List<Entity> targetingList;
+    private List<Entity> friendlyList;
+
+    private String name;
 
     private long nextMoveTime = 0;
 
@@ -89,6 +93,7 @@ public class Entity {
     public Entity() {
         skillLevelsMap = new HashMap<>();
         currentlySelectedSkill = 0;
+        currentlySelectedItem = 0;
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
         observer = null;
@@ -111,6 +116,7 @@ public class Entity {
         inventory = new Inventory();
         equipment = new Equipment();
         hotBar = new ItemHotBar();
+        friendlyList = new ArrayList<>();
         orientation = Orientation.NORTH;
 
         compatableTerrain = new ArrayList<>();
@@ -259,6 +265,22 @@ public class Entity {
 
     public void removeTarget(Entity ent){
         targetingList.remove(ent);
+    }
+
+    public List<Entity> getFriendlyList(){
+        return friendlyList;
+    }
+
+    public void setFriendlyList(List<Entity> friendlyList){
+        this.friendlyList = friendlyList;
+    }
+
+    public void addFriendly(Entity entity){
+        friendlyList.add(entity);
+    }
+
+    public void removeFriendly(Entity entity){
+        friendlyList.remove(entity);
     }
 
     public void decreaseSpeed(int amt){
@@ -431,7 +453,9 @@ public class Entity {
     public WeaponItem getWeaponItem() {
         return equipment.getEquippedWeapon();
     }
-    
+    public ArmorItem getArmorItem() { return equipment.getEquippedArmor(); }
+    public RingItem getRingItem() { return equipment.getEquippedRing(); }
+
     public void attack() {
         getWeaponItem().attack(this);
     }
@@ -442,6 +466,11 @@ public class Entity {
 
     public void useHotBar(int index){
         hotBar.use(index);
+    }
+
+    public void useItem() {
+        hotBar.use(currentlySelectedItem);
+        hotBar.removeItem(currentlySelectedItem);
     }
 
     public void useSkill(int index){ // TODO: add logic for mana costs
@@ -474,6 +503,23 @@ public class Entity {
         else currentlySelectedSkill ++;
     }
 
+    public void scrollUp() {
+        if(currentlySelectedItem <= 0) { currentlySelectedItem = hotBar.getSize()-1; }
+        else { currentlySelectedItem--; }
+    }
+
+    public void scrollDown() {
+        if(currentlySelectedItem >= hotBar.getSize()-1) { currentlySelectedItem = 0; }
+        else { currentlySelectedItem++; }
+    }
+
+    public int getCurrentlySelectedItemIndex() {
+        return currentlySelectedItem;
+    }
+
+    public int getCurrentlySelectedSkillIndex() {
+        return currentlySelectedSkill;
+    }
     public boolean hasFreeSpaceInInventory() {
         return inventory.hasFreeSpace();
     }
@@ -598,6 +644,14 @@ public class Entity {
         return defense.getModifier();
     }
 
+    public void increaseDefense(int amount) {
+        defense.increaseDefensePoints(amount);
+    }
+
+    public void decreaseDefense(int amount) {
+        defense.decreaseDefensePoints(amount);
+    }
+
     public Mount getMount() {
         return mount;
     }
@@ -666,4 +720,13 @@ public class Entity {
     public void setTraversalStrength(int traversalStrength) {
         this.traversalStrength = traversalStrength;
     }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
+
