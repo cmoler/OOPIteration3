@@ -225,12 +225,12 @@ public class GameModel implements Visitable {
         ItemFactory itemFactory = new ItemFactory(skillsFactory, currentLevelMessenger);
         WeaponItem weaponItem = itemFactory.getRangedWeapon();
         weaponItem.notifyObserver(new Point3D(1, -1, 0));
-        currentLevel.addItemnTo(new Point3D(1, -1, 0), weaponItem);
+        currentLevel.addItemTo(new Point3D(1, -1, 0), weaponItem);
 
         ConsumableItem potion1 = itemFactory.getPotion();
         potion1.notifyObserver(new Point3D(3, -3, 0));
 
-        currentLevel.addItemnTo(new Point3D(3, -3, 0), potion1);
+        currentLevel.addItemTo(new Point3D(3, -3, 0), potion1);
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

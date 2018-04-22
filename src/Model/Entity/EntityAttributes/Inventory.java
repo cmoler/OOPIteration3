@@ -80,4 +80,8 @@ public class Inventory implements Visitable {
             item.accept(visitor);
         }
     }
+
+    public void addInventory(Inventory inv) {
+        inventory.addAll(inv.inventory);
+    }
 }

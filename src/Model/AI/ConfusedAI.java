@@ -25,7 +25,7 @@ public class ConfusedAI extends AIState{
             controller.setActiveState(previousState);
         }
         else {
-            super.getEntity().addVelocity(RandomVelocityGenerator.generateRandomVelocity());
+            super.getEntity().addVelocityFromControllerInput(RandomVelocityGenerator.generateRandomVelocity());
         }
     }
 }

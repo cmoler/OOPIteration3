@@ -67,7 +67,10 @@ public class HUDStatsView {
         gc.fillText(Integer.toString(level), 15, 35);
     }
 
-
+    protected void rotate(GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
 
     public void renderStatBar(int x, int y, int width, int height, float percentFill, Color fillColor, GraphicsContext gc) {
         gc.setFill(Color.GRAY);
@@ -76,13 +79,4 @@ public class HUDStatsView {
         gc.setFill(fillColor);
         gc.fillRect(x, y, width*percentFill, height);
     }
-
-    protected void rotate(GraphicsContext gc, double angle, double px, double py) {
-        Rotate r = new Rotate(angle, px, py);
-        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-    }
-
-
-
-
 }

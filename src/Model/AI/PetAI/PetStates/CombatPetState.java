@@ -20,6 +20,7 @@ public class CombatPetState extends AIState {
     private BidiMap<Point3D, Entity> entityMap;
     private PathingAlgorithm pathCalculator;
     private List<Entity> targetList;
+    private Entity player;
 
 
     public CombatPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
@@ -27,22 +28,24 @@ public class CombatPetState extends AIState {
         this.entityMap = entityMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         this.targetList = pet.getTargetingList();
+        this.player = player;
     }
 
     @Override
     public void nextMove() {
-        if (hasNoTarget()){
-            return;
-        }
 
         Point3D petPoint = getPetPoint();
-        Point3D nearestTarget = getNearestTarget(petPoint);
-
-        if(isInAttackRange(petPoint,nearestTarget)){
-            attack(petPoint,nearestTarget);
+        if (hasNoTarget()){
+            moveToGoal(petPoint,getEntityPoint(player,entityMap));
         }
         else {
-            moveToGoal(petPoint, nearestTarget);
+            Point3D nearestTarget = getNearestTarget(petPoint);
+
+            if (isInAttackRange(petPoint, nearestTarget)) {
+                attack(petPoint, nearestTarget);
+            } else {
+                moveToGoal(petPoint, nearestTarget);
+            }
         }
     }
 
@@ -61,7 +64,7 @@ public class CombatPetState extends AIState {
 
     private void moveToGoal(Point3D start, Point3D goal){
         Point3D firstStep = pathCalculator.getAStarPoint(start, goal, super.getEntity());
-        super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
+        super.getEntity().addVelocityFromControllerInput(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
     private Point3D getNearestTarget(Point3D origin) {
@@ -76,6 +79,10 @@ public class CombatPetState extends AIState {
             }
         }
         return minLocation;
+    }
+
+    private Point3D getEntityPoint(Entity entity, BidiMap<Point3D, Entity> entityLocations) {
+        return entityLocations.getKeyFromValue(entity);
     }
 
     private List<Point3D> getTargetPoints() {

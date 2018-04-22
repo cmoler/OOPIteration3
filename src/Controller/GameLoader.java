@@ -26,7 +26,6 @@ import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
-import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
@@ -726,7 +725,7 @@ public class GameLoader {
         }
 
         for(int i = 0; i < pointsToAdd.size(); i++) {
-            level.addItemnTo(pointsToAdd.get(i), itemsToAdd.get(i));
+            level.addItemTo(pointsToAdd.get(i), itemsToAdd.get(i));
         }
     }
 
@@ -982,7 +981,7 @@ public class GameLoader {
         int attackModifier;
         int defensePoints;
         int defenseModifier;
-        int speedAmount;
+        long speedAmount;
         int manaPoints;
         int maxMana;
         int sight;
@@ -1005,7 +1004,7 @@ public class GameLoader {
             maxGold = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxGold").getTextContent());
             gold = new Gold(goldAmount, maxGold);
 
-            speedAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("speed").getTextContent());
+            speedAmount = Long.parseLong(entityNode.getAttributes().getNamedItem("speed").getTextContent());
             speed = new Speed(speedAmount);
 
             manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());

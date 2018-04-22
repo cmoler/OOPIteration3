@@ -120,11 +120,12 @@ public class LevelTests {
         BidiMap<Point3D, Entity> entityLocations = new BidiMap<>();
         Map<Point3D, Mount> mountLocations = new HashMap<Point3D, Mount>();
         Map<Point3D, InfluenceEffect> influenceEffectLocations = new HashMap<Point3D, InfluenceEffect>();
+        Map<Point3D, River> riverLocations = new HashMap<Point3D, River>();
 
         Level level = new Level();
         LevelMessenger levelMessenger = new LevelMessenger(new GameModelMessenger(gameLoopMessenger, new GameModel(gameLoopMessenger)), level);
 
-        MovementHandler MH = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations, influenceEffectLocations);
+        MovementHandler MH = new MovementHandler(terrainLocations,obstacleLocations,entityLocations,mountLocations, influenceEffectLocations, riverLocations);
         MH.setDialogCommandLevelMessenger(levelMessenger);
 
         // Case 1: Attempting to move onto an impassable Terrain

@@ -16,6 +16,7 @@ public class MovementHandler {
     private BidiMap<Point3D, Entity> entityLocations;
     private Map<Point3D, Mount> mountLocations;
     private Map<Point3D, InfluenceEffect> influenceEffectLocations;
+    private Map<Point3D, River> riverLocations;
 
     private DialogCommand dialogCommand;
 
@@ -23,13 +24,15 @@ public class MovementHandler {
                            Map<Point3D, Obstacle> obstacleLocations,
                            BidiMap<Point3D, Entity> entityLocations,
                            Map<Point3D, Mount> mountLocations,
-                           Map<Point3D, InfluenceEffect> influenceEffectLocations) {
+                           Map<Point3D, InfluenceEffect> influenceEffectLocations,
+                           Map<Point3D, River> riverLocations) {
 
         this.terrainLocations = terrainLocations;
         this.obstacleLocations = obstacleLocations;
         this.entityLocations = entityLocations;
         this.mountLocations = mountLocations;
-        this.influenceEffectLocations = influenceEffectLocations;;
+        this.influenceEffectLocations = influenceEffectLocations;
+        this.riverLocations = riverLocations;
     }
 
     public void processMoves(){
@@ -44,14 +47,19 @@ public class MovementHandler {
         for (Entity entity: entityLocations.getValueList()){//For each entry in the map
             Point3D entityPoint = entityLocations.getKeyFromValue(entity);
 
-            if (entity.isMoving()){
+            if (entity.isMoving()) {
                 Point3D contestedPoint = calculateMove(entityPoint, entity.getVelocity());
 
                 if (!obstacleLocations.containsKey(contestedPoint) && entity.canMoveOnTerrain(terrainLocations.get(contestedPoint))){
                     if (entityLocations.hasKey(contestedPoint) && isAlive(entityLocations.getValueFromKey(contestedPoint))){
-                        dialogCommand.execute(entity);
-
-                    } else {
+                        if(!riverLocations.containsKey(entityPoint)) { // dont start dialog if a river is forcing you onto another entity
+                            dialogCommand.execute(entity);
+                        }
+                    }
+                    else {
+                        if(entityLocations.hasKey(contestedPoint)){
+                            retrieveItems(entity,entityLocations.getValueFromKey(contestedPoint));
+                        }
                         //Update entity movement
                         entityLocations.removeByKey(entityPoint);
                         entityLocations.place(contestedPoint, entity);
@@ -76,6 +84,11 @@ public class MovementHandler {
                 entity.decrementVelocity();
             }
         }
+    }
+
+    private void retrieveItems(Entity looter, Entity deadEnt) {
+        looter.addItemsToInventory(deadEnt.getInventory());
+        //entityLocations.removeByValue(deadEnt);
     }
 
     private boolean isAlive(Entity valueFromKey) {

@@ -93,11 +93,11 @@ public class SavingVisitorTests {
         level.addInfluenceEffectTo(new Point3D(0,0,1), new RadialInfluenceEffect(new AddHealthCommand(5), 0, 0, Orientation.NORTH));
         level.addInfluenceEffectTo(new Point3D(0,0,2), new AngularInfluenceEffect(new AddHealthCommand(5), 0, 0, Orientation.NORTH));
 
-        level.addItemnTo(new Point3D(0,0,0), new InteractiveItem("door", new ToggleManaCommand(10)));
-        level.addItemnTo(new Point3D(0,0,1), new OneShotItem("bomb", new ToggleSpeedCommand(10)));
-        level.addItemnTo(new Point3D(0,0,2), new ArmorItem("helemet", new ToggleHealthCommand(10), 10));
-        level.addItemnTo(new Point3D(0,0,3), new RingItem("ring", new ToggleHealthCommand(10)));
-        level.addItemnTo(new Point3D(0,0,4), new ConsumableItem("potion", new AddHealthCommand(10)));
+        level.addItemTo(new Point3D(0,0,0), new InteractiveItem("door", new ToggleManaCommand(10)));
+        level.addItemTo(new Point3D(0,0,1), new OneShotItem("bomb", new ToggleSpeedCommand(10)));
+        level.addItemTo(new Point3D(0,0,2), new ArmorItem("helemet", new ToggleHealthCommand(10), 10));
+        level.addItemTo(new Point3D(0,0,3), new RingItem("ring", new ToggleHealthCommand(10)));
+        level.addItemTo(new Point3D(0,0,4), new ConsumableItem("potion", new AddHealthCommand(10)));
 
         level.addTrapTo(new Point3D(0,0,0), new Trap(new RemoveHealthCommand(0), false, false, 10));
 
