@@ -20,7 +20,7 @@ public class ConsumableItem extends TakeableItem {
         consumeStrategy.useStrategy();
     }
 
-    protected void setItemStrategyEntity(Entity entity) {
+    public void setItemStrategyEntity(Entity entity) {
         consumeStrategy.setEntity(entity);
     }
 

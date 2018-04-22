@@ -2,6 +2,7 @@ package Model.Entity.EntityAttributes;
 
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
+import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
 
 import java.util.HashMap;
@@ -45,6 +46,15 @@ public class ItemHotBar implements Visitable {
     public void accept(Visitor visitor) { // TODO: change? if so how prevent LoD?
         for(TakeableItem item: items) {
             item.accept(visitor);
+        }
+    }
+
+    public void setStrategies(Entity entity) {
+        for(TakeableItem item: items) {
+            if(item != null) {
+                item.setDropStrategyEntity(entity);
+                item.setItemStrategyEntity(entity);
+            }
         }
     }
 }

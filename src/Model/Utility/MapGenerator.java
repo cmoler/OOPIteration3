@@ -83,15 +83,15 @@ public class MapGenerator extends Application {
         ArrayList<AIController> aiControllers = new ArrayList<>();
         ArrayList<Vec3d> path = new ArrayList<>();
         path.add(new Vec3d(1,0,-1));
-        path.add(new Vec3d(1,0,-1));
-        path.add(new Vec3d(-1,1,0));
-        path.add(new Vec3d(-1,1,0));
-        path.add(new Vec3d(0,-1,1));
-        path.add(new Vec3d(0,-1,1));
-        path.add(new Vec3d(-1,0,1));
-        path.add(new Vec3d(-1,0,1));
-        path.add(new Vec3d(1,-1,0));
-        path.add(new Vec3d(1,-1,0));
+//        path.add(new Vec3d(1,0,-1));
+//        path.add(new Vec3d(-1,1,0));
+//        path.add(new Vec3d(-1,1,0));
+//        path.add(new Vec3d(0,-1,1));
+//        path.add(new Vec3d(0,-1,1));
+//        path.add(new Vec3d(-1,0,1));
+//        path.add(new Vec3d(-1,0,1));
+//        path.add(new Vec3d(1,-1,0));
+//        path.add(new Vec3d(1,-1,0));
 
         Entity enemy = entityFactory.buildEntity();
         entityFactory.buildEntitySprite(enemy);

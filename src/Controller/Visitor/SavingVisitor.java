@@ -573,6 +573,7 @@ public class SavingVisitor implements Visitor {
 
     private void processSkill(Skill skill, int skillLevel) {
         StringBuffer skillString = new StringBuffer("<" + skill.getClass().getSimpleName()
+                + " reference=" + "\"" + skill.toString() + "\""
                 + " name=" + "\"" + skill.getName() + "\""
                 + " accuracy=" + "\"" + skill.getAccuracy() + "\""
                 + " useCost=" + "\"" + skill.getUseCost()  + "\""

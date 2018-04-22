@@ -99,4 +99,21 @@ public class Equipment {
     public RingItem getEquippedRing() {
         return equippedRing;
     }
+
+    public void setStrategies(Entity entity) {
+        if(equippedWeapon != null) {
+            equippedWeapon.setItemStrategyEntity(entity);
+            equippedWeapon.setDropStrategyEntity(entity);
+        }
+
+        if(equippedArmor != null) {
+            equippedArmor.setItemStrategyEntity(entity);
+            equippedArmor.setDropStrategyEntity(entity);
+        }
+
+        if(equippedRing != null) {
+            equippedRing.setItemStrategyEntity(entity);
+            equippedRing.setDropStrategyEntity(entity);
+        }
+    }
 }

@@ -2,6 +2,7 @@ package Model.Entity.EntityAttributes;
 
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
+import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
 
 import java.util.ArrayList;
@@ -83,5 +84,12 @@ public class Inventory implements Visitable {
 
     public void addInventory(Inventory inv) {
         inventory.addAll(inv.inventory);
+    }
+
+    public void setStrategies(Entity entity) {
+        for(TakeableItem item: inventory) {
+            item.setDropStrategyEntity(entity);
+            item.setItemStrategyEntity(entity);
+        }
     }
 }

@@ -82,7 +82,7 @@ public class WeaponItem extends TakeableItem{
         weaponEquipStrategy.useStrategy();
     }
 
-    protected void setItemStrategyEntity(Entity entity) {
+    public void setItemStrategyEntity(Entity entity) {
         weaponEquipStrategy.setEntity(entity);
     }
 

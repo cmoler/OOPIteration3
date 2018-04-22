@@ -13,14 +13,12 @@ public class ArmorItem extends TakeableItem {
 
     public ArmorItem(String name, ToggleableCommand command, int defense) {
         super(name, command);
-
         armorEquipStrategy = new ArmorEquipStrategy(this);
         this.defense = defense;
     }
 
     public ArmorItem(String name, ToggleableCommand command) {
         super(name, command);
-
         armorEquipStrategy = new ArmorEquipStrategy(this);
         this.defense = 0;
     }
@@ -30,7 +28,7 @@ public class ArmorItem extends TakeableItem {
         armorEquipStrategy.useStrategy();
     }
 
-    protected void setItemStrategyEntity(Entity entity) {
+    public void setItemStrategyEntity(Entity entity) {
         armorEquipStrategy.setEntity(entity);
     }
 

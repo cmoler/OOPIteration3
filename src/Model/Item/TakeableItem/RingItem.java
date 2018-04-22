@@ -20,7 +20,7 @@ public class RingItem extends TakeableItem {
         ringEquipStrategy.useStrategy();
     }
 
-    protected void setItemStrategyEntity(Entity entity) {
+    public void setItemStrategyEntity(Entity entity) {
         ringEquipStrategy.setEntity(entity);
     }
 
