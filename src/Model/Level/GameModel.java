@@ -213,6 +213,7 @@ public class GameModel implements Visitable {
 
         //AIList.add(test);
 
+        //currentLevel.addInfluenceEffectTo(new Point3D(-2, -1, 3), new RadialInfluenceEffect(new RemoveHealthCommand(100), 5, 5, Orientation.NORTH));
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);
@@ -389,7 +390,7 @@ public class GameModel implements Visitable {
     }
 
     public void advance() {
-        printEntHealth();
+        //printEntHealth();
         processDeadEntities();
         processAIMoves();
         currentLevel.advance();

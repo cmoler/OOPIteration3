@@ -4,6 +4,7 @@ import Model.Command.EntityCommand.NonSettableCommand.DialogCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Utility.BidiMap;
+import View.LevelView.InfluenceEffectView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
@@ -85,18 +86,29 @@ public class MovementHandler {
         List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
         for(Point3D oldPoint : influenceEffectPoints) {
+
             InfluenceEffect influenceEffect = influenceEffectLocations.get(oldPoint); // Get current influence effect
+            if(!influenceEffect.readyToMove()) { continue; }
+            if(!influenceEffect.isStartPoint()) {
+                influenceEffect.clearInfluenceEffectViews();
+                influenceEffectLocations.remove(oldPoint);
+                continue;
+            }
 
             List<Point3D> nextEffectPoints = influenceEffect.nextMove(oldPoint); // Get list of points to move effect to
             influenceEffect.decreaseCommandAmount();
 
-            if (!nextEffectPoints.isEmpty()) {
-                influenceEffectLocations.remove(oldPoint, influenceEffect); // remove all old positions of the influence effect
 
+            //if (!nextEffectPoints.isEmpty()) {
+                //influenceEffectLocations.remove(oldPoint, influenceEffect); // remove all old positions of the influence effect
+                influenceEffect.clearInfluenceEffectViews();
+                InfluenceEffect newInfluenceEffect = influenceEffect.cloneInfluenceEffect();
+                newInfluenceEffect.setIsStartPoint(false);
                 for (Point3D newPoint : nextEffectPoints) {
-                    influenceEffectLocations.put(newPoint, influenceEffect); // put influence effect at its new position
+                    newInfluenceEffect.addInfluenceEffectView(new InfluenceEffectView(newPoint));
+                    influenceEffectLocations.put(newPoint, newInfluenceEffect); // put influence effect at its new position
                 }
-            }
+            //}
         }
     }
 
