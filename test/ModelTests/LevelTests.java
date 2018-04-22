@@ -85,17 +85,22 @@ public class LevelTests {
 
         SettableCommand damageCommand = new RemoveHealthCommand(15);
 
-        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(damageCommand, 5, 5, Orientation.NORTH);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(damageCommand, 5, 0, Orientation.NORTH);
         Entity entity = new Entity();
 
         Entity entity2 = new Entity();
 
         Entity entity3 = new Entity();
 
-        level.addInfluenceEffectTo(new Point3D(-2, 0, 2), influenceEffect);
-        level.addEntityTo(new Point3D(-2, 2, 0), entity);
-        level.addEntityTo(new Point3D(-2, 3, 0), entity2);
-        level.addEntityTo(new Point3D(-2, 4, 0), entity3);
+        Point3D start = new Point3D(-2, 0 ,2);
+        Point3D north1 = Orientation.getAdjacentPoint(start, Orientation.NORTH);
+        Point3D north2 = Orientation.getAdjacentPoint(north1, Orientation.NORTH);
+        Point3D north3 = Orientation.getAdjacentPoint(north2, Orientation.NORTH);
+
+        level.addInfluenceEffectTo(start, influenceEffect);
+        level.addEntityTo(north1, entity);
+        level.addEntityTo(north2, entity2);
+        level.addEntityTo(north3, entity3);
 
         level.advance();
 

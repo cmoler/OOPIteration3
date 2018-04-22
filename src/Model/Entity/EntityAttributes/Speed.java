@@ -4,8 +4,8 @@ public class Speed {
     private long speed;
 
     public Speed() {
-        speed = 0500000000l;
-    } // half a second move speed delay
+        speed = 0500000000l; // half a second move speed delay
+    }
 
     public Speed(long speed) {
         this.speed = speed;
@@ -27,7 +27,7 @@ public class Speed {
         speed += add.getSpeed();
     }
 
-    public void decreaseSpeed(int amount) {
+    public void decreaseSpeed(long amount) {
         if(speed - amount < 0) {
             speed = 0;
         }

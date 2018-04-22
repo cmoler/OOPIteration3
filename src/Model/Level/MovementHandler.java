@@ -86,33 +86,25 @@ public class MovementHandler {
         return !valueFromKey.isDead();
     }
 
-    private void moveInfluenceEffects() { // TODO: notify influence effect observers on position changed?
+    private void moveInfluenceEffects() {
         List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
         for(Point3D oldPoint : influenceEffectPoints) {
 
             InfluenceEffect influenceEffect = influenceEffectLocations.get(oldPoint); // Get current influence effect
-            if(!influenceEffect.readyToMove()) { continue; }
-            if(!influenceEffect.isStartPoint()) {
-                influenceEffect.clearInfluenceEffectViews();
-                influenceEffectLocations.remove(oldPoint);
-                continue;
-            }
 
             List<Point3D> nextEffectPoints = influenceEffect.nextMove(oldPoint); // Get list of points to move effect to
             influenceEffect.decreaseCommandAmount();
 
+            InfluenceEffect newInfluenceEffect = influenceEffect.cloneInfluenceEffect();
 
-            //if (!nextEffectPoints.isEmpty()) {
-                //influenceEffectLocations.remove(oldPoint, influenceEffect); // remove all old positions of the influence effect
-                influenceEffect.clearInfluenceEffectViews();
-                InfluenceEffect newInfluenceEffect = influenceEffect.cloneInfluenceEffect();
-                newInfluenceEffect.setIsStartPoint(false);
-                for (Point3D newPoint : nextEffectPoints) {
-                    newInfluenceEffect.addInfluenceEffectView(new InfluenceEffectView(newPoint));
-                    influenceEffectLocations.put(newPoint, newInfluenceEffect); // put influence effect at its new position
-                }
-            //}
+            for (Point3D newPoint : nextEffectPoints) {
+                influenceEffectLocations.put(newPoint, newInfluenceEffect); // put influence effect at its new position
+            }
+
+            if(influenceEffect.noMovesRemaining()) {
+                influenceEffectLocations.remove(oldPoint);
+            }
         }
     }
 

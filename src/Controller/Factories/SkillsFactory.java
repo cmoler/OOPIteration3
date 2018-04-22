@@ -44,7 +44,7 @@ public class SkillsFactory {
     public Skill getObserveSkill() {
         if(observeSkill == null) {
             ObserveEntityCommand observeEntityCommand = new ObserveEntityCommand(levelMessenger);
-            RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(observeEntityCommand, 5, 1, Orientation.NORTH);
+            RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(observeEntityCommand, 5, 0500000000L, Orientation.NORTH);
 
             observeSkill = new Skill("Observe", radialInfluenceEffect, observeEntityCommand, sendInfluenceEffectCommand, 1, 100);
         }
@@ -55,7 +55,7 @@ public class SkillsFactory {
     public Skill getBindWounds() {
         if(bindWounds == null) {
             AddHealthCommand addHealthCommand = new AddHealthCommand(10);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(addHealthCommand, 0, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(addHealthCommand, 0, 0500000000L, Orientation.NORTH);
 
             bindWounds = new Skill("Bind Wounds", linearInfluenceEffect, addHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -66,7 +66,7 @@ public class SkillsFactory {
     public Skill getBargainSkill() {
         if(bargainSkill == null) {
             BarterCommand bargainCommand = new BarterCommand(levelMessenger);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(bargainCommand, 0, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(bargainCommand, 0, 0500000000L, Orientation.NORTH);
 
             bargainSkill = new Skill("Bargain", linearInfluenceEffect, bargainCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -77,7 +77,7 @@ public class SkillsFactory {
     public Skill getOneHandedSkill() {
         if(oneHandedSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 0500000000L, Orientation.NORTH);
 
             oneHandedSkill = new Skill("One-Handed", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -88,7 +88,7 @@ public class SkillsFactory {
     public Skill getTwoHandedSkill() {
         if(twoHandedSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 2, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 2, 0500000000L, Orientation.NORTH);
 
             twoHandedSkill = new Skill("Two-Handed", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -99,7 +99,7 @@ public class SkillsFactory {
     public Skill getBrawlerSkill() {
         if(brawlerSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 0500000000L, Orientation.NORTH);
 
             brawlerSkill = new Skill("Brawler", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -110,7 +110,7 @@ public class SkillsFactory {
     public Skill getEnchantSkill() {
         if(enchantSkill == null) {
             FreezeEntityCommand freezeEntityCommand = new FreezeEntityCommand(levelMessenger);
-            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(freezeEntityCommand, 4, 1, Orientation.NORTH);
+            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(freezeEntityCommand, 4, 0500000000L, Orientation.NORTH);
 
             enchantSkill = new Skill("Enchant", angularInfluenceEffect, freezeEntityCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -121,7 +121,7 @@ public class SkillsFactory {
     public Skill getBoonSkill() {
         if(boonSkill == null) {
             AddHealthCommand addHealthCommand = new AddHealthCommand(10);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(addHealthCommand, 0, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(addHealthCommand, 0, 0500000000L, Orientation.NORTH);
 
             boonSkill = new Skill("Boon", linearInfluenceEffect, addHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -132,7 +132,7 @@ public class SkillsFactory {
     public Skill getBaneSkill() {
         if(baneSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(removeHealthCommand, 4, 1, Orientation.NORTH);
+            AngularInfluenceEffect angularInfluenceEffect = new AngularInfluenceEffect(removeHealthCommand, 4, 0500000000L, Orientation.NORTH);
 
             baneSkill = new Skill("Bane", angularInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -143,7 +143,7 @@ public class SkillsFactory {
     public Skill getStaffSkill() {
         if(staffSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 0500000000L, Orientation.NORTH);
 
             staffSkill = new Skill("Staff", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -154,7 +154,7 @@ public class SkillsFactory {
     public Skill getSneakSkill() {
         if (sneakSkill == null) {
             ToggleSneaking sneakCommand = new ToggleSneaking(5);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(sneakCommand, 0, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(sneakCommand, 0, 0500000000L, Orientation.NORTH);
 
             sneakSkill = new Skill("Sneak", linearInfluenceEffect, sneakCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -165,7 +165,7 @@ public class SkillsFactory {
     public Skill DisarmTrapSkill() {
         if(disarmAndRemoveSkill == null) {
             DisarmTrapCommand disarmTrapCommand = new DisarmTrapCommand(levelMessenger);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(disarmTrapCommand, 0, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(disarmTrapCommand, 0, 0500000000L, Orientation.NORTH);
 
             disarmAndRemoveSkill = new Skill("Detect and Remove Trap", linearInfluenceEffect, disarmTrapCommand, sendInfluenceEffectCommand, 1, 1);
         }
@@ -176,7 +176,7 @@ public class SkillsFactory {
     public Skill getPickpocket() {
         if(pickpocketSkill == null) {
             PickPocketCommand pickPocketCommand = new PickPocketCommand(levelMessenger);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 0, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 0, 0500000000L, Orientation.NORTH);
 
             pickpocketSkill = new Skill("Pickpocket", linearInfluenceEffect, new PickPocketCommand(levelMessenger), sendInfluenceEffectCommand, 1, 1);
         }
@@ -187,7 +187,7 @@ public class SkillsFactory {
     public Skill getRangeSkill() {
         if(rangeSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 7, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 7, 0500000000L, Orientation.NORTH);
 
             rangeSkill = new Skill("Range", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
         }

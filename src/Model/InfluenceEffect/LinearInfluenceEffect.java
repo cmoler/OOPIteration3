@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class LinearInfluenceEffect extends InfluenceEffect {
 
-
     public LinearInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation) {
         super(command, range, speed, orientation);
     }
@@ -19,7 +18,6 @@ public class LinearInfluenceEffect extends InfluenceEffect {
     }
 
     //Defines logic for moving in a straight line in the direction of its orientation
-    //TODO: restrict movement based on movement speed
     public ArrayList<Point3D> nextMove(Point3D point) {
         //Out of moves, return empty list
         if(noMovesRemaining()) {
@@ -27,32 +25,21 @@ public class LinearInfluenceEffect extends InfluenceEffect {
         }
 
         ArrayList<Point3D> newPos = new ArrayList<>();
-        System.out.println("Moves remaining: " + getMovesRemaining());
-        if(rangeIsZero()) {
+
+        if(rangeIsZero() || !canMove()) {
             newPos.add(point);
             return newPos;
         }
 
         Point3D newPoint = point;
-        System.out.println("Point is: " + newPoint);
         for(int i = 0; i < getRange()-getMovesRemaining()+1; i++) {
-
             newPoint = Orientation.getAdjacentPoint(newPoint, getOrientation());
-            System.out.println("Point is: " + newPoint);
         }
-        newPos.add(newPoint);
-        decrementMovesRemaining();
-        return newPos;
-
-        /*
-        Point3D newPoint = Orientation.getAdjacentPoint(point, getOrientation());
 
         newPos.add(newPoint);
-
         decrementMovesRemaining();
 
         return newPos;
-        */
     }
 
     public InfluenceEffect cloneInfluenceEffect() {

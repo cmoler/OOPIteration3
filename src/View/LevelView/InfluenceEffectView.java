@@ -14,7 +14,6 @@ public class InfluenceEffectView extends LevelViewElement { // TODO: implement
         super(location, 2);
     //    this.effect = effect; TODO: needed?
 
-
         String workingDir = System.getProperty("user.dir");
 
         File file = new File(workingDir + "/src/View/Assets/star.png");
@@ -31,6 +30,4 @@ public class InfluenceEffectView extends LevelViewElement { // TODO: implement
     public void notifyViewElementDeath() {
 
     }
-
-
 }

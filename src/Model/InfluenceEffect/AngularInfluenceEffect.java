@@ -22,7 +22,7 @@ public class AngularInfluenceEffect extends InfluenceEffect {
 
         ArrayList<Point3D> newPoints = new ArrayList<>();
 
-        if(rangeIsZero()) {
+        if(rangeIsZero() || !canMove()) {
             newPoints.add(point);
             return newPoints;
         }

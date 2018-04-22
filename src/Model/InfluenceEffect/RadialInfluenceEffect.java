@@ -17,7 +17,6 @@ public class RadialInfluenceEffect extends InfluenceEffect{
     }
 
     //Defines logic for moving in every direction
-    //TODO: restrict movement based on movement speed
     public ArrayList<Point3D> nextMove(Point3D point) {
 
 
@@ -26,7 +25,7 @@ public class RadialInfluenceEffect extends InfluenceEffect{
 
         ArrayList<Point3D> newPoints = new ArrayList<>();
 
-        if(rangeIsZero()) {
+        if(rangeIsZero() || !canMove()) {
             newPoints.add(point);
             return newPoints;
         }

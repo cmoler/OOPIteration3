@@ -178,13 +178,10 @@ public class Level {
     }
 
     public void addMountTo(Point3D point, Mount mount) {
-        System.out.println(point);
         mountLocations.put(point, mount);
     }
 
     public void addInfluenceEffectTo(Point3D point, InfluenceEffect influenceEffect) {
-        System.out.println("Adding influence effect");
-        influenceEffect.addInfluenceEffectView(new InfluenceEffectView(point));
         influenceEffectLocations.put(point, influenceEffect);
     }
 
@@ -223,8 +220,6 @@ public class Level {
     public void setTilesSeenByPlayer(List<TerrainView> tilesSeenByPlayer) {
         this.tilesSeenByPlayer = tilesSeenByPlayer;
     }
-
-
 
     public boolean hasItem(Item item) {
         return itemLocations.containsValue(item);
@@ -321,8 +316,6 @@ public class Level {
 
         while(!pointsToProcess.isEmpty()) {
             Point3D point = ((LinkedList<Point3D>) pointsToProcess).getFirst();
-
-            System.out.println("PROCESSING "+point.toString());
 
             for(Orientation orientation : Orientation.values()) {
                 if(canPlaceEntityAtPoint(Orientation.getAdjacentPoint(point, orientation), entityLocations.getValueFromKey(destinationPoint))) {

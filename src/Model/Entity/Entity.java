@@ -234,7 +234,7 @@ public class Entity {
         noiseLevel.decreaseNoise(amt);
     }
 
-    public void increaseSpeed(int amt) {
+    public void increaseSpeed(long amt) {
         speed.increaseSpeed(amt);
     }
 
@@ -258,7 +258,7 @@ public class Entity {
         targetingList.remove(ent);
     }
 
-    public void decreaseSpeed(int amt){
+    public void decreaseSpeed(long amt){
         speed.decreaseSpeed(amt);
     }
 

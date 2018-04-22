@@ -8,24 +8,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Sprites {
-    private static Sprites ourInstance = new Sprites();
+    private static Sprites ourInstance;
     private String workingDir;
 
     private Map<Terrain, Image> terrainSprites;
     private Image fogSprite;
     private Image blackHex;
 
+    private Sprites() { }
+
     public static Sprites getInstance() {
+        if(ourInstance == null) {
+            ourInstance = new Sprites();
+        }
+
         return ourInstance;
     }
 
-    private Sprites() {
+    public void initSprites() {
         workingDir = System.getProperty("user.dir");
-
-        initSprites();
-    }
-
-    private void initSprites() {
         terrainSprites = new HashMap<>();
         terrainSprites.put(Terrain.GRASS, getImage(workingDir + "/src/View/Assets/hexTilesGrass1.png"));
         terrainSprites.put(Terrain.WATER, getImage(workingDir + "/src/View/Assets/water.png"));

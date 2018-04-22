@@ -32,12 +32,15 @@ public class Renderer {
         menuView = new MenuView();
 
         terrainObservers = new ArrayList<>();
+
+        Sprites.getInstance().initSprites();
     }
 
     public void render(GraphicsContext gc, Point3D playerPos, Point2D scrollOffset) {
         if(menuView.inMenu()) {
             menuView.render(gc);
         } else {
+            levelView.refreshInfluenceEffects();
             levelView.render(gc, playerPos, scrollOffset);
         }
 
@@ -56,7 +59,6 @@ public class Renderer {
     public void setPlayerHUD(HUDStatsView hud) {
         levelView.setPlayerHUD(hud);
     }
-
 
     public void loadModelSprites(Level level) {
 
