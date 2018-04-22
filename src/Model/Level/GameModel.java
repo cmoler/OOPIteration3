@@ -270,6 +270,14 @@ public class GameModel implements Visitable {
         ringItem.notifyObserver(new Point3D(4, -4, 0));
         currentLevel.addItemTo(new Point3D(4, -4, 0), ringItem);
 
+        WeaponItem rangedWeapon = itemFactory.getRangedWeapon();
+        rangedWeapon.notifyObserver(new Point3D(3, -2, -1));
+        currentLevel.addItemTo(new Point3D(3, -2, -1), rangedWeapon);
+
+        Trap trap = new Trap(new RemoveHealthCommand(50), 1);
+
+        currentLevel.addTrapTo(new Point3D(4, 0, -4), trap);
+        
         player.addFriendly(pet);
         aiMap.put(currentLevel,AIList);
 

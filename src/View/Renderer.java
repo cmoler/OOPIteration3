@@ -150,6 +150,7 @@ public class Renderer {
             Trap trap = trapMap.get(point);
 
             TrapView observer = new TrapView(trap, point);
+            trap.setObserver(observer);
 
             observers.add(observer);
         }
