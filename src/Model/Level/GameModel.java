@@ -429,6 +429,10 @@ public class GameModel implements Visitable {
         }
     }
 
+    public SkillsFactory getSkillsFactory() {
+        return skillsFactory;
+    }
+
     public boolean playerIsDead() {
         return player.isDead();
     }
