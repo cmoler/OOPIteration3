@@ -55,6 +55,8 @@ public class Entity {
     private List<Entity> targetingList;
     private List<Entity> friendlyList;
 
+    private String name;
+
     private long nextMoveTime = 0;
 
     public Entity(LevelViewElement observer, ItemHotBar hotBar, List<Skill> weaponSkills,
@@ -708,5 +710,9 @@ public class Entity {
 
     public void useItem() {
 
+    }
+
+    public String getName() {
+        return name;
     }
 }
