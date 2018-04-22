@@ -209,7 +209,7 @@ public class GameModel implements Visitable {
         pet.addItemToInventory(claw);
         pet.equipWeapon(claw);
         pet.setSightRadius(new SightRadius(5));
-        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+        currentLevel.addEntityTo(new Point3D(0, 4, -4), pet);
         AIController test = new AIController();
 
 
