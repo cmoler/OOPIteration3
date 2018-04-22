@@ -201,6 +201,7 @@ public class GameModel implements Visitable {
         entityFactory.buildEntitySprite(pet);
         pet.setMoveable(true);
         pet.setNoise(5);
+        pet.setName("McNugget");
         pet.setSpeed(1000000000l);
         Skill skill1 = new Skill();
         enemy.addWeaponSkills(skill1);

@@ -29,8 +29,6 @@ public class PetMenuView extends InGameMenuView {
 
     @Override
     protected void renderSubMenu(GraphicsContext gc) {
-
-
         selectedX = menuModel.getSelectedHorizontal();
         selectedY = menuModel.getSelectedVertical();
 
@@ -50,6 +48,9 @@ public class PetMenuView extends InGameMenuView {
 
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(10.0f);
+
+        gc.setFill(Color.LIMEGREEN);
+        gc.fillRect(2*Commons.SCREEN_WIDTH / 7, 2 * Commons.SCREEN_HEIGHT / 7, 2 * Commons.SCREEN_WIDTH / 5, 4 * Commons.SCREEN_HEIGHT / 7);
 
         renderPetSprite(gc);
         renderPetName(gc);
@@ -72,8 +73,6 @@ public class PetMenuView extends InGameMenuView {
         }
 
         gc.drawImage(petSprite, 600, 100, 100, 100);
-
-
     }
 
     private void renderPetName(GraphicsContext gc) {
@@ -86,7 +85,7 @@ public class PetMenuView extends InGameMenuView {
         gc.setFill(Color.WHITESMOKE);
 
         gc.fillText("-", startX + width / 7, startY + 3*height/5);
-        //gc.fillText(pets.get(selectedPet).getName(), startX+width / 2, startY +3*height/5);
+        gc.fillText(pets.get(selectedPet).getName(), startX+width / 2, startY +3*height/5);
         gc.fillText("+", startX + 2 * width + 3 * width / 7, startY +3*height/5);
 
         gc.strokeRect(startX, startY, width / 3, height);
@@ -94,7 +93,12 @@ public class PetMenuView extends InGameMenuView {
         gc.strokeRect(startX + 7 * width / 3, startY, width / 3, height);
 
         if(selectedY == 0){
-
+            if(selectedX == 1){
+                gc.drawImage(selected, startX, startY, width/3, height);
+            }
+            if(selectedX == 2){
+                gc.drawImage(selected, startX + 7 * width / 3, startY, width / 3, height);
+            }
         }
     }
 

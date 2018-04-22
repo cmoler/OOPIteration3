@@ -717,8 +717,9 @@ public class Entity {
         this.traversalStrength = traversalStrength;
     }
 
-
-
+    public void setName(String name){
+        this.name = name;
+    }
 
     public String getName() {
         return name;
