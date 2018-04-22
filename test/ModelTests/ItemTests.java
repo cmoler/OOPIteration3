@@ -11,9 +11,7 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.Item.InteractiveItem;
 import Model.Item.OneShotItem;
-import Model.Item.TakeableItem.ArmorItem;
-import Model.Item.TakeableItem.RingItem;
-import Model.Item.TakeableItem.WeaponItem;
+import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
@@ -64,7 +62,7 @@ public class ItemTests {
         Assert.assertEquals(entity1.getCurrentHealth(), 100, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertEquals(entity1.getCurrentHealth(), 80, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
@@ -95,19 +93,46 @@ public class ItemTests {
         Assert.assertEquals(entity1.getCurrentHealth(), 100, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertEquals(entity1.getCurrentHealth(), 80, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 
         Assert.assertTrue(level.hasItem(interactiveItem));
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertEquals(entity1.getCurrentHealth(), 60, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 
         Assert.assertTrue(level.hasItem(interactiveItem));
+    }
+
+    @Test
+    public void testItemPickup() {
+        Level level = new Level();
+
+        Command damageCommand = new RemoveHealthCommand(20);
+
+        TakeableItem item = new ConsumableItem("oneshot", damageCommand);
+        item.setCurrentLevelMessenger(new LevelMessenger(new GameModelMessenger(messenger, new GameModel(messenger)), level));
+
+        Assert.assertFalse(level.hasItem(item));
+
+        Entity entity1 = new Entity();
+
+        level.addEntityTo(new Point3D(0,0,0), entity1);
+
+        level.addItemnTo(new Point3D(0, 0,0), item);
+
+        Assert.assertTrue(level.hasItem(item));
+        Assert.assertFalse(entity1.hasItemInInventory(item));
+
+        level.advance();
+
+        Assert.assertFalse(level.hasItem(item));
+        Assert.assertTrue(entity1.hasItemInInventory(item));
+
     }
 
     @Test
@@ -128,7 +153,7 @@ public class ItemTests {
 
         Assert.assertFalse(entity.hasItemInInventory(weapon));
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(entity.hasItemInInventory(weapon));
 
@@ -192,7 +217,7 @@ public class ItemTests {
 
         Assert.assertFalse(entity.hasItemInInventory(armor));
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(entity.hasItemInInventory(armor));
 
@@ -256,7 +281,7 @@ public class ItemTests {
 
         Assert.assertFalse(entity.hasItemInInventory(ring));
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(entity.hasItemInInventory(ring));
 

@@ -96,8 +96,24 @@ public class Level {
         return decalLocations;
     }
 
-    public void processInteractions() {
+    public void advance() {
+        processMoves();
+        processInteractions();
+        regenEntitiesMana();
+    }
+
+    private void processMoves() {
+        movementHandler.processMoves();
+    }
+
+    private void processInteractions() {
         interactionHandler.processInteractions();
+    }
+
+    private void regenEntitiesMana() {
+        for(Entity entity : entityLocations.getValueList()) {
+            entity.regenerateMana();
+        }
     }
 
     public void addItemnTo(Point3D point, Item item) {
@@ -167,6 +183,8 @@ public class Level {
     }
 
     public void addInfluenceEffectTo(Point3D point, InfluenceEffect influenceEffect) {
+        System.out.println("Adding influence effect");
+        influenceEffect.addInfluenceEffectView(new InfluenceEffectView(point));
         influenceEffectLocations.put(point, influenceEffect);
     }
 
@@ -206,16 +224,10 @@ public class Level {
         this.tilesSeenByPlayer = tilesSeenByPlayer;
     }
 
-    public Map<Point3D, InfluenceEffect> getInfluencesMap() {
-        return influenceEffectLocations;
-    }
+
 
     public boolean hasItem(Item item) {
         return itemLocations.containsValue(item);
-    }
-
-    public void processMoves() {
-        movementHandler.processMoves();
     }
 
     public void disarmTrapFromEntity(Entity entity, int disarmStrength) {
@@ -271,19 +283,6 @@ public class Level {
         }
     }
 
-    public void updateTerrainFog(Point3D playerPos, int playerViewDistance) {
-        HexMathHelper hexMathHelper = new HexMathHelper();
-        if(tilesSeenByPlayer == null) { return; }
-        /*
-        for(TerrainView o: observers) {
-            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {
-
-                o.setShrouded(false);
-            } else {
-                o.setShrouded(true);
-            }
-        }*/
-    }
 
     public void updateRenderLocations(Point3D playerPos, int playerViewDistance) {
         HexMathHelper hexMathHelper = new HexMathHelper();
@@ -353,8 +352,20 @@ public class Level {
     }
 
     public void removeMount(Mount mount) {
-        if(mountLocations.containsValue(mount)) {
+        if (mountLocations.containsValue(mount)) {
             mountLocations.values().remove(mount);
         }
+    }
+
+    public ArrayList<Entity> clearDeadEntities(Entity player) {
+        ArrayList<Entity> deadpool = new ArrayList<>();
+        for(Entity ent: entityLocations.getValueList()){
+            if (ent.isDead() && !ent.equals(player)){
+                ent.notifyUponDeath();
+                ent.setMoveable(false);
+                deadpool.add(ent);
+            }
+        }
+        return deadpool;
     }
 }

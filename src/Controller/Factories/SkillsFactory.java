@@ -46,7 +46,7 @@ public class SkillsFactory {
             ObserveEntityCommand observeEntityCommand = new ObserveEntityCommand(levelMessenger);
             RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(observeEntityCommand, 5, 1, Orientation.NORTH);
 
-            observeSkill = new Skill("Observe", radialInfluenceEffect, observeEntityCommand, sendInfluenceEffectCommand, 1, 1);
+            observeSkill = new Skill("Observe", radialInfluenceEffect, observeEntityCommand, sendInfluenceEffectCommand, 1, 100);
         }
 
         return observeSkill;
@@ -176,7 +176,7 @@ public class SkillsFactory {
     public Skill getPickpocket() {
         if(pickpocketSkill == null) {
             PickPocketCommand pickPocketCommand = new PickPocketCommand(levelMessenger);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 1, 1, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 0, 1, Orientation.NORTH);
 
             pickpocketSkill = new Skill("Pickpocket", linearInfluenceEffect, new PickPocketCommand(levelMessenger), sendInfluenceEffectCommand, 1, 1);
         }

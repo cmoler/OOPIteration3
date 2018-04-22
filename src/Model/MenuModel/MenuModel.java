@@ -10,6 +10,10 @@ public class MenuModel {
         this.currentState = new MainMenuState(this, gameLoop);
     }
 
+    public void setToMainMenu(GameLoop gameLoop){
+        currentState = new MainMenuState(this, gameLoop);
+    }
+
     public void setActiveState(MenuState menuState){
         this.currentState = menuState;
     }

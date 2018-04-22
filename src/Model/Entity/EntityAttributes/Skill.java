@@ -35,21 +35,25 @@ public class Skill {
     }
 
     public void fire(Entity callingEntity) {
-        influenceEffect.setOrientation(callingEntity.getOrientation());
+        if(callingEntity.getManaPoints() > useCost) {
+            callingEntity.decreaseMana(useCost);
 
-        // for each skill level, get behaviors current value, add 10 to it
-        int skillLevel = callingEntity.getSkillLevel(this);
+            influenceEffect.setOrientation(callingEntity.getOrientation());
 
-        int behaviorAmount = behavior.getAmount();
-        behaviorAmount = behaviorAmount + skillLevel * 10;
+            // for each skill level, get behaviors current value, add 10 to it
+            int skillLevel = callingEntity.getSkillLevel(this);
 
-        behavior.setAmount(behaviorAmount);
+            int behaviorAmount = behavior.getAmount();
+            behaviorAmount = behaviorAmount + skillLevel * 10;
 
-        InfluenceEffect newInstance = influenceEffect.cloneInfluenceEffect();
-        newInstance.setCommand(behavior);
+            behavior.setAmount(behaviorAmount);
 
-        sendInfluenceEffectCommand.setInfluenceEffect(newInstance);
-        sendInfluenceEffectCommand.execute(callingEntity);
+            InfluenceEffect newInstance = influenceEffect.cloneInfluenceEffect();
+            newInstance.setCommand(behavior);
+
+            sendInfluenceEffectCommand.setInfluenceEffect(newInstance);
+            sendInfluenceEffectCommand.execute(callingEntity);
+        }
     }
 
     public void setInfluence(InfluenceEffect influence) {
@@ -80,8 +84,8 @@ public class Skill {
         return sendInfluenceEffectCommand;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSendInfluenceEffectCommand(SendInfluenceEffectCommand sendInfluenceEffectCommand) {
+        this.sendInfluenceEffectCommand = sendInfluenceEffectCommand;
     }
 
     public String getName(){

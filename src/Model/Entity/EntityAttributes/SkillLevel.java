@@ -25,6 +25,16 @@ public class SkillLevel {
         }
     }
 
+    public void decreaseSkillLevel() {
+        if(skillLevel - 1 < 0) {
+            skillLevel = 0;
+        }
+
+        else {
+            skillLevel--;
+        }
+    }
+
     public int getSkillLevel() {
         return skillLevel;
     }
@@ -36,4 +46,9 @@ public class SkillLevel {
             this.skillLevel = maxSkillLevel;
         }
     }
+
+    public boolean isMaxLevel(){
+        return skillLevel >= maxSkillLevel;
+    }
+    
 }

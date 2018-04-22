@@ -5,7 +5,7 @@ import Controller.GameLoop;
 import Controller.ModelKeyAction.*;
 import Model.Entity.Entity;
 import Model.MenuModel.MenuModel;
-import Model.MenuModel.TradingMenu;
+import Model.MenuModel.BarterMenu;
 
 import java.util.ArrayList;
 
@@ -19,20 +19,6 @@ public class ControllerSetFactory {
         this.controller = controller;
         this.gameLoop = gameLoop;
         keyBindingParser = new KeyBindingParser();
-    }
-
-    public void createTradeSet(MenuModel menuModel, Entity player, Entity npc) {
-        ArrayList<ModelKeyAction> newKeySet = new ArrayList<>();
-
-        menuModel.setActiveState(new TradingMenu(menuModel, gameLoop, player, npc));
-
-        newKeySet.add(new SelectKeyAction(keyBindingParser.parseMenuKey("select"), menuModel));
-        newKeySet.add(new ScrollLeftKeyAction(keyBindingParser.parseMenuKey("scrollLeft"), menuModel));
-        newKeySet.add(new ScrollRightKeyAction(keyBindingParser.parseMenuKey("scrollRight"), menuModel));
-        newKeySet.add(new ScrollUpKeyAction(keyBindingParser.parseMenuKey("scrollUp"), menuModel));
-        newKeySet.add(new ScrollDownKeyAction(keyBindingParser.parseMenuKey("scrollDown"), menuModel));
-
-        controller.setKeyActionSet(newKeySet);
     }
 
     public void createInGameMenuSet(MenuModel menuModel){
@@ -71,6 +57,7 @@ public class ControllerSetFactory {
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
         newKeySet.add(new DismountKeyAction(keyBindingParser.parsePlayerKey("dismount"), player));
 
+        newKeySet.add(new LockMovementKeyAction(keyBindingParser.parsePlayerKey("lockMovement"), player));
         newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player, gameLoop));
         newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player, gameLoop));
         newKeySet.add(new MoveSEKeyAction(keyBindingParser.parsePlayerKey("moveSE"), player, gameLoop));

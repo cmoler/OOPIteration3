@@ -12,10 +12,12 @@ import java.util.Map;
 public class LevelUpMenu extends InGameMenuState {
 
     private HashMap<Skill, SkillLevel> playersSkills;
+    private int pointsAvailable;
 
     public LevelUpMenu(MenuModel menuModel, Entity player, GameLoop gameLoop) {
         super(menuModel, player, gameLoop);
         playersSkills = (HashMap<Skill, SkillLevel>) player.getSkillLevelsMap().clone();
+        this.pointsAvailable = player.getSkillPoints();
     }
 
     @Override
@@ -42,6 +44,10 @@ public class LevelUpMenu extends InGameMenuState {
         return playersSkills;
     }
 
+    public int getPointsAvailable(){
+        return pointsAvailable;
+    }
+
     @Override
     public void select() {
         if(selectedLeftRight == 0){
@@ -64,10 +70,23 @@ public class LevelUpMenu extends InGameMenuState {
         int i = 0;
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            if(i == selectedUpDown) {
-                Skill skill = (Skill) pair.getKey();
-                SkillLevel level = (SkillLevel) pair.getValue();
-                playersSkills.put(skill, new SkillLevel(level.getSkillLevel() + 1));
+            if(i == selectedUpDown - 1) {
+                if (selectedLeftRight == 1) {
+                    Skill skill = (Skill) pair.getKey();
+                    SkillLevel level = (SkillLevel) pair.getValue();
+                    SkillLevel newLevel = new SkillLevel(level.getSkillLevel());
+                    if(newLevel.getSkillLevel() > 0) pointsAvailable++;
+                    newLevel.decreaseSkillLevel();
+                    playersSkills.put(skill, newLevel);
+                }
+                else if(selectedLeftRight == 2 && pointsAvailable > 0){
+                    Skill skill = (Skill) pair.getKey();
+                    SkillLevel level = (SkillLevel) pair.getValue();
+                    SkillLevel newLevel = new SkillLevel(level.getSkillLevel());
+                    if(!newLevel.isMaxLevel()) pointsAvailable--;
+                    newLevel.increaseSkillLevel();
+                    playersSkills.put(skill, newLevel);
+                }
                 break;
             }
             i++;
@@ -75,7 +94,10 @@ public class LevelUpMenu extends InGameMenuState {
     }
 
     private void confirmSelection(){
-        if(selectedLeftRight == 1) player.setSkillLevels(playersSkills);
+        if(selectedLeftRight == 1) {
+            player.setSkillLevels(playersSkills);
+            player.setSkillPointsAvaiable(pointsAvailable);
+        }
     }
 
 }

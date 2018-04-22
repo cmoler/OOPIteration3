@@ -4,6 +4,7 @@ import Model.Entity.Entity;
 import Model.Utility.BidiMap;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
+import Model.Utility.HexDistanceCalculator;
 import Model.Utility.RandomVelocityGenerator;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -19,13 +20,13 @@ public class HostileAI extends AIState{
     private double chaseRadius;
     private Boolean originalState;
 
-    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, List<Entity> targetList) {
+    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
         super(ent);
         this.entityMap = entityMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         origin = getEntityPoint(super.getEntity(), entityMap);
         chaseRadius = getEntity().getSight();
-        this.targetList = targetList;
+        this.targetList = ent.getTargetingList();
         originalState = true;
     }
 
@@ -34,7 +35,10 @@ public class HostileAI extends AIState{
         Point3D position = getEntityPoint(super.getEntity(), entityMap);
         Point3D goal = getTarget(position);
 
-        if(isReachable(position,goal,super.getEntity())){
+        if(isInAttackRange(position,goal)){
+            attack(position,goal);
+        }
+        else if(isReachable(position,goal,super.getEntity())){
             moveToGoal(position, goal);
             if (isInOriginalState()) {
                 setOriginalState();
@@ -49,6 +53,16 @@ public class HostileAI extends AIState{
             }
         }
     }
+
+    private void attack(Point3D position, Point3D goal) {
+        super.getEntity().setOrientation(PathingAlgorithm.calculateOrientation(position,goal));
+        super.getEntity().attack();
+    }
+
+    private boolean isInAttackRange(Point3D position, Point3D goal) {
+        return HexDistanceCalculator.getHexDistance(position,goal) <= super.getEntity().getRange();
+    }
+
 
     private void performDefaultAction() {
         if (hasPatrolSet()){
@@ -113,7 +127,7 @@ public class HostileAI extends AIState{
     }
 
     private Point3D getEntityPoint(Entity entity, BidiMap<Point3D, Entity> entityLocations) {
-       return entityLocations.getKeyFromValue(entity);
+        return entityLocations.getKeyFromValue(entity);
     }
 
     public PatrolPath getPatrolPath() {
@@ -130,7 +144,7 @@ public class HostileAI extends AIState{
         double minDistance = Double.MAX_VALUE;
         double distance;
         for (Point3D point : targetPoints) {
-            distance = origin.distance(point);
+            distance = HexDistanceCalculator.getHexDistance(origin,point);
             if (distance < minDistance) {
                 minDistance = distance;
                 minLocation = point;
@@ -153,5 +167,10 @@ public class HostileAI extends AIState{
 
     public void removeTarget(Entity ent){
         targetList.remove(ent);
+    }
+
+    @Override
+    public boolean wantToTalk(){
+        return false;
     }
 }

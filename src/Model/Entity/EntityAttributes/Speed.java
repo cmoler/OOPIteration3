@@ -1,25 +1,25 @@
 package Model.Entity.EntityAttributes;
 
 public class Speed {
-    private int speed;
+    private long speed;
 
     public Speed() {
-        speed = 1;
-    }
+        speed = 0500000000l;
+    } // half a second move speed delay
 
-    public Speed(int speed) {
+    public Speed(long speed) {
         this.speed = speed;
     }
 
-    public int getSpeed() {
+    public long getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(long speed) {
         this.speed = speed;
     }
 
-    public void increaseSpeed(int amount) {
+    public void increaseSpeed(long amount) {
         speed += amount;
     }
 
@@ -37,7 +37,7 @@ public class Speed {
     }
 
     public void decreaseSpeed(Speed dec) {
-        int amount = dec.getSpeed();
+        long amount = dec.getSpeed();
         if(speed - amount < 0) {
             speed = 0;
         }

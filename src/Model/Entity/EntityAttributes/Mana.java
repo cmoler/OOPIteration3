@@ -4,23 +4,24 @@ public class Mana {
 
     private int manaPoints;
     private int maxMana;
+    private int regenRate;
 
     public Mana() {
-        manaPoints = 50;
-        maxMana = 100;
+        manaPoints = 500;
+        maxMana = 500;
+        regenRate = 1;
     }
 
-    public Mana(int manaPoints, int maxMana) {
+    public Mana(int manaPoints, int maxMana, int regenRate) {
         this.manaPoints = manaPoints;
         this.maxMana = maxMana;
+        this.regenRate = regenRate;
     }
 
     public void increaseMana(int amount) {
         if(manaPoints + amount > maxMana) {
             manaPoints = maxMana;
-        }
-
-        else {
+        } else {
             manaPoints += amount;
         }
     }
@@ -28,9 +29,7 @@ public class Mana {
     public void decreaseMana(int amount) {
         if(manaPoints - amount < 0) {
             manaPoints = 0;
-        }
-
-        else {
+        } else {
             manaPoints -= amount;
         }
     }
@@ -41,5 +40,13 @@ public class Mana {
 
     public int getMaxMana() {
         return maxMana;
+    }
+
+    public void refill() {
+        manaPoints = maxMana;
+    }
+
+    public void regenerate() {
+        increaseMana(regenRate);
     }
 }

@@ -40,7 +40,7 @@ public class Mount implements Visitable {
     }
 
     public String speedToString() {
-        return Integer.toString(movementSpeed.getSpeed());
+        return Long.toString(movementSpeed.getSpeed());
     }
 
     public void setMovementSpeed(Speed movementSpeed) {

@@ -18,10 +18,10 @@ public class WeaponItem extends TakeableItem{
     private int useCost;
     private int range; // I think we need this?
 
-    public WeaponItem(String name, SettableCommand command, WeaponEquipStrategy weaponEquipStrategy, Skill hostSKill,
+    public WeaponItem(String name, SettableCommand command, Skill hostSKill,
                       InfluenceEffect influenceEffect, int attackDamage, int attackSpeed, int accuracy, int useCost, int range) {
         super(name, command);
-        this.weaponEquipStrategy = weaponEquipStrategy;
+        this.weaponEquipStrategy = new WeaponEquipStrategy(this);
         this.hostSKill = hostSKill;
         this.influenceEffect = influenceEffect;
         this.attackDamage = attackDamage;
@@ -47,13 +47,17 @@ public class WeaponItem extends TakeableItem{
     }
 
     public void attack(Entity entity) {
-        int skillLevel = entity.getSkillLevel(hostSKill);
+        if(entity.getManaPoints() > useCost) {
+            entity.decreaseMana(useCost);
 
-        if(skillLevel != 0) {
-            // TODO: figure out how to get skills to modify stats for stuff like attacks
-            hostSKill.setInfluence(influenceEffect);
-            hostSKill.setBehavior((SettableCommand) getCommand());  // TODO: is this POOP? even if it is casting, I would say that it does not violate OCP (as we know that weaponItems will always take in a SettableCommand)
-            hostSKill.fire(entity);
+            int skillLevel = entity.getSkillLevel(hostSKill);
+
+            if (skillLevel != 0) {
+                // TODO: figure out how to get skills to modify stats for stuff like attacks
+                hostSKill.setInfluence(influenceEffect);
+                hostSKill.setBehavior((SettableCommand) getCommand());  // TODO: is this POOP? even if it is casting, I would say that it does not violate OCP (as we know that weaponItems will always take in a SettableCommand)
+                hostSKill.fire(entity);
+            }
         }
     }
 

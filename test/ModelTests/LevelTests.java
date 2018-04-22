@@ -60,7 +60,7 @@ public class LevelTests {
         assertEquals(100, entity1.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
 
-        level.processInteractions();
+        level.advance();
 
         assertEquals(100, entity1.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
@@ -68,12 +68,12 @@ public class LevelTests {
         level.addAreaEffectTo(new Point3D(0,0 ,0), infiniteAreaEffect);
         level.addAreaEffectTo(new Point3D(1,0 ,0), oneshotAreaEffect);
 
-        level.processInteractions();
+        level.advance();
 
         assertEquals(85, entity1.getCurrentHealth(), 0);
         assertEquals(85, entity2.getCurrentHealth(), 0);
 
-        level.processInteractions();
+        level.advance();
 
         assertEquals(70, entity1.getCurrentHealth(), 0);
         assertEquals(85, entity2.getCurrentHealth(), 0);
@@ -97,21 +97,16 @@ public class LevelTests {
         level.addEntityTo(new Point3D(-2, 3, 0), entity2);
         level.addEntityTo(new Point3D(-2, 4, 0), entity3);
 
-        level.processMoves();
-        level.processInteractions();
+        level.advance();
 
         assertEquals(100, entity.getCurrentHealth(), 0);
 
-        level.processMoves();
-        level.processInteractions();
+        level.advance();
 
         assertEquals(95, entity.getCurrentHealth(), 0);
 
-        level.processMoves();
-        level.processInteractions();
-
-        level.processMoves();
-        level.processInteractions();
+        level.advance();
+        level.advance();
 
         assertEquals(95, entity.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
@@ -206,19 +201,19 @@ public class LevelTests {
         assertEquals(100, entity1.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
 
-        level.processInteractions();
+        level.advance();
 
         assertEquals(100, entity1.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
 
         level.addTrapTo(new Point3D(0,0 ,0), trap);
 
-        level.processInteractions();
+        level.advance();
 
         assertEquals(85, entity1.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
 
-        level.processInteractions();
+        level.advance();
 
         assertEquals(85, entity1.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
@@ -249,10 +244,10 @@ public class LevelTests {
         InfluenceEffect linear2 = new LinearInfluenceEffect(new RemoveHealthCommand(2130), 5,1, Orientation.SOUTHEAST);
 
         Skill swordSkill = new Skill("Sword Skill", null, new AddHealthCommand(10), new SendInfluenceEffectCommand(levelMessenger), 1, 0);
-        WeaponItem sword = new WeaponItem("Sword", damageCommand, null, swordSkill,
+        WeaponItem sword = new WeaponItem("Sword", damageCommand, swordSkill,
                 linear1, 10, 10, 10, 10, 5);
 
-        WeaponItem sword2 = new WeaponItem("Sword", damageCommand2, null, swordSkill,
+        WeaponItem sword2 = new WeaponItem("Sword", damageCommand2, swordSkill,
                 linear2, 10,10, 10, 10, 5);
 
         level.addEntityTo(new Point3D(0,0 ,0), entity);
@@ -267,8 +262,7 @@ public class LevelTests {
         entity.setOrientation(Orientation.NORTH);
         entity.attack();
 
-        level.processMoves();
-        level.processInteractions();
+        level.advance();
 
         Assert.assertEquals(5, linear1.getMovesRemaining(), 0);
 
@@ -278,8 +272,7 @@ public class LevelTests {
         entity.equipWeapon(sword2);
         entity.attack();
 
-        level.processMoves();
-        level.processInteractions();
+        level.advance();
 
         Assert.assertEquals(5, linear1.getMovesRemaining(), 0);
         Assert.assertEquals(5, linear2.getMovesRemaining(), 0);

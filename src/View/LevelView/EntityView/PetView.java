@@ -17,4 +17,13 @@ public class PetView extends EntityView {
 
         setSprite(new Image(file.toURI().toString()));
     }
+
+    @Override
+    public void notifyViewElementDeath() {
+        String workingDir = System.getProperty("user.dir");
+
+        File file = new File(workingDir + "/src/View/Assets/kfc.png");
+
+        setSprite(new Image(file.toURI().toString()));
+    }
 }

@@ -4,6 +4,7 @@ import Model.Command.EntityCommand.NonSettableCommand.DialogCommand;
 import Model.Entity.Entity;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.Utility.BidiMap;
+import View.LevelView.InfluenceEffectView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
@@ -37,15 +38,18 @@ public class MovementHandler {
         moveInfluenceEffects();
     }
 
+
+
     private void moveEntities() {
         for (Entity entity: entityLocations.getValueList()){//For each entry in the map
             Point3D entityPoint = entityLocations.getKeyFromValue(entity);
 
-            if (entity.isMoving()){
+            System.err.println(entity.getVelocity());
+            if (entity.isMoving()) {
                 Point3D contestedPoint = calculateMove(entityPoint, entity.getVelocity());
 
                 if (!obstacleLocations.containsKey(contestedPoint) && entity.canMoveOnTerrain(terrainLocations.get(contestedPoint))){
-                    if (entityLocations.hasKey(contestedPoint)){
+                    if (entityLocations.hasKey(contestedPoint) && isAlive(entityLocations.getValueFromKey(contestedPoint))){
                         dialogCommand.execute(entity);
 
                     } else {
@@ -75,22 +79,37 @@ public class MovementHandler {
         }
     }
 
+    private boolean isAlive(Entity valueFromKey) {
+        return !valueFromKey.isDead();
+    }
+
     private void moveInfluenceEffects() { // TODO: notify influence effect observers on position changed?
         List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
         for(Point3D oldPoint : influenceEffectPoints) {
+
             InfluenceEffect influenceEffect = influenceEffectLocations.get(oldPoint); // Get current influence effect
+            if(!influenceEffect.readyToMove()) { continue; }
+            if(!influenceEffect.isStartPoint()) {
+                influenceEffect.clearInfluenceEffectViews();
+                influenceEffectLocations.remove(oldPoint);
+                continue;
+            }
 
             List<Point3D> nextEffectPoints = influenceEffect.nextMove(oldPoint); // Get list of points to move effect to
             influenceEffect.decreaseCommandAmount();
 
-            if (!nextEffectPoints.isEmpty()) {
-                influenceEffectLocations.remove(oldPoint, influenceEffect); // remove all old positions of the influence effect
 
+            //if (!nextEffectPoints.isEmpty()) {
+                //influenceEffectLocations.remove(oldPoint, influenceEffect); // remove all old positions of the influence effect
+                influenceEffect.clearInfluenceEffectViews();
+                InfluenceEffect newInfluenceEffect = influenceEffect.cloneInfluenceEffect();
+                newInfluenceEffect.setIsStartPoint(false);
                 for (Point3D newPoint : nextEffectPoints) {
-                    influenceEffectLocations.put(newPoint, influenceEffect); // put influence effect at its new position
+                    newInfluenceEffect.addInfluenceEffectView(new InfluenceEffectView(newPoint));
+                    influenceEffectLocations.put(newPoint, newInfluenceEffect); // put influence effect at its new position
                 }
-            }
+            //}
         }
     }
 

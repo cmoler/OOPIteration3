@@ -19,8 +19,8 @@ public class HUDStatsView {
     }
 
     public void render(GraphicsContext gc) {
-
         rotate(gc, 0, 0, 0);
+
         renderHealthBar(gc);
         renderExperienceBar(gc);
         renderManaBar(gc);
@@ -81,7 +81,4 @@ public class HUDStatsView {
         Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
-
-
-
 }

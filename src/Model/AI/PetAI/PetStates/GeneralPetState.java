@@ -28,13 +28,13 @@ public class GeneralPetState extends AIState {
     private List<Entity> targetList;
 
 
-    public GeneralPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player, List<Entity> TargetingList) {
+    public GeneralPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player) {
         super(pet);
         this.entityMap = entityMap;
         this.itemMap = itemMap;
         this.player = player;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
-        this.targetList = TargetingList;
+        this.targetList = pet.getTargetingList();
     }
 
     @Override
@@ -148,13 +148,5 @@ public class GeneralPetState extends AIState {
 
     public void setPriority(PetPriority priority) {
         this.priority = priority;
-    }
-
-    public void addTarget(Entity ent){
-        targetList.add(ent);
-    }
-
-    public void removeTarget(Entity ent){
-        targetList.remove(ent);
     }
 }

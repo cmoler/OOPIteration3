@@ -327,7 +327,7 @@ public class GameLoader {
 
                         manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
                         maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
-                        mana = new Mana(manaPoints, maxMana);
+                        mana = new Mana(manaPoints, maxMana, 0); // TODO: BRYAN ADD THIS REGENRATE PLS
 
                         attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
                         attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());
@@ -1142,7 +1142,7 @@ public class GameLoader {
         int attackModifier;
         int defensePoints;
         int defenseModifier;
-        int speedAmount;
+        long speedAmount;
         int manaPoints;
         int maxMana;
         int sight;
@@ -1165,12 +1165,12 @@ public class GameLoader {
             maxGold = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxGold").getTextContent());
             gold = new Gold(goldAmount, maxGold);
 
-            speedAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("speed").getTextContent());
+            speedAmount = Long.parseLong(entityNode.getAttributes().getNamedItem("speed").getTextContent());
             speed = new Speed(speedAmount);
 
             manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
             maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
-            mana = new Mana(manaPoints, maxMana);
+            mana = new Mana(manaPoints, maxMana, 0 );  // TODO: BRYAN ADD THIS REGENRATE PLS
 
             attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
             attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());

@@ -40,7 +40,7 @@ public class ChangeToHostileAICommand extends GameModelCommand implements Comman
         Point3D aggroPoint = Orientation.getAdjacentPoint(level.getEntityPoint(attacker),attacker.getOrientation());
         List<Entity> targetList = new ArrayList<>();
         targetList.add(level.getEntityAtPoint(aggroPoint));
-        hostileAI = new HostileAI(aggroEnt,level.getTerrainMap(),level.getEntityMap(),level.getObstacleMap(),targetList);
+        hostileAI = new HostileAI(aggroEnt,level.getTerrainMap(),level.getEntityMap(),level.getObstacleMap());
     }
 
     public void accept(Visitor visitor) {

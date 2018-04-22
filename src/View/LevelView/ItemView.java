@@ -29,9 +29,10 @@ public class ItemView extends LevelViewElement{
 
     }
 
+    @Override
+    public void notifyViewElementDeath() {
 
-
-
+    }
 
 
 }

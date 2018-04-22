@@ -1,15 +1,14 @@
 package Model.Entity;
 
 
-import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
-
 import Controller.Visitor.SavingVisitor;
-
 import Model.Entity.EntityAttributes.*;
-import Model.Item.TakeableItem.*;
-import Model.Level.Terrain;
+import Model.Item.TakeableItem.ArmorItem;
+import Model.Item.TakeableItem.RingItem;
+import Model.Item.TakeableItem.TakeableItem;
+import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.Mount;
-import View.LevelView.EntityView.EntityView;
+import Model.Level.Terrain;
 import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -51,6 +50,9 @@ public class Entity {
     private boolean moveable;
 
     private Mount mount;
+    private List<Entity> targetingList;
+
+    private long nextMoveTime = 0;
 
     public Entity(LevelViewElement observer, ItemHotBar hotBar, List<Skill> weaponSkills,
                   List<Skill> nonWeaponSkills, HashMap<Skill, SkillLevel> skillLevelsMap,
@@ -79,6 +81,7 @@ public class Entity {
         this.compatableTerrain = compatableTerrain;
         this.moveable = moveable;
         this.mount = mount;
+        targetingList = new ArrayList<>();
     }
 
     public Entity() {
@@ -108,18 +111,24 @@ public class Entity {
         hotBar = new ItemHotBar();
         orientation = Orientation.NORTH;
 
-        speed = new Speed();
-        speed.setSpeed(1);
-
         compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
         moveable = true;
 
         mount = null;
+        targetingList = new ArrayList<>();
     }
 
     public boolean isMoveable() {
         return moveable;
+    }
+
+    public boolean canMove() {
+        return System.nanoTime() > nextMoveTime;
+    }
+
+    public void setNextMoveTime() {
+        nextMoveTime = System.nanoTime() + speed.getSpeed();
     }
 
     public void setMoveable(boolean moveable) {
@@ -133,6 +142,10 @@ public class Entity {
     public void setOrientation(Orientation o){
         orientation = o;
         notifyObservers(null);
+    }
+
+    public int getRange(){
+        return equipment.getRange();
     }
 
     public void addItemToInventory(TakeableItem item) {
@@ -196,6 +209,9 @@ public class Entity {
 
     public void decreaseHealth(int amt) {
         health.decreaseCurrentHealth(amt);
+        if(health.getCurrentHealth() <= 0) {
+            observer.notifyViewElementDeath();
+        }
     }
 
     public void decreaseMaxHealth(int amt) {
@@ -207,7 +223,7 @@ public class Entity {
     }
 
     public void decreaseMana(int amt){
-        mana.increaseMana(amt);
+        mana.decreaseMana(amt);
     }
 
     public void increaseNoiseLevel(int amt) {
@@ -220,6 +236,26 @@ public class Entity {
 
     public void increaseSpeed(int amt) {
         speed.increaseSpeed(amt);
+    }
+
+    public List<Entity> getTargetingList() {
+        return targetingList;
+    }
+
+    public void setTargetingList(List<Entity> targetingList) {
+        this.targetingList = targetingList;
+    }
+
+    public boolean targets(Entity entity){
+        return targetingList.contains(entity);
+    }
+
+    public void addTarget(Entity ent){
+        targetingList.add(ent);
+    }
+
+    public void removeTarget(Entity ent){
+        targetingList.remove(ent);
     }
 
     public void decreaseSpeed(int amt){
@@ -248,11 +284,22 @@ public class Entity {
     }
 
     public void addVelocity(Vec3d add){
-        velocity.add(add);
+        if(isMoveable()) velocity.add(add);
+    }
+
+    public void addVelocityFromControllerInput(Vec3d add){
+        if(canMove()) {
+            addVelocity(add);
+            setNextMoveTime();
+        }
     }
 
     public void setVelocity(Vec3d velocity) {
         this.velocity = velocity;
+    }
+
+    public void notifyUponDeath(){
+        observer.notifyViewElementDeath();
     }
 
     public void notifyObservers(Point3D position) {
@@ -384,7 +431,7 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
-    } // TODO: add logic for mana costs
+    }
 
     public void addItemToHotBar(TakeableItem takeableItem, int index){
         hotBar.addItem(takeableItem, index);
@@ -524,7 +571,7 @@ public class Entity {
         return mana.getMaxMana();
     }
 
-    public int getSpeed() {
+    public long getSpeed() {
         return speed.getSpeed();
     }
 
@@ -568,7 +615,7 @@ public class Entity {
         return hotBar;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(long speed) {
         this.speed.setSpeed(speed);
     }
 
@@ -582,5 +629,22 @@ public class Entity {
 
     public Equipment getEquipment() {
         return equipment;
+    }
+
+    public void reset() {
+        health.refill();
+        mana.refill();
+    }
+
+    public void regenerateMana() {
+        mana.regenerate();
+    }
+
+    public int getSkillPoints() {
+        return xpLevel.getPointsAvailable();
+    }
+
+    public void setSkillPointsAvaiable(int amount){
+        xpLevel.setPointsAvailable(amount);
     }
 }

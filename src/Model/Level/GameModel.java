@@ -10,24 +10,30 @@ import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.AI.PetAI.PetStates.PassivePetState;
+import Model.AreaEffect.InfiniteAreaEffect;
+import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
+import Model.Entity.EntityAttributes.Skill;
+import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
-
-
+import Model.Item.TakeableItem.ConsumableItem;
+import Model.Item.TakeableItem.WeaponItem;
+import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
-
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GameModel implements Visitable {
 
@@ -52,7 +58,9 @@ public class GameModel implements Visitable {
         currentLevelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
 
         levels = new ArrayList<>();
-        aiMap = new HashMap<>();
+        levels.add(currentLevel);
+
+        aiMap = new ConcurrentHashMap<>();
         teleportQueue = new LinkedList<>();
         failedTeleportQueue = new LinkedList<>();
     }
@@ -81,11 +89,50 @@ public class GameModel implements Visitable {
         entityFactory = new SmasherFactory(skillsFactory);
 
         player = entityFactory.buildEntity();
+
+        ConsumableItem potion = new ConsumableItem("potion", new AddHealthCommand(20));
+        potion.setCurrentLevelMessenger(currentLevelMessenger);
+        potion.setPrice(2);
+        potion.onTouch(player);
+
+        ConsumableItem manapotion = new ConsumableItem("manapotion", new AddHealthCommand(20));
+        manapotion.setCurrentLevelMessenger(currentLevelMessenger);
+        manapotion.setPrice(2);
+        manapotion.onTouch(player);
+
+        ConsumableItem healthpotion = new ConsumableItem("healthpotion", new AddHealthCommand(20));
+        healthpotion.setCurrentLevelMessenger(currentLevelMessenger);
+        healthpotion.setPrice(2);
+        healthpotion.onTouch(player);
+
+        ConsumableItem beer = new ConsumableItem("beer", new AddHealthCommand(20));
+        beer.setCurrentLevelMessenger(currentLevelMessenger);
+        beer.setPrice(2);
+        beer.onTouch(player);
+
+        ConsumableItem wine = new ConsumableItem("wine", new AddHealthCommand(20));
+        wine.setCurrentLevelMessenger(currentLevelMessenger);
+        wine.setPrice(2);
+        wine.onTouch(player);
+
+        ConsumableItem gin = new ConsumableItem("gin", new AddHealthCommand(20));
+        gin.setCurrentLevelMessenger(currentLevelMessenger);
+        gin.setPrice(2);
+        gin.onTouch(player);
+
         entityFactory.buildEntitySprite(player);
 
         player.setMoveable(true);
         player.setNoise(5);
-        player.setSightRadius(new SightRadius(2));
+        player.levelUp();
+        Skill attack = new Skill();
+        player.addWeaponSkills(attack);
+        attack.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
+        SettableCommand og = new RemoveHealthCommand(1000);
+        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new LinearInfluenceEffect(og,2,10, Orientation.NORTH), 1000, 1,100,100,2);
+        player.addItemToInventory(mace);
+        player.equipWeapon(mace);
+        player.setSightRadius(new SightRadius(7));
         currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
 
         RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
@@ -99,7 +146,8 @@ public class GameModel implements Visitable {
         }
 
         currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
-
+        currentLevel.addAreaEffectTo(new Point3D(-2, 1, 1), new InfiniteAreaEffect(new RemoveHealthCommand(10)));
+        currentLevel.addObstacleTo(new Point3D(-2, 2, 0), new Obstacle());
         //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
 
         entityFactory = new MonsterFactory(skillsFactory);
@@ -108,7 +156,15 @@ public class GameModel implements Visitable {
 
         enemy.setMoveable(true);
         enemy.setNoise(5);
-        enemy.setSightRadius(new SightRadius(2));
+        Skill skill = new Skill();
+        enemy.addWeaponSkills(skill);
+        skill.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
+        SettableCommand bleh = new RemoveHealthCommand(5);
+        WeaponItem sword = new WeaponItem("Sword of Darkness", bleh, skill, new LinearInfluenceEffect(bleh,2,10,Orientation.NORTH), 5, 1,1,450,2);
+        enemy.addItemToInventory(sword);
+        enemy.equipWeapon(sword);
+
+        enemy.setSightRadius(new SightRadius(3));
         ArrayList<Vec3d> path = new ArrayList<>();
         path.add(new Vec3d(1,0,-1));
         path.add(new Vec3d(1,0,-1));
@@ -123,7 +179,8 @@ public class GameModel implements Visitable {
         currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
         List<Entity> list = new ArrayList<>();
         list.add(player);
-        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),list);
+        enemy.setTargetingList(list);
+        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap());
         //hostileAI.setPatrolPath(new PatrolPath(path));
         AIController controller = new AIController();
         controller.setActiveState(hostileAI);
@@ -131,17 +188,36 @@ public class GameModel implements Visitable {
         AIList.add(controller);
         aiMap.put(currentLevel,AIList);
 
+        /*
         entityFactory = new PetFactory(skillsFactory);
         Entity pet = entityFactory.buildEntity();
         entityFactory.buildEntitySprite(pet);
         pet.setMoveable(true);
         pet.setNoise(5);
+        Skill skill1 = new Skill();
+        enemy.addWeaponSkills(skill1);
+        skill1.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
+        SettableCommand rawr = new RemoveHealthCommand(5);
+        WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 1,100,450,1);
+        enemy.addItemToInventory(claw);
+        enemy.equipWeapon(claw);
         pet.setSightRadius(new SightRadius(2));
+        list.add(pet);
         currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
         PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
         AIController test = new AIController();
-        test.setActiveState(PPS);
-        AIList.add(test);
+        */
+       /* List<Entity> petList = new ArrayList<>();
+        petList.add(enemy);
+        pet.setTargetingList(petList);
+        CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player,petList);
+        test.setActiveState(CPS);*/
+
+      // test.setActiveState(PPS);
+
+        //AIList.add(test);
+
+        //currentLevel.addInfluenceEffectTo(new Point3D(-2, -1, 3), new RadialInfluenceEffect(new RemoveHealthCommand(100), 5, 5, Orientation.NORTH));
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);
@@ -214,6 +290,10 @@ public class GameModel implements Visitable {
         return failedTeleportQueue;
     }
 
+    public void resetPlayer() {
+        player.reset();
+    }
+
     public class TeleportTuple {
         private Entity entity;
         private Level destLevel;
@@ -279,6 +359,45 @@ public class GameModel implements Visitable {
         }
     }
 
+    private void clearDeadAI(ArrayList<Entity> deadpool, List<AIController> currentAiMap) {
+        if (currentAiMap != null) {
+            Iterator<AIController> it = currentAiMap.iterator();
+            while (it.hasNext()) {
+                AIController ai = it.next();
+                if (deadpool.contains(ai.getEntity())) {
+                    it.remove();
+                    aiMap.get(currentLevel).remove(ai);
+                }
+            }
+        }
+    }
+
+    private void processDeadEntities(){
+        ArrayList<Entity> deadpool = currentLevel.clearDeadEntities(player);
+        List<AIController> AIMAP = aiMap.get(currentLevel);
+        untargetDeadTargets(deadpool, currentLevel.getEntityMap());
+        clearDeadAI(deadpool,AIMAP);
+    }
+
+    private void untargetDeadTargets(ArrayList<Entity> deadpool, BidiMap<Point3D, Entity> entityLocations) {
+        Set<Entity> enitySet = entityLocations.getValueList();
+        for (Entity deadEnt: deadpool){
+            for (Entity entity: enitySet){
+                if (entity.targets(deadEnt)){
+                    entity.removeTarget(deadEnt);
+                }
+            }
+        }
+    }
+
+    private void printEntHealth() {
+        System.out.println();
+        for (Entity e : currentLevel.getEntityMap().getValueList()) {
+            System.out.println(e + " health is :\t" + e.getCurrentHealth());
+        }
+        System.out.println();
+    }
+
     private void moveEntityToLevel(Entity entity, Level destinationLevel, Point3D destinationPoint) {
         List<LevelViewElement> observers = new ArrayList<>();
 
@@ -307,13 +426,13 @@ public class GameModel implements Visitable {
     }
 
     public void advance() {
+        //printEntHealth();
+        processDeadEntities();
         processAIMoves();
-        currentLevel.processMoves();
-        currentLevel.processInteractions();
+        currentLevel.advance();
         processTeleportQueue();
 
         if(hasPlayer()) {
-            currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
             currentLevel.updateRenderLocations(getPlayerPosition(), player.getSight());
         }
     }

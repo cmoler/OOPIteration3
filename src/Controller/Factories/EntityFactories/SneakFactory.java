@@ -3,7 +3,6 @@ package Controller.Factories.EntityFactories;
 import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 
-import View.LevelView.EntityView.EntityView;
 import View.LevelView.EntityView.SneakView;
 import javafx.geometry.Point3D;
 

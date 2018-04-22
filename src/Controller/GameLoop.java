@@ -6,21 +6,25 @@ import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 import Model.Level.GameLoopMessenger;
 import Model.Level.GameModel;
+import Model.MenuModel.*;
 import Model.Level.Level;
 import Model.MenuModel.MainMenuState;
 import Model.MenuModel.MenuModel;
 import Model.MenuModel.MenuState;
 import View.LevelView.HUDStatsView;
 import View.LevelView.HotbarView;
+
+import View.MenuView.*;
+
 import View.LevelView.ObservationView;
 import View.MenuView.MenuView;
 import View.MenuView.MenuViewState;
 import View.MenuView.TitleScreenView;
+
 import View.Renderer;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
 import org.xml.sax.SAXException;
@@ -44,6 +48,7 @@ public class GameLoop {
     private RunGame runGame;
     private Point2D scrollOffSet;
     private GameLoader gameLoader;
+    private boolean playerFresh = true;
 
     public GameLoop() {
         gameLoopMessenger = new GameLoopMessenger(this);
@@ -60,25 +65,32 @@ public class GameLoop {
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
-        // TODO: implement
         if(playerEntity == null || receivingEntity == null) {
             // do nothing if either entity is null
+        }else{
+            setMenuState(new BarterMenu(menuModel, this, playerBarterStrength, playerEntity, receivingEntity), new BarterView(menuModel));
+            setInGameMenuKeySet();
         }
     }
 
     public void openDialogWindow(Entity playerEntity, Entity receivingEntity) {
-        // TODO: implement
         System.out.println("I (player) am talking to you!");
+
+        boolean wantToTalk = gameModel.getAIForEntity(receivingEntity).wantToTalk();
+        setMenuState(new DialogMenu(menuModel, this, wantToTalk, playerEntity, receivingEntity), new DialogView(menuModel));
+        setInGameMenuKeySet();
     }
 
-    public void createObservationWindow(Point3D entityLocation, String randomEntityFacts) {
+    public void createObservationWindow(Entity entity, String randomEntityFacts) {
         // TODO: implement
-        renderer.addObservationView(new ObservationView(entityLocation, randomEntityFacts));
+        renderer.addObservationView(new ObservationView(entity, randomEntityFacts));
+
     }
 
     public void loadGame(int i) {
+        playerFresh = true;
         try {
-            switch(i) {
+            switch (i) {
                 case 0:
                     gameLoader.loadGame("SAVESLOT1.xml");
                     break;
@@ -111,9 +123,7 @@ public class GameLoop {
             } catch (ParserConfigurationException e1) {
                 e1.printStackTrace();
             }
-        }
-
-        finally {
+        } finally {
             renderer.closeMenu();
             gameModel = gameLoader.getGameModel();
             ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
@@ -121,7 +131,7 @@ public class GameLoop {
             renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
             renderer.setHotBarView(new HotbarView(gameModel.getPlayer()));
 
-            for(Level level: gameModel.getLevels()) {
+            for (Level level : gameModel.getLevels()) {
                 renderer.loadModelSprites(level);
             }
 
@@ -160,7 +170,7 @@ public class GameLoop {
     }
 
     public void newGame(int i) {
-
+        playerFresh = true;
     }
 
     public void setMenuState(MenuState menuState, MenuViewState menuViewState){
@@ -172,9 +182,22 @@ public class GameLoop {
         renderer.setActiveMenuState(menuViewState);
     }
 
+    private void setGameOver() {
+        setMenuState(new GameOverMenu(menuModel, this), new GameOverView(menuModel));
+        setInGameMenuKeySet();
+    }
+
     public void tick() {
         gameModel.advance();
         renderer.updateCurrentLevel(gameModel.getCurrentLevel());
+        if(gameModel.playerIsDead() && playerFresh) {
+            //gameModel.resetPlayer();
+            setGameOver();
+            playerFresh = false;
+        }
+        else{
+            gameModel.advance();
+        }
     }
 
     public void render(GraphicsContext gc){

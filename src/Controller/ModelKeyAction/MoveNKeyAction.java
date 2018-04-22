@@ -21,7 +21,7 @@ public class MoveNKeyAction extends ModelKeyAction {
     public void handle(KeyCode incomingKey) {
         if(incomingKey == keyCode){
             entity.setOrientation(Orientation.NORTH);
-            entity.addVelocity(new Vec3d(0, 1, -1));
+            entity.addVelocityFromControllerInput(new Vec3d(0, 1, -1));
             gameLoop.resetScrollOffSet();
         }
     }

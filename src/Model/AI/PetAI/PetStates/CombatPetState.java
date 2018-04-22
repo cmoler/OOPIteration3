@@ -22,11 +22,11 @@ public class CombatPetState extends AIState {
     private List<Entity> targetList;
 
 
-    public CombatPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player, List<Entity> TargetingList) {
+    public CombatPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
         super(pet);
         this.entityMap = entityMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
-        this.targetList = TargetingList;
+        this.targetList = pet.getTargetingList();
     }
 
     @Override
@@ -38,7 +38,21 @@ public class CombatPetState extends AIState {
         Point3D petPoint = getPetPoint();
         Point3D nearestTarget = getNearestTarget(petPoint);
 
-        moveToGoal(petPoint,nearestTarget);
+        if(isInAttackRange(petPoint,nearestTarget)){
+            attack(petPoint,nearestTarget);
+        }
+        else {
+            moveToGoal(petPoint, nearestTarget);
+        }
+    }
+
+    private void attack(Point3D position, Point3D goal) {
+        super.getEntity().setOrientation(PathingAlgorithm.calculateOrientation(position,goal));
+        super.getEntity().attack();
+    }
+
+    private boolean isInAttackRange(Point3D position, Point3D goal) {
+        return HexDistanceCalculator.getHexDistance(position,goal) <= super.getEntity().getRange();
     }
 
     private boolean hasNoTarget() {
@@ -74,13 +88,5 @@ public class CombatPetState extends AIState {
 
     private Point3D getPetPoint() {
         return entityMap.getKeyFromValue(super.getEntity());
-    }
-
-    public void addTarget(Entity ent){
-        targetList.add(ent);
-    }
-
-    public void removeTarget(Entity ent){
-        targetList.remove(ent);
     }
 }

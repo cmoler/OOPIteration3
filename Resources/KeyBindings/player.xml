@@ -50,4 +50,7 @@
     <Bind type="openMenu">
         <key>Esc</key>
     </Bind>
+    <Bind type="lockMovement">
+        <key>M</key>
+    </Bind>
 </class>

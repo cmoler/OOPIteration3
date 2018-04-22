@@ -4,7 +4,6 @@ import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
 
-import View.LevelView.EntityView.EntityView;
 import View.LevelView.EntityView.ShopKeepView;
 import javafx.geometry.Point3D;
 
