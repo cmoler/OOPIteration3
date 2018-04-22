@@ -9,6 +9,7 @@ public class SelectItemKeyAction extends ModelKeyAction {
 
     public SelectItemKeyAction(KeyCode keyCode, Entity player) {
         super(keyCode);
+        this.player = player;
     }
 
     @Override

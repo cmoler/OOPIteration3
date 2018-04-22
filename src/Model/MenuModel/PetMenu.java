@@ -68,8 +68,10 @@ public class PetMenu extends InGameMenuState {
     private void focusPart() {
         switch (selectedLeftRight){
             case 1:
+                selectedFocus--;
                 break;
             case 2:
+                selectedFocus++;
                 break;
         }
     }
@@ -77,8 +79,10 @@ public class PetMenu extends InGameMenuState {
     private void priorityPart() {
         switch (selectedLeftRight){
             case 1:
+                selectedPriority--;
                 break;
             case 2:
+                selectedPriority++;
                 break;
         }
     }
