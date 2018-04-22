@@ -46,5 +46,9 @@ public class SkillLevel {
             this.skillLevel = maxSkillLevel;
         }
     }
+
+    public boolean isMaxLevel(){
+        return skillLevel >= maxSkillLevel;
+    }
     
 }
