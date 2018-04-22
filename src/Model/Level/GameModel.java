@@ -211,7 +211,7 @@ public class GameModel implements Visitable {
         enemy.equipWeapon(claw);
         pet.setSightRadius(new SightRadius(2));
         list.add(pet);
-        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+        currentLevel.addEntityTo(new Point3D(0, 4, -4), pet);
         AIController test = new AIController();
 
         //AIList.add(test);

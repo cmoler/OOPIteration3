@@ -711,7 +711,5 @@ public class Entity {
         this.traversalStrength = traversalStrength;
     }
 
-    public void useItem() {
 
-    }
 }

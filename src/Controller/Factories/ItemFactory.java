@@ -41,6 +41,7 @@ public class ItemFactory {
         itemView.setOneHandedSword();
 
         oneHandedSword.setObserver(itemView);
+        oneHandedSword.setPrice(5);
 
         return oneHandedSword;
     }
@@ -57,6 +58,7 @@ public class ItemFactory {
         itemView.setTwoHandedWeapon();
 
         twoHandedSword.setObserver(itemView);
+        twoHandedSword.setPrice(10);
 
         return twoHandedSword;
     }
@@ -73,6 +75,7 @@ public class ItemFactory {
         itemView.setBrawlerWeapon();
 
         brawlerWeapon.setObserver(itemView);
+        brawlerWeapon.setPrice(5);
 
         return brawlerWeapon;
     }
@@ -89,6 +92,7 @@ public class ItemFactory {
         itemView.setStaff();
 
         staff1.setObserver(itemView);
+        staff1.setPrice(12);
 
         return staff1;
     }
@@ -97,15 +101,16 @@ public class ItemFactory {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 10, 10, Orientation.NORTH);
         Skill skill = skillsFactory.getRangeSkill();
-        WeaponItem staff1 = new WeaponItem("Ranged Weapon", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
-        staff1.setCurrentLevelMessenger(levelMessenger);
+        WeaponItem bow = new WeaponItem("Ranged Weapon", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        bow.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
         itemView.setRangedWeapon();
 
-        staff1.setObserver(itemView);
+        bow.setObserver(itemView);
+        bow.setPrice(10);
 
-        return staff1;
+        return bow;
     }
 
     public ConsumableItem getPotion() {
@@ -117,6 +122,7 @@ public class ItemFactory {
         itemView.setPotion();
 
         potion.setObserver(itemView);
+        potion.setPrice(2);
 
         return potion;
     }
@@ -130,6 +136,7 @@ public class ItemFactory {
         itemView.setManaPotion();
 
         potion.setObserver(itemView);
+        potion.setPrice(2);
 
         return potion;
     }
@@ -138,15 +145,16 @@ public class ItemFactory {
         FreezeEntityCommand command = new FreezeEntityCommand(levelMessenger);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 10, 10, Orientation.NORTH);
         Skill skill = skillsFactory.getRangeSkill();
-        WeaponItem staff1 = new WeaponItem("Freeze Bow", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
-        staff1.setCurrentLevelMessenger(levelMessenger);
+        WeaponItem bow = new WeaponItem("Freeze Bow", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        bow.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
         itemView.setRangedWeapon();
 
-        staff1.setObserver(itemView);
+        bow.setObserver(itemView);
+        bow.setPrice(20);
 
-        return staff1;
+        return bow;
     }
 
     public ArmorItem getLightArmor() {
@@ -158,6 +166,7 @@ public class ItemFactory {
         itemView.setLightArmor();
 
         armorItem.setObserver(itemView);
+        armorItem.setPrice(10);
 
         return armorItem;
     }
@@ -171,6 +180,7 @@ public class ItemFactory {
         itemView.setMediumArmor();
 
         armorItem.setObserver(itemView);
+        armorItem.setPrice(20);
 
         return armorItem;
     }
@@ -184,6 +194,7 @@ public class ItemFactory {
         itemView.setHeavyArmor();
 
         armorItem.setObserver(itemView);
+        armorItem.setPrice(30);
 
         return armorItem;
     }
@@ -197,6 +208,7 @@ public class ItemFactory {
         itemView.setSpeedRing();
 
         ringItem.setObserver(itemView);
+        ringItem.setPrice(10);
 
         return ringItem;
 
@@ -211,6 +223,7 @@ public class ItemFactory {
         itemView.setHealthRing();
 
         ringItem.setObserver(itemView);
+        ringItem.setPrice(10);
 
         return ringItem;
     }
