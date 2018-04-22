@@ -222,9 +222,14 @@ public class GameModel implements Visitable {
 
         //currentLevel.addInfluenceEffectTo(new Point3D(-2, -1, 3), new RadialInfluenceEffect(new RemoveHealthCommand(100), 5, 5, Orientation.NORTH));
         ItemFactory itemFactory = new ItemFactory(skillsFactory, currentLevelMessenger);
-        WeaponItem weaponItem = itemFactory.getOneHandedSword();
+        WeaponItem weaponItem = itemFactory.getRangedWeapon();
         weaponItem.notifyObserver(new Point3D(1, -1, 0));
         currentLevel.addItemnTo(new Point3D(1, -1, 0), weaponItem);
+
+        ConsumableItem potion1 = itemFactory.getPotion();
+        potion1.notifyObserver(new Point3D(3, -3, 0));
+
+        currentLevel.addItemnTo(new Point3D(3, -3, 0), potion1);
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

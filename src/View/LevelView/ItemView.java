@@ -66,7 +66,7 @@ public class ItemView extends LevelViewElement{
         String workingDir = System.getProperty("user.dir");
 
         int randInt = (rand.nextInt(3))+1;
-        File file = new File(workingDir + "/src/View/Assets/OneHandedStaff" + Integer.toString(randInt) + ".png");
+        File file = new File(workingDir + "/src/View/Assets/staff" + Integer.toString(randInt) + ".png");
 
         setSprite(new Image(file.toURI().toString()));
     }

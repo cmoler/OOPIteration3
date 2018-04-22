@@ -1,11 +1,13 @@
 package Controller.Factories;
 
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.Item.Item;
+import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.LevelMessenger;
 import View.LevelView.ItemView;
@@ -48,7 +50,7 @@ public class ItemFactory {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
         Skill skill = skillsFactory.getBrawlerSkill();
-        WeaponItem brawlerWeapon = new WeaponItem("Two Handed Sword", command, skill, influenceEffect, 5, 20, 10, 10, 1 );
+        WeaponItem brawlerWeapon = new WeaponItem("Brawler Weapon", command, skill, influenceEffect, 5, 20, 10, 10, 1 );
         brawlerWeapon.setCurrentLevelMessenger(levelMessenger);
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
         itemView.setBrawlerWeapon();
@@ -60,7 +62,7 @@ public class ItemFactory {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
         Skill skill = skillsFactory.getStaffSkill();
-        WeaponItem staff1 = new WeaponItem("Brawler Weapon", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        WeaponItem staff1 = new WeaponItem("Staff", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
         staff1.setCurrentLevelMessenger(levelMessenger);
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
         itemView.setStaff();
@@ -78,6 +80,16 @@ public class ItemFactory {
         itemView.setRangedWeapon();
         staff1.setObserver(itemView);
         return staff1;
+    }
+
+    public ConsumableItem getPotion() {
+        AddHealthCommand command = new AddHealthCommand(50);
+        ConsumableItem potion = new ConsumableItem("Potion", command);
+        potion.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setPotion();
+        potion.setObserver(itemView);
+        return potion;
     }
 
 }
