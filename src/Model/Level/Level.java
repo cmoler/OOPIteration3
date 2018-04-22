@@ -100,7 +100,7 @@ public class Level {
         interactionHandler.processInteractions();
     }
 
-    public void addItemnTo(Point3D point, Item item) {
+    public void addItemTo(Point3D point, Item item) {
         itemLocations.put(point, item);
     }
 

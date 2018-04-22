@@ -9,9 +9,7 @@ import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
-import Model.AI.PetAI.PetStates.CombatPetState;
 import Model.AI.PetAI.PetStates.ItemPetState;
-import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
@@ -112,6 +110,11 @@ public class GameModel implements Visitable {
         wine.setCurrentLevelMessenger(currentLevelMessenger);
         wine.setPrice(2);
         wine.onTouch(player);
+
+        ConsumableItem test1 = new ConsumableItem("test1",new AddHealthCommand(30));
+        test1.setCurrentLevelMessenger(currentLevelMessenger);
+        test1.setPrice(2);
+        currentLevel.addItemTo(new Point3D(-3,3,0),test1);
 
         ConsumableItem gin = new ConsumableItem("gin", new AddHealthCommand(20));
         gin.setCurrentLevelMessenger(currentLevelMessenger);
@@ -216,12 +219,12 @@ public class GameModel implements Visitable {
         test.setActiveState(PPS);*/
 
         // Combat Pet AI
-        CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
-        test.setActiveState(CPS);
+        /*CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
+        test.setActiveState(CPS);*/
 
        // Item Pet AI
-        /*ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, skillsFactory.getPickpocket());
-        test.setActiveState(IPS);*/
+        ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, skillsFactory.getPickpocket());
+        test.setActiveState(IPS);
 
         AIList.add(test);
         aiMap.put(currentLevel,AIList);

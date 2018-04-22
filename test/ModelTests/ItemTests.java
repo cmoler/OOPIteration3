@@ -15,14 +15,10 @@ import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.RingItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.*;
-import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemTests {
 
@@ -57,7 +53,7 @@ public class ItemTests {
         level.addEntityTo(new Point3D(0,0,0), entity1);
         level.addEntityTo(new Point3D(1, 0,0 ), entity2);
 
-        level.addItemnTo(new Point3D(0, 0,0), oneShotItem);
+        level.addItemTo(new Point3D(0, 0,0), oneShotItem);
 
         Assert.assertTrue(level.hasItem(oneShotItem));
 
@@ -88,7 +84,7 @@ public class ItemTests {
         level.addEntityTo(new Point3D(0,0,0), entity1);
         level.addEntityTo(new Point3D(1, 0,0 ), entity2);
 
-        level.addItemnTo(new Point3D(0, 0,0), interactiveItem);
+        level.addItemTo(new Point3D(0, 0,0), interactiveItem);
 
         Assert.assertTrue(level.hasItem(interactiveItem));
 
@@ -124,7 +120,7 @@ public class ItemTests {
         WeaponItem weapon = new WeaponItem("weapon", heal);
         weapon.setCurrentLevelMessenger(levelMessenger);
 
-        level.addItemnTo(new Point3D(0, 0,0), weapon);
+        level.addItemTo(new Point3D(0, 0,0), weapon);
 
         Assert.assertFalse(entity.hasItemInInventory(weapon));
 
@@ -188,7 +184,7 @@ public class ItemTests {
         ArmorItem armor = new ArmorItem("armor", heal);
         armor.setCurrentLevelMessenger(levelMessenger);
 
-        level.addItemnTo(new Point3D(0, 0,0), armor);
+        level.addItemTo(new Point3D(0, 0,0), armor);
 
         Assert.assertFalse(entity.hasItemInInventory(armor));
 
@@ -252,7 +248,7 @@ public class ItemTests {
         RingItem ring = new RingItem("ring", heal);
         ring.setCurrentLevelMessenger(levelMessenger);
 
-        level.addItemnTo(new Point3D(0, 0,0), ring);
+        level.addItemTo(new Point3D(0, 0,0), ring);
 
         Assert.assertFalse(entity.hasItemInInventory(ring));
 

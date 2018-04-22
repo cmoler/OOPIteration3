@@ -33,6 +33,7 @@ public class ItemPetState extends AIState {
         this.itemMap = itemMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         pickPocketSkill = PickPocketSkill;
+        this.player = player;
     }
 
     @Override
@@ -123,7 +124,8 @@ public class ItemPetState extends AIState {
         Point3D minLocation = new Point3D(0,0,0);
         double minDistance = Double.MAX_VALUE;
         for (Point3D point : entityMap.getKeyList()) {
-            if (!entityMap.getValueFromKey(point).equals(player) && !entityMap.getValueFromKey(point).equals(super.getEntity())) { //TODO: Possible LoD violation?
+            Entity entity = getEntityFromPoint(point);
+            if (!entity.equals(player) && entity.hasItems() && !entity.equals(super.getEntity())) {
                 double distance = HexDistanceCalculator.getHexDistance(origin,point);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -132,6 +134,10 @@ public class ItemPetState extends AIState {
             }
         }
         return minLocation;
+    }
+
+    private Entity getEntityFromPoint(Point3D point) {
+        return entityMap.getValueFromKey(point);
     }
 
     private Point3D getPetPoint() {

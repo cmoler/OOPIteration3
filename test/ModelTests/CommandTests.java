@@ -16,19 +16,13 @@ import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.InfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
-import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
-import View.LevelView.LevelViewElement;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Point3D;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommandTests {
 
@@ -372,7 +366,7 @@ public class CommandTests {
         ConsumableItem item = new ConsumableItem("thingie", new AddHealthCommand( 10));
 
         level.addEntityTo(center, entity);
-        level.addItemnTo(center, item);
+        level.addItemTo(center, item);
         item.setCurrentLevelMessenger(messenger);
 
         Assert.assertFalse(entity.hasItemInInventory(item));
@@ -393,17 +387,17 @@ public class CommandTests {
 
         RingItem item2 = new RingItem("thingie2", new ToggleHealthCommand( 10));
         item2.setCurrentLevelMessenger(messenger);
-        level.addItemnTo(center, item2);
+        level.addItemTo(center, item2);
         level.processInteractions();
 
         ArmorItem item3 = new ArmorItem("thingie3", new ToggleHealthCommand( 10));
         item3.setCurrentLevelMessenger(messenger);
-        level.addItemnTo(center, item3);
+        level.addItemTo(center, item3);
         level.processInteractions();
 
         WeaponItem item4 = new WeaponItem("thingie4", new RemoveHealthCommand( 10));
         item4.setCurrentLevelMessenger(messenger);
-        level.addItemnTo(center, item4);
+        level.addItemTo(center, item4);
         level.processInteractions();
 
         Assert.assertFalse(entity.hasItemInInventory(item));
@@ -453,7 +447,7 @@ public class CommandTests {
         ConsumableItem item = new ConsumableItem("thingie", new AddHealthCommand( 10));
 
         level.addEntityTo(center, entity);
-        level.addItemnTo(center, item);
+        level.addItemTo(center, item);
         item.setCurrentLevelMessenger(messenger);
 
         Assert.assertFalse(entity.hasItemInInventory(item));
@@ -483,7 +477,7 @@ public class CommandTests {
         level.addMountTo(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST), new Mount());
         level.addEntityTo(Orientation.getAdjacentPoint(center, Orientation.SOUTH), new Entity());
         level.addEntityTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST), new Entity());
-        level.addItemnTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST), new OneShotItem("testItem", new AddHealthCommand(10)));
+        level.addItemTo(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST), new OneShotItem("testItem", new AddHealthCommand(10)));
 
         item.drop();
 
@@ -493,19 +487,19 @@ public class CommandTests {
         RingItem item2 = new RingItem("thingie2", new ToggleHealthCommand( 10));
         item2.setCurrentLevelMessenger(messenger);
 
-        level.addItemnTo(center, item2);
+        level.addItemTo(center, item2);
         level.processInteractions();
 
         ArmorItem item3 = new ArmorItem("thingie3", new ToggleHealthCommand( 10));
         item3.setCurrentLevelMessenger(messenger);
 
-        level.addItemnTo(center, item3);
+        level.addItemTo(center, item3);
         level.processInteractions();
 
         WeaponItem item4 = new WeaponItem("thingie4", new RemoveHealthCommand( 10));
         item4.setCurrentLevelMessenger(messenger);
 
-        level.addItemnTo(center, item4);
+        level.addItemTo(center, item4);
         level.processInteractions();
 
         Assert.assertTrue(entity.hasItemInInventory(item));
