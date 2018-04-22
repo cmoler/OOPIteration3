@@ -9,6 +9,7 @@ import Model.AI.AIController;
 import Model.AI.FriendlyAI;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
+import Model.AI.PetAI.PetStates.GeneralPetState;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
@@ -231,8 +232,15 @@ public class GameModel implements Visitable {
         /*Skill pickpock = skillsFactory.getPickpocket();
         pet.setSkillLevel(pickpock,1000);
         ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, pickpock, currentLevel.getRiverMap());
-        test.setActiveState(IPS);
-*/
+        test.setActiveState(IPS);*/
+
+        // General Pet AI
+        Skill pickpock = skillsFactory.getPickpocket();
+        pet.setSkillLevel(pickpock,1000);
+        GeneralPetState GPS = new GeneralPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(), pickpock,player,currentLevel.getRiverMap());
+        test.setActiveState(GPS);
+
+
         ShopKeeperFactory friendlyFactory = new ShopKeeperFactory(skillsFactory);
         Entity friendly = friendlyFactory.buildEntity();
         friendlyFactory.buildEntitySprite(friendly);

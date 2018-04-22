@@ -28,32 +28,18 @@ public class LinearInfluenceEffect extends InfluenceEffect {
         }
 
         ArrayList<Point3D> newPos = new ArrayList<>();
-        System.out.println("Moves remaining: " + getMovesRemaining());
         if(rangeIsZero()) {
             newPos.add(point);
             return newPos;
         }
 
         Point3D newPoint = point;
-        System.out.println("Point is: " + newPoint);
         for(int i = 0; i < getRange()-getMovesRemaining()+1; i++) {
-
             newPoint = Orientation.getAdjacentPoint(newPoint, getOrientation());
-            System.out.println("Point is: " + newPoint);
         }
         newPos.add(newPoint);
         decrementMovesRemaining();
         return newPos;
-
-        /*
-        Point3D newPoint = Orientation.getAdjacentPoint(point, getOrientation());
-
-        newPos.add(newPoint);
-
-        decrementMovesRemaining();
-
-        return newPos;
-        */
     }
 
     public InfluenceEffect cloneInfluenceEffect() {
