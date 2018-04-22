@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class ItemHotBar implements Visitable {
 
     private TakeableItem[] items = new TakeableItem[5];
+    private int selectedIndex;
 
     public ItemHotBar(){
 
@@ -46,5 +47,9 @@ public class ItemHotBar implements Visitable {
         for(TakeableItem item: items) {
             item.accept(visitor);
         }
+    }
+
+    public int getSize() {
+        return items.length;
     }
 }

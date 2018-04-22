@@ -24,6 +24,7 @@ public class Entity {
 
     private HashMap<Skill, SkillLevel> skillLevelsMap;
     private int currentlySelectedSkill;
+    private int currentlySelectedItem;
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
 
@@ -90,6 +91,7 @@ public class Entity {
     public Entity() {
         skillLevelsMap = new HashMap<>();
         currentlySelectedSkill = 0;
+        currentlySelectedItem = 0;
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
         observer = null;
@@ -491,6 +493,20 @@ public class Entity {
     public void scrollRight(){
         if(currentlySelectedSkill >= nonWeaponSkills.size() - 1) currentlySelectedSkill = 0;
         else currentlySelectedSkill ++;
+    }
+
+    public void scrollUp() {
+        if(currentlySelectedItem <= 0) { currentlySelectedItem = hotBar.getSize()-1; }
+        else { currentlySelectedItem--; }
+    }
+
+    public void scrollDown() {
+        if(currentlySelectedItem >= hotBar.getSize()-1) { currentlySelectedItem = 0; }
+        else { currentlySelectedItem++; }
+    }
+
+    public int getCurrentlySelectedItemIndex() {
+        return currentlySelectedItem;
     }
 
     public boolean hasFreeSpaceInInventory() {
