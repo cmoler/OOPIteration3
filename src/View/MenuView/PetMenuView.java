@@ -11,7 +11,7 @@ import javafx.scene.text.FontWeight;
 
 import java.util.List;
 
-public class PetView extends InGameMenuView {
+public class PetMenuView extends InGameMenuView {
 
     private int selectedX;
     private int selectedY;
@@ -22,7 +22,7 @@ public class PetView extends InGameMenuView {
     private String[] priorities = {"Items", "Player", "Enemies", "None"};
     private List<Entity> pets;
 
-    public PetView(MenuModel menuModel) {
+    public PetMenuView(MenuModel menuModel) {
         super(menuModel);
     }
 
@@ -85,19 +85,19 @@ public class PetView extends InGameMenuView {
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.WHITESMOKE);
 
-        gc.fillText("Focus:", startX, startY +3*height/5);
+        gc.fillText("Focus:", startX - width / 10, startY +3*height/5);
 
-        gc.fillText("-", startX + width, startY + 3*height/5);
-        gc.fillText(focuses[selectedFocus], startX+ 3 * width / 2, startY +3*height/5);
-        gc.fillText("+", startX + 2 * width + 3 * width / 7, startY +3*height/5);
+        gc.fillText("-", startX + 15 * width / 16, startY + 3*height/5);
+        gc.fillText(focuses[selectedFocus], startX+ 8 * width / 6, startY +3*height/5);
+        gc.fillText("+", startX + 2 * width + 4 * width / 10, startY +3*height/5);
 
-        gc.strokeRect(startX + width, startY, width / 3, height);
-        gc.strokeRect(startX +  3 * width / 2, startY, 6 * width / 3, height);
+        gc.strokeRect(startX + 5 * width / 6, startY, width / 3, height);
+        gc.strokeRect(startX+ 7 * width / 6, startY, 7 * width / 6, height);
         gc.strokeRect(startX + 7 * width / 3, startY, width / 3, height);
 
         if(selectedY == 1){
             if(selectedX == 1){
-                gc.drawImage(selected, startX + width, startY, width / 3, height);
+                gc.drawImage(selected, startX + 5 * width / 6, startY, width / 3, height);
             }
             if(selectedX == 2){
                 gc.drawImage(selected, startX + 7 * width / 3, startY, width / 3, height);
@@ -113,18 +113,24 @@ public class PetView extends InGameMenuView {
 
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.WHITESMOKE);
+        gc.fillText("Priority:", startX - width / 10, startY +3*height/5);
 
-        gc.fillText("-", startX + width / 7, startY + 3*height/5);
-        gc.fillText("Priority:", startX+width / 2, startY +3*height/5);
-        gc.fillText(priorities[selectedPriority], startX+ width, startY +3*height/5);
-        gc.fillText("+", startX + 2 * width + 3 * width / 7, startY +3*height/5);
+        gc.fillText("-", startX + 15 * width / 16, startY + 3*height/5);
+        gc.fillText(priorities[selectedPriority], startX+ 8 * width / 6, startY +3*height/5);
+        gc.fillText("+", startX + 2 * width + 4 * width / 10, startY +3*height/5);
 
-        gc.strokeRect(startX, startY, width / 3, height);
-        gc.strokeRect(startX + width / 3, startY, 6 * width / 3, height);
+        gc.strokeRect(startX + 5 * width / 6, startY, width / 3, height);
+        gc.strokeRect(startX+ 7 * width / 6, startY, 7 * width / 6, height);
         gc.strokeRect(startX + 7 * width / 3, startY, width / 3, height);
 
-        if(selectedY == 2){
 
+        if(selectedY == 2){
+            if(selectedX == 1){
+                gc.drawImage(selected, startX + 5 * width / 6, startY, width / 3, height);
+            }
+            if(selectedX == 2){
+                gc.drawImage(selected, startX + 7 * width / 3, startY, width / 3, height);
+            }
         }
     }
 }
