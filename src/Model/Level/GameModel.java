@@ -350,7 +350,7 @@ public class GameModel implements Visitable {
     public void resetPlayer() {
         player.reset();
     }
-    
+
     public boolean hasAI() {
         return aiMap != null && !aiMap.isEmpty();
     }

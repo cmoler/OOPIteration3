@@ -176,8 +176,8 @@ public class MapGenerator extends Application {
             add(skillsFactory.getBindWounds());
         }};
 
-        entity = new Entity(null, new ItemHotBar(), weaponSkills,
-                nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
+        entity = new Entity(null, new ItemHotBar(), new ArrayList<>(),
+                new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 10, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
@@ -275,8 +275,8 @@ public class MapGenerator extends Application {
             add(skillsFactory.getPickpocket());
         }};
 
-        entity = new Entity(null, new ItemHotBar(), weaponSkills,
-                nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
+        entity = new Entity(null, new ItemHotBar(), new ArrayList<>(),
+                new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
