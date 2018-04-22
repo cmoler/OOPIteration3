@@ -14,10 +14,7 @@ import Model.Utility.HexDistanceCalculator;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static Model.AI.PetAI.PetPriority.*;
 
@@ -50,27 +47,24 @@ public class GeneralPetState extends AIState {
         Point3D nearestTarget = getNearestTarget(petPoint);
         Point3D playerPoint = getPlayerPoint();
 
-        if (hasNoTargets(nearestItem,nearestSteal,nearestTarget)){
+        Point3D goal = calculateGoal(petPoint, playerPoint, nearestItem, nearestSteal, nearestTarget);
+
+        if (hasNoTargets(goal)){
             System.out.println("Moving to Player...");
             moveToGoal(petPoint,playerPoint);
         }
-        else {
-            Point3D goal = calculateGoal(petPoint, playerPoint, nearestItem, nearestSteal, nearestTarget);
-            if (isInActionRange(petPoint,goal)){
-                if (goal.equals(nearestTarget)){
+        else{
+            if (isInActionRange(petPoint, goal)) {
+                if (goal.equals(nearestTarget)) {
                     System.out.println("Attacking");
                     attack(petPoint, nearestTarget);
-                }
-                else if (goal.equals(nearestSteal)){
+                } else if (goal.equals(nearestSteal)) {
                     System.out.println("Stealing");
-                    executePickpocket(super.getEntity());
-                }
-                else{
+                    executePickpocket(petPoint,goal,super.getEntity());
+                } else {
                     moveToGoal(petPoint, goal);
                 }
-            }
-            else {
-                System.out.println("Simply moving");
+            } else {
                 moveToGoal(petPoint, goal);
             }
         }
@@ -81,7 +75,8 @@ public class GeneralPetState extends AIState {
         super.getEntity().attack();
     }
 
-    private void executePickpocket(Entity pet) {
+    private void executePickpocket(Point3D position, Point3D goal, Entity pet) {
+        pet.setOrientation(PathingAlgorithm.calculateOrientation(position,goal));
         pet.useSkill(pickPocketSkill);
     }
 
@@ -89,9 +84,9 @@ public class GeneralPetState extends AIState {
         return HexDistanceCalculator.getHexDistance(origin,goal) == 1;
     }
 
-    private boolean hasNoTargets(Point3D nearestItem, Point3D nearestSteal, Point3D nearestTarget) {
+    private boolean hasNoTargets(Point3D goal) {
         Point3D dummy = new Point3D(Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE);
-        return (dummy.equals(nearestItem) && dummy.equals(nearestSteal) && dummy.equals(nearestTarget));
+        return (dummy.equals(goal));
     }
 
     private void moveToGoal(Point3D start, Point3D goal){
@@ -138,12 +133,12 @@ public class GeneralPetState extends AIState {
             }
         }
         //TODO: Other cases for priority if the need/time arises
-        return Math.min(iDist,eDist);
+        return Math.min(sDist,Math.min(iDist,eDist));
     }
 
 
     private Point3D getNearestItem(Point3D origin) {
-        List<Point3D> itemPoints = new ArrayList<>(itemMap.keySet());
+        Set<Point3D> itemPoints = itemMap.keySet();
         Point3D minLocation = new Point3D(Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE);
         double minDistance = Double.MAX_VALUE;
         for (Point3D point : itemPoints) {
