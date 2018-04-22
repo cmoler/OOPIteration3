@@ -26,6 +26,7 @@ public class ItemFactory {
         WeaponItem oneHandedSword = new WeaponItem("One Handed Sword", command, skill, influenceEffect, 10, 10, 10, 10, 1 );
         oneHandedSword.setCurrentLevelMessenger(levelMessenger);
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setOneHandedSword();
         oneHandedSword.setObserver(itemView);
         return oneHandedSword;
     }

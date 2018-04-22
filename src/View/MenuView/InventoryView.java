@@ -46,6 +46,8 @@ public class InventoryView extends InGameMenuView {
         if(selectedX != 0){
             drawItemDetails(gc);
         }
+
+
     }
 
     private void drawItemDetails(GraphicsContext gc) {
@@ -67,6 +69,9 @@ public class InventoryView extends InGameMenuView {
         int optionsStartX = startX;
         int optionsStartY = Commons.SCREEN_HEIGHT / 2;
 
+        if(takeableItem.getObserver() != null) {
+            gc.drawImage(takeableItem.getObserver().getSprite(), startX+25, startY + 50);
+        }
         //draw use
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.WHITESMOKE);
