@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 public class SavingVisitor implements Visitor {
 
@@ -82,6 +83,16 @@ public class SavingVisitor implements Visitor {
                 if(gameModel.hasPlayer()) {
                     visitPlayerEntity(gameModel.getPlayer());
                 }
+
+                if(!gameModel.isTeleportQueueEmpty()) {
+                    this.valueNode = new StringBuffer("<TELEPORTQUEUE id=" + "\"progress" + "\">");
+                    visitTelportQueue(gameModel.getTeleportQueue());
+                }
+
+                if(!gameModel.isFailedQueueEmpty()) {
+                    this.valueNode = new StringBuffer("<TELEPORTQUEUE id=" + "\"failed" + "\">");
+                    visitTelportQueue(gameModel.getFailedQueue());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -91,6 +102,27 @@ public class SavingVisitor implements Visitor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void visitTelportQueue(Queue<GameModel.TeleportTuple> teleportQueue) throws IOException {
+        this.valueNode.append("\n");
+
+        for(GameModel.TeleportTuple teleportTuple: teleportQueue) {
+            processTeleportTuple(teleportTuple);
+        }
+        this.valueNode.append("</TELEPORTQUEUE>");
+        writer.append(this.valueNode.toString());
+    }
+
+    private void processTeleportTuple(GameModel.TeleportTuple teleportTuple) {
+        StringBuffer point = keyToString(teleportTuple.getDestinationPoint());
+        StringBuffer tupleString = new StringBuffer("<" + teleportTuple.getClass().getSimpleName()
+                + " levelReference=" + "\"" + teleportTuple.entityToString() + "\""
+                + " entityReference=" + "\"" + teleportTuple.levelToString() + "\""
+                + " point=" + "\"" + point + "\""
+                + " reference=" + "\"" + teleportTuple.toString() + "\"/>");
+        this.valueNode.append(tupleString);
+        this.valueNode.append("\n");
     }
 
     public void visitLevel(Level level) {

@@ -26,22 +26,22 @@ import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import Model.Utility.BidiMap;
+import View.LevelView.EntityView.SmasherView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.testfx.framework.junit.ApplicationTest;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class SavingVisitorTests {
+public class SavingVisitorTests extends ApplicationTest {
 
     private SavingVisitor savingVisitor;
     private GameLoader gameLoader;
@@ -127,14 +127,21 @@ public class SavingVisitorTests {
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
                 new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
 
-//        helmet.onTouch(entity);
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
+        entity.setObserver(new SmasherView(entity, new Point3D(0,0,0)));
 
         level.addEntityTo(new Point3D(0,0,0), entity);
 
         levels.add(level);
         levels.add(new Level());
-        gameModel = new GameModel(level, null, levels, entity, null);
+
+        GameModel test = new GameModel(null);
+        GameModel.TeleportTuple teleportTuple = test.new TeleportTuple(entity, level, new Point3D(0,0,0));
+        LinkedList<GameModel.TeleportTuple> queue = new LinkedList<>();
+        queue.add(teleportTuple);
+        queue.add(teleportTuple);
+
+        gameModel = new GameModel(level, null, levels, entity, null, queue, new LinkedList<>());
         savingVisitor.visitGameModel(gameModel);
         gameLoader.loadGame("TESTSAVE.xml");
     }

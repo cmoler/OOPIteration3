@@ -41,6 +41,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GameLoader {
@@ -57,6 +58,8 @@ public class GameLoader {
     private HashMap<String, Level> levelRef = new HashMap<>();
     private HashMap<String, Command> commandRef = new HashMap<>();
     private HashMap<String, Skill> skillRef = new HashMap<>();
+    private LinkedList<GameModel.TeleportTuple> teleportTuples = new LinkedList<>();
+    private LinkedList<GameModel.TeleportTuple> failedTuples = new LinkedList<>();
 
     public GameLoader(GameLoop gameLoop) {
         world = new ArrayList<>();
@@ -773,24 +776,28 @@ public class GameLoader {
                                 case "armoritem":
                                     int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
                                     ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
+                                    armorItem.setCurrentLevelMessenger(levelMessenger);
                                     itemsToAdd.add(armorItem);
                                     itemRef.put(armorItem.toString(), armorItem);
                                     break;
 
                                 case "consumableitem":
                                     ConsumableItem consumableItem = new ConsumableItem(name, command);
+                                    consumableItem.setCurrentLevelMessenger(levelMessenger);
                                     itemsToAdd.add(consumableItem);
                                     itemRef.put(consumableItem.toString(), consumableItem);
                                     break;
 
                                 case "ringitem":
                                     RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
+                                    ringItem.setCurrentLevelMessenger(levelMessenger);
                                     itemsToAdd.add(ringItem);
                                     itemRef.put(ringItem.toString(), ringItem);
                                     break;
 
                                 case "weaponitem": //TODO: this needs to be changed
                                     WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command);
+                                    weaponItem.setCurrentLevelMessenger(levelMessenger);
                                     itemsToAdd.add(weaponItem);
                                     itemRef.put(weaponItem.toString(), weaponItem);
                                     break;
@@ -1072,11 +1079,14 @@ public class GameLoader {
         NodeList currentLevel = document.getElementsByTagName("CURRENTLEVEL");
         NodeList levelList = document.getElementsByTagName("LEVELLIST");
         NodeList player = document.getElementsByTagName("PLAYER");
+        NodeList queues = document.getElementsByTagName("TELEPORTQUEUE");
+
         this.currentLevel = loadLevel(currentLevel);
         this.levelMessenger.setLevel(this.currentLevel);
         this.world = loadWorld(levelList);
         this.entity = loadPlayer(player);
-        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, new HashMap<>());
+        loadQueue(queues);
+        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, new HashMap<>(), null, null );
     }
 
     private Entity loadPlayer(NodeList player) {
@@ -1233,6 +1243,63 @@ public class GameLoader {
         }
 
         return level;
+    }
+
+    private void loadQueue(NodeList childNodes) {
+        for(int i = 0; i < childNodes.getLength(); i++) {
+            Node queNode = childNodes.item(i);
+
+            if(queNode.getNodeType() == Node.ELEMENT_NODE) {
+                System.out.println(queNode.getAttributes().getNamedItem("id").getTextContent());
+                switch (queNode.getAttributes().getNamedItem("id").getTextContent()) {
+                    case "progress":
+                        processProgressTuple(queNode.getChildNodes());
+                        break;
+
+                    case "failed":
+                        processFailedTuple(queNode.getChildNodes());
+                        break;
+                }
+            }
+        }
+    }
+
+    private void processProgressTuple(NodeList childNodes) {
+        String entRef;
+        String levRef;
+        Point3D point3D;
+        GameModel gameModel = new GameModel(null);
+        for(int i = 0; i < childNodes.getLength(); i++) {
+            Node tupleNode = childNodes.item(i);
+
+            if(tupleNode.getNodeType() == Node.ELEMENT_NODE) {
+                entRef = tupleNode.getAttributes().getNamedItem("entityReference").getTextContent();
+                levRef = tupleNode.getAttributes().getNamedItem("levelReference").getTextContent();
+                point3D = toPoint3D(tupleNode.getAttributes().getNamedItem("point").getTextContent());
+                Entity entity = this.entityRef.get(entRef);
+                Level level = this.levelRef.get(levRef);
+                teleportTuples.add(gameModel.new TeleportTuple(entity, level, point3D));
+            }
+        }
+    }
+
+    private void processFailedTuple(NodeList childNodes) {
+        String entRef;
+        String levRef;
+        Point3D point3D;
+        GameModel gameModel = new GameModel(null);
+        for(int i = 0; i < childNodes.getLength(); i++) {
+            Node tupleNode = childNodes.item(i);
+
+            if(tupleNode.getNodeType() == Node.ELEMENT_NODE) {
+                entRef = tupleNode.getAttributes().getNamedItem("entityReference").getTextContent();
+                levRef = tupleNode.getAttributes().getNamedItem("levelReference").getTextContent();
+                point3D = toPoint3D(tupleNode.getAttributes().getNamedItem("point").getTextContent());
+                Entity entity = this.entityRef.get(entRef);
+                Level level = this.levelRef.get(levRef);
+                failedTuples.add(gameModel.new TeleportTuple(entity, level, point3D));
+            }
+        }
     }
 
     private ArrayList<Level> processLevelList(NodeList nodeList) {

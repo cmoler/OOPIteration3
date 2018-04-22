@@ -9,26 +9,20 @@ import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
-import Model.AI.PatrolPath;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
-import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 
-import Model.Item.TakeableItem.ConsumableItem;
 
-
-import View.LevelView.EntityView.EntityView;
-import View.LevelView.EntityView.PetView;
 import View.LevelView.LevelViewElement;
 
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +58,7 @@ public class GameModel implements Visitable {
     }
 
     public GameModel(Level currentLevel, LevelMessenger currentLevelMessenger, List<Level> levels, Entity player,
-                     Map<Level, List<AIController>> aiMap) {
+                     Map<Level, List<AIController>> aiMap, LinkedList<TeleportTuple> teleportQueue, LinkedList<TeleportTuple> failedTeleportQueue) {
         this.currentLevel = currentLevel;
         this.currentLevelMessenger = currentLevelMessenger;
         this.levels = levels;
@@ -76,8 +70,8 @@ public class GameModel implements Visitable {
         this.currentLevel.setMovementHandlerDialogCommand(this.currentLevelMessenger);
 
         //TODO: Save this
-        teleportQueue = new LinkedList<>();
-        failedTeleportQueue = new LinkedList<>();
+        this.teleportQueue = teleportQueue;
+        this.failedTeleportQueue = failedTeleportQueue;
     }
 
     public void init() {
@@ -209,7 +203,23 @@ public class GameModel implements Visitable {
         return currentLevelMessenger;
     }
 
-    private class TeleportTuple {
+    public boolean isTeleportQueueEmpty() {
+        return teleportQueue.isEmpty();
+    }
+
+    public Queue<TeleportTuple> getTeleportQueue() {
+        return teleportQueue;
+    }
+
+    public boolean isFailedQueueEmpty() {
+        return failedTeleportQueue.isEmpty();
+    }
+
+    public Queue<TeleportTuple> getFailedQueue() {
+        return failedTeleportQueue;
+    }
+
+    public class TeleportTuple {
         private Entity entity;
         private Level destLevel;
         private Point3D destinationPoint;
@@ -230,6 +240,14 @@ public class GameModel implements Visitable {
 
         public Point3D getDestinationPoint() {
             return destinationPoint;
+        }
+
+        public String entityToString() {
+            return entity.toString();
+        }
+
+        public String levelToString() {
+            return destLevel.toString();
         }
     }
 

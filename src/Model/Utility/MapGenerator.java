@@ -1,32 +1,18 @@
 package Model.Utility;
 
 import Controller.Factories.EntityFactories.EntityFactory;
-import Controller.Factories.EntityFactories.SummonerFactory;
 import Controller.Factories.SkillsFactory;
-import Controller.GameLoader;
 import Controller.Visitor.SavingVisitor;
 import Model.AreaEffect.InfiniteAreaEffect;
-import Model.AreaEffect.OneShotAreaEffect;
-import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
-import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
-import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
-import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
-import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Command.EntityCommand.SettableCommand.*;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.*;
-import Model.InfluenceEffect.AngularInfluenceEffect;
-import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
-import Model.Item.InteractiveItem;
-import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import View.LevelView.EntityView.SmasherView;
-import View.LevelView.EntityView.SneakView;
-import View.LevelView.EntityView.SummonerView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
@@ -70,7 +56,7 @@ public class MapGenerator extends Application {
 
         levels.add(level);
 
-        gameModel = new GameModel(level, null, levels, entity, null);
+        gameModel = new GameModel(level, null, levels, entity, null, null, null);
         savingVisitor.visitGameModel(gameModel);
     }
 
@@ -202,9 +188,9 @@ public class MapGenerator extends Application {
 
     private static void createItems(Level level) {
 //        level.addItemnTo(new Point3D(0,0,0), new InteractiveItem("Door", new ToggleManaCommand(10)));
-        level.addItemnTo(new Point3D(4,-4,0), new OneShotItem("The Bomb", new RemoveHealthCommand(20)));
-        level.addItemnTo(new Point3D(4,-3,1), new ArmorItem("Plain Helmet", new ToggleHealthCommand(10), 1));
-        level.addItemnTo(new Point3D(4,-5,1), new RingItem("The Flash's Ring", new ToggleSpeedCommand(10)));
+//        level.addItemnTo(new Point3D(4,-4,0), new OneShotItem("The Bomb", new RemoveHealthCommand(20)));
+//        level.addItemnTo(new Point3D(4,-3,1), new ArmorItem("Plain Helmet", new ToggleHealthCommand(10), 1));
+//        level.addItemnTo(new Point3D(4,-5,1), new RingItem("The Flash's Ring", new ToggleSpeedCommand(10)));
         level.addItemnTo(new Point3D(5,-4,-1), new ConsumableItem("Healing Potion", new AddHealthCommand(10)));
     }
 

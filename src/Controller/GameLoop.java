@@ -102,6 +102,15 @@ public class GameLoop {
             e.printStackTrace();
         } catch (IOException e) {
             System.err.println("FILE NOT FOUND");
+            try {
+                gameLoader.loadGame("SMASHER.xml");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (SAXException e1) {
+                e1.printStackTrace();
+            } catch (ParserConfigurationException e1) {
+                e1.printStackTrace();
+            }
         }
 
         finally {
@@ -201,6 +210,7 @@ public class GameLoop {
     public void closeMenu() {
         renderer.closeMenu();
         ((KeyEventImplementor)controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+        runGame.startGame();
     }
 
     public void setInGameMenuKeySet() {

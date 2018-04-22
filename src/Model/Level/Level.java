@@ -289,7 +289,6 @@ public class Level {
         HexMathHelper hexMathHelper = new HexMathHelper();
 
         for(LevelViewElement o:observers) {
-            System.out.println("Updating");
             if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {//If object in view of player, update location
                 o.locationViewedByPlayer();
             }
