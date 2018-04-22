@@ -457,7 +457,9 @@ public class Entity {
     public RingItem getRingItem() { return equipment.getEquippedRing(); }
 
     public void attack() {
-        getWeaponItem().attack(this);
+        if(equipment.hasWeapon()) {
+            getWeaponItem().attack(this);
+        }
     }
 
     public void addItemToHotBar(TakeableItem takeableItem, int index){

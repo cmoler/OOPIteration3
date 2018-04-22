@@ -1,7 +1,9 @@
 package Model.MenuModel;
 
+import Controller.Factories.PetAIFactory;
 import Controller.GameLoop;
 import Model.AI.AIState;
+import Model.AI.PetAI.PetPriority;
 import Model.AI.PetAI.PetStates.CombatPetState;
 import Model.Entity.Entity;
 
@@ -14,7 +16,6 @@ public class PetMenu extends InGameMenuState {
     private int selectedFocus;
     private int selectedPriority;
     private List<Entity> pets;
-    private List<AIState> aiStates;
 
     public PetMenu(MenuModel menuModel, Entity player, GameLoop gameLoop) {
         super(menuModel, player, gameLoop);
@@ -83,6 +84,23 @@ public class PetMenu extends InGameMenuState {
         }
         if(selectedFocus < 0) selectedFocus = 3;
         if(selectedFocus > 3) selectedFocus = 0;
+        AIState aiState = null;
+        PetAIFactory petAIFactory = gameLoop.getPetAIFactoryFromCurrentLevel();
+        switch (selectedFocus){
+            case 0:
+                aiState = petAIFactory.getGeneralPetState();
+                break;
+            case 1:
+                aiState = petAIFactory.getCombatPetState();
+                break;
+            case 2:
+                aiState = petAIFactory.getItemPetState();
+                break;
+            case 3:
+                aiState = petAIFactory.getPassivePetState();
+                break;
+        }
+        gameLoop.setAIOnCurrentLevel(pets.get(selectedPet), aiState);
     }
 
     private void priorityPart() {
@@ -96,6 +114,20 @@ public class PetMenu extends InGameMenuState {
         }
         if(selectedPriority < 0) selectedPriority = 3;
         if(selectedPriority > 3) selectedPriority = 0;
+        switch (selectedPriority){
+            case 0:
+                gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.ITEMS);
+                break;
+            case 1:
+                gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.PLAYER);
+                break;
+            case 2:
+                gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.ENEMIES);
+                break;
+            case 3:
+                gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.NONE);
+                break;
+        }
     }
 
     public int getSelectedPet(){

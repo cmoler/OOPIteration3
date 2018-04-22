@@ -2,13 +2,12 @@ package Model.Level;
 
 import Controller.Factories.EntityFactories.*;
 import Controller.Factories.ItemFactory;
+import Controller.Factories.PetAIFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
-import Model.AI.AIController;
-import Model.AI.FriendlyAI;
-import Model.AI.HostileAI;
-import Model.AI.PatrolPath;
+import Model.AI.*;
+import Model.AI.PetAI.PetPriority;
 import Model.AI.PetAI.PetStates.GeneralPetState;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
@@ -21,7 +20,6 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.Entity.EntityAttributes.Skill;
-import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.TakeableItem.ArmorItem;
@@ -56,6 +54,7 @@ public class GameModel implements Visitable {
 
     private SkillsFactory skillsFactory;
     private EntityFactory entityFactory;
+    private PetAIFactory petAIFactory;
 
     public GameModel(GameLoopMessenger gameLoopMessenger) {
         gameModelMessenger = new GameModelMessenger(gameLoopMessenger, this);
@@ -193,9 +192,10 @@ public class GameModel implements Visitable {
         List<AIController> AIList = new ArrayList<>();
         aiMap.put(currentLevel,AIList);
 
-
+        Skill pickpock = skillsFactory.getPickpocket();
         entityFactory = new PetFactory(skillsFactory);
         Entity pet = entityFactory.buildEntity();
+        petAIFactory = new PetAIFactory(currentLevel.getTerrainMap(), currentLevel.getObstacleMap(),currentLevel.getItemMap(), pickpock, currentLevel.getRiverMap(), currentLevel.getEntityMap(), player, pet);
         entityFactory.buildEntitySprite(pet);
         pet.setMoveable(true);
         pet.setNoise(5);
@@ -213,7 +213,7 @@ public class GameModel implements Visitable {
         pet.addItemToInventory(claw);
         pet.equipWeapon(claw);
         pet.setSightRadius(new SightRadius(5));
-        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+        currentLevel.addEntityTo(new Point3D(0, 4, -4), pet);
         AIController test = new AIController();
 
 
@@ -227,7 +227,7 @@ public class GameModel implements Visitable {
         currentLevel.addItemTo(new Point3D(1, -1, 0), weaponItem);
 
         // Passive Pet AI
-        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player, currentLevel.getRiverMap());
+        PassivePetState PPS = petAIFactory.getPassivePetState();
         test.setActiveState(PPS);
 
         // Combat Pet AI
@@ -241,9 +241,8 @@ public class GameModel implements Visitable {
         test.setActiveState(IPS);*/
 
         // General Pet AI
-        Skill pickpock = skillsFactory.getPickpocket();
         pet.setSkillLevel(pickpock,1000);
-        GeneralPetState GPS = new GeneralPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(), pickpock,player,currentLevel.getRiverMap());
+        GeneralPetState GPS = petAIFactory.getGeneralPetState();
         test.setActiveState(GPS);
 
 
@@ -351,13 +350,35 @@ public class GameModel implements Visitable {
     public void resetPlayer() {
         player.reset();
     }
-
+    
     public boolean hasAI() {
         return aiMap != null && !aiMap.isEmpty();
     }
 
     public Map<Level, List<AIController>> getAiMap() {
         return aiMap;
+    }
+
+    public PetAIFactory getPetAIFactory() {
+        return petAIFactory;
+    }
+
+    public void setAIOnCurrentLevel(Entity entity, AIState aiState) {
+        List<AIController> aiControllers = aiMap.get(currentLevel);
+        for(int i = 0; i < aiControllers.size(); ++i){
+            if(aiControllers.get(i).getEntity() == entity){
+                aiControllers.get(i).setActiveState(aiState);
+            }
+        }
+    }
+
+    public void setAIPriorityOnCurrentLevel(Entity entity, PetPriority petPriority) {
+        List<AIController> aiControllers = aiMap.get(currentLevel);
+        for(int i = 0; i < aiControllers.size(); ++i) {
+            if (aiControllers.get(i).getEntity() == entity && aiControllers.get(i).getActiveState() == petAIFactory.getGeneralPetState()) {
+                ((GeneralPetState)aiControllers.get(i).getActiveState()).setPriority(petPriority);
+            }
+        }
     }
 
     public class TeleportTuple {
