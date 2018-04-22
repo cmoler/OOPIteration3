@@ -1008,6 +1008,12 @@ public class GameLoader {
                         case "teleportentitycommand":
                             String reference = commandNode.getAttributes().getNamedItem("levelReference").getTextContent();
                             Level level = levelRef.get(reference);
+
+                            if(level == null) {
+                                level = new Level();
+                                levelRef.put(reference, level);
+                            }
+
                             Point3D point3D = toPoint3D(commandNode.getAttributes().getNamedItem("point").getTextContent());
                             TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level, point3D);
                             this.commandRef.put(teleportEntityCommand.toString(), teleportEntityCommand);
@@ -1311,16 +1317,18 @@ public class GameLoader {
 
             Node node = nodeList.item(i);
             if(node.getNodeType() == Node.ELEMENT_NODE) {
-                Level level = new Level();
                 Element element = (Element) node;
 
                 reference = element.getAttribute("reference");
 
-                if(levelRef.containsKey(reference)) {
+                if(levelRef.containsKey(reference) && levelRef.get(reference).equals(currentLevel)) {
                     levelList.add(levelRef.get(reference));
-                }
+                } else if(levelRef.containsKey(reference) && levelRef.get(reference) != currentLevel) {
+                    levelList.add(levelRef.get(reference));
+                    loadMaps(element.getChildNodes(), levelRef.get(reference));
+                } else {
+                    Level level = new Level();
 
-                else {
                     loadMaps(element.getChildNodes(), level);
                     levelList.add(level);
                     levelRef.put(level.toString(), level);

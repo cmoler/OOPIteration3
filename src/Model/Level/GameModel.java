@@ -280,14 +280,8 @@ public class GameModel implements Visitable {
     }
 
     private void moveEntityToLevel(Entity entity, Level destinationLevel, Point3D destinationPoint) {
-        if(entity.isMounted()) {
-            Mount mount = entity.getMount();
-            currentLevel.removeMount(mount);
-            destinationLevel.addMountTo(destinationPoint, mount);
-            mount.notifyObservers(destinationPoint);
-        }
-
         List<LevelViewElement> observers = new ArrayList<>();
+
         observers.add(entity.getObserver());
         entity.notifyObservers(destinationPoint);
 
@@ -296,6 +290,13 @@ public class GameModel implements Visitable {
 
         destinationLevel.addEntityTo(destinationPoint, entity);
         destinationLevel.addObservers(observers);
+
+        if(entity.isMounted()) {
+            Mount mount = entity.getMount();
+            currentLevel.removeMount(mount);
+            destinationLevel.addMountTo(destinationPoint, mount);
+            mount.notifyObservers(destinationPoint);
+        }
     }
 
     private void changeCurrentLevelToDestination(Level destinationLevel) {

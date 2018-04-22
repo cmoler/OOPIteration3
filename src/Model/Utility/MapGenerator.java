@@ -55,10 +55,24 @@ public class MapGenerator extends Application {
         createRivers(level);
         createEnities(level);
 
+        createTerrainsForWorld(levelToTeleportTo);
         levels.add(level);
+        levels.add(levelToTeleportTo);
 
         gameModel = new GameModel(level, null, levels, entity, null, null, null);
         savingVisitor.visitGameModel(gameModel);
+    }
+
+    private static void createTerrainsForWorld(Level levelToTeleportTo) {
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+
+        levelToTeleportTo.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+        for(int i = 0; i < 4; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
+            for(int j = 0; j < points.size(); j++) {
+                levelToTeleportTo.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
+        }
     }
 
     private static void createEnities(Level level) {
@@ -209,7 +223,7 @@ public class MapGenerator extends Application {
 }
 
     private static void createAreaEffects(Level level) {
-        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level, new Point3D(0,1,-1));
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(levelMessenger, levelToTeleportTo, new Point3D(0,0,0));
         InfiniteAreaEffect damage = new InfiniteAreaEffect(teleportEntityCommand);
         RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 

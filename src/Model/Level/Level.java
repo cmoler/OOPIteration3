@@ -302,11 +302,11 @@ public class Level {
     }
 
     public void addObservers(List<LevelViewElement> observers) {
-        observers.addAll(observers);
+        this.observers.addAll(observers);
     }
 
     public void removeObservers(List<LevelViewElement> observers) {
-        observers.removeAll(observers);
+        this.observers.removeAll(observers);
     }
 
     public List<LevelViewElement> getObservers() {

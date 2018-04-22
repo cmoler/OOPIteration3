@@ -174,6 +174,7 @@ public class GameLoop {
 
     public void tick() {
         gameModel.advance();
+        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
     }
 
     public void render(GraphicsContext gc){
