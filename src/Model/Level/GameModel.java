@@ -25,6 +25,7 @@ import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
+import Model.Item.TakeableItem.RingItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
@@ -257,6 +258,11 @@ public class GameModel implements Visitable {
         ArmorItem lightArmor = itemFactory.getHeavyArmor();
         lightArmor.notifyObserver(new Point3D(3, -3, 0));
         currentLevel.addItemTo(new Point3D(3, -3, 0), lightArmor);
+
+        RingItem ringItem = itemFactory.getSpeedRing();
+        ringItem.notifyObserver(new Point3D(4, -4, 0));
+        currentLevel.addItemTo(new Point3D(4, -4, 0), ringItem);
+
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

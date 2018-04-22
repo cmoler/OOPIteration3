@@ -432,6 +432,7 @@ public class Entity {
         return equipment.getEquippedWeapon();
     }
     public ArmorItem getArmorItem() { return equipment.getEquippedArmor(); }
+    public RingItem getRingItem() { return equipment.getEquippedRing(); }
     
     public void attack() {
         getWeaponItem().attack(this);

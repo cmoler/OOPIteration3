@@ -129,5 +129,13 @@ public class ItemView extends LevelViewElement{
         setSprite(new Image(file.toURI().toString()));
     }
 
+    public void setSpeedRing() {
+        String workingDir = System.getProperty("user.dir");
+
+        File file = new File(workingDir + "/src/View/Assets/diamondRing.png");
+
+        setSprite(new Image(file.toURI().toString()));
+    }
+
 
 }
