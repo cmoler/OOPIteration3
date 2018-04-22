@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.transform.Rotate;
 
 public class HUDStatsView {
     private Entity player;
@@ -18,7 +19,7 @@ public class HUDStatsView {
     }
 
     public void render(GraphicsContext gc) {
-
+        rotate(gc, 0, 0, 0);
 
         renderHealthBar(gc);
         renderExperienceBar(gc);
@@ -74,6 +75,11 @@ public class HUDStatsView {
 
         gc.setFill(fillColor);
         gc.fillRect(x, y, width*percentFill, height);
+    }
+
+    protected void rotate(GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
 
