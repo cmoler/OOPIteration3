@@ -52,4 +52,10 @@ public class ItemHotBar implements Visitable {
     public int getSize() {
         return items.length;
     }
+
+    public void removeItem(int i) {
+        if(i < 5 && i >= 0) {
+            items[i] = null;
+        }
+    }
 }

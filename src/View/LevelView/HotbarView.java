@@ -42,6 +42,7 @@ public class HotbarView {
             if(i == player.getCurrentlySelectedItemIndex()) {
                 gc.setFill(Color.RED);
                 gc.fillRect(Commons.SCREEN_WIDTH-itemSize, itemHotBarStartY + (itemSize*i), itemSize , itemSize);
+                gc.setFill(Color.BLACK);
             }
             renderSquareBorder(gc, Commons.SCREEN_WIDTH-itemSize, itemHotBarStartY + (itemSize*i), itemSize);
 

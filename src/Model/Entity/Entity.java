@@ -465,6 +465,11 @@ public class Entity {
         hotBar.use(index);
     }
 
+    public void useItem() {
+        hotBar.use(currentlySelectedItem);
+        hotBar.removeItem(currentlySelectedItem);
+    }
+
     public void useSkill(int index){ // TODO: add logic for mana costs
         if(nonWeaponSkills.size() - 1 < index || index < 0) return;
         else{
