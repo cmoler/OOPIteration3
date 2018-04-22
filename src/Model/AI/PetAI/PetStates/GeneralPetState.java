@@ -70,7 +70,7 @@ public class GeneralPetState extends AIState {
                 }
             }
             else {
-                System.out.println("Simply moving");
+                //System.out.println("Simply moving");
                 moveToGoal(petPoint, goal);
             }
         }

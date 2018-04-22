@@ -467,6 +467,11 @@ public class Entity {
         hotBar.use(index);
     }
 
+    public void useItem() {
+        hotBar.use(currentlySelectedItem);
+        hotBar.removeItem(currentlySelectedItem);
+    }
+
     public void useSkill(int index){ // TODO: add logic for mana costs
         if(nonWeaponSkills.size() - 1 < index || index < 0) return;
         else{
@@ -511,6 +516,9 @@ public class Entity {
         return currentlySelectedItem;
     }
 
+    public int getCurrentlySelectedSkillIndex() {
+        return currentlySelectedSkill;
+    }
     public boolean hasFreeSpaceInInventory() {
         return inventory.hasFreeSpace();
     }
@@ -708,7 +716,6 @@ public class Entity {
         this.traversalStrength = traversalStrength;
     }
 
-    public void useItem() {
 
     }
 
