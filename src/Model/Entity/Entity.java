@@ -116,6 +116,7 @@ public class Entity {
         inventory = new Inventory();
         equipment = new Equipment();
         hotBar = new ItemHotBar();
+        friendlyList = new ArrayList<>();
         orientation = Orientation.NORTH;
 
         compatableTerrain = new ArrayList<>();
@@ -715,6 +716,8 @@ public class Entity {
     public void setTraversalStrength(int traversalStrength) {
         this.traversalStrength = traversalStrength;
     }
+
+
 
 
     public String getName() {
