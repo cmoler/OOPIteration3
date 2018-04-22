@@ -443,7 +443,7 @@ public class SavingVisitor implements Visitor {
                 + " currentHealth=" + "\"" + entity.getCurrentHealth() + "\""
                 + " maxHealth=" + "\"" + entity.getMaxHealth() + "\""
                 + " manaPoints=" + "\"" + entity.getManaPoints() + "\""
-                + " maxMana=" + "\"" + entity.getMaxMana() + "\""
+                + " maxMana=" + "\"" + entity.getMaxMana() + "\""  // TODO: BRYAN ADD THIS REGENRATE PLS
                 + " speed=" + "\"" + entity.getSpeed() + "\""
                 + " goldAmount=" + "\"" + entity.getGold() + "\""
                 + " maxGold=" + "\"" + entity.getMaxGold() + "\""

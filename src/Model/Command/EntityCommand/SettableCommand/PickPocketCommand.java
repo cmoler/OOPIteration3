@@ -34,8 +34,6 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
         Point3D destPoint = Orientation.getAdjacentPoint(invokerPoint, invokingEntity.getOrientation());
 
         entityToStealFrom = level.getEntityAtPoint(destPoint);
-
-
     }
 
     public void receiveGameModel(GameModel gameModel) {
@@ -48,7 +46,6 @@ public class PickPocketCommand extends GameModelCommand implements SettableComma
                 if (successChance < pickPocketStrength / 2) { // successful pickpocket
                     TakeableItem item = entityToStealFrom.takeRandomItemFromInventory();
                     if (item != null) {
-                        System.out.println("item added");
                         invokingEntity.addItemToInventory(item);
                     }
                 } else { // unsuccessful pickpocket, turn entity hostile

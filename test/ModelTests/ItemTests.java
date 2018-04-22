@@ -64,7 +64,7 @@ public class ItemTests {
         Assert.assertEquals(entity1.getCurrentHealth(), 100, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertEquals(entity1.getCurrentHealth(), 80, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
@@ -95,14 +95,14 @@ public class ItemTests {
         Assert.assertEquals(entity1.getCurrentHealth(), 100, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertEquals(entity1.getCurrentHealth(), 80, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 
         Assert.assertTrue(level.hasItem(interactiveItem));
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertEquals(entity1.getCurrentHealth(), 60, 0);
         Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
@@ -128,7 +128,7 @@ public class ItemTests {
 
         Assert.assertFalse(entity.hasItemInInventory(weapon));
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(entity.hasItemInInventory(weapon));
 
@@ -192,7 +192,7 @@ public class ItemTests {
 
         Assert.assertFalse(entity.hasItemInInventory(armor));
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(entity.hasItemInInventory(armor));
 
@@ -256,7 +256,7 @@ public class ItemTests {
 
         Assert.assertFalse(entity.hasItemInInventory(ring));
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(entity.hasItemInInventory(ring));
 
