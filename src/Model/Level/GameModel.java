@@ -224,7 +224,7 @@ public class GameModel implements Visitable {
         weaponItem.notifyObserver(new Point3D(1, -1, 0));
         currentLevel.addItemTo(new Point3D(1, -1, 0), weaponItem);
 
-        ConsumableItem potion1 = itemFactory.getPotion();
+        ConsumableItem potion1 = itemFactory.getManaPotion();
         potion1.notifyObserver(new Point3D(3, -3, 0));
 
         currentLevel.addItemTo(new Point3D(3, -3, 0), potion1);

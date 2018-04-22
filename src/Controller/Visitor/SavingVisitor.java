@@ -829,6 +829,14 @@ public class SavingVisitor implements Visitor {
                 "\"" +addHealthCommand.getAmount() + "\"" + "/>");
     }
 
+    public void visitAddManaCommand(AddManaCommand addManaCommand) {
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("\t");
+        this.valueNode.append("<" + addManaCommand.getClass().getSimpleName() + " amount=" +
+                "\"" +addManaCommand.getAmount() + "\"" + "/>");
+    }
+
     public void visitBarterCommand(BarterCommand barterCommand) {
         StringBuffer barterString = new StringBuffer("<" + barterCommand.getClass().getSimpleName()
                 + " barterStrength=" + "\"" + barterCommand.getAmount() + "\">");
