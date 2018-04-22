@@ -52,6 +52,8 @@ public class Entity {
     private Mount mount;
     private List<Entity> targetingList;
 
+    private long nextMoveTime = 0;
+
     public Entity(LevelViewElement observer, ItemHotBar hotBar, List<Skill> weaponSkills,
                   List<Skill> nonWeaponSkills, HashMap<Skill, SkillLevel> skillLevelsMap,
                   Vec3d velocity, NoiseLevel noiseLevel, SightRadius sightRadius, XPLevel xpLevel, Health health,
@@ -109,9 +111,6 @@ public class Entity {
         hotBar = new ItemHotBar();
         orientation = Orientation.NORTH;
 
-        speed = new Speed();
-        speed.setSpeed(1);
-
         compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
         moveable = true;
@@ -122,6 +121,14 @@ public class Entity {
 
     public boolean isMoveable() {
         return moveable;
+    }
+
+    public boolean canMove() {
+        return System.nanoTime() > nextMoveTime;
+    }
+
+    public void setNextMoveTime() {
+        nextMoveTime = System.nanoTime() + speed.getSpeed();
     }
 
     public void setMoveable(boolean moveable) {
@@ -278,6 +285,13 @@ public class Entity {
 
     public void addVelocity(Vec3d add){
         if(isMoveable()) velocity.add(add);
+    }
+
+    public void addVelocityFromControllerInput(Vec3d add){
+        if(canMove()) {
+            addVelocity(add);
+            setNextMoveTime();
+        }
     }
 
     public void setVelocity(Vec3d velocity) {
@@ -557,7 +571,7 @@ public class Entity {
         return mana.getMaxMana();
     }
 
-    public int getSpeed() {
+    public long getSpeed() {
         return speed.getSpeed();
     }
 
@@ -601,7 +615,7 @@ public class Entity {
         return hotBar;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(long speed) {
         this.speed.setSpeed(speed);
     }
 
@@ -610,7 +624,7 @@ public class Entity {
     }
 
     public boolean hasItems() {
-        return inventory.size() >= 1;
+        return inventory.size() > 0;
     }
 
     public Equipment getEquipment() {
@@ -620,6 +634,10 @@ public class Entity {
     public void reset() {
         health.refill();
         mana.refill();
+    }
+
+    public void addItemsToInventory(Inventory inv) {
+        inventory.addInventory(inv);
     }
 
     public void regenerateMana() {

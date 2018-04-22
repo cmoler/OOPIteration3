@@ -33,27 +33,33 @@ public class ItemPetState extends AIState {
         this.itemMap = itemMap;
         pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
         pickPocketSkill = PickPocketSkill;
+        this.player = player;
     }
 
     @Override
     public void nextMove() {
-        if (!hasItemsToLoot()){
-            return;
-        }
-
         Point3D petPoint = getPetPoint();
         Point3D nearestItem = getNearestItem(petPoint);
         Point3D nearestTarget = getNearestEntity(petPoint);
 
-        if(isInStealingRange(petPoint,nearestItem) && targetHasItemsToSteal(nearestItem)){
-            // TODO: Issue command to steal
+        if (!hasItemsToLoot()){
+            moveToGoal(petPoint,getEntityPoint(player,entityMap));
+        }
+        else if(isInStealingRange(petPoint,nearestTarget) && targetHasItemsToSteal(nearestTarget)){
+            System.out.println("Pickpocketing...");
             executePickpocket(super.getEntity());
         }
         else{
+            System.out.println("Test...");
             Point3D goal = calculateGoal(petPoint, nearestItem, nearestTarget);
             moveToGoal(petPoint,goal);
         }
     }
+
+   /* private boolean isInRange(Point3D position, Point3D goal, Entity ent){
+        ArrayList<Point3D> reachable = pathCalculator.getReachablePoints(position, 1, ent);
+        return reachable.contains(goal);
+    }*/
 
     private void executePickpocket(Entity pet) {
         pet.useSkill(pickPocketSkill);
@@ -65,16 +71,18 @@ public class ItemPetState extends AIState {
 
     private boolean targetHasItemsToSteal(Point3D nearestItem) {
         Entity target = entityMap.getValueFromKey(nearestItem);
+        System.out.println("This target has items?\t"+target.hasItems());
         return target.hasItems();
     }
 
     private boolean isInStealingRange(Point3D petPoint, Point3D nearestTarget){
-        return petPoint.distance(nearestTarget) == 1;
+        System.out.println("call"+HexDistanceCalculator.getHexDistance(petPoint,nearestTarget));
+        return HexDistanceCalculator.getHexDistance(petPoint,nearestTarget) == 1;
     }
 
     private void moveToGoal(Point3D start, Point3D goal){
         Point3D firstStep = pathCalculator.getAStarPoint(start, goal, super.getEntity());
-        super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
+        super.getEntity().addVelocityFromControllerInput(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
     private Point3D calculateGoal(Point3D origin, Point3D nearestItem, Point3D nearestEntity){
@@ -103,10 +111,9 @@ public class ItemPetState extends AIState {
         }
     }
 
-
     private Point3D getNearestItem(Point3D origin) {
         List<Point3D> itemPoints = new ArrayList<>(itemMap.keySet());
-        Point3D minLocation = itemPoints.get(0);
+        Point3D minLocation = new Point3D(Double.MAX_VALUE,Double.MAX_VALUE,Double.MAX_VALUE);
         double minDistance = Double.MAX_VALUE;
         for (Point3D point : itemPoints) {
             double distance = HexDistanceCalculator.getHexDistance(origin,point);
@@ -118,11 +125,16 @@ public class ItemPetState extends AIState {
         return minLocation;
     }
 
+    private Point3D getEntityPoint(Entity entity, BidiMap<Point3D, Entity> entityLocations) {
+        return entityLocations.getKeyFromValue(entity);
+    }
+
     private Point3D getNearestEntity(Point3D origin) {
-        Point3D minLocation = new Point3D(0,0,0);
+        Point3D minLocation = new Point3D(Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE);
         double minDistance = Double.MAX_VALUE;
         for (Point3D point : entityMap.getKeyList()) {
-            if (!entityMap.getValueFromKey(point).equals(player) && !entityMap.getValueFromKey(point).equals(super.getEntity())) { //TODO: Possible LoD violation?
+            Entity entity = getEntityFromPoint(point);
+            if (!entity.equals(player) && entity.hasItems() && !entity.equals(super.getEntity())) {
                 double distance = HexDistanceCalculator.getHexDistance(origin,point);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -131,6 +143,10 @@ public class ItemPetState extends AIState {
             }
         }
         return minLocation;
+    }
+
+    private Entity getEntityFromPoint(Point3D point) {
+        return entityMap.getValueFromKey(point);
     }
 
     private Point3D getPetPoint() {

@@ -8,7 +8,7 @@ import Model.Entity.Entity;
 public class ToggleSneaking extends ToggleableCommand implements SettableCommand {
 
     private int stealthAmount;
-    private int oldSpeed;
+    private long oldSpeed;
     private int oldNoise;
     private boolean firstTimeExecuting;
 
