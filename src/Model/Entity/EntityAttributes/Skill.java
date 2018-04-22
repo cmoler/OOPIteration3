@@ -15,6 +15,7 @@ public class Skill {
     private SendInfluenceEffectCommand sendInfluenceEffectCommand;
     private int accuracy;
     private int useCost;
+    private long nextFireTime;
 
     public Skill() {
         name = "NEED NAME HERE";
@@ -35,7 +36,7 @@ public class Skill {
     }
 
     public void fire(Entity callingEntity) {
-        if(callingEntity.getManaPoints() > useCost) {
+        if(callingEntity.getManaPoints() > useCost && canFire()) {
             callingEntity.decreaseMana(useCost);
 
             influenceEffect.setOrientation(callingEntity.getOrientation());
@@ -53,7 +54,16 @@ public class Skill {
 
             sendInfluenceEffectCommand.setInfluenceEffect(newInstance);
             sendInfluenceEffectCommand.execute(callingEntity);
+            setNextFireTime();
         }
+    }
+
+    private boolean canFire() {
+        return System.nanoTime() > nextFireTime;
+    }
+
+    public void setNextFireTime() {
+        nextFireTime = System.nanoTime() + 1000000000l;
     }
 
     public void setInfluence(InfluenceEffect influence) {

@@ -110,26 +110,15 @@ public class MovementHandler {
                 influenceEffectLocations.remove(oldPoint);
                 continue;
             }
-            System.out.println("Point: " + oldPoint);
             List<Point3D> nextEffectPoints = influenceEffect.nextMove(oldPoint); // Get list of points to move effect to
             influenceEffect.decreaseCommandAmount();
-
-
-            for(Point3D point : nextEffectPoints) {
-                System.out.println("New Point: " + point.toString());
+            influenceEffect.clearInfluenceEffectViews();
+            InfluenceEffect newInfluenceEffect = influenceEffect.cloneInfluenceEffect();
+            newInfluenceEffect.setIsStartPoint(false);
+            for (Point3D newPoint : nextEffectPoints) {
+                newInfluenceEffect.addInfluenceEffectView(new InfluenceEffectView(newPoint));
+                influenceEffectLocations.put(newPoint, newInfluenceEffect); // put influence effect at its new position
             }
-
-
-            //if (!nextEffectPoints.isEmpty()) {
-                //influenceEffectLocations.remove(oldPoint, influenceEffect); // remove all old positions of the influence effect
-                influenceEffect.clearInfluenceEffectViews();
-                InfluenceEffect newInfluenceEffect = influenceEffect.cloneInfluenceEffect();
-                newInfluenceEffect.setIsStartPoint(false);
-                for (Point3D newPoint : nextEffectPoints) {
-                    newInfluenceEffect.addInfluenceEffectView(new InfluenceEffectView(newPoint));
-                    influenceEffectLocations.put(newPoint, newInfluenceEffect); // put influence effect at its new position
-                }
-            //}
         }
     }
 

@@ -1,6 +1,7 @@
 package Model.AI;
 
 import Model.Entity.Entity;
+import Model.Level.River;
 import Model.Utility.BidiMap;
 import Model.Level.Obstacle;
 import Model.Level.Terrain;
@@ -20,10 +21,10 @@ public class HostileAI extends AIState{
     private double chaseRadius;
     private Boolean originalState;
 
-    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
+    public HostileAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, River> riverMap) {
         super(ent);
         this.entityMap = entityMap;
-        pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
+        pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap, riverMap, entityMap);
         origin = getEntityPoint(super.getEntity(), entityMap);
         chaseRadius = getEntity().getSight();
         this.targetList = ent.getTargetingList();
@@ -108,7 +109,7 @@ public class HostileAI extends AIState{
     }
 
     private boolean isReachable(Point3D position, Point3D goal, Entity ent){
-        ArrayList<Point3D> reachable = pathCalculator.getReachablePoints(position, (int) chaseRadius, ent);
+        ArrayList<Point3D> reachable = pathCalculator.getReachablePoints(position, (int) chaseRadius, ent, entityMap.getValueFromKey(goal));
         return reachable.contains(goal);
     }
 
