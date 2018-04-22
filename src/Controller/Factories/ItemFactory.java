@@ -26,7 +26,57 @@ public class ItemFactory {
         WeaponItem oneHandedSword = new WeaponItem("One Handed Sword", command, skill, influenceEffect, 10, 10, 10, 10, 1 );
         oneHandedSword.setCurrentLevelMessenger(levelMessenger);
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setOneHandedWeapon();
         oneHandedSword.setObserver(itemView);
         return oneHandedSword;
     }
+
+    public WeaponItem getTwoHandedSword() {
+        RemoveHealthCommand command = new RemoveHealthCommand(10);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
+        Skill skill = new Skill("WeaponSkill", influenceEffect, command, new SendInfluenceEffectCommand(levelMessenger), 10, 10);
+        WeaponItem twoHandedSword = new WeaponItem("Two Handed Sword", command, skill, influenceEffect, 20, 5, 10, 10, 1 );
+        twoHandedSword.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setTwoHandedWeapon();
+        twoHandedSword.setObserver(itemView);
+        return twoHandedSword;
+    }
+
+    public WeaponItem getBrawlerWeapon() {
+        RemoveHealthCommand command = new RemoveHealthCommand(10);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
+        Skill skill = new Skill("WeaponSkill", influenceEffect, command, new SendInfluenceEffectCommand(levelMessenger), 10, 10);
+        WeaponItem brawlerWeapon = new WeaponItem("Two Handed Sword", command, skill, influenceEffect, 5, 20, 10, 10, 1 );
+        brawlerWeapon.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setBrawlerWeapon();
+        brawlerWeapon.setObserver(itemView);
+        return brawlerWeapon;
+    }
+
+    public WeaponItem getStaff(){
+        RemoveHealthCommand command = new RemoveHealthCommand(10);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
+        Skill skill = new Skill("WeaponSkill", influenceEffect, command, new SendInfluenceEffectCommand(levelMessenger), 10, 10);
+        WeaponItem staff1 = new WeaponItem("Brawler Weapon", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        staff1.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setStaff();
+        staff1.setObserver(itemView);
+        return staff1;
+    }
+
+    public WeaponItem getRangedWeapon(){
+        RemoveHealthCommand command = new RemoveHealthCommand(10);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 10, 10, Orientation.NORTH);
+        Skill skill = new Skill("WeaponSkill", influenceEffect, command, new SendInfluenceEffectCommand(levelMessenger), 10, 10);
+        WeaponItem staff1 = new WeaponItem("Ranged Weapon", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        staff1.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setRangedWeapon();
+        staff1.setObserver(itemView);
+        return staff1;
+    }
+
 }

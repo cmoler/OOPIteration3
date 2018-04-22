@@ -46,4 +46,23 @@ public class ItemView extends LevelViewElement{
     }
 
 
+    public void setOneHandedWeapon() {
+
+    }
+
+    public void setTwoHandedWeapon() {
+
+    }
+
+    public void setBrawlerWeapon() {
+
+    }
+
+    public void setStaff() {
+
+    }
+
+    public void setRangedWeapon() {
+
+    }
 }
