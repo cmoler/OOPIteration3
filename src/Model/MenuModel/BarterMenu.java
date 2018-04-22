@@ -15,6 +15,7 @@ public class BarterMenu extends MenuState {
     private Inventory playerInventory;
     private Inventory npcInventory;
     private int barterStrength;
+    private double modifier;
 
     public BarterMenu(MenuModel menuModel, GameLoop gameLoop, int barterStrength, Entity player, Entity npc) {
         super(menuModel, gameLoop);
@@ -23,6 +24,8 @@ public class BarterMenu extends MenuState {
         this.playerInventory = player.getInventory();
         this.npc = npc;
         this.npcInventory = npc.getInventory();
+        Random random = new Random();
+        modifier = (random.nextInt(99 - barterStrength) / 20);
     }
 
     @Override
@@ -54,8 +57,7 @@ public class BarterMenu extends MenuState {
     private void sell() {
         TakeableItem itemSelling = playerInventory.getItem(selectedUpDown);
         if(itemSelling == null) return;
-        Random random = new Random();
-        int price = itemSelling.getPrice() / (random.nextInt(99 - barterStrength) / 50);
+        int price = (int)(itemSelling.getPrice() / modifier);
         if(npc.getGold() >= price) {
             player.removeItemFromInventory(itemSelling);
             player.addGold(price);
@@ -67,8 +69,7 @@ public class BarterMenu extends MenuState {
     private void buy() {
         TakeableItem itemBuying = npcInventory.getItem(selectedUpDown);
         if(itemBuying == null) return;
-        Random random = new Random();
-        int price = itemBuying.getPrice() * (random.nextInt(99 - barterStrength) / 50);
+        int price = (int)(itemBuying.getPrice() * modifier);
         if(player.getGold() >= price) {
             player.removeGold(price);
             npc.removeItemFromInventory(itemBuying);
@@ -91,5 +92,9 @@ public class BarterMenu extends MenuState {
 
     public int getNPCGold(){
         return npc.getGold();
+    }
+
+    public double getModifier() {
+        return modifier;
     }
 }

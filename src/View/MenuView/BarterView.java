@@ -39,13 +39,21 @@ public class BarterView extends MenuViewState {
         gc.setFill(Color.GREEN);
         gc.fillRect(startX, startY, width, height);
 
+        gc.fillRect(startX, startY + height, width, height);
+
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(10.0f);
         gc.strokeRect(startX, startY, width, height);
+        gc.strokeRect(startX, startY + height, width, height);
 
         gc.setFill(Color.WHITESMOKE);
         gc.setFont(new Font(60.0f).font("System", FontWeight.BOLD, 60.0f));
         gc.fillText("Barter", startX + width / 4, startY + 4*height/5);
+
+        gc.setFont(new Font(50.0f));
+        double modifier = ((BarterMenu)menuModel.getActiveState()).getModifier();
+        gc.fillText("Modifier: " + modifier, startX + width / 16, startY + 9*height/5);
+
 
         renderPlayer(gc);
         renderNPC(gc);
