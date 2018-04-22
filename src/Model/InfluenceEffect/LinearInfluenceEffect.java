@@ -4,7 +4,6 @@ import Controller.Visitor.Visitor;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.EntityAttributes.Orientation;
 import javafx.geometry.Point3D;
-import javafx.scene.web.HTMLEditorSkin;
 
 import java.util.ArrayList;
 
@@ -36,23 +35,12 @@ public class LinearInfluenceEffect extends InfluenceEffect {
         }
 
         Point3D newPoint = point;
-
         for(int i = 0; i < getRange()-getMovesRemaining()+1; i++) {
             newPoint = Orientation.getAdjacentPoint(newPoint, getOrientation());
         }
         newPos.add(newPoint);
         decrementMovesRemaining();
         return newPos;
-
-        /*
-        Point3D newPoint = Orientation.getAdjacentPoint(point, getOrientation());
-
-        newPos.add(newPoint);
-
-        decrementMovesRemaining();
-
-        return newPos;
-        */
     }
 
     public InfluenceEffect cloneInfluenceEffect() {
