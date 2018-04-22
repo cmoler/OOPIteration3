@@ -202,6 +202,9 @@ public class Entity {
 
     public void decreaseHealth(int amt) {
         health.decreaseCurrentHealth(amt);
+        if(health.getCurrentHealth() <= 0) {
+            observer.notifyViewElementDeath();
+        }
     }
 
     public void decreaseMaxHealth(int amt) {
