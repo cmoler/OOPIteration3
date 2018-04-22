@@ -84,7 +84,6 @@ public class GameLoop {
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
-        // TODO: implement
         if(playerEntity == null || receivingEntity == null) {
             // do nothing if either entity is null
         }else{
@@ -94,7 +93,6 @@ public class GameLoop {
     }
 
     public void openDialogWindow(Entity playerEntity, Entity receivingEntity) {
-        // TODO: implement
         System.out.println("I (player) am talking to you!");
 
         boolean wantToTalk = gameModel.getAIForEntity(receivingEntity).wantToTalk();

@@ -50,7 +50,7 @@ public class StatsView extends InGameMenuView {
 
     private void renderEquipment(GraphicsContext gc) {
         int startX = Commons.SCREEN_WIDTH / 4 + 20;
-        int startY = Commons.SCREEN_HEIGHT / 2;
+        int startY = 2 * Commons.SCREEN_HEIGHT / 3;
         int width = Commons.SCREEN_WIDTH / 6;
         int height = Commons.SCREEN_HEIGHT / 4;
 
