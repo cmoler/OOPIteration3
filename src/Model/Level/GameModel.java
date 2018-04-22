@@ -277,6 +277,7 @@ public class GameModel implements Visitable {
         Trap trap = new Trap(new RemoveHealthCommand(50), 1);
 
         currentLevel.addTrapTo(new Point3D(4, 0, -4), trap);
+        currentLevel.addDecalTo(new Point3D(-2, 0, 2), new Decal());
         
         player.addFriendly(pet);
         aiMap.put(currentLevel,AIList);
