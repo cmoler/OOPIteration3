@@ -10,6 +10,7 @@ import View.LevelView.InfluenceEffectView;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class InfluenceEffect implements Visitable {
     private SettableCommand command;
@@ -18,7 +19,10 @@ public abstract class InfluenceEffect implements Visitable {
     private long speed;
     private Orientation orientation;
     private int range;
-    private InfluenceEffectView influenceEffectView;
+    private List<InfluenceEffectView> influenceEffectViews;
+    protected int count;
+    private long lastFireTime;
+    private boolean isStartPoint;
 
 
     public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation) {
@@ -29,6 +33,11 @@ public abstract class InfluenceEffect implements Visitable {
         this.speed = speed;
         //TODO: make nextMoveTime based on speed
         this.orientation = orientation;
+        count = 1;
+        influenceEffectViews = new ArrayList<>();
+        this.speed = 2000000000/speed;
+        lastFireTime = System.nanoTime();
+        isStartPoint = true;
     }
 
     public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining) {
@@ -39,6 +48,9 @@ public abstract class InfluenceEffect implements Visitable {
         this.speed = speed;
         //TODO: make nextMoveTime based on speed
         this.orientation = orientation;
+        influenceEffectViews = new ArrayList<>();
+        lastFireTime = System.nanoTime();
+        isStartPoint = true;
     }
 
     public abstract ArrayList<Point3D> nextMove(Point3D point);
@@ -103,10 +115,36 @@ public abstract class InfluenceEffect implements Visitable {
         this.command = command;
     }
 
-    public void setInfluenceEffectView(InfluenceEffectView influenceEffectView) {
-        this.influenceEffectView = influenceEffectView;
+    public void addInfluenceEffectView(InfluenceEffectView influenceEffectView) {
+        if(influenceEffectViews == null) {
+            System.out.println("null");
+        }
+        influenceEffectViews.add(influenceEffectView);
     }
-    public InfluenceEffectView getInfluenceEffectView() {
-        return influenceEffectView;
+    public List<InfluenceEffectView> getInfluenceEffectViews() {
+        return influenceEffectViews;
+    }
+    public void clearInfluenceEffectViews() {
+        influenceEffectViews.clear();
+    }
+
+    public boolean readyToMove() {
+        if(System.nanoTime()-lastFireTime > speed) {
+            lastFireTime = System.nanoTime();
+            return true;
+        }
+        return false;
+
+
+
+
+    }
+
+    public boolean isStartPoint() {
+        return isStartPoint;
+    }
+
+    public void setIsStartPoint(boolean startPoint) {
+        isStartPoint = startPoint;
     }
 }

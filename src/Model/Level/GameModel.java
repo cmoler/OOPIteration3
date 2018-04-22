@@ -212,6 +212,7 @@ public class GameModel implements Visitable {
 
         //AIList.add(test);
 
+        currentLevel.addInfluenceEffectTo(new Point3D(0, -2, 2), new RadialInfluenceEffect(new RemoveHealthCommand(10), 5, 5, Orientation.NORTH));
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

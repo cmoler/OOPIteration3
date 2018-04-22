@@ -53,9 +53,13 @@ public class LevelView {
 
 
         Map<Point3D, InfluenceEffect> influenceEffects = currentLevel.getInfluenceEffectMap();
+        //System.out.println(influenceEffects.size());
+        List<InfluenceEffectView> influenceEffectViews;
         for(InfluenceEffect influenceEffect: influenceEffects.values()) {
-            System.out.println("printing influence effect");
-            influenceEffect.getInfluenceEffectView().render(gc, offset, scrollOffset);
+            influenceEffectViews = influenceEffect.getInfluenceEffectViews();
+            for(InfluenceEffectView influenceEffectView:influenceEffectViews) {
+                influenceEffectView.render(gc, offset, scrollOffset);
+            }
 
         }
 
