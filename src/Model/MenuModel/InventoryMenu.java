@@ -28,6 +28,7 @@ public class InventoryMenu extends InGameMenuState {
         if(selectedLeftRight == 1) {
             if (selectedUpDown < 0) selectedUpDown = inventory.size() - 1;
             if (selectedUpDown > inventory.size() - 1) selectedUpDown = 0;
+            selectedItem = selectedUpDown;
         }
         if(selectedLeftRight == 2){
             TakeableItem itemManipulating = inventory.getItem(selectedItem);

@@ -55,6 +55,8 @@ public class Entity {
     private List<Entity> targetingList;
     private List<Entity> friendlyList;
 
+    private String name;
+
     private long nextMoveTime = 0;
 
     public Entity(LevelViewElement observer, ItemHotBar hotBar, List<Skill> weaponSkills,
@@ -114,6 +116,7 @@ public class Entity {
         inventory = new Inventory();
         equipment = new Equipment();
         hotBar = new ItemHotBar();
+        friendlyList = new ArrayList<>();
         orientation = Orientation.NORTH;
 
         compatableTerrain = new ArrayList<>();
@@ -514,6 +517,9 @@ public class Entity {
         return currentlySelectedItem;
     }
 
+    public int getCurrentlySelectedSkillIndex() {
+        return currentlySelectedSkill;
+    }
     public boolean hasFreeSpaceInInventory() {
         return inventory.hasFreeSpace();
     }
@@ -711,5 +717,11 @@ public class Entity {
         this.traversalStrength = traversalStrength;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
 
+    public String getName() {
+        return name;
+    }
 }

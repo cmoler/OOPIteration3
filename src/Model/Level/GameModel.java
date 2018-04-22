@@ -198,6 +198,7 @@ public class GameModel implements Visitable {
         entityFactory.buildEntitySprite(pet);
         pet.setMoveable(true);
         pet.setNoise(5);
+        pet.setName("McNugget");
         pet.setSpeed(1000000000l);
         pet.addTarget(enemy);
         enemy.addTarget(pet);
@@ -273,6 +274,7 @@ public class GameModel implements Visitable {
         ringItem.notifyObserver(new Point3D(4, -4, 0));
         currentLevel.addItemTo(new Point3D(4, -4, 0), ringItem);
 
+        player.addFriendly(pet);
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

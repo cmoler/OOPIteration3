@@ -1,8 +1,11 @@
 package Model.MenuModel;
 
 import Controller.GameLoop;
+import Model.AI.AIState;
+import Model.AI.PetAI.PetStates.CombatPetState;
 import Model.Entity.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PetMenu extends InGameMenuState {
@@ -11,6 +14,7 @@ public class PetMenu extends InGameMenuState {
     private int selectedFocus;
     private int selectedPriority;
     private List<Entity> pets;
+    private List<AIState> aiStates;
 
     public PetMenu(MenuModel menuModel, Entity player, GameLoop gameLoop) {
         super(menuModel, player, gameLoop);
@@ -27,9 +31,12 @@ public class PetMenu extends InGameMenuState {
         if(selectedLeftRight == 0){
             if (selectedUpDown < 0) selectedUpDown = inGameMenuBar.getMaxUp();
             if (selectedUpDown > inGameMenuBar.getMaxUp()) selectedUpDown = 0;
-        }else{
+        }else if(selectedFocus == 0){ // 0 is general
             if(selectedUpDown < 0) selectedUpDown = 2;
             if(selectedUpDown > 2) selectedUpDown = 0;
+        }else{
+            if(selectedUpDown < 0) selectedUpDown = 1;
+            if(selectedUpDown > 1) selectedUpDown = 0;
         }
     }
 
@@ -74,6 +81,8 @@ public class PetMenu extends InGameMenuState {
                 selectedFocus++;
                 break;
         }
+        if(selectedFocus < 0) selectedFocus = 3;
+        if(selectedFocus > 3) selectedFocus = 0;
     }
 
     private void priorityPart() {
@@ -85,5 +94,23 @@ public class PetMenu extends InGameMenuState {
                 selectedPriority++;
                 break;
         }
+        if(selectedPriority < 0) selectedPriority = 3;
+        if(selectedPriority > 3) selectedPriority = 0;
+    }
+
+    public int getSelectedPet(){
+        return selectedPet;
+    }
+
+    public int getSelectedFocus(){
+        return selectedFocus;
+    }
+
+    public int getSelectedPriority(){
+        return selectedPriority;
+    }
+
+    public List<Entity> getPets() {
+        return pets;
     }
 }
