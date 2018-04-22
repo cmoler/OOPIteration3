@@ -31,7 +31,7 @@ public class InGameMenuBar {
                 gameLoop.setMenuState(new InventoryMenu(menuModel, player, gameLoop), new InventoryView(menuModel));
                 break;
             case 2:
-                gameLoop.setMenuState(new PetMenu(menuModel, player, gameLoop), new PetView(menuModel));
+                gameLoop.setMenuState(new PetMenu(menuModel, player, gameLoop), new PetMenuView(menuModel));
                 break;
             case 3:
                 gameLoop.setMenuState(new LevelUpMenu(menuModel, player, gameLoop), new LevelUpView(menuModel));

@@ -8,6 +8,7 @@ import Model.Level.Terrain;
 import Model.Utility.HexDistanceCalculator;
 import Model.Utility.RandomVelocityGenerator;
 import com.sun.javafx.geom.Vec3d;
+import javafx.geometry.Orientation;
 import javafx.geometry.Point3D;
 import java.util.*;
 
@@ -36,26 +37,30 @@ public class HostileAI extends AIState{
         Point3D position = getEntityPoint(super.getEntity(), entityMap);
         Point3D goal = getTarget(position);
 
-        if(isInAttackRange(position,goal)){
-            attack(position,goal);
+        if (hasNoTargets(goal)){
+            performDefaultAction();
         }
-        else if(isReachable(position,goal,super.getEntity())){
-            moveToGoal(position, goal);
-            if (isInOriginalState()) {
-                setOriginalState();
-            }
-        }
-        else{
-            if (!isInOriginalState()){
-                getToOriginalState(position);
-            }
-            else {
-                performDefaultAction();
+        else {
+            if (isInAttackRange(position, goal)) {
+                attack(position, goal);
+            } else if (isReachable(position, goal, super.getEntity())) {
+                moveToGoal(position, goal);
+                if (isInOriginalState()) {
+                    setOriginalState();
+                }
+            } else {
+                if (!isInOriginalState()) {
+                    getToOriginalState(position);
+                } else {
+                    performDefaultAction();
+                }
             }
         }
     }
 
     private void attack(Point3D position, Point3D goal) {
+       /* String ori = Model.Entity.EntityAttributes.Orientation.toString(PathingAlgorithm.calculateOrientation(position,goal));
+        System.out.println("Orientation:\t"+ori);*/
         super.getEntity().setOrientation(PathingAlgorithm.calculateOrientation(position,goal));
         super.getEntity().attack();
     }
@@ -82,6 +87,11 @@ public class HostileAI extends AIState{
         else{
             moveToOrigin(position);
         }
+    }
+
+    private boolean hasNoTargets(Point3D goal) {
+        Point3D dummy = new Point3D(Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE);
+        return (dummy.equals(goal));
     }
 
     private void resetOriginalState() {
@@ -141,7 +151,7 @@ public class HostileAI extends AIState{
 
     private Point3D getNearestTarget(Point3D origin) {
         List<Point3D> targetPoints = getTargetPoints();
-        Point3D minLocation = targetPoints.get(0);
+        Point3D minLocation = new Point3D(Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE);
         double minDistance = Double.MAX_VALUE;
         double distance;
         for (Point3D point : targetPoints) {
