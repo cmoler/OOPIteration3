@@ -47,6 +47,7 @@ public class WeaponItem extends TakeableItem{
     }
 
     public void attack(Entity entity) {
+        System.out.println("Attacking");
         if(entity.getManaPoints() > useCost) {
             entity.decreaseMana(useCost);
 
