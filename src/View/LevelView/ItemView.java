@@ -58,6 +58,10 @@ public class ItemView extends LevelViewElement{
         setSprite(new Image(file.toURI().toString()));
     }
 
+    public void setTwoHandedWeapon() {
+
+    }
+
     public void setStaff() {
         String workingDir = System.getProperty("user.dir");
 
@@ -67,7 +71,7 @@ public class ItemView extends LevelViewElement{
         setSprite(new Image(file.toURI().toString()));
     }
 
-    public void setBow() {
+    public void setRangedWeapon() {
         String workingDir = System.getProperty("user.dir");
 
         int randInt = (rand.nextInt(3))+1;
@@ -76,7 +80,7 @@ public class ItemView extends LevelViewElement{
         setSprite(new Image(file.toURI().toString()));
     }
 
-    public void setBareFists() {
+    public void setBrawlerWeapon() {
         String workingDir = System.getProperty("user.dir");
 
         int randInt = (rand.nextInt(2))+1;
@@ -100,5 +104,6 @@ public class ItemView extends LevelViewElement{
 
         setSprite(new Image(file.toURI().toString()));
     }
+
 
 }

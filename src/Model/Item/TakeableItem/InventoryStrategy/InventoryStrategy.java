@@ -9,7 +9,6 @@ public abstract class InventoryStrategy {
     public abstract void useStrategy();
 
     protected Entity getEntity() {
-
         return entity;
     }
 
