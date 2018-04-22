@@ -185,9 +185,6 @@ public class GameModel implements Visitable {
         path.add(new Vec3d(1,-1,0));
         path.add(new Vec3d(1,-1,0));//*/
         currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
-        List<Entity> list = new ArrayList<>();
-        list.add(player);
-        enemy.setTargetingList(list);
         HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
         hostileAI.setPatrolPath(new PatrolPath(path));
         AIController controller = new AIController();
@@ -202,17 +199,22 @@ public class GameModel implements Visitable {
         pet.setMoveable(true);
         pet.setNoise(5);
         pet.setSpeed(1000000000l);
+        pet.addTarget(enemy);
+        enemy.addTarget(pet);
+        enemy.addTarget(player);
         Skill skill1 = new Skill();
         enemy.addWeaponSkills(skill1);
         skill1.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand rawr = new RemoveHealthCommand(5);
         WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 10000000l,100,450,1);
-        enemy.addItemToInventory(claw);
-        enemy.equipWeapon(claw);
-        pet.setSightRadius(new SightRadius(2));
-        list.add(pet);
-        currentLevel.addEntityTo(new Point3D(0, 4, -4), pet);
+
+        pet.addItemToInventory(claw);
+        pet.equipWeapon(claw);
+        pet.setSightRadius(new SightRadius(5));
+        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
         AIController test = new AIController();
+
+
 
         //AIList.add(test);
 
