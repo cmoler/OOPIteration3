@@ -184,7 +184,7 @@ public class Level {
 
     public void addInfluenceEffectTo(Point3D point, InfluenceEffect influenceEffect) {
         System.out.println("Adding influence effect");
-        influenceEffect.setInfluenceEffectView(new InfluenceEffectView(point));
+        influenceEffect.addInfluenceEffectView(new InfluenceEffectView(point));
         influenceEffectLocations.put(point, influenceEffect);
     }
 
