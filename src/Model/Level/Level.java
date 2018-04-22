@@ -124,15 +124,25 @@ public class Level {
         Point3D entityPoint = getEntityPoint(entity);
 
         List<Point3D> candidatePoints = Orientation.getAllAdjacentPoints(entityPoint);
-
+        List<LevelViewElement> observer = new ArrayList<>();
         for(Point3D point : candidatePoints) {
             if(canDropItemAtPoint(point)) {
+                //If item has an observer
+                if(item.getObserver() != null) {
+                    //Update item position in view
+                    item.notifyObserver(point);
+
+                    //Tell observer to start rendering itself
+                    item.getObserver().setToRender(true);
+                }
                 dropItemAtPoint(point, item);
                 entity.removeItemFromInventory(item);
+
 
                 break;
             }
         }
+
     }
 
     private boolean canDropItemAtPoint(Point3D point) {
@@ -178,13 +188,10 @@ public class Level {
     }
 
     public void addMountTo(Point3D point, Mount mount) {
-        System.out.println(point);
         mountLocations.put(point, mount);
     }
 
     public void addInfluenceEffectTo(Point3D point, InfluenceEffect influenceEffect) {
-        System.out.println("Adding influence effect");
-        influenceEffect.addInfluenceEffectView(new InfluenceEffectView(point));
         influenceEffectLocations.put(point, influenceEffect);
     }
 
@@ -223,8 +230,6 @@ public class Level {
     public void setTilesSeenByPlayer(List<TerrainView> tilesSeenByPlayer) {
         this.tilesSeenByPlayer = tilesSeenByPlayer;
     }
-
-
 
     public boolean hasItem(Item item) {
         return itemLocations.containsValue(item);
@@ -271,23 +276,10 @@ public class Level {
         }
     }
 
-    public void removeInfluenceEffectsWithCommand(Command command) {
-        List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
-
-        for(Point3D point : influenceEffectPoints) {
-            InfluenceEffect influenceEffect = influenceEffectLocations.get(point);
-
-            if(influenceEffect.getCommand().equals(command)) { // remove all instances of the influence effect if the command matches
-                influenceEffectLocations.remove(point, influenceEffect);
-            }
-        }
-    }
-
-
     public void updateRenderLocations(Point3D playerPos, int playerViewDistance) {
         HexMathHelper hexMathHelper = new HexMathHelper();
 
-        for(LevelViewElement o:observers) {
+        for(LevelViewElement o : observers) {
             if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {//If object in view of player, update location
                 o.locationViewedByPlayer();
             }
@@ -321,8 +313,6 @@ public class Level {
 
         while(!pointsToProcess.isEmpty()) {
             Point3D point = ((LinkedList<Point3D>) pointsToProcess).getFirst();
-
-            System.out.println("PROCESSING "+point.toString());
 
             for(Orientation orientation : Orientation.values()) {
                 if(canPlaceEntityAtPoint(Orientation.getAdjacentPoint(point, orientation), entityLocations.getValueFromKey(destinationPoint))) {

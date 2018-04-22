@@ -14,40 +14,37 @@ public class LinearInfluenceEffect extends InfluenceEffect {
         super(command, range, speed, orientation);
     }
 
-    public LinearInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining) {
-        super(command, range, speed, orientation, movesRemaining);
+    public LinearInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining, long nextMoveTime, Point3D originPoint) {
+        super(command, range, speed, orientation, movesRemaining, nextMoveTime, originPoint);
     }
 
-    //Defines logic for moving in a straight line in the direction of its orientation
-    //TODO: restrict movement based on movement speed
+    // Defines logic for moving in a straight line in the direction of its orientation
     public ArrayList<Point3D> nextMove(Point3D point) {
+        if(canMove()) {
+            setNextMoveTime();
 
-        //Out of moves, return empty list
-        if(noMovesRemaining()) {
-            return new ArrayList<>();
-        }
+            ArrayList<Point3D> newPos = new ArrayList<>();
 
-        ArrayList<Point3D> newPos = new ArrayList<>();
+            if (rangeIsZero()) {
+                newPos.add(point);
+                return newPos;
+            }
 
-        if(rangeIsZero()) {
-            newPos.add(point);
+            Point3D newPoint = Orientation.getAdjacentPoint(point, getOrientation());
+            setOriginPoint(newPoint);
+
+            newPos.add(newPoint);
+            decrementMovesRemaining();
             return newPos;
         }
 
-        Point3D newPoint = point;
-        for(int i = 0; i < getRange()-getMovesRemaining()+1; i++) {
-            newPoint = Orientation.getAdjacentPoint(newPoint, getOrientation());
-        }
-        newPos.add(newPoint);
-        decrementMovesRemaining();
-        return newPos;
+        return new ArrayList<>();
     }
 
     public InfluenceEffect cloneInfluenceEffect() {
-        return new LinearInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
+        return new LinearInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation());
     }
 
-    @Override
     public void accept(Visitor visitor) {
         visitor.visitInfluenceEffect(this);
     }

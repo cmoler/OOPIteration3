@@ -15,6 +15,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 public class SendInfluenceEffectCommandTests {
@@ -41,6 +42,7 @@ public class SendInfluenceEffectCommandTests {
         sendInfluenceEffectCommand.execute(entity);
 
         Map<Point3D,InfluenceEffect> influencesMap = level.getInfluenceEffectMap();
-        assertTrue(influencesMap.containsValue(influenceEffect));
+        assertTrue(influencesMap.size() >= 1);
+        assertFalse(influencesMap.get(new Point3D(0,0,0)).equals(influenceEffect));
     }
 }

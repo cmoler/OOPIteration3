@@ -29,16 +29,12 @@ public abstract class LevelViewElement {
         hexMathHelper = new HexMathHelper();
         size = 75;
         this.renderPriority = renderPriority;
-
-
         fogSprite = Sprites.getInstance().getFogSprite();
     }
 
     public abstract void notifyViewElement();
 
     public void render(GraphicsContext gc, Point2D playerPos, Point2D scrollOffset) {
-
-
         int width = size;
         int height = (int)(width * (Math.sqrt(3)/2));
 
@@ -50,9 +46,7 @@ public abstract class LevelViewElement {
 
         if(renderLocation != location) {
             gc.drawImage(fogSprite, (int)((xOffset*width)*.75) + Commons.SCREEN_WIDTH/2 + scrollOffset.getX(), (yOffset*(height/2)) + Commons.SCREEN_HEIGHT/2 + scrollOffset.getY(), width, height);
-
         }
-
     }
 
     protected void rotate(GraphicsContext gc, double angle, double px, double py) {
@@ -94,8 +88,8 @@ public abstract class LevelViewElement {
     public Point3D getLocation() {
         return location;
     }
-    public Point3D getRenderLocation() { return renderLocation; }
 
+    public Point3D getRenderLocation() { return renderLocation; }
 
     public int getSize() {
         return size;

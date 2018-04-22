@@ -21,6 +21,7 @@ public class SendInfluenceEffectCommand extends LevelCommand implements Command 
     public void receiveLevel(Level level) {
         Point3D entityPoint = level.getEntityPoint(entity);
         if(entityPoint != null) {
+            influenceEffect.setOriginPoint(entityPoint);
             level.addInfluenceEffectTo(entityPoint, influenceEffect);
         }
     }
@@ -31,7 +32,7 @@ public class SendInfluenceEffectCommand extends LevelCommand implements Command 
     }
 
     public void setInfluenceEffect(InfluenceEffect influenceEffect) {
-        this.influenceEffect = influenceEffect;
+        this.influenceEffect = influenceEffect.cloneInfluenceEffect();
     }
 
     public InfluenceEffect getInfluenceEffect() {

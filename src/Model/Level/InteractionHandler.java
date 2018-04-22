@@ -42,8 +42,6 @@ public class InteractionHandler {
         this.observers = observers;
     }
 
-    // TODO: add logic for notifying observers
-
     public void processInteractions() {
         processItems();
         processAreaEffects();
@@ -118,20 +116,18 @@ public class InteractionHandler {
         List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
         for(Point3D point : influenceEffectPoints) {
-
             InfluenceEffect influenceEffect = influenceEffectLocations.get(point); //Get current influence effect
-            if(influenceEffect == null) { continue; }
-            if(influenceEffect.isStartPoint()) {
-                continue;
-            }
+
             if(entityLocations.hasKey(point)) {//Check if there is an entity on that location
                 Entity entity = entityLocations.getValueFromKey(point); //Get entity
-                influenceEffect.hitEntity(entity); //Trigger command
-                System.out.println("Removing influence effect");
-                influenceEffectLocations.remove(point, influenceEffect); // remove influence effect if it hit the entity
+                if(!entity.isDead()) {
+                    influenceEffect.hitEntity(entity); //Trigger command
+                    influenceEffectLocations.remove(point, influenceEffect); // remove influence effect if it hit the entity
+                }
             } else if(influenceEffect.noMovesRemaining()) { // remove influence effect if it has no moves left and didn't hit an entity
                 influenceEffectLocations.remove(point, influenceEffect);
             }
         }
     }
 }
+

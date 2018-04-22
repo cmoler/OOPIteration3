@@ -733,7 +733,7 @@ public class GameLoader {
         List<Point3D> pointsToAdd = getKeyPoints(element);
         List<InfluenceEffect> influencesToAdd = new ArrayList<>();
         Command command;
-        int nextMoveTime;
+        int movesRemaining;
         long speed;
         Orientation orientation;
         int range;
@@ -748,22 +748,22 @@ public class GameLoader {
                     command = processCommand(influenceNode.getChildNodes());
 
                     if(command != null) {
-                        nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
+                        movesRemaining =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
                         speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
                         range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
                         orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
-
+// TODO: kevin fix
                         switch (influenceNode.getNodeName().toLowerCase()) {
                             case "angularinfluenceeffect":
-                                influencesToAdd.add(new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
+                               // influencesToAdd.add(new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0)); // TODO: is this POOP?
                                 break;
 
                             case "linearinfluenceeffect":
-                                influencesToAdd.add(new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
+                             //   influencesToAdd.add(new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0)); // TODO: is this POOP?
                                 break;
 
                             case "radialinfluenceeffect":
-                                influencesToAdd.add(new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime)); // TODO: is this POOP?
+                             //   influencesToAdd.add(new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, movesRemaining, 0)); // TODO: is this POOP?
                                 break;
                         }
                     }

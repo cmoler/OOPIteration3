@@ -63,7 +63,7 @@ public class Trap implements Visitable {
             for (LevelViewElement observer : observers) {
                 observer.notifyViewElement();
             }
-        } else { // TODO: make failure state for trap disarming more complex (right now it just triggers the trap on the entity if it fails the disarm)
+        } else {
             this.fire(entity);
         }
     }

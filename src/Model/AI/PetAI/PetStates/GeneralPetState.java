@@ -50,16 +50,16 @@ public class GeneralPetState extends AIState {
         Point3D goal = calculateGoal(petPoint, playerPoint, nearestItem, nearestSteal, nearestTarget);
 
         if (hasNoTargets(goal)){
-            System.out.println("Moving to Player...");
+            //System.out.println("Moving to Player...");
             moveToGoal(petPoint,playerPoint);
         }
         else{
             if (isInActionRange(petPoint, goal)) {
                 if (goal.equals(nearestTarget)) {
-                    System.out.println("Attacking");
+                    //System.out.println("Attacking");
                     attack(petPoint, nearestTarget);
                 } else if (goal.equals(nearestSteal)) {
-                    System.out.println("Stealing");
+                    //System.out.println("Stealing");
                     executePickpocket(petPoint,goal,super.getEntity());
                 } else {
                     moveToGoal(petPoint, goal);

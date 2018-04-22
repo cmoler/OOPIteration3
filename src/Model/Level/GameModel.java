@@ -83,6 +83,21 @@ public class GameModel implements Visitable {
 
         levels.add(currentLevel);
 
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 8, 0, Orientation.NORTH);
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
+        //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+        currentLevel.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(0,0,0), Orientation.SOUTH), Terrain.GRASS);
+        for(int i = 0; i < 8; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
+            for(int j = 0; j < points.size(); j++) {
+                currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
+        }
+
+        currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
+        currentLevel.addAreaEffectTo(new Point3D(-2, 1, 1), new InfiniteAreaEffect(new RemoveHealthCommand(10)));
+        currentLevel.addObstacleTo(new Point3D(-2, 2, 0), new Obstacle());
+
         skillsFactory = new SkillsFactory(currentLevelMessenger);
 
         entityFactory = new SummonerFactory(skillsFactory);
@@ -128,33 +143,15 @@ public class GameModel implements Visitable {
         player.addWeaponSkills(attack);
         player.setSpeed(0500000000l);
 
-        RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-        LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
-        SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(currentLevelMessenger);
         Skill oneHandedSkill = skillsFactory.getOneHandedSkill();
         player.addWeaponSkills(oneHandedSkill);
         attack.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand og = new RemoveHealthCommand(1000);
-        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new RadialInfluenceEffect(og,3,10, Orientation.NORTH), 1000, 1,100,100,2);
+        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new RadialInfluenceEffect(og,5,0250000000l, Orientation.NORTH), 1000, 0500000000l,100,100,2);
         player.addItemToInventory(mace);
         //player.equipWeapon(mace);
         player.setSightRadius(new SightRadius(7));
         currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
-
-        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
-
-        currentLevel.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
-        for(int i = 0; i < 8; i++) {
-            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
-            for(int j = 0; j < points.size(); j++) {
-                currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
-            }
-        }
-
-        currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
-        currentLevel.addAreaEffectTo(new Point3D(-2, 1, 1), new InfiniteAreaEffect(new RemoveHealthCommand(10)));
-        currentLevel.addObstacleTo(new Point3D(-2, 2, 0), new Obstacle());
-        //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
 
         entityFactory = new MonsterFactory(skillsFactory);
         Entity enemy = entityFactory.buildEntity();
@@ -167,7 +164,7 @@ public class GameModel implements Visitable {
         enemy.setSpeed(1500000000l);
         skill.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand bleh = new RemoveHealthCommand(5);
-        WeaponItem sword = new WeaponItem("Sword of Darkness", bleh, skill, new LinearInfluenceEffect(bleh,2,10,Orientation.NORTH), 5, 1,1,450,2);
+        WeaponItem sword = new WeaponItem("Sword of Darkness", bleh, skill, new LinearInfluenceEffect(bleh,2,10,Orientation.NORTH), 5, 0500000000l,1,450,2);
         enemy.addItemToInventory(sword);
         enemy.equipWeapon(sword);
 
@@ -212,7 +209,7 @@ public class GameModel implements Visitable {
         pet.addItemToInventory(claw);
         pet.equipWeapon(claw);
         pet.setSightRadius(new SightRadius(5));
-        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+        currentLevel.addEntityTo(new Point3D(0, 4, -4), pet);
         AIController test = new AIController();
 
 

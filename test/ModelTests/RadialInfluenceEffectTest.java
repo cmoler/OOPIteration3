@@ -32,7 +32,7 @@ public class RadialInfluenceEffectTest {
         influenceEffect.hitEntity(entity1);
 
         Assert.assertEquals(entity1.getCurrentHealth(), 85, 0);
-        //Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
+        Assert.assertEquals(entity2.getCurrentHealth(), 100, 0);
 
         Point3D startPoint = new Point3D(0, 0, 0);
 
@@ -44,6 +44,6 @@ public class RadialInfluenceEffectTest {
         for(int i = 0; i < adjacentPoints.size(); i++) {
             System.out.println("RADIAL POINTS: "+adjacentPoints.get(i).toString());
         }
-        Assert.assertEquals(adjacentPoints.size(), 12, 0);
+        Assert.assertEquals(adjacentPoints.size(), 19, 0);
     }
 }

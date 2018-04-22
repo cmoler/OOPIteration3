@@ -85,30 +85,36 @@ public class LevelTests {
 
         SettableCommand damageCommand = new RemoveHealthCommand(15);
 
-        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(damageCommand, 5, 5, Orientation.NORTH);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(damageCommand, 5, 0, Orientation.NORTH);
         Entity entity = new Entity();
 
         Entity entity2 = new Entity();
 
         Entity entity3 = new Entity();
 
-        level.addInfluenceEffectTo(new Point3D(-2, 0, 2), influenceEffect);
-        level.addEntityTo(new Point3D(-2, 2, 0), entity);
-        level.addEntityTo(new Point3D(-2, 3, 0), entity2);
-        level.addEntityTo(new Point3D(-2, 4, 0), entity3);
+        Point3D start = new Point3D(-2, 0 ,2);
+        Point3D north1 = Orientation.getAdjacentPoint(start, Orientation.NORTH);
+        Point3D north2 = Orientation.getAdjacentPoint(north1, Orientation.NORTH);
+        Point3D north3 = Orientation.getAdjacentPoint(north2, Orientation.NORTH);
+
+        influenceEffect.setOriginPoint(start);
+        level.addInfluenceEffectTo(start, influenceEffect);
+        level.addEntityTo(north1, entity);
+        level.addEntityTo(north2, entity2);
+        level.addEntityTo(north3, entity3);
 
         level.advance();
 
-        assertEquals(100, entity.getCurrentHealth(), 0);
+        assertEquals(85, entity.getCurrentHealth(), 0);
 
         level.advance();
 
-        assertEquals(95, entity.getCurrentHealth(), 0);
+        assertEquals(85, entity.getCurrentHealth(), 0);
 
         level.advance();
         level.advance();
 
-        assertEquals(95, entity.getCurrentHealth(), 0);
+        assertEquals(85, entity.getCurrentHealth(), 0);
         assertEquals(100, entity2.getCurrentHealth(), 0);
         assertEquals(100, entity3.getCurrentHealth(), 0);
     }
@@ -268,7 +274,7 @@ public class LevelTests {
         Assert.assertEquals(5, linear1.getMovesRemaining(), 0);
 
         Assert.assertEquals(100, entity.getCurrentHealth(), 0);
-        Assert.assertEquals(75, dummy.getCurrentHealth(), 0);
+        Assert.assertEquals(70, dummy.getCurrentHealth(), 0);
 
         entity.equipWeapon(sword2);
         entity.attack();
@@ -279,6 +285,6 @@ public class LevelTests {
         Assert.assertEquals(5, linear2.getMovesRemaining(), 0);
 
         Assert.assertEquals(100, entity.getCurrentHealth(), 0);
-        Assert.assertEquals(30, dummy.getCurrentHealth(), 0);
-    } // TODO: get view portion of influence effects working, it is hard to test where they are moving to coordinates-wise
+        Assert.assertEquals(70, dummy.getCurrentHealth(), 0);
+    }
 }
