@@ -52,6 +52,7 @@ public class Entity {
 
     private Mount mount;
     private List<Entity> targetingList;
+    private List<Entity> friendlyList;
 
     private long nextMoveTime = 0;
 
@@ -259,6 +260,22 @@ public class Entity {
 
     public void removeTarget(Entity ent){
         targetingList.remove(ent);
+    }
+
+    public List<Entity> getFriendlyList(){
+        return friendlyList;
+    }
+
+    public void setFriendlyList(List<Entity> friendlyList){
+        this.friendlyList = friendlyList;
+    }
+
+    public void addFriendly(Entity entity){
+        friendlyList.add(entity);
+    }
+
+    public void removeFriendly(Entity entity){
+        friendlyList.remove(entity);
     }
 
     public void decreaseSpeed(int amt){

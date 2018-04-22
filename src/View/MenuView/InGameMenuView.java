@@ -40,7 +40,7 @@ public abstract class InGameMenuView extends MenuViewState {
         int startY = 0;
 
         int boxWidth = Commons.SCREEN_WIDTH / 4;
-        int boxHeight = Commons.SCREEN_HEIGHT / 5;
+        int boxHeight = Commons.SCREEN_HEIGHT / 6;
 
         gc.setFill(Color.GREEN);
         gc.fillRect(0, 0, boxWidth, Commons.SCREEN_HEIGHT);
@@ -52,9 +52,10 @@ public abstract class InGameMenuView extends MenuViewState {
         gc.setFill(Color.WHITESMOKE);
         gc.fillText("Stats", (startX + boxWidth / 4), (startY + 3*boxHeight/5));
         gc.fillText("Inventory", (startX + boxWidth / 4), (startY + boxHeight+3*boxHeight/5));
-        gc.fillText("LevelUp", (startX + boxWidth / 4), (startY + 2*boxHeight+3*boxHeight/5));
-        gc.fillText("Save", (startX + boxWidth / 4), (startY + 3*boxHeight+3*boxHeight/5));
-        gc.fillText("Exit", (startX + boxWidth / 4), (startY + 4*boxHeight+3*boxHeight/5));
+        gc.fillText("Pet", (startX + boxWidth / 4), (startY + 2*boxHeight+3*boxHeight/5));
+        gc.fillText("LevelUp", (startX + boxWidth / 4), (startY + 3*boxHeight+3*boxHeight/5));
+        gc.fillText("Save", (startX + boxWidth / 4), (startY + 4*boxHeight+3*boxHeight/5));
+        gc.fillText("Exit", (startX + boxWidth / 4), (startY + 5*boxHeight+3*boxHeight/5));
 
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(10.0f);
@@ -63,7 +64,7 @@ public abstract class InGameMenuView extends MenuViewState {
         gc.strokeRect(startX, startY + 2*boxHeight, boxWidth, boxHeight);
         gc.strokeRect(startX, startY + 3*boxHeight, boxWidth, boxHeight);
         gc.strokeRect(startX, startY + 4*boxHeight, boxWidth, boxHeight);
-
+        gc.strokeRect(startX, startY + 5*boxHeight, boxWidth, boxHeight);
 
         if(selectedX == 0) {
             int selectionBoxX = startX;
