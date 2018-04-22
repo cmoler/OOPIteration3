@@ -2,7 +2,9 @@ package Model.AI;
 
 import Model.Entity.Entity;
 import Model.Level.Obstacle;
+import Model.Level.River;
 import Model.Level.Terrain;
+import Model.Utility.BidiMap;
 import Model.Utility.HexDistanceCalculator;
 import Model.Utility.VectorToPointCalculator;
 import com.sun.javafx.geom.Vec3d;
@@ -16,19 +18,14 @@ import static Model.Entity.EntityAttributes.Orientation.*;
 public class PathingAlgorithm {
     private Map<Point3D, Terrain> terrainMap;
     private Map<Point3D, Obstacle> obstacleMap;
-    private List<Vec3d> cardinalVelocities;
+    private Map<Point3D, River> riverMap;
+    private BidiMap<Point3D,Entity> entityMap;
 
-    public PathingAlgorithm(Map<Point3D, Terrain> terrainMap, Map<Point3D, Obstacle> obstacleMap) {
+    public PathingAlgorithm(Map<Point3D, Terrain> terrainMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, River> riverMap, BidiMap<Point3D, Entity> entityMap) {
         this.terrainMap = terrainMap;
         this.obstacleMap = obstacleMap;
-        cardinalVelocities = new ArrayList<>();
-        /*cardinalVelocities.add(new Vec3d(0, 1, -1));
-        cardinalVelocities.add(new Vec3d(-1, 1, 0));
-        cardinalVelocities.add(new Vec3d(1, -1, 0));
-        cardinalVelocities.add(new Vec3d(1, 0, -1));
-        cardinalVelocities.add(new Vec3d(-1, 0, 1));
-        cardinalVelocities.add(new Vec3d(0, -1, 1));*/
-
+        this.riverMap = riverMap;
+        this.entityMap = entityMap;
     }
 
     public Point3D getAStarPoint(Point3D start, Point3D goal, Entity mover){
@@ -45,7 +42,7 @@ public class PathingAlgorithm {
     }
 
     private int getCost(Point3D point, Point3D goal, Entity actor){
-        if (!isValidPoint(point,actor)){
+        if (!isValidPoint(point,actor,entityMap.getValueFromKey(goal))){
             return Integer.MAX_VALUE;
         }
         else {
@@ -53,7 +50,7 @@ public class PathingAlgorithm {
         }
     }
 
-    public ArrayList<Point3D> getReachablePoints(Point3D start, int rangeLimit, Entity actor){
+    public ArrayList<Point3D> getReachablePoints(Point3D start, int rangeLimit, Entity actor, Entity target){
         ArrayList<Point3D> visited = new ArrayList<>();
         visited.add(start);
         ArrayList<ArrayList<Point3D>> fringe = new ArrayList<>();
@@ -67,7 +64,7 @@ public class PathingAlgorithm {
             for (Point3D point: fringe.get(i-1)){
                 ArrayList<Point3D> adj = (ArrayList<Point3D>) getAdjacentList(point);
                 for (Point3D p: adj){
-                    if (isValidPointToMoveTo(p,visited, actor)){
+                    if (isValidPointToMoveTo(p,visited, actor,target)){
                         visited.add(p);
                         fringe.get(i).add(p);
                     }
@@ -78,12 +75,21 @@ public class PathingAlgorithm {
         return visited;
     }
 
-    private boolean isValidPoint(Point3D p, Entity e){
-        return (e.canMoveOnTerrain(terrainMap.get(p)) && !obstacleMap.containsKey(p));
+    private boolean isValidPoint(Point3D p, Entity e, Entity target){
+        boolean pass_river = true;
+        boolean intereing_entity = false;
+        if (riverMap.containsKey(p)){
+            River river = riverMap.get(p);
+            pass_river = river.isTraversable(e);
+        }
+        if (entityMap.hasKey(p) && !entityMap.getValueFromKey(p).equals(target)){
+            intereing_entity = true;
+        }
+        return (e.canMoveOnTerrain(terrainMap.get(p)) && !obstacleMap.containsKey(p) && pass_river && !intereing_entity);
     }
 
-    private boolean isValidPointToMoveTo(Point3D p, ArrayList<Point3D> visited, Entity e){
-        return (e.canMoveOnTerrain(terrainMap.get(p)) && !obstacleMap.containsKey(p) || !visited.contains(p));
+    private boolean isValidPointToMoveTo(Point3D p, ArrayList<Point3D> visited, Entity e, Entity target){
+        return (isValidPoint(p,e,target) || !visited.contains(p));
     }
 
     public static Model.Entity.EntityAttributes.Orientation calculateOrientation(Point3D position, Point3D goal) {

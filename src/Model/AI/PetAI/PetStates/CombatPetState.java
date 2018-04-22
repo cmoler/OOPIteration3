@@ -4,6 +4,7 @@ import Model.AI.AIState;
 import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
 import Model.Level.Obstacle;
+import Model.Level.River;
 import Model.Level.Terrain;
 import Model.Utility.BidiMap;
 import Model.Utility.HexDistanceCalculator;
@@ -23,10 +24,10 @@ public class CombatPetState extends AIState {
     private Entity player;
 
 
-    public CombatPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player) {
+    public CombatPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Entity player, Map<Point3D, River> riverMap) {
         super(pet);
         this.entityMap = entityMap;
-        pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
+        pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap,riverMap ,entityMap );
         this.targetList = pet.getTargetingList();
         this.player = player;
     }

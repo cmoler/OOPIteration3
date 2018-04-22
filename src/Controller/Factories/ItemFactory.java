@@ -2,6 +2,8 @@ package Controller.Factories;
 
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
+import Model.Command.EntityCommand.SettableCommand.AddManaCommand;
+import Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
@@ -95,14 +97,28 @@ public class ItemFactory {
     }
 
     public ConsumableItem getManaPotion() {
-        AddHealthCommand command = new AddHealthCommand(50);
+        AddManaCommand command = new AddManaCommand(50);
 
-        ConsumableItem potion = new ConsumableItem("Potion", command);
+        ConsumableItem potion = new ConsumableItem("Mana Potion", command);
         potion.setCurrentLevelMessenger(levelMessenger);
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
-        itemView.setPotion();
+        itemView.setManaPotion();
         potion.setObserver(itemView);
         return potion;
+    }
+
+    public WeaponItem getFreezeBow() {
+        FreezeEntityCommand command = new FreezeEntityCommand(levelMessenger);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 10, 10, Orientation.NORTH);
+
+        Skill skill = skillsFactory.getRangeSkill();
+
+        WeaponItem staff1 = new WeaponItem("Freeze Bow", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        staff1.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setRangedWeapon();
+        staff1.setObserver(itemView);
+        return staff1;
     }
 
 }

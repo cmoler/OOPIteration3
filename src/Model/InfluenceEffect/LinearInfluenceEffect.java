@@ -21,25 +21,23 @@ public class LinearInfluenceEffect extends InfluenceEffect {
     //Defines logic for moving in a straight line in the direction of its orientation
     //TODO: restrict movement based on movement speed
     public ArrayList<Point3D> nextMove(Point3D point) {
-        System.out.println("Test");
+
         //Out of moves, return empty list
         if(noMovesRemaining()) {
             return new ArrayList<>();
         }
 
         ArrayList<Point3D> newPos = new ArrayList<>();
-        System.out.println("Moves remaining: " + getMovesRemaining());
+
         if(rangeIsZero()) {
             newPos.add(point);
             return newPos;
         }
 
         Point3D newPoint = point;
-        System.out.println("Point is: " + newPoint);
-        for(int i = 0; i < getRange()-getMovesRemaining()+1; i++) {
 
+        for(int i = 0; i < getRange()-getMovesRemaining()+1; i++) {
             newPoint = Orientation.getAdjacentPoint(newPoint, getOrientation());
-            System.out.println("Point is: " + newPoint);
         }
         newPos.add(newPoint);
         decrementMovesRemaining();

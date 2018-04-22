@@ -18,13 +18,14 @@ public class FreezeEntityCommand extends GameModelCommand implements SettableCom
 
     public FreezeEntityCommand(LevelMessenger levelMessenger) {
         super(levelMessenger);
-        this.freezeDuration = 1000;
+        this.freezeDuration = 400;
     }
 
     @Override
     public void receiveGameModel(GameModel gameModel) {
         AIController aiController = gameModel.getAIForEntity(entity);
         AIState previousState = aiController.getActiveState();
+
         aiController.setActiveState(new FrozenAI(previousState.getEntity(), aiController, previousState, freezeDuration));
     }
 
@@ -36,7 +37,7 @@ public class FreezeEntityCommand extends GameModelCommand implements SettableCom
     }
 
     public void setAmount(int amount) {
-        this.freezeDuration = freezeDuration * amount;
+        this.freezeDuration = amount;
     }
 
     public int getAmount() {
