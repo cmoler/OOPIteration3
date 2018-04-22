@@ -184,11 +184,11 @@ public class MapGenerator extends Application {
     }
 
     private static void createRivers(Level level) {
-        level.addRiverTo(new Point3D(10,0,0), new River(new Vec3d(1,0,0)));
+        level.addRiverTo(new Point3D(-1,-1,2), new River(new Vec3d(1,0,0)));
     }
 
     private static void createObstacle(Level level) {
-        level.addObstacleTo(new Point3D(0,0,5), new Obstacle());
+        level.addObstacleTo(new Point3D(-5,0,5), new Obstacle());
     }
 
     private static void createTraps(Level level) {
@@ -211,24 +211,36 @@ public class MapGenerator extends Application {
     private static void createTerrains(Level level) {
         RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
-        level.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+        level.addTerrainTo(new Point3D(0, 0, 0), Terrain.WATER);
         for(int i = 0; i < 8; i++) {
             ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
             for(int j = 0; j < points.size(); j++) {
                 level.addTerrainTo(points.get(j), Terrain.GRASS);
             }
         }
-    }
+
+}
 
     private static void createAreaEffects(Level level) {
         InfiniteAreaEffect damage = new InfiniteAreaEffect(new RemoveHealthCommand(5));
-        level.addAreaEffectTo(new Point3D(-4,4,0), damage);
-        level.addAreaEffectTo(new Point3D(-4,3,1), damage);
-        level.addAreaEffectTo(new Point3D(-4,5,-1), damage);
-        level.addAreaEffectTo(new Point3D(-5,4,1), damage);
-        level.addAreaEffectTo(new Point3D(-3,4,-1), damage);
-        level.addAreaEffectTo(new Point3D(-5,5,0), damage);
-        level.addAreaEffectTo(new Point3D(-3,3,0), damage);
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+
+        level.addAreaEffectTo(new Point3D(-4, 4, 0), damage);
+        for(int i = 0; i < 2; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(-4, 4, 0));
+            for(int j = 0; j < points.size(); j++) {
+                level.addAreaEffectTo(points.get(j), damage);
+                level.addTerrainTo(points.get(j), Terrain.WATER);
+            }
+        }
+
+//        level.addAreaEffectTo(new Point3D(-4,4,0), damage);
+//        level.addAreaEffectTo(new Point3D(-4,3,1), damage);
+//        level.addAreaEffectTo(new Point3D(-4,5,-1), damage);
+//        level.addAreaEffectTo(new Point3D(-5,4,1), damage);
+//        level.addAreaEffectTo(new Point3D(-3,4,-1), damage);
+//        level.addAreaEffectTo(new Point3D(-5,5,0), damage);
+//        level.addAreaEffectTo(new Point3D(-3,3,0), damage);
     }
 
     private static void createInfluenceAreas(Level level) {
@@ -248,5 +260,6 @@ public class MapGenerator extends Application {
 
         createSmasher();
         generateDemoMap();
+        System.exit(0);
     }
 }

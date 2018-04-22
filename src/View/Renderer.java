@@ -51,6 +51,12 @@ public class Renderer {
 
     }
 
+    public void renderMenu(GraphicsContext gc) {
+        if(menuView.inMenu()) {
+            menuView.render(gc);
+        }
+    }
+
     public void updateCurrentLevel(Level newCurrentLevel) {
         levelView.setCurrentLevel(newCurrentLevel);
     }
@@ -237,12 +243,14 @@ public class Renderer {
     }
 
     public void updateTerrainFog(Point3D playerPos, int playerSightRadius) {
-        HexMathHelper hexMathHelper = new HexMathHelper();
-        for(TerrainView o: terrainObservers) {
-            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerSightRadius) {
-                o.setShrouded(false);
-            } else {
-                o.setShrouded(true);
+        if(!menuView.inMenu()) {
+            HexMathHelper hexMathHelper = new HexMathHelper();
+            for (TerrainView o : terrainObservers) {
+                if (hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerSightRadius) {
+                    o.setShrouded(false);
+                } else {
+                    o.setShrouded(true);
+                }
             }
         }
     }

@@ -24,6 +24,7 @@ public class RunGame extends Application{
     private double mouseY;
     private AnimationTimer loop;
     private AnimationTimer menuRender;
+    private boolean hasStarted = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -48,13 +49,8 @@ public class RunGame extends Application{
         canvas.setFocusTraversable(true);
 
         GameLoop gameLoop = new GameLoop();
-        gameLoop.init();
         gameLoop.setRunGame(this);
-
-
-        // TODO: get rid of these when loading from file logic is done vvvv
-
-        // TODO: get rid of these when loading from file logic is done ^^^^
+        gameLoop.init();
 
         canvas.setOnKeyPressed(gameLoop.getControls());
 
@@ -97,10 +93,17 @@ public class RunGame extends Application{
     }
 
     public void startGame() {
+        System.err.println("STARING GAME");
+        hasStarted = true;
         loop.start();
     }
 
     public void pauseGame() {
+        System.err.println("PAUSING GAME");
         loop.stop();
+    }
+
+    public boolean hasStarted() {
+        return hasStarted;
     }
 }

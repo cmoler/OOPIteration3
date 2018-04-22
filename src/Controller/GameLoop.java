@@ -51,36 +51,12 @@ public class GameLoop {
     }
 
     public void init() {
-        try {
-            gameLoader.loadGame("SMASHER.xml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-
         scrollOffSet = new Point2D(0, 0);
         controls = new KeyEventImplementor(this);
         menuModel = new MenuModel(this);
-
-        gameModel = gameLoader.getGameModel();
-
         renderer = new Renderer();
-
         ((KeyEventImplementor) controls).createMainMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
-        renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
-        renderer.setHotBarView(new HotbarView(gameModel.getPlayer()));
-
-        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
-
-        for (Level level : gameModel.getLevels()) {
-            renderer.loadModelSprites(level);
-        }
-
-        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
@@ -101,14 +77,77 @@ public class GameLoop {
     }
 
     public void loadGame(int i) {
-        renderer.closeMenu();
-        ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
-        gameModel = gameLoader.getGameModel();
-        runGame.startGame();
+        try {
+            switch(i) {
+                case 0:
+                    gameLoader.loadGame("SAVESLOT1.xml");
+                    break;
+
+                case 1:
+                    gameLoader.loadGame("SAVESLOT2.xml");
+                    break;
+
+                case 2:
+                    gameLoader.loadGame("SAVESLOT3.xml");
+                    break;
+
+                case 3:
+                    gameLoader.loadGame("SAVESLOT4.xml");
+                    break;
+
+            }
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("FILE NOT FOUND");
+        }
+
+        finally {
+            renderer.closeMenu();
+            gameModel = gameLoader.getGameModel();
+            ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+
+            renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
+            renderer.setHotBarView(new HotbarView(gameModel.getPlayer()));
+
+            for(Level level: gameModel.getLevels()) {
+                renderer.loadModelSprites(level);
+            }
+
+            renderer.updateCurrentLevel(gameLoader.getCurrentLevel());
+
+            runGame.startGame();
+        }
     }
 
     public void saveGame(int i) {
+        try {
+            switch (i) {
+                case 0:
+                    gameSaver = new SavingVisitor("SAVESLOT1.xml");
+                    break;
 
+                case 1:
+                    gameSaver = new SavingVisitor("SAVESLOT2.xml");
+                    break;
+
+                case 2:
+                    gameSaver = new SavingVisitor("SAVESLOT3.xml");
+                    break;
+
+                case 3:
+                    gameSaver = new SavingVisitor("SAVESLOT4.xml");
+                    break;
+            }
+
+            gameSaver.visitGameModel(gameModel);
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void newGame(int i) {
@@ -116,6 +155,10 @@ public class GameLoop {
     }
 
     public void setMenuState(MenuState menuState, MenuViewState menuViewState){
+        if(runGame.hasStarted()) {
+            runGame.pauseGame();
+        }
+
         menuModel.setActiveState(menuState);
         renderer.setActiveMenuState(menuViewState);
     }
@@ -125,8 +168,14 @@ public class GameLoop {
     }
 
     public void render(GraphicsContext gc){
-        renderer.updateTerrainFog(gameModel.getPlayerPosition(), gameModel.getPlayer().getSight());
-        renderer.render(gc, gameModel.getPlayerPosition(), scrollOffSet);
+        if(gameModel != null) {
+            renderer.updateTerrainFog(gameModel.getPlayerPosition(), gameModel.getPlayer().getSight());
+            renderer.render(gc, gameModel.getPlayerPosition(), scrollOffSet);
+        }
+
+        else {
+            renderer.renderMenu(gc);
+        }
     }
 
     public KeyEventImplementor getControls() {
@@ -137,6 +186,7 @@ public class GameLoop {
         controls = new KeyEventImplementor(this);
         ((KeyEventImplementor)controls).createMainMenuSet(menuModel);
         runGame.setInput(controls);
+        runGame.startGame();
     }
 
     public void setKeyBinding(int selectedLeftRight, int selectedUpDown) {

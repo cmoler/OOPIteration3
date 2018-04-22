@@ -26,7 +26,6 @@ import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import View.LevelView.EntityView.SmasherView;
-import View.LevelView.LevelViewElement;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
@@ -644,7 +643,7 @@ public class GameLoader {
                 Node skillNode = skillNodes.item(j);
                 if (skillNode.getNodeType() == Node.ELEMENT_NODE) {
                     command = processCommand(skillNode.getChildNodes());
-
+                    influenceEffect = processInfluenceEffect(skillNode.getChildNodes());
                     if(command != null) {
                         name = skillNode.getAttributes().getNamedItem("name").getTextContent();
                         useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
@@ -681,6 +680,7 @@ public class GameLoader {
                 Node skillNode = skillNodes.item(j);
                 if (skillNode.getNodeType() == Node.ELEMENT_NODE) {
                     command = processCommand(skillNode.getChildNodes());
+                    influenceEffect = processInfluenceEffect(skillNode.getChildNodes());
 
                     if(command != null) {
                         name = skillNode.getAttributes().getNamedItem("name").getTextContent();
@@ -696,6 +696,41 @@ public class GameLoader {
                 }
             }
         }
+    }
+
+    private InfluenceEffect processInfluenceEffect(NodeList childNodes) {
+        Command command;
+        int nextMoveTime;
+        long speed;
+        int range;
+        Orientation orientation;
+
+        for(int i = 0; i < childNodes.getLength(); i++) {
+            Node influenceNode = childNodes.item(i);
+
+            if(influenceNode.getNodeType() == Node.ELEMENT_NODE) {
+                command = processCommand(influenceNode.getChildNodes());
+                if(command != null) {
+                    nextMoveTime =  Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
+                    speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
+                    range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
+                    orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
+
+                    switch (influenceNode.getNodeName().toLowerCase()) {
+                        case "angularinfluenceeffect":
+                            return new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+
+                        case "linearinfluenceeffect":
+                            return new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+
+                        case "radialinfluenceeffect":
+                            return new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     private void processItems(Element element, Level level) {
