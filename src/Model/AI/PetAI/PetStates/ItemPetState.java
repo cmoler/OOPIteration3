@@ -13,10 +13,7 @@ import Model.Utility.HexDistanceCalculator;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 // In ItemState, a super.getEntity() will disregard its master and run wildly towards items and Entities in hopes to grab all the loot!
 
@@ -47,7 +44,7 @@ public class ItemPetState extends AIState {
             moveToGoal(petPoint,getEntityPoint(player,entityMap));
         }
         else if(isInStealingRange(petPoint,nearestTarget) && targetHasItemsToSteal(nearestTarget)){
-            executePickpocket(super.getEntity());
+            executePickpocket(petPoint,nearestTarget,super.getEntity());
         }
         else{
             Point3D goal = calculateGoal(petPoint, nearestItem, nearestTarget);
@@ -60,7 +57,8 @@ public class ItemPetState extends AIState {
         return reachable.contains(goal);
     }*/
 
-    private void executePickpocket(Entity pet) {
+    private void executePickpocket(Point3D position, Point3D goal, Entity pet) {
+        pet.setOrientation(PathingAlgorithm.calculateOrientation(position,goal));
         pet.useSkill(pickPocketSkill);
     }
 
@@ -111,8 +109,8 @@ public class ItemPetState extends AIState {
     }
 
     private Point3D getNearestItem(Point3D origin) {
-        List<Point3D> itemPoints = new ArrayList<>(itemMap.keySet());
-        Point3D minLocation = new Point3D(Double.MAX_VALUE,Double.MAX_VALUE,Double.MAX_VALUE);
+        Set<Point3D> itemPoints = itemMap.keySet();
+        Point3D minLocation = new Point3D(Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE);
         double minDistance = Double.MAX_VALUE;
         for (Point3D point : itemPoints) {
             double distance = HexDistanceCalculator.getHexDistance(origin,point);

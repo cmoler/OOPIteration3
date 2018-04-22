@@ -77,15 +77,15 @@ public class PathingAlgorithm {
 
     private boolean isValidPoint(Point3D p, Entity e, Entity target){
         boolean pass_river = true;
-        boolean intereing_entity = false;
+        boolean interfering = false;
         if (riverMap.containsKey(p)){
             River river = riverMap.get(p);
             pass_river = river.isTraversable(e);
         }
         if (entityMap.hasKey(p) && !entityMap.getValueFromKey(p).equals(target)){
-            intereing_entity = true;
+            interfering = true;
         }
-        return (e.canMoveOnTerrain(terrainMap.get(p)) && !obstacleMap.containsKey(p) && pass_river && !intereing_entity);
+        return (e.canMoveOnTerrain(terrainMap.get(p)) && !obstacleMap.containsKey(p) && pass_river && !interfering);
     }
 
     private boolean isValidPointToMoveTo(Point3D p, ArrayList<Point3D> visited, Entity e, Entity target){
