@@ -116,13 +116,6 @@ public class GameModel implements Visitable {
         gin.setPrice(2);
         gin.onTouch(player);
 
-        player.addItemToInventory(potion);
-        player.addItemToInventory(manapotion);
-        player.addItemToInventory(healthpotion);
-        player.addItemToInventory(beer);
-        player.addItemToInventory(wine);
-        player.addItemToInventory(gin);
-
         entityFactory.buildEntitySprite(player);
 
         player.setMoveable(true);
@@ -190,6 +183,7 @@ public class GameModel implements Visitable {
         AIList.add(controller);
         aiMap.put(currentLevel,AIList);
 
+        /*
         entityFactory = new PetFactory(skillsFactory);
         Entity pet = entityFactory.buildEntity();
         entityFactory.buildEntitySprite(pet);
@@ -207,16 +201,17 @@ public class GameModel implements Visitable {
         currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
         PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
         AIController test = new AIController();
-
+        */
        /* List<Entity> petList = new ArrayList<>();
         petList.add(enemy);
         pet.setTargetingList(petList);
         CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player,petList);
         test.setActiveState(CPS);*/
 
-       test.setActiveState(PPS);
+      // test.setActiveState(PPS);
 
-        AIList.add(test);
+        //AIList.add(test);
+
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);
