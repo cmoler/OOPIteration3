@@ -440,7 +440,6 @@ public class GameLoader {
                     Node itemNode = itemList.item(k);
                     if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
                         Command command = processCommand(itemNode.getChildNodes());
-                        System.out.println(itemNode.getAttributes().getNamedItem("name").getTextContent());
                         name = itemNode.getAttributes().getNamedItem("name").getTextContent();
                         itemReference = itemNode.getAttributes().getNamedItem("reference").getTextContent();
                         price = Integer.parseInt(itemNode.getAttributes().getNamedItem("price").getTextContent());
@@ -855,7 +854,7 @@ public class GameLoader {
                     speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
                     range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
                     orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
-                    point3D = toPoint3D(influenceNode.getAttributes().getNamedItem("origin").getTextContent());
+                    point3D = toPoint3D(influenceNode.getAttributes().getNamedItem("point").getTextContent());
 
                     switch (influenceNode.getNodeName().toLowerCase()) {
                         case "angularinfluenceeffect":

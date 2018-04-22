@@ -30,6 +30,7 @@ public abstract class InfluenceEffect implements Visitable {
         this.range = range;
         this.speed = speed;
         this.orientation = orientation;
+        originPoint = new Point3D(0,0,0);
     }
 
     public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining, long nextMoveTime, Point3D originPoint) {

@@ -1043,7 +1043,9 @@ public class SavingVisitor implements Visitor {
     }
 
     public void visitInfluenceEffect(InfluenceEffect influenceEffect) {
+        StringBuffer point= keyToString(influenceEffect.getOriginPoint());
         StringBuffer areaEffect = new StringBuffer("<" + influenceEffect.getClass().getSimpleName()
+                +" point=" + "\"" + point + "\""
                 +" speed=" + "\"" + influenceEffect.getSpeed() + "\""
                 +" range=" + "\"" + influenceEffect.getRange() + "\""
                 +" movesRemaining=" + "\"" + influenceEffect.getMovesRemaining() + "\""

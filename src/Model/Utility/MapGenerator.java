@@ -314,11 +314,12 @@ public class MapGenerator extends Application {
     }
 
     private static void createTerrains(Level level) {
-        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 8, 0, Orientation.NORTH);
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
 
         level.addTerrainTo(new Point3D(0, 0, 0), Terrain.WATER);
         for(int i = 0; i < 8; i++) {
-            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
             for(int j = 0; j < points.size(); j++) {
                 level.addTerrainTo(points.get(j), Terrain.GRASS);
             }
