@@ -2,6 +2,7 @@ package Controller.Factories;
 
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleDefenseCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.AddManaCommand;
@@ -199,5 +200,18 @@ public class ItemFactory {
 
         return ringItem;
 
+    }
+
+    public RingItem getHealthRing() {
+        ToggleHealthCommand command = new ToggleHealthCommand(50);
+        RingItem ringItem = new RingItem("Health Ring", command);
+        ringItem.setCurrentLevelMessenger(levelMessenger);
+
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setHealthRing();
+
+        ringItem.setObserver(itemView);
+
+        return ringItem;
     }
 }

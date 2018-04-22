@@ -259,7 +259,7 @@ public class GameModel implements Visitable {
         lightArmor.notifyObserver(new Point3D(3, -3, 0));
         currentLevel.addItemTo(new Point3D(3, -3, 0), lightArmor);
 
-        RingItem ringItem = itemFactory.getSpeedRing();
+        RingItem ringItem = itemFactory.getHealthRing();
         ringItem.notifyObserver(new Point3D(4, -4, 0));
         currentLevel.addItemTo(new Point3D(4, -4, 0), ringItem);
 

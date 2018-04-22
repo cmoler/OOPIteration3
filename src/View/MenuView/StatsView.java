@@ -39,7 +39,7 @@ public class StatsView extends InGameMenuView {
 
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.BLACK);
-        gc.fillText("Health: " + Integer.toString(player.getCurrentHealth()), startX, startY);
+        gc.fillText("Health: " + Integer.toString(player.getCurrentHealth()) + "/" + Integer.toString(player.getMaxHealth()), startX, startY);
         gc.fillText("Defense: " + Integer.toString(player.getDefensePoints()), startX, startY+height);
         gc.fillText("Mana: " + Integer.toString(player.getCurrentMana()), startX, startY+2*height);
         gc.fillText("Level: " + Integer.toString(player.getLevel()), startX, startY+3*height);

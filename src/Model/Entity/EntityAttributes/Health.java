@@ -22,6 +22,9 @@ public class Health {
 
     public void decreaseMaxHealth(int amount) {
         this.maxHealth -= amount;
+        if(getCurrentHealth() > getMaxHealth()) {
+            currentHealth = maxHealth;
+        }
     }
 
     public void increaseCurrentHealth(int amount) {

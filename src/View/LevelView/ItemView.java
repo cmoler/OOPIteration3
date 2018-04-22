@@ -137,5 +137,13 @@ public class ItemView extends LevelViewElement{
         setSprite(new Image(file.toURI().toString()));
     }
 
+    public void setHealthRing() {
+        String workingDir = System.getProperty("user.dir");
+
+        File file = new File(workingDir + "/src/View/Assets/healthRing.png");
+
+        setSprite(new Image(file.toURI().toString()));
+    }
+
 
 }
