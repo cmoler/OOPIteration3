@@ -116,7 +116,7 @@ public class Level {
         }
     }
 
-    public void addItemnTo(Point3D point, Item item) {
+    public void addItemTo(Point3D point, Item item) {
         itemLocations.put(point, item);
     }
 
@@ -282,7 +282,7 @@ public class Level {
     public void updateRenderLocations(Point3D playerPos, int playerViewDistance) {
         HexMathHelper hexMathHelper = new HexMathHelper();
 
-        for(LevelViewElement o:observers) {
+        for(LevelViewElement o : observers) {
             if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {//If object in view of player, update location
                 o.locationViewedByPlayer();
             }
@@ -354,11 +354,5 @@ public class Level {
             }
         }
         return deadpool;
-    }
-
-    public void clearInfluenceEffectObservers() {
-        for(Point3D point : influenceEffectLocations.keySet()) {
-            observers.remove(influenceEffectLocations.get(point).getObserver());
-        }
     }
 }

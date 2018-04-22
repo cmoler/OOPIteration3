@@ -44,6 +44,6 @@ public class RadialInfluenceEffectTest {
         for(int i = 0; i < adjacentPoints.size(); i++) {
             System.out.println("RADIAL POINTS: "+adjacentPoints.get(i).toString());
         }
-        Assert.assertEquals(adjacentPoints.size(), 12, 0);
+        Assert.assertEquals(adjacentPoints.size(), 19, 0);
     }
 }

@@ -100,4 +100,9 @@ public abstract class LevelViewElement {
     }
 
     public abstract void notifyViewElementDeath();
+
+    public Image getSprite() {
+        return sprite;
+    }
 }
+

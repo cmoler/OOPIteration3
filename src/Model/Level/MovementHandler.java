@@ -8,6 +8,7 @@ import View.LevelView.InfluenceEffectView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.*;
 
 public class MovementHandler {
@@ -55,7 +56,11 @@ public class MovementHandler {
                         if(!riverLocations.containsKey(entityPoint)) { // dont start dialog if a river is forcing you onto another entity
                             dialogCommand.execute(entity);
                         }
-                    } else {
+                    }
+                    else {
+                        if(entityLocations.hasKey(contestedPoint)){
+                            retrieveItems(entity,entityLocations.getValueFromKey(contestedPoint));
+                        }
                         //Update entity movement
                         entityLocations.removeByKey(entityPoint);
                         entityLocations.place(contestedPoint, entity);
@@ -82,6 +87,11 @@ public class MovementHandler {
         }
     }
 
+    private void retrieveItems(Entity looter, Entity deadEnt) {
+        looter.addItemsToInventory(deadEnt.getInventory());
+        //entityLocations.removeByValue(deadEnt);
+    }
+
     private boolean isAlive(Entity valueFromKey) {
         return !valueFromKey.isDead();
     }
@@ -89,20 +99,30 @@ public class MovementHandler {
     private void moveInfluenceEffects() {
         List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
-        for(Point3D oldPoint : influenceEffectPoints) {
+        List<InfluenceEffect> influenceEffects = new ArrayList<>(influenceEffectLocations.values());
 
-            InfluenceEffect influenceEffect = influenceEffectLocations.get(oldPoint); // Get current influence effect
+        for(InfluenceEffect effect : influenceEffects) {
+            List<Point3D> newPoints = effect.nextMove(effect.getOriginPoint());
 
-            List<Point3D> nextEffectPoints = influenceEffect.nextMove(oldPoint); // Get list of points to move effect to
-            influenceEffect.decreaseCommandAmount();
+            if (!newPoints.isEmpty()) {
+                removeOldEffectLocations(influenceEffectPoints, effect);
 
-            InfluenceEffect effectClone = influenceEffect.cloneInfluenceEffect();
-
-            for (Point3D newPoint : nextEffectPoints) {
-                influenceEffectLocations.put(newPoint, effectClone); // put influence effect at its new position
+                placeEffectAtNewLocations(effect, newPoints);
             }
+        }
+    }
 
-            influenceEffectLocations.remove(oldPoint, influenceEffect);
+    private void removeOldEffectLocations(List<Point3D> influenceEffectPoints, InfluenceEffect effect) {
+        for (Point3D point : influenceEffectPoints) {
+            if (influenceEffectLocations.get(point).equals(effect)) {
+                influenceEffectLocations.remove(point, effect);
+            }
+        }
+    }
+
+    private void placeEffectAtNewLocations(InfluenceEffect effect, List<Point3D> newPoints) {
+        for (Point3D point : newPoints) {
+            influenceEffectLocations.put(point, effect);
         }
     }
 

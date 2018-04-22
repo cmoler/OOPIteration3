@@ -47,12 +47,17 @@ public class LevelView {
 
         Map<Point3D, InfluenceEffect> influenceEffects = currentLevel.getInfluenceEffectMap();
 
-        List<InfluenceEffectView> influenceEffectViews = new ArrayList<>();
+        List<LevelViewElement> influenceEffectViews = new ArrayList<>();
 
-        for(InfluenceEffect influenceEffect : influenceEffects.values()) {
-            influenceEffectViews.add(influenceEffect.getObserver());
+        for(Point3D point3D : influenceEffects.keySet()) {
+            influenceEffectViews.add(new InfluenceEffectView(influenceEffects.get(point3D), point3D));
         }
-        for(InfluenceEffectView influenceEffectView : influenceEffectViews) {
+
+     //   for(InfluenceEffect influenceEffect : influenceEffects.values()) {
+    //        influenceEffectViews.add(new InfluenceEffectView(influenceEffect, influenceEffects.key));
+    //    }
+
+        for(LevelViewElement influenceEffectView : influenceEffectViews) {
             influenceEffectView.render(gc, offset, scrollOffset);
         }
 
@@ -92,22 +97,25 @@ public class LevelView {
         observationViews.add(observationView);
     }
 
-    public void refreshInfluenceEffectSprites() {
+   /* public void refreshInfluenceEffectSprites() {
         currentLevel.clearInfluenceEffectObservers();
-        currentLevel.addObservers(registerInfluenceEffectObservers(currentLevel.getInfluenceEffectMap())); // TODO: replace observers
-    }
 
-    private ArrayList<LevelViewElement> registerInfluenceEffectObservers(Map<Point3D, InfluenceEffect> influenceEffectMap) {
+        createInfluenceEffectObservers(currentLevel.getInfluenceEffectMap());
+
+        currentLevel.addInfluenceEffectObservers();
+    }*/
+
+    /*private ArrayList<LevelViewElement> createInfluenceEffectObservers(Map<Point3D, InfluenceEffect> influenceEffectMap) {
         ArrayList<LevelViewElement> observers = new ArrayList<>();
 
         for(Point3D point : influenceEffectMap.keySet()) {
-            //   InfluenceEffect effect = influenceEffectLocations.get(point); TODO: needed?
+            InfluenceEffect effect = influenceEffectMap.get(point);
 
-            InfluenceEffectView observer = new InfluenceEffectView(point);
+            InfluenceEffectView observer = new InfluenceEffectView(effect, point);
 
             observers.add(observer);
         }
 
         return observers;
-    }
+    }*/
 }

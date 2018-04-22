@@ -13,54 +13,65 @@ public class AngularInfluenceEffect extends InfluenceEffect {
         super(command, range, speed, orientation);
     }
 
-    public AngularInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining) {
-        super(command, range, speed, orientation, movesRemaining);
+    public AngularInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining, long nextMoveTime, Point3D originPoint) {
+        super(command, range, speed, orientation, movesRemaining, nextMoveTime, originPoint);
     }
 
+    // Defines logic for a "shotgun-blast"-like cone of fire for an influence effect
     public ArrayList<Point3D> nextMove(Point3D point) {
         if(canMove()) {
-            if (noMovesRemaining()) {
-                return new ArrayList<>();
-            }
+            setNextMoveTime();
 
             ArrayList<Point3D> newPoints = new ArrayList<>();
 
-            if (rangeIsZero() || !canMove()) {
+            if (rangeIsZero()) {
                 newPoints.add(point);
                 return newPoints;
             }
 
-            int distance = getRange() - getMovesRemaining() + 1;
-            Point3D currentPoint = point;
-            for (int i = 0; i < distance; i++) {//Find starting point based on distance
-                currentPoint = Orientation.getAdjacentPoint(currentPoint, getOrientation());
-            }
-            newPoints.add(currentPoint);
+            int projectileIteration = getRange() - getMovesRemaining();
 
-            //Get orientation and points of triangular angles
-            int orientationIndex = getOrientation().getIndexOfOrientation(getOrientation());
-            Orientation adj1Orientation = Orientation.values()[(orientationIndex + 2) % 6];
-            Orientation adj2Orientation = Orientation.values()[(orientationIndex + 4) % 6];
-            Point3D adj1 = Orientation.getAdjacentPoint(currentPoint, adj1Orientation);
-            Point3D adj2 = Orientation.getAdjacentPoint(currentPoint, adj2Orientation);
-            for (int i = 0; i < distance / 2; i++) {
-                newPoints.add(adj1);
-                newPoints.add(adj2);
-                adj1 = Orientation.getAdjacentPoint(adj1, adj1Orientation);
-                adj2 = Orientation.getAdjacentPoint(adj2, adj2Orientation);
+            Point3D newOriginPoint = Orientation.getAdjacentPoint(point, getOrientation());
+
+            setOriginPoint(newOriginPoint);
+            newPoints.add(newOriginPoint);
+
+            int leftFlankIndex = (int) Math.ceil((double) projectileIteration / (double) 2);
+            int rightFlankIndex = (int) Math.ceil((double) projectileIteration / (double) 2);
+
+            Point3D flankPoint = newOriginPoint;
+            while(leftFlankIndex > 0) {
+                int orientationIndex = getOrientation().getIndexOfOrientation(getOrientation());
+                Orientation leftOrientation = Orientation.values()[(orientationIndex + 4) % 6];
+
+                flankPoint = Orientation.getAdjacentPoint(flankPoint, leftOrientation);
+
+                newPoints.add(flankPoint);
+
+                leftFlankIndex--;
+            }
+
+            flankPoint = newOriginPoint;
+            while(rightFlankIndex > 0) {
+                int orientationIndex = getOrientation().getIndexOfOrientation(getOrientation());
+                Orientation rightOrientation = Orientation.values()[(orientationIndex + 2) % 6];
+
+                flankPoint = Orientation.getAdjacentPoint(flankPoint, rightOrientation);
+
+                newPoints.add(flankPoint);
+
+                rightFlankIndex--;
             }
 
             decrementMovesRemaining();
 
             return newPoints;
         }
-
         return new ArrayList<>();
     }
 
-    @Override
     public InfluenceEffect cloneInfluenceEffect() {
-        return new AngularInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
+        return new AngularInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation());
     }
 
     public void accept(Visitor visitor) {

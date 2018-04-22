@@ -429,7 +429,7 @@ public class Entity {
         return equipment.getEquippedWeapon();
     }
     
-    public void attack() {
+    public void attack() { // todo: ADD precondition for null wep -> no attack
         getWeaponItem().attack(this);
     }
 
@@ -624,7 +624,7 @@ public class Entity {
     }
 
     public boolean hasItems() {
-        return inventory.size() >= 1;
+        return inventory.size() > 0;
     }
 
     public Equipment getEquipment() {
@@ -634,6 +634,10 @@ public class Entity {
     public void reset() {
         health.refill();
         mana.refill();
+    }
+
+    public void addItemsToInventory(Inventory inv) {
+        inventory.addInventory(inv);
     }
 
     public void regenerateMana() {

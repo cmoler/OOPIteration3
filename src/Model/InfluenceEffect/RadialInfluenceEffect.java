@@ -12,17 +12,14 @@ public class RadialInfluenceEffect extends InfluenceEffect{
         super(command, range, speed, orientation);
     }
 
-    public RadialInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining) {
-        super(command, range, speed, orientation, movesRemaining);
+    public RadialInfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation, int movesRemaining, long nextMoveTime, Point3D originPoint) {
+        super(command, range, speed, orientation, movesRemaining, nextMoveTime, originPoint);
     }
 
     //Defines logic for moving in every direction
     public ArrayList<Point3D> nextMove(Point3D point) {
         if(canMove()) {
-            //Out of moves, return empty list
-            if (noMovesRemaining()) {
-                return new ArrayList<>();
-            }
+            setNextMoveTime();
 
             ArrayList<Point3D> newPoints = new ArrayList<>();
 
@@ -31,30 +28,41 @@ public class RadialInfluenceEffect extends InfluenceEffect{
                 return newPoints;
             }
 
-            int ringDistance = getRange() - getMovesRemaining();
-            Point3D currentPoint = point;
-            for (int i = 0; i < ringDistance; i++) {//Find starting point
-                currentPoint = Orientation.getAdjacentPoint(currentPoint, Orientation.NORTH);
-            }
+            int distance = getRange() - getMovesRemaining();
 
-            //Generates ring of radius ringDistance
-            for (int i = 0; i < Orientation.values().length - 1; i++) {
-                for (int j = 0; j < ringDistance; j++) {
-                    newPoints.add(currentPoint);
-                    currentPoint = Orientation.getAdjacentPoint(currentPoint, Orientation.values()[(i + 2) % 6]);
+            Point3D newOriginPoint = Orientation.getAdjacentPoint(point, getOrientation());
+            setOriginPoint(newOriginPoint);
+            newPoints.add(newOriginPoint);
+
+            int orientationIndex = getOrientation().getIndexOfOrientation(getOrientation()) + 2;
+            int numTileSides = Orientation.values().length;
+
+            Point3D ringPoint = newOriginPoint;
+
+            for(int i = 0; i < numTileSides-1; i++) {
+                Orientation ringTravelDirection = Orientation.values()[(orientationIndex) % 6];
+
+                int ringTravelDistance = distance + 1;
+
+                while(ringTravelDistance > 0) {
+                    ringPoint = Orientation.getAdjacentPoint(ringPoint, ringTravelDirection);
+                    newPoints.add(ringPoint);
+
+                    ringTravelDistance--;
                 }
+
+                orientationIndex++;
             }
 
             decrementMovesRemaining();
+
             return newPoints;
         }
-
         return new ArrayList<>();
     }
 
-    @Override
     public InfluenceEffect cloneInfluenceEffect() {
-        return new RadialInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation(), getMovesRemaining());
+        return new RadialInfluenceEffect(getCommand(), getRange(), getSpeed(), getOrientation());
     }
 
     public void accept(Visitor visitor) {

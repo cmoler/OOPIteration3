@@ -40,10 +40,9 @@ public class Renderer {
         if(menuView.inMenu()) {
             menuView.render(gc);
         } else {
-            levelView.refreshInfluenceEffectSprites();
+         //   levelView.refreshInfluenceEffectSprites();
             levelView.render(gc, playerPos, scrollOffset);
         }
-
     }
 
     public void updateCurrentLevel(Level newCurrentLevel) {
@@ -80,7 +79,7 @@ public class Renderer {
 
             observers.addAll(registerMountObservers(level.getMountMap()));
 
-            observers.addAll(registerInfluenceEffectObservers(level.getInfluenceEffectMap()));
+            //observers.addAll(registerInfluenceEffectObservers(level.getInfluenceEffectMap()));
 
             observers.addAll(registerDecalObservers(level.getDecalMap()));
 
@@ -102,19 +101,19 @@ public class Renderer {
         return observers;
     }
 
-    private ArrayList<LevelViewElement> registerInfluenceEffectObservers(Map<Point3D, InfluenceEffect> influenceEffectMap) {
+   /* private ArrayList<LevelViewElement> registerInfluenceEffectObservers(Map<Point3D, InfluenceEffect> influenceEffectMap) {
         ArrayList<LevelViewElement> observers = new ArrayList<>();
 
         for(Point3D point : influenceEffectMap.keySet()) {
-            //   InfluenceEffect effect = influenceEffectLocations.get(point); TODO: needed?
+            InfluenceEffect effect = influenceEffectMap.get(point);
 
-            InfluenceEffectView observer = new InfluenceEffectView(point);
+            InfluenceEffectView observer = new InfluenceEffectView(effect, point);
 
             observers.add(observer);
         }
 
         return observers;
-    }
+    }*/
 
     private ArrayList<LevelViewElement> registerMountObservers(Map<Point3D, Mount> mountMap) {
         ArrayList<LevelViewElement> observers = new ArrayList<>();
@@ -202,9 +201,10 @@ public class Renderer {
         ArrayList<LevelViewElement> observers = new ArrayList<>();
 
         for(Point3D point : itemMap.keySet()) {
-            ItemView observer = new ItemView(point);
 
-            observers.add(observer);
+            Item item = itemMap.get(point);
+
+            observers.add(item.getObserver());
         }
 
         return observers;

@@ -35,8 +35,8 @@ public class PathingAlgorithm {
         Point3D next = start;
         Pair<Point3D,Integer> cost = new Pair<>(start,Integer.MAX_VALUE);
         for (Point3D p: getAdjacentList(start)){
-            int new_cost = getCost(p,goal);
-            if (new_cost < cost.getValue() && isValidPoint(p,mover)){
+            int new_cost = getCost(p,goal,mover);
+            if (new_cost < cost.getValue()){
                 next = p;
                 cost = new Pair<>(p,new_cost);
             }
@@ -44,8 +44,13 @@ public class PathingAlgorithm {
         return next;
     }
 
-    private int getCost(Point3D point, Point3D goal){
-        return HexDistanceCalculator.getHexDistance(point,goal);
+    private int getCost(Point3D point, Point3D goal, Entity actor){
+        if (!isValidPoint(point,actor)){
+            return Integer.MAX_VALUE;
+        }
+        else {
+            return HexDistanceCalculator.getHexDistance(point, goal);
+        }
     }
 
     public ArrayList<Point3D> getReachablePoints(Point3D start, int rangeLimit, Entity actor){

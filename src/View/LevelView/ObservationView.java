@@ -24,7 +24,7 @@ public class ObservationView extends LevelViewElement {
     }
 
     public void render(GraphicsContext gc, Point2D playerPos, Point2D scrollOffset) {
-
+        rotate(gc, 0, 0, 0);
         HexMathHelper hexMathHelper = new HexMathHelper();
 
         int width = getSize();
