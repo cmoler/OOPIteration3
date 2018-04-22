@@ -92,4 +92,15 @@ public class ItemFactory {
         return potion;
     }
 
+    public ConsumableItem getManaPotion() {
+        AddHealthCommand command = new AddHealthCommand(50);
+
+        ConsumableItem potion = new ConsumableItem("Potion", command);
+        potion.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setPotion();
+        potion.setObserver(itemView);
+        return potion;
+    }
+
 }
