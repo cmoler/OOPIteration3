@@ -120,6 +120,7 @@ public class InteractionHandler {
         for(Point3D point : influenceEffectPoints) {
 
             InfluenceEffect influenceEffect = influenceEffectLocations.get(point); //Get current influence effect
+            if(influenceEffect == null) { continue; }
             if(influenceEffect.isStartPoint()) {
                 continue;
             }
