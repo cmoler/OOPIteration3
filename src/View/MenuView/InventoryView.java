@@ -72,20 +72,32 @@ public class InventoryView extends InGameMenuView {
         if(takeableItem.getObserver() != null) {
             gc.drawImage(takeableItem.getObserver().getSprite(), startX+25, startY + 50);
         }
-        //draw use
-        gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
-        gc.setFill(Color.WHITESMOKE);
-        gc.fillText("use", (optionsStartX+ width / 6), (optionsStartY+4*height/5));
-        gc.fillText("assign", (optionsStartX + width / 6), (optionsStartY + height+4*height/5));
-        gc.fillText("drop", (optionsStartX+ width / 6), (optionsStartY + 2*height+4*height/5));
 
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(5.0f);
-        gc.strokeRect(optionsStartX, optionsStartY, width, height);
-        gc.strokeRect(optionsStartX, optionsStartY + height, width, height);
-        gc.strokeRect(optionsStartX, optionsStartY + 2*height, width, height);
+        boolean itemUsable = ((InventoryMenu)menuModel.getActiveState()).getItemUsableByPlayer();
+        if(itemUsable) {
+            gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
+            gc.setFill(Color.WHITESMOKE);
+            gc.fillText("use", (optionsStartX + width / 6), (optionsStartY + 4 * height / 5));
+            gc.fillText("assign", (optionsStartX + width / 6), (optionsStartY + height + 4 * height / 5));
+            gc.fillText("drop", (optionsStartX + width / 6), (optionsStartY + 2 * height + 4 * height / 5));
 
-        //draw selector
-        if(selectedX == 2) gc.drawImage(selected, optionsStartX, optionsStartY + selectedY*height, width, height);
+            gc.setStroke(Color.BLACK);
+            gc.setLineWidth(5.0f);
+            gc.strokeRect(optionsStartX, optionsStartY, width, height);
+            gc.strokeRect(optionsStartX, optionsStartY + height, width, height);
+            gc.strokeRect(optionsStartX, optionsStartY + 2 * height, width, height);
+
+            //draw selector
+            if (selectedX == 2)
+                gc.drawImage(selected, optionsStartX, optionsStartY + selectedY * height, width, height);
+        }else{
+            gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
+            gc.setFill(Color.WHITESMOKE);
+            gc.fillText("drop", (optionsStartX + width / 6), (optionsStartY + 2 * height + 4 * height / 5));
+
+            gc.strokeRect(optionsStartX, optionsStartY + 2 * height, width, height);
+            if (selectedX == 2)
+                gc.drawImage(selected, optionsStartX, optionsStartY + 2 * height, width, height);
+        }
     }
 }

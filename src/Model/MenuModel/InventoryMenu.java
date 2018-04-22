@@ -30,8 +30,12 @@ public class InventoryMenu extends InGameMenuState {
             if (selectedUpDown > inventory.size() - 1) selectedUpDown = 0;
         }
         if(selectedLeftRight == 2){
-            if (selectedUpDown < 0) selectedUpDown = 2;
-            if (selectedUpDown > 2) selectedUpDown = 0;
+            TakeableItem itemManipulating = inventory.getItem(selectedItem);
+            if(itemManipulating.usableByEntity(player)){
+                if (selectedUpDown < 0) selectedUpDown = 2;
+                if (selectedUpDown > 2) selectedUpDown = 0;
+            }
+            else if(selectedUpDown != 0) selectedUpDown = 0;
         }
     }
 
@@ -57,16 +61,20 @@ public class InventoryMenu extends InGameMenuState {
     private void itemPart(){
         TakeableItem itemManipulating = inventory.getItem(selectedItem);
         if(itemManipulating == null) return;
-        switch (selectedUpDown){
-            case 0:
-                itemManipulating.select();
-                break;
-            case 1:
-                gameLoop.setMenuState(new AssignItemMenu(menuModel, player, gameLoop, itemManipulating), new AssignItemView(menuModel));
-                break;
-            case 2:
-                itemManipulating.drop();
-                break;
+        if(itemManipulating.usableByEntity(player)) {
+            switch (selectedUpDown) {
+                case 0:
+                    itemManipulating.select();
+                    break;
+                case 1:
+                    gameLoop.setMenuState(new AssignItemMenu(menuModel, player, gameLoop, itemManipulating), new AssignItemView(menuModel));
+                    break;
+                case 2:
+                    itemManipulating.drop();
+                    break;
+            }
+        }else{
+            itemManipulating.drop();
         }
     }
 
@@ -76,5 +84,10 @@ public class InventoryMenu extends InGameMenuState {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public boolean getItemUsableByPlayer(){
+        TakeableItem itemManipulating = inventory.getItem(selectedItem);
+        return itemManipulating.usableByEntity(player);
     }
 }
