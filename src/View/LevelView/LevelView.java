@@ -1,6 +1,7 @@
 package View.LevelView;
 
 import Configs.Commons;
+import Model.InfluenceEffect.InfluenceEffect;
 import Model.Level.Level;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
@@ -12,6 +13,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class LevelView {
 
@@ -47,6 +49,15 @@ public class LevelView {
                     o.render(gc, offset, scrollOffset);
                 }
             }
+        }
+
+
+
+        Map<Point3D, InfluenceEffect> influenceEffects = currentLevel.getInfluenceEffectMap();
+        for(InfluenceEffect influenceEffect: influenceEffects.values()) {
+            System.out.println("printing influence effect");
+            influenceEffect.getInfluenceEffectView().render(gc, offset, scrollOffset);
+
         }
 
 

@@ -167,6 +167,8 @@ public class Level {
     }
 
     public void addInfluenceEffectTo(Point3D point, InfluenceEffect influenceEffect) {
+        System.out.println("Adding influence effect");
+        influenceEffect.setInfluenceEffectView(new InfluenceEffectView(point));
         influenceEffectLocations.put(point, influenceEffect);
     }
 
@@ -206,9 +208,7 @@ public class Level {
         this.tilesSeenByPlayer = tilesSeenByPlayer;
     }
 
-    public Map<Point3D, InfluenceEffect> getInfluencesMap() {
-        return influenceEffectLocations;
-    }
+
 
     public boolean hasItem(Item item) {
         return itemLocations.containsValue(item);
@@ -271,19 +271,7 @@ public class Level {
         }
     }
 
-    public void updateTerrainFog(Point3D playerPos, int playerViewDistance) {
-        HexMathHelper hexMathHelper = new HexMathHelper();
-        if(tilesSeenByPlayer == null) { return; }
-        /*
-        for(TerrainView o: observers) {
-            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {
 
-                o.setShrouded(false);
-            } else {
-                o.setShrouded(true);
-            }
-        }*/
-    }
 
     public void updateRenderLocations(Point3D playerPos, int playerViewDistance) {
         HexMathHelper hexMathHelper = new HexMathHelper();

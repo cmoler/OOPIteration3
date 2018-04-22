@@ -6,6 +6,7 @@ import Model.Command.Command;
 import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
+import View.LevelView.InfluenceEffectView;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public abstract class InfluenceEffect implements Visitable {
     private long speed;
     private Orientation orientation;
     private int range;
+    private InfluenceEffectView influenceEffectView;
 
 
     public InfluenceEffect(SettableCommand command, int range, long speed, Orientation orientation) {
@@ -99,5 +101,12 @@ public abstract class InfluenceEffect implements Visitable {
 
     public void setCommand(SettableCommand command) {
         this.command = command;
+    }
+
+    public void setInfluenceEffectView(InfluenceEffectView influenceEffectView) {
+        this.influenceEffectView = influenceEffectView;
+    }
+    public InfluenceEffectView getInfluenceEffectView() {
+        return influenceEffectView;
     }
 }
