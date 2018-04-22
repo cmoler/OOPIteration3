@@ -105,5 +105,29 @@ public class ItemView extends LevelViewElement{
         setSprite(new Image(file.toURI().toString()));
     }
 
+    public void setLightArmor() {
+        String workingDir = System.getProperty("user.dir");
+
+        File file = new File(workingDir + "/src/View/Assets/lightArmor.png");
+
+        setSprite(new Image(file.toURI().toString()));
+    }
+
+    public void setMediumArmor() {
+        String workingDir = System.getProperty("user.dir");
+
+        File file = new File(workingDir + "/src/View/Assets/mediumArmor.png");
+
+        setSprite(new Image(file.toURI().toString()));
+    }
+
+    public void setHeavyArmor() {
+        String workingDir = System.getProperty("user.dir");
+
+        File file = new File(workingDir + "/src/View/Assets/heavyArmor.png");
+
+        setSprite(new Image(file.toURI().toString()));
+    }
+
 
 }

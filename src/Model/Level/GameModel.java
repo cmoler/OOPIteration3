@@ -6,7 +6,9 @@ import Controller.Factories.SkillsFactory;
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
+import Model.AI.FriendlyAI;
 import Model.AI.HostileAI;
+import Model.AI.PatrolPath;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
@@ -21,6 +23,7 @@ import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Utility.BidiMap;
@@ -122,6 +125,7 @@ public class GameModel implements Visitable {
         player.levelUp();
         Skill attack = new Skill();
         player.addWeaponSkills(attack);
+        player.setSpeed(0500000000l);
 
         RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
         LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
@@ -132,7 +136,7 @@ public class GameModel implements Visitable {
         SettableCommand og = new RemoveHealthCommand(1000);
         WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new RadialInfluenceEffect(og,3,10, Orientation.NORTH), 1000, 1,100,100,2);
         player.addItemToInventory(mace);
-        player.equipWeapon(mace);
+        //player.equipWeapon(mace);
         player.setSightRadius(new SightRadius(7));
         currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
 
@@ -159,6 +163,7 @@ public class GameModel implements Visitable {
         enemy.setNoise(5);
         Skill skill = new Skill();
         enemy.addWeaponSkills(skill);
+        enemy.setSpeed(1500000000l);
         skill.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand bleh = new RemoveHealthCommand(5);
         WeaponItem sword = new WeaponItem("Sword of Darkness", bleh, skill, new LinearInfluenceEffect(bleh,2,10,Orientation.NORTH), 5, 1,1,450,2);
@@ -181,40 +186,31 @@ public class GameModel implements Visitable {
         List<Entity> list = new ArrayList<>();
         list.add(player);
         enemy.setTargetingList(list);
-        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap());
-        //hostileAI.setPatrolPath(new PatrolPath(path));
+        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
+        hostileAI.setPatrolPath(new PatrolPath(path));
         AIController controller = new AIController();
         controller.setActiveState(hostileAI);
         List<AIController> AIList = new ArrayList<>();
-        AIList.add(controller);
         aiMap.put(currentLevel,AIList);
 
-        /*
+
         entityFactory = new PetFactory(skillsFactory);
         Entity pet = entityFactory.buildEntity();
         entityFactory.buildEntitySprite(pet);
         pet.setMoveable(true);
         pet.setNoise(5);
+        pet.setSpeed(1000000000l);
         Skill skill1 = new Skill();
         enemy.addWeaponSkills(skill1);
         skill1.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand rawr = new RemoveHealthCommand(5);
-        WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 1,100,450,1);
+        WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 10000000l,100,450,1);
         enemy.addItemToInventory(claw);
         enemy.equipWeapon(claw);
         pet.setSightRadius(new SightRadius(2));
         list.add(pet);
         currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
-        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
         AIController test = new AIController();
-        */
-       /* List<Entity> petList = new ArrayList<>();
-        petList.add(enemy);
-        pet.setTargetingList(petList);
-        CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player,petList);
-        test.setActiveState(CPS);*/
-
-      // test.setActiveState(PPS);
 
         //AIList.add(test);
 
@@ -224,10 +220,43 @@ public class GameModel implements Visitable {
         weaponItem.notifyObserver(new Point3D(1, -1, 0));
         currentLevel.addItemTo(new Point3D(1, -1, 0), weaponItem);
 
-        ConsumableItem potion1 = itemFactory.getManaPotion();
-        potion1.notifyObserver(new Point3D(3, -3, 0));
+        // Passive Pet AI
+        PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player, currentLevel.getRiverMap());
+        test.setActiveState(PPS);
 
-        currentLevel.addItemTo(new Point3D(3, -3, 0), potion1);
+        // Combat Pet AI
+        /*CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player, currentLevel.getRiverMap());
+        test.setActiveState(CPS);*/
+
+       // Item Pet AI
+        /*Skill pickpock = skillsFactory.getPickpocket();
+        pet.setSkillLevel(pickpock,1000);
+        ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, pickpock, currentLevel.getRiverMap());
+        test.setActiveState(IPS);
+*/
+        ShopKeeperFactory friendlyFactory = new ShopKeeperFactory(skillsFactory);
+        Entity friendly = friendlyFactory.buildEntity();
+        friendlyFactory.buildEntitySprite(friendly);
+
+        ConsumableItem sin = new ConsumableItem("sin", new AddHealthCommand(20));
+        sin.setCurrentLevelMessenger(currentLevelMessenger);
+        sin.setPrice(2);
+        friendly.addItemToInventory(sin);
+        friendly.setMoveable(false);
+
+        currentLevel.addEntityTo(new Point3D(0,-1,1),friendly);
+
+        FriendlyAI friendlyAI = new FriendlyAI(friendly,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
+        AIController best = new AIController();
+        best.setActiveState(friendlyAI);
+
+
+        AIList.add(best);
+        AIList.add(test);
+        AIList.add(controller);
+        ArmorItem lightArmor = itemFactory.getHeavyArmor();
+        lightArmor.notifyObserver(new Point3D(3, -3, 0));
+        currentLevel.addItemTo(new Point3D(3, -3, 0), lightArmor);
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

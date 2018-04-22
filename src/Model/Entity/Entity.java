@@ -43,6 +43,7 @@ public class Entity {
 
     private Equipment equipment;
     private Inventory inventory;
+    private int traversalStrength;
 
     private ItemHotBar hotBar;
 
@@ -82,6 +83,7 @@ public class Entity {
         this.moveable = moveable;
         this.mount = mount;
         targetingList = new ArrayList<>();
+        traversalStrength = 1;
     }
 
     public Entity() {
@@ -117,6 +119,7 @@ public class Entity {
 
         mount = null;
         targetingList = new ArrayList<>();
+        traversalStrength = 1;
     }
 
     public boolean isMoveable() {
@@ -428,6 +431,7 @@ public class Entity {
     public WeaponItem getWeaponItem() {
         return equipment.getEquippedWeapon();
     }
+    public ArmorItem getArmorItem() { return equipment.getEquippedArmor(); }
     
     public void attack() {
         getWeaponItem().attack(this);
@@ -595,6 +599,14 @@ public class Entity {
         return defense.getModifier();
     }
 
+    public void increaseDefense(int amount) {
+        defense.increaseDefensePoints(amount);
+    }
+
+    public void decreaseDefense(int amount) {
+        defense.decreaseDefensePoints(amount);
+    }
+
     public Mount getMount() {
         return mount;
     }
@@ -650,5 +662,13 @@ public class Entity {
 
     public void setSkillPointsAvaiable(int amount){
         xpLevel.setPointsAvailable(amount);
+    }
+
+    public int getTraversalStrength() {
+        return traversalStrength;
+    }
+
+    public void setTraversalStrength(int traversalStrength) {
+        this.traversalStrength = traversalStrength;
     }
 }

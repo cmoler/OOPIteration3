@@ -6,6 +6,7 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Skill;
 import Model.Item.Item;
 import Model.Level.Obstacle;
+import Model.Level.River;
 import Model.Level.Terrain;
 import Model.Utility.BidiMap;
 import Model.Utility.HexDistanceCalculator;
@@ -27,11 +28,11 @@ public class ItemPetState extends AIState {
     private Skill pickPocketSkill;
 
 
-    public ItemPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player, Skill PickPocketSkill) {
+    public ItemPetState(Entity pet, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, Item> itemMap, Entity player, Skill PickPocketSkill, Map<Point3D, River> riverMap) {
         super(pet);
         this.entityMap = entityMap;
         this.itemMap = itemMap;
-        pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
+        pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap, riverMap,entityMap );
         pickPocketSkill = PickPocketSkill;
         this.player = player;
     }
@@ -46,11 +47,9 @@ public class ItemPetState extends AIState {
             moveToGoal(petPoint,getEntityPoint(player,entityMap));
         }
         else if(isInStealingRange(petPoint,nearestTarget) && targetHasItemsToSteal(nearestTarget)){
-            System.out.println("Pickpocketing...");
             executePickpocket(super.getEntity());
         }
         else{
-            System.out.println("Test...");
             Point3D goal = calculateGoal(petPoint, nearestItem, nearestTarget);
             moveToGoal(petPoint,goal);
         }
