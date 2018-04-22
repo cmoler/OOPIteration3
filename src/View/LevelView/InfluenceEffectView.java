@@ -32,5 +32,13 @@ public class InfluenceEffectView extends LevelViewElement { // TODO: implement
 
     }
 
+    public void setArrow() {
+        String workingDir = System.getProperty("user.dir");
+
+        File file = new File(workingDir + "/src/View/Assets/arrow.png");
+
+        setSprite(new Image(file.toURI().toString()));
+    }
+
 
 }

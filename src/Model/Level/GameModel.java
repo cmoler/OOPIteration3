@@ -1,9 +1,6 @@
 package Model.Level;
 
-import Controller.Factories.EntityFactories.EntityFactory;
-import Controller.Factories.EntityFactories.MonsterFactory;
-import Controller.Factories.EntityFactories.PetFactory;
-import Controller.Factories.EntityFactories.SmasherFactory;
+import Controller.Factories.EntityFactories.*;
 import Controller.Factories.ItemFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.Visitable;
@@ -84,7 +81,7 @@ public class GameModel implements Visitable {
 
         skillsFactory = new SkillsFactory(currentLevelMessenger);
 
-        entityFactory = new SmasherFactory(skillsFactory);
+        entityFactory = new SummonerFactory(skillsFactory);
 
         player = entityFactory.buildEntity();
 
@@ -223,7 +220,7 @@ public class GameModel implements Visitable {
 
         //currentLevel.addInfluenceEffectTo(new Point3D(-2, -1, 3), new RadialInfluenceEffect(new RemoveHealthCommand(100), 5, 5, Orientation.NORTH));
         ItemFactory itemFactory = new ItemFactory(skillsFactory, currentLevelMessenger);
-        WeaponItem weaponItem = itemFactory.getRangedWeapon();
+        WeaponItem weaponItem = itemFactory.getStaff();
         weaponItem.notifyObserver(new Point3D(1, -1, 0));
         currentLevel.addItemTo(new Point3D(1, -1, 0), weaponItem);
 

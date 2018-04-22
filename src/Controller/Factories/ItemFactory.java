@@ -10,6 +10,7 @@ import Model.Item.Item;
 import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.LevelMessenger;
+import View.LevelView.InfluenceEffectView;
 import View.LevelView.ItemView;
 import javafx.geometry.Point3D;
 
@@ -73,6 +74,7 @@ public class ItemFactory {
     public WeaponItem getRangedWeapon(){
         RemoveHealthCommand command = new RemoveHealthCommand(10);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 10, 10, Orientation.NORTH);
+
         Skill skill = skillsFactory.getRangeSkill();
         WeaponItem staff1 = new WeaponItem("Ranged Weapon", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
         staff1.setCurrentLevelMessenger(levelMessenger);
