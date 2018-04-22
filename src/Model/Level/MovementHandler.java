@@ -82,7 +82,7 @@ public class MovementHandler {
 
     private void retrieveItems(Entity looter, Entity deadEnt) {
         looter.addItemsToInventory(deadEnt.getInventory());
-        entityLocations.removeByValue(deadEnt);
+        //entityLocations.removeByValue(deadEnt);
     }
 
     private boolean isAlive(Entity valueFromKey) {
