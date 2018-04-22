@@ -24,6 +24,7 @@ import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Utility.BidiMap;
@@ -136,7 +137,7 @@ public class GameModel implements Visitable {
         SettableCommand og = new RemoveHealthCommand(1000);
         WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new RadialInfluenceEffect(og,3,10, Orientation.NORTH), 1000, 1,100,100,2);
         player.addItemToInventory(mace);
-        player.equipWeapon(mace);
+        //player.equipWeapon(mace);
         player.setSightRadius(new SightRadius(7));
         currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
 
@@ -261,10 +262,9 @@ public class GameModel implements Visitable {
         AIList.add(best);
         AIList.add(test);
         AIList.add(controller);
-        ConsumableItem potion1 = itemFactory.getManaPotion();
-        potion1.notifyObserver(new Point3D(3, -3, 0));
-
-        currentLevel.addItemTo(new Point3D(3, -3, 0), potion1);
+        ArmorItem lightArmor = itemFactory.getHeavyArmor();
+        lightArmor.notifyObserver(new Point3D(3, -3, 0));
+        currentLevel.addItemTo(new Point3D(3, -3, 0), lightArmor);
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

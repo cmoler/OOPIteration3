@@ -1,6 +1,7 @@
 package Controller.Factories;
 
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
+import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleDefenseCommand;
 import Model.Command.EntityCommand.SettableCommand.AddHealthCommand;
 import Model.Command.EntityCommand.SettableCommand.AddManaCommand;
 import Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand;
@@ -9,6 +10,7 @@ import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.Item.Item;
+import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.ConsumableItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Level.LevelMessenger;
@@ -24,6 +26,7 @@ public class ItemFactory {
         this.levelMessenger = levelMessenger;
     }
 
+    //Instantiates a one handed weapon
     public WeaponItem getOneHandedSword() {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
@@ -37,6 +40,7 @@ public class ItemFactory {
         return oneHandedSword;
     }
 
+    //Instantiates a two handed weapon
     public WeaponItem getTwoHandedSword() {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
@@ -49,6 +53,7 @@ public class ItemFactory {
         return twoHandedSword;
     }
 
+    //Instantiates a brawler weapon
     public WeaponItem getBrawlerWeapon() {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
@@ -61,6 +66,7 @@ public class ItemFactory {
         return brawlerWeapon;
     }
 
+    //Instantiates a staff
     public WeaponItem getStaff(){
         RemoveHealthCommand command = new RemoveHealthCommand(10);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
@@ -121,4 +127,33 @@ public class ItemFactory {
         return staff1;
     }
 
+    public ArmorItem getLightArmor() {
+        ToggleDefenseCommand command = new ToggleDefenseCommand(5);
+        ArmorItem armorItem = new ArmorItem("Light Armor", command, 5);
+        armorItem.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setLightArmor();
+        armorItem.setObserver(itemView);
+        return armorItem;
+    }
+
+    public ArmorItem getMediumArmor() {
+        ToggleDefenseCommand command = new ToggleDefenseCommand(10);
+        ArmorItem armorItem = new ArmorItem("Medium Armor", command, 10);
+        armorItem.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setMediumArmor();
+        armorItem.setObserver(itemView);
+        return armorItem;
+    }
+
+    public ArmorItem getHeavyArmor() {
+        ToggleDefenseCommand command = new ToggleDefenseCommand(15);
+        ArmorItem armorItem = new ArmorItem("Heavy Armor", command, 15);
+        armorItem.setCurrentLevelMessenger(levelMessenger);
+        ItemView itemView = new ItemView(new Point3D(0, 0, 0));
+        itemView.setHeavyArmor();
+        armorItem.setObserver(itemView);
+        return armorItem;
+    }
 }
