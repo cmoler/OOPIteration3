@@ -120,6 +120,7 @@ public class GameModel implements Visitable {
 
         player.setMoveable(true);
         player.setNoise(5);
+        player.levelUp();
         Skill attack = new Skill();
         player.addWeaponSkills(attack);
         attack.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));

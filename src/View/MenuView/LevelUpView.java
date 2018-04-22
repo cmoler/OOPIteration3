@@ -51,6 +51,9 @@ public class LevelUpView extends InGameMenuView {
         gc.setLineWidth(10.0f);
         gc.fillText("Confirm", startX + width / 4, startY+4*height/5);
 
+        String pointsAvailble = Integer.toString(((LevelUpMenu)menuModel.getActiveState()).getPointsAvailable());
+        gc.fillText("Points available: " + pointsAvailble, startX, startY+ 12*height/5);
+
         gc.strokeRect(startX, startY, width, height);
 
         if(selectedY == 0 && selectedX == 1)

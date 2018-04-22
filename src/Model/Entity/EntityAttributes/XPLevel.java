@@ -4,11 +4,13 @@ public class XPLevel {
 
     private int level;
     private int experience;
+    private int pointsAvailable;
     private int expToNextLevel; // TODO: according to the UML, this is supposed to be derived?
 
     public XPLevel() {
         this.level = 0;
         this.experience = 0;
+        this.pointsAvailable = 0;
         this.expToNextLevel = 100; // TODO: define more complex algorithm for increasing level and managing experience
     }
 
@@ -32,9 +34,22 @@ public class XPLevel {
 
     public void increaseLevel() {
         level++;
+        pointsAvailable += 4;
+    }
+
+    public int getPointsAvailable() {
+        return pointsAvailable;
+    }
+
+    public boolean pointsAvailable(){
+        return pointsAvailable > 0;
     }
 
     public void increaseExperience(int amt) {
         this.experience += amt;
+    }
+
+    public void setPointsAvailable(int amount) {
+        this.pointsAvailable = amount;
     }
 }

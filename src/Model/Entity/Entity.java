@@ -625,4 +625,12 @@ public class Entity {
     public void regenerateMana() {
         mana.regenerate();
     }
+
+    public int getSkillPoints() {
+        return xpLevel.getPointsAvailable();
+    }
+
+    public void setSkillPointsAvaiable(int amount){
+        xpLevel.setPointsAvailable(amount);
+    }
 }
