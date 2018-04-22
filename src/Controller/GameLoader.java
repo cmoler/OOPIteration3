@@ -303,6 +303,7 @@ public class GameLoader {
         int currentExperience;
         int levelAmount;
         int experienceToNextLevel;
+        int regenRate;
         String reference;
 
         NodeList entityValues = element.getElementsByTagName("VALUE");
@@ -331,7 +332,8 @@ public class GameLoader {
 
                         manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
                         maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
-                        mana = new Mana(manaPoints, maxMana, 0); // TODO: BRYAN ADD THIS REGENRATE PLS
+                        regenRate = Integer.parseInt(entityNode.getAttributes().getNamedItem("regenRate").getTextContent());
+                        mana = new Mana(manaPoints, maxMana, regenRate);
 
                         attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
                         attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());
@@ -408,6 +410,7 @@ public class GameLoader {
         String name;
         int maxSize = 0;
         String itemReference;
+        int price;
 
         NodeList values = element.getElementsByTagName("Inventory");
         for(int i = 0; i < values.getLength(); i++) {
@@ -429,6 +432,7 @@ public class GameLoader {
                         System.out.println(itemNode.getAttributes().getNamedItem("name").getTextContent());
                         name = itemNode.getAttributes().getNamedItem("name").getTextContent();
                         itemReference = itemNode.getAttributes().getNamedItem("reference").getTextContent();
+                        price = Integer.parseInt(itemNode.getAttributes().getNamedItem("price").getTextContent());
 
                         if(itemRef.containsKey(itemReference)) {
                             itemsToAdd.add((TakeableItem) itemRef.get(itemReference));
@@ -441,6 +445,7 @@ public class GameLoader {
                                     ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                     armorItem.setCurrentLevelMessenger(levelMessenger);
                                     armorItem.setDropStrategyEntity(entity);
+                                    armorItem.setPrice(price);
                                     itemsToAdd.add(armorItem);
                                     itemRef.put(armorItem.toString(), armorItem);
                                     break;
@@ -449,6 +454,7 @@ public class GameLoader {
                                     ConsumableItem consumableItem = new ConsumableItem(name, command);
                                     consumableItem.setCurrentLevelMessenger(levelMessenger);
                                     consumableItem.setDropStrategyEntity(entity);
+                                    consumableItem.setPrice(price);
                                     itemsToAdd.add(consumableItem);
                                     itemRef.put(consumableItem.toString(), consumableItem);
                                     break;
@@ -457,6 +463,7 @@ public class GameLoader {
                                     RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
                                     ringItem.setCurrentLevelMessenger(levelMessenger);
                                     ringItem.setDropStrategyEntity(entity);
+                                    ringItem.setPrice(price);
                                     itemsToAdd.add(ringItem);
                                     itemRef.put(ringItem.toString(), ringItem);
                                     break;
@@ -482,6 +489,7 @@ public class GameLoader {
                                     WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
                                     weaponItem.setDropStrategyEntity(entity);
+                                    weaponItem.setPrice(price);
                                     itemsToAdd.add(weaponItem);
                                     itemRef.put(weaponItem.toString(), weaponItem);
                                     break;
@@ -502,6 +510,7 @@ public class GameLoader {
         String name;
         int index = -1;
         String reference;
+        int price;
 
         NodeList itemVals = element.getElementsByTagName("ItemHotBar");
         for(int i = 0; i < itemVals.getLength(); i++) {
@@ -522,6 +531,7 @@ public class GameLoader {
                             command = processCommand(itemNode.getChildNodes());
                             name = itemNode.getAttributes().getNamedItem("name").getTextContent();
                             reference = itemNode.getAttributes().getNamedItem("reference").getTextContent();
+                            price = Integer.parseInt(itemNode.getAttributes().getNamedItem("price").getTextContent());
 
                             if(command != null && !name.isEmpty() && index != -1) {
                                 switch (itemNode.getNodeName().toLowerCase()) {
@@ -533,6 +543,7 @@ public class GameLoader {
                                         else {
                                             int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
                                             ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
+                                            armorItem.setPrice(price);
                                             itemHotBar.addItem(armorItem, index);
                                             itemRef.put(armorItem.toString(), armorItem);
                                         }
@@ -545,6 +556,7 @@ public class GameLoader {
 
                                         else {
                                             ConsumableItem consumableItem = new ConsumableItem(name, command);
+                                            consumableItem.setPrice(price);
                                             itemHotBar.addItem(consumableItem, index);
                                             itemRef.put(consumableItem.toString(), consumableItem);
                                         }
@@ -557,6 +569,7 @@ public class GameLoader {
 
                                         else {
                                             RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
+                                            ringItem.setPrice(price);
                                             itemHotBar.addItem(ringItem, index);
                                             itemRef.put(ringItem.toString(), ringItem);
                                         }
@@ -568,7 +581,25 @@ public class GameLoader {
                                         }
 
                                         else {
-                                            WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command);
+                                            Skill weaponSkill;
+                                            InfluenceEffect influenceEffect;
+                                            int damage;
+                                            int speed;
+                                            int accuracy;
+                                            int useCost;
+                                            int range;
+
+                                            damage = Integer.parseInt(itemNode.getAttributes().getNamedItem("damage").getTextContent());
+                                            speed = Integer.parseInt(itemNode.getAttributes().getNamedItem("speed").getTextContent());
+                                            accuracy = Integer.parseInt(itemNode.getAttributes().getNamedItem("accuracy").getTextContent());
+                                            useCost = Integer.parseInt(itemNode.getAttributes().getNamedItem("useCost").getTextContent());
+                                            range = Integer.parseInt(itemNode.getAttributes().getNamedItem("range").getTextContent());
+
+                                            influenceEffect = processWeaponInfluenceEffect(itemNode.getChildNodes());
+                                            weaponSkill = processSkill(itemNode.getChildNodes());
+
+                                            WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
+                                            weaponItem.setPrice(price);
                                             itemHotBar.addItem(weaponItem, index);
                                             itemRef.put(weaponItem.toString(), weaponItem);
                                         }
@@ -591,6 +622,7 @@ public class GameLoader {
         String name;
         Command command;
         String reference;
+        int price;
 
         NodeList equipValues = element.getElementsByTagName("Equipment");
         for(int i = 0; i < equipValues.getLength(); i++) {
@@ -603,6 +635,7 @@ public class GameLoader {
                     command = processCommand(equipNode.getChildNodes());
                     name = equipNode.getAttributes().getNamedItem("name").getTextContent();
                     reference = equipNode.getAttributes().getNamedItem("reference").getTextContent();
+                    price = Integer.parseInt(equipNode.getAttributes().getNamedItem("price").getTextContent());
 
                     switch (equipNode.getNodeName().toLowerCase()) {
                         case "armoritem":
@@ -613,6 +646,7 @@ public class GameLoader {
                             else {
                                 int defense = Integer.parseInt(equipNode.getAttributes().getNamedItem("defense").getTextContent());
                                 armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
+                                armorItem.setPrice(price);
                                 itemRef.put(armorItem.toString(), armorItem);
                             }
                             break;
@@ -624,6 +658,7 @@ public class GameLoader {
 
                             else {
                                 ringItem = new RingItem(name, (ToggleableCommand) command);
+                                ringItem.setPrice(price);
                                 itemRef.put(ringItem.toString(), ringItem);
                             }
                             break;
@@ -634,7 +669,25 @@ public class GameLoader {
                             }
 
                             else {
-                                weaponItem = new WeaponItem(name, (SettableCommand) command);
+                                Skill weaponSkill;
+                                InfluenceEffect influenceEffect;
+                                int damage;
+                                int speed;
+                                int accuracy;
+                                int useCost;
+                                int range;
+
+                                damage = Integer.parseInt(equipNode.getAttributes().getNamedItem("damage").getTextContent());
+                                speed = Integer.parseInt(equipNode.getAttributes().getNamedItem("speed").getTextContent());
+                                accuracy = Integer.parseInt(equipNode.getAttributes().getNamedItem("accuracy").getTextContent());
+                                useCost = Integer.parseInt(equipNode.getAttributes().getNamedItem("useCost").getTextContent());
+                                range = Integer.parseInt(equipNode.getAttributes().getNamedItem("range").getTextContent());
+
+                                influenceEffect = processWeaponInfluenceEffect(equipNode.getChildNodes());
+                                weaponSkill = processSkill(equipNode.getChildNodes());
+
+                                weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
+                                weaponItem.setPrice(price);
                                 itemRef.put(weaponItem.toString(), weaponItem);
                             }
                             break;
@@ -867,8 +920,7 @@ public class GameLoader {
                                     influenceEffect = processWeaponInfluenceEffect(itemNode.getChildNodes());
                                     weaponSkill = processSkill(itemNode.getChildNodes());
 
-                                    WeaponItem test = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
-                                    WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command);
+                                    WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
                                     itemsToAdd.add(weaponItem);
                                     itemRef.put(weaponItem.toString(), weaponItem);
@@ -916,34 +968,6 @@ public class GameLoader {
                         }
                     }
                 }
-            }
-        }
-
-        return null;
-    }
-
-    private WeaponItem processWeaponItem(NodeList childNodes, String name, SettableCommand command) {
-        Skill weaponSkill;
-        InfluenceEffect influenceEffect;
-        int damage;
-        int speed;
-        int accuracy;
-        int useCost;
-        int range;
-
-        for(int i = 0; i < childNodes.getLength(); i++) {
-            Node weaponNode = childNodes.item(i);
-
-            if(weaponNode.getNodeType() == Node.ELEMENT_NODE) {
-                damage = Integer.parseInt(weaponNode.getAttributes().getNamedItem("damage").getTextContent());
-                speed = Integer.parseInt(weaponNode.getAttributes().getNamedItem("speed").getTextContent());
-                accuracy = Integer.parseInt(weaponNode.getAttributes().getNamedItem("accuracy").getTextContent());
-                useCost = Integer.parseInt(weaponNode.getAttributes().getNamedItem("useCost").getTextContent());
-                range = Integer.parseInt(weaponNode.getAttributes().getNamedItem("range").getTextContent());
-
-                influenceEffect = processInfluenceEffect(weaponNode.getChildNodes());
-                weaponSkill = processSkill(weaponNode.getChildNodes());
-                return new WeaponItem(name, command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
             }
         }
 
@@ -1349,6 +1373,7 @@ public class GameLoader {
         int currentExperience;
         int levelAmount;
         int experienceToNextLevel;
+        int regenRate;
         String reference = entityNode.getAttributes().getNamedItem("reference").getTextContent();
 
         if(entityRef.containsKey(reference)) {
@@ -1368,7 +1393,8 @@ public class GameLoader {
 
             manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
             maxMana = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxMana").getTextContent());
-            mana = new Mana(manaPoints, maxMana, 0 );  // TODO: BRYAN ADD THIS REGENRATE PLS
+            regenRate = Integer.parseInt(entityNode.getAttributes().getNamedItem("regenRate").getTextContent());
+            mana = new Mana(manaPoints, maxMana, 0 );
 
             attackPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackPoints").getTextContent());
             attackModifier = Integer.parseInt(entityNode.getAttributes().getNamedItem("attackModifier").getTextContent());

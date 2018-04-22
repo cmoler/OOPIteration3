@@ -647,4 +647,8 @@ public class Entity {
     public void setSkillPointsAvaiable(int amount){
         xpLevel.setPointsAvailable(amount);
     }
+
+    public int getManaRegenRate() {
+        return mana.getManaRegenRate();
+    }
 }

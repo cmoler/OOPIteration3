@@ -475,7 +475,8 @@ public class SavingVisitor implements Visitor {
                 + " currentHealth=" + "\"" + entity.getCurrentHealth() + "\""
                 + " maxHealth=" + "\"" + entity.getMaxHealth() + "\""
                 + " manaPoints=" + "\"" + entity.getManaPoints() + "\""
-                + " maxMana=" + "\"" + entity.getMaxMana() + "\""  // TODO: BRYAN ADD THIS REGENRATE PLS
+                + " maxMana=" + "\"" + entity.getMaxMana() + "\""
+                + " regenRate=" + "\"" + entity.getManaRegenRate() + "\""
                 + " speed=" + "\"" + entity.getSpeed() + "\""
                 + " goldAmount=" + "\"" + entity.getGold() + "\""
                 + " maxGold=" + "\"" + entity.getMaxGold() + "\""
@@ -664,7 +665,7 @@ public class SavingVisitor implements Visitor {
     }
 
     public void visitItem(ConsumableItem item) {
-        processItem(item);
+        processTakeableItem(item);
     }
 
     public void visitItem(WeaponItem item) {
@@ -714,6 +715,7 @@ public class SavingVisitor implements Visitor {
 
     public void visitItem(ArmorItem armorItem) {
         StringBuffer itemString = new StringBuffer("<" + armorItem.getClass().getSimpleName()
+                + " price=" + "\"" + armorItem.getPrice() + "\""
                 + " name=" + "\"" + armorItem.getName() + "\""
                 + " isToBeDeleted=" + "\"" + armorItem.isToBeDeleted() + "\""
                 + " defense=" + "\"" + armorItem.getDefense() + "\""
@@ -728,7 +730,7 @@ public class SavingVisitor implements Visitor {
     }
 
     public void visitItem(RingItem item) {
-        processItem(item);
+        processTakeableItem(item);
     }
 
     public void visitItem(OneShotItem item) {
@@ -737,6 +739,21 @@ public class SavingVisitor implements Visitor {
 
     private void processItem(Item item) {
         StringBuffer itemString = new StringBuffer("<" + item.getClass().getSimpleName()
+                + " name=" + "\"" + item.getName() + "\""
+                + " isToBeDeleted=" + "\"" + item.isToBeDeleted() + "\""
+                + " reference=" + "\"" + item.toString() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(itemString);
+        item.getCommand().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + item.getClass().getSimpleName() + ">");
+    }
+
+    private void processTakeableItem(TakeableItem item) {
+        StringBuffer itemString = new StringBuffer("<" + item.getClass().getSimpleName()
+                + " price=" + "\"" + item.getPrice() + "\""
                 + " name=" + "\"" + item.getName() + "\""
                 + " isToBeDeleted=" + "\"" + item.isToBeDeleted() + "\""
                 + " reference=" + "\"" + item.toString() + "\">");

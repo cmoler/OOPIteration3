@@ -49,4 +49,8 @@ public class Mana {
     public void regenerate() {
         increaseMana(regenRate);
     }
+
+    public int getManaRegenRate() {
+        return regenRate;
+    }
 }
