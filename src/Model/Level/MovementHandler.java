@@ -43,8 +43,7 @@ public class MovementHandler {
     private void moveEntities() {
         for (Entity entity: entityLocations.getValueList()){//For each entry in the map
             Point3D entityPoint = entityLocations.getKeyFromValue(entity);
-
-            System.err.println(entity.getVelocity());
+            
             if (entity.isMoving()) {
                 Point3D contestedPoint = calculateMove(entityPoint, entity.getVelocity());
 

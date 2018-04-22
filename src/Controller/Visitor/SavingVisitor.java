@@ -554,7 +554,7 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append(skillString);
         visitInfluenceEffect(skill.getInfluenceEffect());
         visitSettableCommand(skill.getBehavior());
-        visitSendInfluenceEffectCommand(skill.getSendInfluenceEffectCommand());
+//TODO: DONT THINK I NEED THIS        visitSendInfluenceEffectCommand(skill.getSendInfluenceEffectCommand());
         this.valueNode.append("</" + skill.getClass().getSimpleName() + ">");
         this.valueNode.append("\n");
         this.valueNode.append("\t");
@@ -671,14 +671,41 @@ public class SavingVisitor implements Visitor {
         StringBuffer weaponString = new StringBuffer("<" + item.getClass().getSimpleName()
                 + " price=" + "\"" + item.getPrice() + "\""
                 + " name=" + "\"" + item.getName() + "\""
-                + " attackDamage=" + "\"" + item.getAttackDamage() + "\""
-                + " attackSpeed=" + "\"" + item.getAttackSpeed()+ "\""
+                + " damage=" + "\"" + item.getAttackDamage() + "\""
+                + " speed=" + "\"" + item.getAttackSpeed()+ "\""
                 + " accuracy=" + "\"" + item.getAccuracy() + "\""
                 + " useCost=" + "\"" + item.getUseCost() + "\""
-                + " range=" + "\"" + item.getRange() + "\">");
+                + " range=" + "\"" + item.getRange() + "\""
+                + " reference=" + "\"" + item.toString() + "\">");
 
         this.valueNode.append(weaponString);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        item.getCommand().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        processSkill(item.getHostSKill());
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        visitInfluenceEffect(item.getInfluenceEffect());
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
         this.valueNode.append("</" + item.getClass().getSimpleName() + ">");
+    }
+
+    private void processSkill(Skill skill) {
+        StringBuffer skillString = new StringBuffer("<" + skill.getClass().getSimpleName()
+                + " name=" + "\"" + skill.getName() + "\""
+                + " accuracy=" + "\"" + skill.getAccuracy() + "\""
+                + " useCost=" + "\"" + skill.getUseCost() + "\""
+                + " reference=" + "\"" +  skill.toString() + "\">");
+
+        this.valueNode.append(skillString);
+        visitInfluenceEffect(skill.getInfluenceEffect());
+        visitSettableCommand(skill.getBehavior());
+        this.valueNode.append("</" + skill.getClass().getSimpleName() + ">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
     }
 
     public void visitItem(InteractiveItem item) {

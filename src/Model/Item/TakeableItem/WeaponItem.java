@@ -94,4 +94,7 @@ public class WeaponItem extends TakeableItem{
         visitor.visitItem(this);
     }
 
+    public InfluenceEffect getInfluenceEffect() {
+        return influenceEffect;
+    }
 }

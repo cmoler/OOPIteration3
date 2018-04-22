@@ -25,7 +25,10 @@ import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
+import View.LevelView.EntityView.MonsterView;
 import View.LevelView.EntityView.SmasherView;
+import View.LevelView.EntityView.SneakView;
+import View.LevelView.EntityView.SummonerView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
@@ -58,6 +61,7 @@ public class GameLoader {
     private HashMap<String, Level> levelRef = new HashMap<>();
     private HashMap<String, Command> commandRef = new HashMap<>();
     private HashMap<String, Skill> skillRef = new HashMap<>();
+    private HashMap<String, InfluenceEffect> influenceRef = new HashMap<>();
     private LinkedList<GameModel.TeleportTuple> teleportTuples = new LinkedList<>();
     private LinkedList<GameModel.TeleportTuple> failedTuples = new LinkedList<>();
 
@@ -367,7 +371,6 @@ public class GameLoader {
                                 noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                                 inventory, orientation, compatableTerrain, moveable, mount);
 
-                        entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
                         entitiesToAdd.add(entity);
                         entityRef.put(reference, entity);
                     }
@@ -376,7 +379,25 @@ public class GameLoader {
         }
 
         for(int i = 0; i < pointsToAdd.size(); i++) {
-            entity.setObserver(new SmasherView(entitiesToAdd.get(i), pointsToAdd.get(i)));
+            Entity addingEnt = entitiesToAdd.get(i);
+
+            for(Skill skill: addingEnt.getWeaponSkills()) {
+                if(skill.getName().equalsIgnoreCase("one-handed")) {
+                    addingEnt.setObserver(new SmasherView(entity, pointsToAdd.get(i)));
+                    break;
+                }
+
+                else if(skill.getName().equalsIgnoreCase("enchant")) {
+                    addingEnt.setObserver(new SummonerView(entity, pointsToAdd.get(i)));
+                    break;
+                }
+
+                else if(skill.getName().equalsIgnoreCase("range")){
+                    addingEnt.setObserver(new SneakView(entity, pointsToAdd.get(i)));
+                    break;
+                }
+            }
+
             level.addEntityTo(pointsToAdd.get(i), entitiesToAdd.get(i));
         }
     }
@@ -405,6 +426,7 @@ public class GameLoader {
                     Node itemNode = itemList.item(k);
                     if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
                         command = processCommand(itemNode.getChildNodes());
+                        System.out.println(itemNode.getAttributes().getNamedItem("name").getTextContent());
                         name = itemNode.getAttributes().getNamedItem("name").getTextContent();
                         itemReference = itemNode.getAttributes().getNamedItem("reference").getTextContent();
 
@@ -440,7 +462,24 @@ public class GameLoader {
                                     break;
 
                                 case "weaponitem": // TODO: this needs to be changed
-                                    WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command);
+                                    Skill weaponSkill;
+                                    InfluenceEffect influenceEffect;
+                                    int damage;
+                                    int speed;
+                                    int accuracy;
+                                    int useCost;
+                                    int range;
+
+                                    damage = Integer.parseInt(itemNode.getAttributes().getNamedItem("damage").getTextContent());
+                                    speed = Integer.parseInt(itemNode.getAttributes().getNamedItem("speed").getTextContent());
+                                    accuracy = Integer.parseInt(itemNode.getAttributes().getNamedItem("accuracy").getTextContent());
+                                    useCost = Integer.parseInt(itemNode.getAttributes().getNamedItem("useCost").getTextContent());
+                                    range = Integer.parseInt(itemNode.getAttributes().getNamedItem("range").getTextContent());
+
+                                    influenceEffect = processWeaponInfluenceEffect(itemNode.getChildNodes());
+                                    weaponSkill = processSkill(itemNode.getChildNodes());
+
+                                    WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
                                     weaponItem.setDropStrategyEntity(entity);
                                     itemsToAdd.add(weaponItem);
@@ -637,6 +676,7 @@ public class GameLoader {
         int useCost;
         int accuracy;
         int skillLevelAmount;
+        String skillReference;
 
         NodeList skillValues = element.getElementsByTagName("NONWEAPONSKILLS");
         for(int i = 0; i < skillValues.getLength(); i++) {
@@ -647,7 +687,13 @@ public class GameLoader {
                 if (skillNode.getNodeType() == Node.ELEMENT_NODE) {
                     command = processCommand(skillNode.getChildNodes());
                     influenceEffect = processInfluenceEffect(skillNode.getChildNodes());
-                    if(command != null) {
+                    skillReference = skillNode.getAttributes().getNamedItem("name").getTextContent();
+
+                    if(skillRef.containsKey(skillReference)) {
+                        skills.add(skillRef.get(skillReference));
+                    }
+
+                    else if(command != null) {
                         name = skillNode.getAttributes().getNamedItem("name").getTextContent();
                         useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
                         accuracy = Integer.parseInt(skillNode.getAttributes().getNamedItem("accuracy").getTextContent());
@@ -657,6 +703,7 @@ public class GameLoader {
                         skillLevelAmount = Integer.parseInt(skillNode.getAttributes().getNamedItem("level").getTextContent());
                         skillLevel = new SkillLevel(skillLevelAmount);
                         skillLevelMap.put(newSkill, skillLevel);
+                        skillRef.put(newSkill.toString(), newSkill);
                     }
                 }
             }
@@ -669,6 +716,7 @@ public class GameLoader {
         SendInfluenceEffectCommand sendInfluenceEffectCommand = null;
         Skill newSkill;
         SkillLevel skillLevel;
+        String skillReference;
 
         String name;
         int useCost;
@@ -684,8 +732,13 @@ public class GameLoader {
                 if (skillNode.getNodeType() == Node.ELEMENT_NODE) {
                     command = processCommand(skillNode.getChildNodes());
                     influenceEffect = processInfluenceEffect(skillNode.getChildNodes());
+                    skillReference = skillNode.getAttributes().getNamedItem("name").getTextContent();
 
-                    if(command != null) {
+                    if(skillRef.containsKey(skillReference)) {
+                        skills.add(skillRef.get(skillReference));
+                    }
+
+                    else if(command != null) {
                         name = skillNode.getAttributes().getNamedItem("name").getTextContent();
                         useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
                         accuracy = Integer.parseInt(skillNode.getAttributes().getNamedItem("accuracy").getTextContent());
@@ -695,6 +748,7 @@ public class GameLoader {
                         skillLevelAmount = Integer.parseInt(skillNode.getAttributes().getNamedItem("level").getTextContent());
                         skillLevel = new SkillLevel(skillLevelAmount);
                         skillLevelMap.put(newSkill, skillLevel);
+                        skillRef.put(newSkill.toString(), newSkill);
                     }
                 }
             }
@@ -796,6 +850,24 @@ public class GameLoader {
                                     break;
 
                                 case "weaponitem": //TODO: this needs to be changed
+                                    Skill weaponSkill;
+                                    InfluenceEffect influenceEffect;
+                                    int damage;
+                                    int speed;
+                                    int accuracy;
+                                    int useCost;
+                                    int range;
+
+                                    damage = Integer.parseInt(itemNode.getAttributes().getNamedItem("damage").getTextContent());
+                                    speed = Integer.parseInt(itemNode.getAttributes().getNamedItem("speed").getTextContent());
+                                    accuracy = Integer.parseInt(itemNode.getAttributes().getNamedItem("accuracy").getTextContent());
+                                    useCost = Integer.parseInt(itemNode.getAttributes().getNamedItem("useCost").getTextContent());
+                                    range = Integer.parseInt(itemNode.getAttributes().getNamedItem("range").getTextContent());
+
+                                    influenceEffect = processWeaponInfluenceEffect(itemNode.getChildNodes());
+                                    weaponSkill = processSkill(itemNode.getChildNodes());
+
+                                    WeaponItem test = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                     WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command);
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
                                     itemsToAdd.add(weaponItem);
@@ -811,6 +883,132 @@ public class GameLoader {
         for(int i = 0; i < pointsToAdd.size(); i++) {
             level.addItemnTo(pointsToAdd.get(i), itemsToAdd.get(i));
         }
+    }
+
+    private InfluenceEffect processWeaponInfluenceEffect(NodeList childNodes) {
+        Command command;
+        int nextMoveTime;
+        long speed;
+        int range;
+        Orientation orientation;
+
+        for(int i = 0; i < childNodes.getLength(); i++) {
+            Node influenceNode = childNodes.item(i);
+
+            if(influenceNode.getNodeType() == Node.ELEMENT_NODE) {
+                if (influenceNode.getNodeName().contains("InfluenceEffect")) {
+                    command = processCommand(influenceNode.getChildNodes());
+                    if (command != null) {
+                        nextMoveTime = Integer.parseInt(influenceNode.getAttributes().getNamedItem("movesRemaining").getTextContent());
+                        speed = Long.parseLong(influenceNode.getAttributes().getNamedItem("speed").getTextContent());
+                        range = Integer.parseInt(influenceNode.getAttributes().getNamedItem("range").getTextContent());
+                        orientation = Orientation.toOrientation(influenceNode.getAttributes().getNamedItem("orientation").getTextContent());
+
+                        switch (influenceNode.getNodeName().toLowerCase()) {
+                            case "angularinfluenceeffect":
+                                return new AngularInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+
+                            case "linearinfluenceeffect":
+                                return new LinearInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+
+                            case "radialinfluenceeffect":
+                                return new RadialInfluenceEffect((SettableCommand) command, range, speed, orientation, nextMoveTime);
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private WeaponItem processWeaponItem(NodeList childNodes, String name, SettableCommand command) {
+        Skill weaponSkill;
+        InfluenceEffect influenceEffect;
+        int damage;
+        int speed;
+        int accuracy;
+        int useCost;
+        int range;
+
+        for(int i = 0; i < childNodes.getLength(); i++) {
+            Node weaponNode = childNodes.item(i);
+
+            if(weaponNode.getNodeType() == Node.ELEMENT_NODE) {
+                damage = Integer.parseInt(weaponNode.getAttributes().getNamedItem("damage").getTextContent());
+                speed = Integer.parseInt(weaponNode.getAttributes().getNamedItem("speed").getTextContent());
+                accuracy = Integer.parseInt(weaponNode.getAttributes().getNamedItem("accuracy").getTextContent());
+                useCost = Integer.parseInt(weaponNode.getAttributes().getNamedItem("useCost").getTextContent());
+                range = Integer.parseInt(weaponNode.getAttributes().getNamedItem("range").getTextContent());
+
+                influenceEffect = processInfluenceEffect(weaponNode.getChildNodes());
+                weaponSkill = processSkill(weaponNode.getChildNodes());
+                return new WeaponItem(name, command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
+            }
+        }
+
+        return null;
+    }
+
+    private Skill processSkill(NodeList childNodes) {
+        InfluenceEffect influenceEffect;
+        Command command;
+        String name;
+        int useCost;
+        int accuracy;
+        String reference;
+        Skill skill;
+
+        for(int i = 0; i < childNodes.getLength(); i++) {
+            Node influenceNode = childNodes.item(i);
+
+            if(influenceNode.getNodeType() == Node.ELEMENT_NODE) {
+                if (influenceNode.getNodeName().contains("Skill")) {
+                    name = influenceNode.getAttributes().getNamedItem("name").getTextContent();
+                    command = processCommand(influenceNode.getChildNodes());
+                    influenceEffect = processInfluenceEffect(influenceNode.getChildNodes());
+                    accuracy = Integer.parseInt(influenceNode.getAttributes().getNamedItem("accuracy").getTextContent());
+                    useCost = Integer.parseInt(influenceNode.getAttributes().getNamedItem("useCost").getTextContent());
+                    reference = influenceNode.getAttributes().getNamedItem("reference").getTextContent();
+
+                    if(skillRef.containsKey(reference)) {
+                        return skillRef.get(reference);
+                    }
+
+                    else if(command != null) {
+                        skill = new Skill(name, influenceEffect, (SettableCommand) command, new SendInfluenceEffectCommand(levelMessenger),accuracy, useCost);
+                        skillRef.put(skill.toString(), skill);
+                        return skill;
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < childNodes.getLength(); i++) {
+
+            NodeList skillNodes = childNodes.item(i).getChildNodes();
+            for(int j = 0; j < skillNodes.getLength(); j++) {
+                Node skillNode = skillNodes.item(j);
+                if (skillNode.getNodeType() == Node.ELEMENT_NODE) {
+                    command = processCommand(skillNode.getChildNodes());
+                    influenceEffect = processInfluenceEffect(skillNode.getChildNodes());
+                    reference = skillNode.getAttributes().getNamedItem("reference").getTextContent();
+
+                    if(skillRef.containsKey(reference)) {
+                        return skillRef.get(reference);
+                    }
+
+                    else if(command != null) {
+                        name = skillNode.getAttributes().getNamedItem("name").getTextContent();
+                        useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
+                        accuracy = Integer.parseInt(skillNode.getAttributes().getNamedItem("accuracy").getTextContent());
+                        return new Skill(name, influenceEffect, (SettableCommand) command, new SendInfluenceEffectCommand(levelMessenger), accuracy, useCost);
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     private void processInfluenceEffects(Element element, Level level) {
@@ -1209,8 +1407,25 @@ public class GameLoader {
             entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
                     noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                     inventory, orientation, compatableTerrain, moveable, mount);
+
+            for(Skill skill: entity.getWeaponSkills()) {
+                if(skill.getName().equalsIgnoreCase("one-handed")) {
+                    entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
+                    break;
+                }
+
+                else if(skill.getName().equalsIgnoreCase("enchant")) {
+                    entity.setObserver(new SummonerView(entity, new Point3D(0,1,-1)));
+                    break;
+                }
+
+                else {
+                    entity.setObserver(new SneakView(entity, new Point3D(0,1,-1)));
+                    break;
+                }
+            }
+
             entityRef.put(reference, entity);
-            entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
             return entity;
         }
     }

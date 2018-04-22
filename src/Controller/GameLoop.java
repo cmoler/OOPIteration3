@@ -171,6 +171,52 @@ public class GameLoop {
 
     public void newGame(int i) {
         playerFresh = true;
+        try {
+            switch (i) {
+                case 0:
+                    gameLoader.loadGame("SMASHER.xml");
+                    break;
+
+                case 1:
+                    gameLoader.loadGame("SUMMONER.xml");
+                    break;
+
+                case 2:
+                    gameLoader.loadGame("SNEAK.xml");
+                    break;
+
+            }
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("FILE NOT FOUND");
+            try {
+                gameLoader.loadGame("SMASHER.xml");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (SAXException e1) {
+                e1.printStackTrace();
+            } catch (ParserConfigurationException e1) {
+                e1.printStackTrace();
+            }
+        } finally {
+            renderer.closeMenu();
+            gameModel = gameLoader.getGameModel();
+            ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
+
+            renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
+            renderer.setHotBarView(new HotbarView(gameModel.getPlayer()));
+
+            for (Level level : gameModel.getLevels()) {
+                renderer.loadModelSprites(level);
+            }
+
+            renderer.updateCurrentLevel(gameLoader.getCurrentLevel());
+
+            runGame.startGame();
+        }
     }
 
     public void setMenuState(MenuState menuState, MenuViewState menuViewState){
