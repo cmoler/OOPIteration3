@@ -35,7 +35,7 @@ public class InventoryView extends InGameMenuView {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(10.0f);
         for(int i = 0; i < inventory.size(); ++i){
-            gc.fillText(inventory.getItem(i).getName(), startX+ width / 6, startY + i * height+4*height/6);
+            gc.fillText(inventory.getItem(i).getName(), startX+ width / 6, startY + i * height+4*height/6, width - width / 6);
             gc.strokeRect(startX, startY + i * height, width, height);
         }
 
