@@ -4,6 +4,7 @@ import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.EntityFactories.MonsterFactory;
 import Controller.Factories.EntityFactories.PetFactory;
 import Controller.Factories.EntityFactories.SmasherFactory;
+import Controller.Factories.ItemFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
@@ -214,6 +215,10 @@ public class GameModel implements Visitable {
         //AIList.add(test);
 
         //currentLevel.addInfluenceEffectTo(new Point3D(-2, -1, 3), new RadialInfluenceEffect(new RemoveHealthCommand(100), 5, 5, Orientation.NORTH));
+        ItemFactory itemFactory = new ItemFactory(skillsFactory, currentLevelMessenger);
+        WeaponItem weaponItem = itemFactory.getOneHandedSword();
+        weaponItem.notifyObserver(new Point3D(1, -1, 0));
+        currentLevel.addItemnTo(new Point3D(1, -1, 0), weaponItem);
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

@@ -10,6 +10,7 @@ import javafx.scene.transform.Rotate;
 import java.io.File;
 
 public class ItemView extends LevelViewElement{
+    private boolean toRender;
     public ItemView(Point3D location) {
         super(location, 2);
         String workingDir = System.getProperty("user.dir");
@@ -18,11 +19,17 @@ public class ItemView extends LevelViewElement{
 
         setSprite(new Image(file.toURI().toString()));
 
-
+        toRender = true;
 
 
     }
 
+    @Override
+    public void render(GraphicsContext gc, Point2D playerPos, Point2D scrollOffset) {
+        if(toRender) {
+            super.render(gc, playerPos, scrollOffset);
+        }
+    }
 
     @Override
     public void notifyViewElement() {
@@ -32,6 +39,10 @@ public class ItemView extends LevelViewElement{
     @Override
     public void notifyViewElementDeath() {
 
+    }
+
+    public void setToRender(boolean toRender) {
+        this.toRender = toRender;
     }
 
 

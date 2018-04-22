@@ -4,12 +4,15 @@ import Controller.Visitor.SavingVisitor;
 import Controller.Visitor.Visitable;
 import Model.Command.Command;
 import Model.Entity.Entity;
+import View.LevelView.ItemView;
+import javafx.geometry.Point3D;
 
 public abstract class Item implements Visitable {
 
     private boolean toBeDeleted;
     private String name;
     private Command command;
+    protected ItemView observer;
 
     protected Item(String name, Command command) {
         this.name = name;
@@ -41,5 +44,18 @@ public abstract class Item implements Visitable {
 
     public Command getCommand() {
         return command;
+    }
+
+    public void setObserver(ItemView observer) {
+        this.observer = observer;
+    }
+
+    public ItemView getObserver() {
+        return observer;
+    }
+
+    public void notifyObserver(Point3D location) {
+        if(observer == null) { return; }
+        observer.setPosition(location);
     }
 }
