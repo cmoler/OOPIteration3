@@ -55,7 +55,11 @@ public class MovementHandler {
                         if(!riverLocations.containsKey(entityPoint)) { // dont start dialog if a river is forcing you onto another entity
                             dialogCommand.execute(entity);
                         }
-                    } else {
+                    }
+                    else {
+                        if(entityLocations.hasKey(contestedPoint)){
+                            retrieveItems(entity,entityLocations.getValueFromKey(contestedPoint));
+                        }
                         //Update entity movement
                         entityLocations.removeByKey(entityPoint);
                         entityLocations.place(contestedPoint, entity);
@@ -80,6 +84,11 @@ public class MovementHandler {
                 entity.decrementVelocity();
             }
         }
+    }
+
+    private void retrieveItems(Entity looter, Entity deadEnt) {
+        looter.addItemsToInventory(deadEnt.getInventory());
+        //entityLocations.removeByValue(deadEnt);
     }
 
     private boolean isAlive(Entity valueFromKey) {
