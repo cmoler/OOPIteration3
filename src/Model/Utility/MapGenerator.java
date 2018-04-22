@@ -71,7 +71,7 @@ public class MapGenerator extends Application {
         createEnities(level0);
         makeEnemy(level0);
 
-//        createTerrainsForWorld(level1);
+        createTerrainsForWorld(level1);
         levels.add(level0);
         levels.add(level1);
 
@@ -109,10 +109,10 @@ public class MapGenerator extends Application {
 
     private static void createTerrainsForWorld(Level levelToTeleportTo) {
         RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
-
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
         levelToTeleportTo.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
         for(int i = 0; i < 4; i++) {
-            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
             for(int j = 0; j < points.size(); j++) {
                 levelToTeleportTo.addTerrainTo(points.get(j), Terrain.GRASS);
             }

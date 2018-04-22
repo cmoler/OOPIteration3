@@ -457,7 +457,7 @@ public class GameLoader {
                                     armorItem.setPrice(price);
                                     armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(armorItem);
-                                    itemRef.put(armorItem.toString(), armorItem);
+                                    itemRef.put(itemReference, armorItem);
                                     break;
 
                                 case "consumableitem":
@@ -466,7 +466,7 @@ public class GameLoader {
                                     consumableItem.setPrice(price);
                                     consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(consumableItem);
-                                    itemRef.put(consumableItem.toString(), consumableItem);
+                                    itemRef.put(itemReference, consumableItem);
                                     break;
 
                                 case "ringitem":
@@ -475,7 +475,7 @@ public class GameLoader {
                                     ringItem.setPrice(price);
                                     ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(ringItem);
-                                    itemRef.put(ringItem.toString(), ringItem);
+                                    itemRef.put(itemReference, ringItem);
                                     break;
 
                                 case "weaponitem": // TODO: this needs to be changed
@@ -501,7 +501,7 @@ public class GameLoader {
                                     weaponItem.setPrice(price);
                                     weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(weaponItem);
-                                    itemRef.put(weaponItem.toString(), weaponItem);
+                                    itemRef.put(itemReference, weaponItem);
                                     break;
                             }
                         }
@@ -556,7 +556,7 @@ public class GameLoader {
                                             armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                             armorItem.setItemStrategyEntity(entity);
                                             itemHotBar.addItem(armorItem, index);
-                                            itemRef.put(armorItem.toString(), armorItem);
+                                            itemRef.put(reference, armorItem);
                                         }
                                         break;
 
@@ -571,7 +571,7 @@ public class GameLoader {
                                             consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                             consumableItem.setItemStrategyEntity(entity);
                                             itemHotBar.addItem(consumableItem, index);
-                                            itemRef.put(consumableItem.toString(), consumableItem);
+                                            itemRef.put(reference, consumableItem);
                                         }
                                         break;
 
@@ -586,7 +586,7 @@ public class GameLoader {
                                             ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                             ringItem.setItemStrategyEntity(entity);
                                             itemHotBar.addItem(ringItem, index);
-                                            itemRef.put(ringItem.toString(), ringItem);
+                                            itemRef.put(reference, ringItem);
                                         }
                                         break;
 
@@ -618,7 +618,7 @@ public class GameLoader {
                                             weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                             weaponItem.setItemStrategyEntity(entity);
                                             itemHotBar.addItem(weaponItem, index);
-                                            itemRef.put(weaponItem.toString(), weaponItem);
+                                            itemRef.put(reference, weaponItem);
                                         }
                                         break;
                                 }
@@ -666,7 +666,7 @@ public class GameLoader {
                                 armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                 armorItem.setPrice(price);
                                 armorItem.setItemStrategyEntity(entity);
-                                itemRef.put(armorItem.toString(), armorItem);
+                                itemRef.put(reference, armorItem);
                             }
                             break;
 
@@ -680,7 +680,7 @@ public class GameLoader {
                                 ringItem.setPrice(price);
                                 ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                 ringItem.setItemStrategyEntity(entity);
-                                itemRef.put(ringItem.toString(), ringItem);
+                                itemRef.put(reference, ringItem);
                             }
                             break;
 
@@ -711,7 +711,7 @@ public class GameLoader {
                                 weaponItem.setPrice(price);
                                 weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                 weaponItem.setItemStrategyEntity(entity);
-                                itemRef.put(weaponItem.toString(), weaponItem);
+                                itemRef.put(reference, weaponItem);
                             }
                             break;
                     }
@@ -779,7 +779,7 @@ public class GameLoader {
                                 skillLevelAmount = Integer.parseInt(skillNode.getAttributes().getNamedItem("level").getTextContent());
                                 skillLevel = new SkillLevel(skillLevelAmount);
                                 skillLevelMap.put(newSkill, skillLevel);
-                                skillRef.put(newSkill.toString(), newSkill);
+                                skillRef.put(skillReference, newSkill);
                             }
                         }
                     }
@@ -827,7 +827,7 @@ public class GameLoader {
                                 skillLevelAmount = Integer.parseInt(skillNode.getAttributes().getNamedItem("level").getTextContent());
                                 skillLevel = new SkillLevel(skillLevelAmount);
                                 skillLevelMap.put(newSkill, skillLevel);
-                                skillRef.put(newSkill.toString(), newSkill);
+                                skillRef.put(skillReference, newSkill);
                             }
                         }
                     }
@@ -901,13 +901,13 @@ public class GameLoader {
                                 case "oneshotitem":
                                     OneShotItem oneShotItem = new OneShotItem(name, command);
                                     itemsToAdd.add(oneShotItem);
-                                    itemRef.put(oneShotItem.toString(),oneShotItem);
+                                    itemRef.put(reference,oneShotItem);
                                     break;
 
                                 case "interactiveitem":
                                     InteractiveItem interactiveItem = new InteractiveItem(name, command);
                                     itemsToAdd.add(interactiveItem);
-                                    itemRef.put(interactiveItem.toString(), interactiveItem);
+                                    itemRef.put(reference, interactiveItem);
                                     break;
 
                                 case "armoritem":
@@ -916,7 +916,7 @@ public class GameLoader {
                                     armorItem.setCurrentLevelMessenger(levelMessenger);
                                     armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(armorItem);
-                                    itemRef.put(armorItem.toString(), armorItem);
+                                    itemRef.put(reference, armorItem);
                                     break;
 
                                 case "consumableitem":
@@ -924,7 +924,7 @@ public class GameLoader {
                                     consumableItem.setCurrentLevelMessenger(levelMessenger);
                                     consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(consumableItem);
-                                    itemRef.put(consumableItem.toString(), consumableItem);
+                                    itemRef.put(reference, consumableItem);
                                     break;
 
                                 case "ringitem":
@@ -932,7 +932,7 @@ public class GameLoader {
                                     ringItem.setCurrentLevelMessenger(levelMessenger);
                                     ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(ringItem);
-                                    itemRef.put(ringItem.toString(), ringItem);
+                                    itemRef.put(reference, ringItem);
                                     break;
 
                                 case "weaponitem": //TODO: this needs to be changed
@@ -957,7 +957,7 @@ public class GameLoader {
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
                                     weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(weaponItem);
-                                    itemRef.put(weaponItem.toString(), weaponItem);
+                                    itemRef.put(reference, weaponItem);
                                     break;
                             }
                         }
@@ -1036,7 +1036,7 @@ public class GameLoader {
 
                     else if(command != null) {
                         skill = new Skill(name, influenceEffect, (SettableCommand) command, new SendInfluenceEffectCommand(levelMessenger),accuracy, useCost);
-                        skillRef.put(skill.toString(), skill);
+                        skillRef.put(reference, skill);
                         return skill;
                     }
                 }
@@ -1172,44 +1172,44 @@ public class GameLoader {
                         case "addhealthcommand":
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             AddHealthCommand addHealthCommand = new AddHealthCommand(amount);
-                            this.commandRef.put(addHealthCommand.toString(), addHealthCommand);
+                            this.commandRef.put(commandRef, addHealthCommand);
                             return addHealthCommand;
 
                         case "removehealthcommand":
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(amount);
-                            this.commandRef.put(removeHealthCommand.toString(), removeHealthCommand);
+                            this.commandRef.put(commandRef, removeHealthCommand);
                             return removeHealthCommand;
 
                         case "togglehealthcommand":
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
                             ToggleHealthCommand toggleHealthCommand = new ToggleHealthCommand(amount, hasFired);
-                            this.commandRef.put(toggleHealthCommand.toString(), toggleHealthCommand);
+                            this.commandRef.put(commandRef, toggleHealthCommand);
                             return toggleHealthCommand;
 
                         case "togglemanacommand":
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
                             ToggleManaCommand toggleManaCommand = new ToggleManaCommand(amount, hasFired);
-                            this.commandRef.put(toggleManaCommand.toString(), toggleManaCommand);
+                            this.commandRef.put(commandRef, toggleManaCommand);
                             return toggleManaCommand;
 
                         case "togglespeedcommand":
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
                             ToggleSpeedCommand toggleSpeedCommand = new ToggleSpeedCommand(amount, hasFired);
-                            this.commandRef.put(toggleSpeedCommand.toString(), toggleSpeedCommand);
+                            this.commandRef.put(commandRef, toggleSpeedCommand);
                             return toggleSpeedCommand;
 
                         case "instadeathcommand":
                             InstaDeathCommand instaDeathCommand = new InstaDeathCommand();
-                            this.commandRef.put(instaDeathCommand.toString(), instaDeathCommand);
+                            this.commandRef.put(commandRef, instaDeathCommand);
                             return instaDeathCommand;
 
                         case "levelupcommand":
                             LevelUpCommand levelUpCommand = new LevelUpCommand();
-                            this.commandRef.put(levelUpCommand.toString(), levelUpCommand);
+                            this.commandRef.put(commandRef, levelUpCommand);
                             return levelUpCommand;
 
                         case "togglesneaking":
@@ -1220,7 +1220,7 @@ public class GameLoader {
                             oldSpeed = Integer.parseInt(commandNode.getAttributes().getNamedItem("oldSpeed").getTextContent());
                             oldNoise = Integer.parseInt(commandNode.getAttributes().getNamedItem("oldNoise").getTextContent());
                             ToggleSneaking toggleSneaking = new ToggleSneaking(hasFired, amount, 0, 0, false);
-                            this.commandRef.put(toggleSneaking.toString(), toggleSneaking);
+                            this.commandRef.put(commandRef, toggleSneaking);
                             return toggleSneaking;
 
                      /* Game Loop Commands */
@@ -1228,7 +1228,7 @@ public class GameLoader {
                             BarterCommand barterCommand = new BarterCommand(levelMessenger);
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             barterCommand.setAmount(amount);
-                            this.commandRef.put(barterCommand.toString(), barterCommand);
+                            this.commandRef.put(commandRef, barterCommand);
                             return barterCommand;
 
                         case "dialogcommand": // TODO: implement
@@ -1238,7 +1238,7 @@ public class GameLoader {
                             ObserveEntityCommand observeEntityCommand = new ObserveEntityCommand(levelMessenger);
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             observeEntityCommand.setAmount(amount);
-                            this.commandRef.put(observeEntityCommand.toString(), observeEntityCommand);
+                            this.commandRef.put(commandRef, observeEntityCommand);
                             return observeEntityCommand;
 
                     /* Game Model Commands */
@@ -1246,21 +1246,21 @@ public class GameLoader {
                             ConfuseEntityCommand confuseEntityCommand = new ConfuseEntityCommand(levelMessenger);
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             confuseEntityCommand.setAmount(amount);
-                            this.commandRef.put(confuseEntityCommand.toString(), confuseEntityCommand);
+                            this.commandRef.put(commandRef, confuseEntityCommand);
                             return confuseEntityCommand;
 
                         case "freezeentitycommand":
                             FreezeEntityCommand freezeEntityCommand = new FreezeEntityCommand(levelMessenger);
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             freezeEntityCommand.setAmount(amount);
-                            this.commandRef.put(freezeEntityCommand.toString(), freezeEntityCommand);
+                            this.commandRef.put(commandRef, freezeEntityCommand);
                             return freezeEntityCommand;
 
                         case "slowentitycommand":
                             SlowEntityCommand slowEntityCommand = new SlowEntityCommand(levelMessenger);
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             slowEntityCommand.setAmount(amount);
-                            this.commandRef.put(slowEntityCommand.toString(), slowEntityCommand);
+                            this.commandRef.put(commandRef, slowEntityCommand);
                             return slowEntityCommand;
 
                         case "teleportentitycommand":
@@ -1274,7 +1274,7 @@ public class GameLoader {
 
                             Point3D point3D = toPoint3D(commandNode.getAttributes().getNamedItem("point").getTextContent());
                             TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level, point3D);
-                            this.commandRef.put(teleportEntityCommand.toString(), teleportEntityCommand);
+                            this.commandRef.put(commandRef, teleportEntityCommand);
                             return teleportEntityCommand;
 
                     /* Level Commands */
@@ -1282,7 +1282,7 @@ public class GameLoader {
                             DisarmTrapCommand disarmTrapCommand = new DisarmTrapCommand(levelMessenger);
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             disarmTrapCommand.setAmount(amount);
-                            this.commandRef.put(disarmTrapCommand.toString(), disarmTrapCommand);
+                            this.commandRef.put(commandRef, disarmTrapCommand);
                             return disarmTrapCommand;
 
                         case "dropitemcommand": // TODO: implement
@@ -1292,7 +1292,7 @@ public class GameLoader {
                             PickPocketCommand pickPocketCommand = new PickPocketCommand(levelMessenger);
                             amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
                             pickPocketCommand.setAmount(amount);
-                            this.commandRef.put(pickPocketCommand.toString(), pickPocketCommand);
+                            this.commandRef.put(commandRef, pickPocketCommand);
                             return pickPocketCommand;
 
                         case "sendinfluencecommand": // TODO: implement
@@ -1549,7 +1549,7 @@ public class GameLoader {
                 entity.setObserver(new MonsterView(entity, new Point3D(0,1,-1)));
             }
 
-            entityRef.put(entity.toString(), entity);
+            entityRef.put(reference, entity);
             return entity;
         }
     }
@@ -1670,7 +1670,7 @@ public class GameLoader {
 
                     loadMaps(element.getChildNodes(), level);
                     levelList.add(level);
-                    levelRef.put(level.toString(), level);
+                    levelRef.put(reference, level);
                 }
             }
         }
