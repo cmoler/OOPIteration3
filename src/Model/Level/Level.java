@@ -124,7 +124,7 @@ public class Level {
         Point3D entityPoint = getEntityPoint(entity);
 
         List<Point3D> candidatePoints = Orientation.getAllAdjacentPoints(entityPoint);
-        List<LevelViewElement> observer = new ArrayList<>();
+
         for(Point3D point : candidatePoints) {
             if(canDropItemAtPoint(point)) {
                 //If item has an observer
