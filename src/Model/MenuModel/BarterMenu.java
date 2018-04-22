@@ -6,16 +6,19 @@ import Model.Entity.EntityAttributes.Inventory;
 import Model.Item.Item;
 import Model.Item.TakeableItem.TakeableItem;
 
+import java.util.Random;
+
 public class BarterMenu extends MenuState {
 
     private Entity player;
     private Entity npc;
     private Inventory playerInventory;
     private Inventory npcInventory;
+    private int barterStrength;
 
-    // TODO: have barter skill matter
     public BarterMenu(MenuModel menuModel, GameLoop gameLoop, int barterStrength, Entity player, Entity npc) {
         super(menuModel, gameLoop);
+        this.barterStrength = barterStrength;
         this.player = player;
         this.playerInventory = player.getInventory();
         this.npc = npc;
@@ -51,10 +54,12 @@ public class BarterMenu extends MenuState {
     private void sell() {
         TakeableItem itemSelling = playerInventory.getItem(selectedUpDown);
         if(itemSelling == null) return;
-        if(npc.getGold() >= itemSelling.getPrice()) {
+        Random random = new Random();
+        int price = itemSelling.getPrice() / (random.nextInt(99 - barterStrength) / 50);
+        if(npc.getGold() >= price) {
             player.removeItemFromInventory(itemSelling);
-            player.addGold(itemSelling.getPrice());
-            npc.removeGold(itemSelling.getPrice());
+            player.addGold(price);
+            npc.removeGold(price);
             npc.addItemToInventory(itemSelling);
         }
     }
@@ -62,10 +67,12 @@ public class BarterMenu extends MenuState {
     private void buy() {
         TakeableItem itemBuying = npcInventory.getItem(selectedUpDown);
         if(itemBuying == null) return;
-        if(player.getGold() >= itemBuying.getPrice()) {
-            player.removeGold(itemBuying.getPrice());
+        Random random = new Random();
+        int price = itemBuying.getPrice() * (random.nextInt(99 - barterStrength) / 50);
+        if(player.getGold() >= price) {
+            player.removeGold(price);
             npc.removeItemFromInventory(itemBuying);
-            npc.addGold(itemBuying.getPrice());
+            npc.addGold(price);
             player.addItemToInventory(itemBuying);
         }
     }

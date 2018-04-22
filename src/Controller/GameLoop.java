@@ -84,18 +84,20 @@ public class GameLoop {
         }
     }
 
-    public void openBarterWindow(Entity playerEntity, int playerBarterSkill, Entity receivingEntity) {
+    public void openBarterWindow(Entity playerEntity, Entity receivingEntity) {
         if(playerEntity == null || receivingEntity == null) {
             // do nothing if either entity is null
         }else{
-            setMenuState(new BarterMenu(menuModel, this, playerBarterSkill, playerEntity, receivingEntity), new BarterView(menuModel));
+            SkillsFactory skillsFactory = gameModel.getSkillsFactory();
+            int barterLevel = playerEntity.getSkillLevel(skillsFactory.getBargainSkill());
+            setMenuState(new BarterMenu(menuModel, this, barterLevel, playerEntity, receivingEntity), new BarterView(menuModel));
             setInGameMenuKeySet();
         }
     }
 
     public void openDialogWindow(Entity playerEntity, Entity receivingEntity) {
         boolean wantToTalk = gameModel.getAIForEntity(receivingEntity).wantToTalk();
-        setMenuState(new DialogMenu(menuModel, this, wantToTalk, playerEntity, receivingEntity, gameModel.getSkillsFactory()), new DialogView(menuModel));
+        setMenuState(new DialogMenu(menuModel, this, wantToTalk, playerEntity, receivingEntity), new DialogView(menuModel));
         setInGameMenuKeySet();
     }
 

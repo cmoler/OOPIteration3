@@ -10,14 +10,12 @@ public class DialogMenu extends MenuState {
     private boolean wantToTalk;
     private Entity player;
     private Entity npc;
-    private SkillsFactory skillsFactory;
 
-    public DialogMenu(MenuModel menuModel, GameLoop gameLoop, boolean wantToTalk, Entity player, Entity npc, SkillsFactory skillsFactory) {
+    public DialogMenu(MenuModel menuModel, GameLoop gameLoop, boolean wantToTalk, Entity player, Entity npc) {
         super(menuModel, gameLoop);
         this.wantToTalk = wantToTalk;
         this.player = player;
         this.npc = npc;
-        this.skillsFactory = skillsFactory;
     }
 
     @Override
@@ -34,9 +32,8 @@ public class DialogMenu extends MenuState {
     @Override
     public void select() {
         if(selectedLeftRight == 0) gameLoop.closeMenu();
-        // TODO: actually send barter skill level
         if(selectedLeftRight == 1) {
-            skillsFactory.getBargainSkill().fire(player);
+            gameLoop.openBarterWindow(player, npc);
         }
     }
 
