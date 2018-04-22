@@ -19,27 +19,29 @@ public class LinearInfluenceEffect extends InfluenceEffect {
 
     //Defines logic for moving in a straight line in the direction of its orientation
     public ArrayList<Point3D> nextMove(Point3D point) {
-        //Out of moves, return empty list
-        if(noMovesRemaining()) {
-            return new ArrayList<>();
+        if(canMove()) {
+            //Out of moves, return empty list
+            if (noMovesRemaining()) {
+                return new ArrayList<>();
+            }
+
+            ArrayList<Point3D> newPos = new ArrayList<>();
+
+            if (rangeIsZero()) {
+                newPos.add(point);
+                return newPos;
+            }
+
+            Point3D newPoint = point;
+            for (int i = 0; i < getRange() - getMovesRemaining() + 1; i++) {
+                newPoint = Orientation.getAdjacentPoint(newPoint, getOrientation());
+            }
+
+            newPos.add(newPoint);
+            decrementMovesRemaining();
         }
 
-        ArrayList<Point3D> newPos = new ArrayList<>();
-
-        if(rangeIsZero() || !canMove()) {
-            newPos.add(point);
-            return newPos;
-        }
-
-        Point3D newPoint = point;
-        for(int i = 0; i < getRange()-getMovesRemaining()+1; i++) {
-            newPoint = Orientation.getAdjacentPoint(newPoint, getOrientation());
-        }
-
-        newPos.add(newPoint);
-        decrementMovesRemaining();
-
-        return newPos;
+        return new ArrayList<>();
     }
 
     public InfluenceEffect cloneInfluenceEffect() {

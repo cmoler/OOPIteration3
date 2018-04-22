@@ -40,7 +40,7 @@ public class Renderer {
         if(menuView.inMenu()) {
             menuView.render(gc);
         } else {
-            levelView.refreshInfluenceEffects();
+            levelView.refreshInfluenceEffectSprites();
             levelView.render(gc, playerPos, scrollOffset);
         }
 

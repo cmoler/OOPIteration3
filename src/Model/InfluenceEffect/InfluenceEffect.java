@@ -5,6 +5,7 @@ import Model.Command.EntityCommand.SettableCommand.SettableCommand;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import View.LevelView.InfluenceEffectView;
+import View.LevelView.LevelViewElement;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public abstract class InfluenceEffect implements Visitable {
     private long speed;
     private Orientation orientation;
     private int range;
-    private List<InfluenceEffectView> influenceEffectViews;
+    private InfluenceEffectView observer;
 
     private long lastFireTime;
 
@@ -25,7 +26,6 @@ public abstract class InfluenceEffect implements Visitable {
         this.movesRemaining = range;
         this.range = range;
         this.orientation = orientation;
-        influenceEffectViews = new ArrayList<>();
         this.speed = speed;
         lastFireTime = System.nanoTime();
     }
@@ -36,7 +36,6 @@ public abstract class InfluenceEffect implements Visitable {
         this.range = range;
         this.speed = speed;
         this.orientation = orientation;
-        influenceEffectViews = new ArrayList<>();
         lastFireTime = System.nanoTime();
     }
 
@@ -82,7 +81,6 @@ public abstract class InfluenceEffect implements Visitable {
 
     public void decreaseCommandAmount() {
         // for each distance travelled, decrease command's strength by 5
-
         int commandAmount = command.getAmount();
 
         commandAmount -= 5;
@@ -102,8 +100,12 @@ public abstract class InfluenceEffect implements Visitable {
         this.command = command;
     }
 
-    public List<InfluenceEffectView> getObservers() {
-        return influenceEffectViews;
+    public InfluenceEffectView getObserver() {
+        return observer;
+    }
+
+    public void setObserver(InfluenceEffectView observer) {
+        this.observer = observer;
     }
 
     protected boolean canMove() {

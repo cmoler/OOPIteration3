@@ -47,12 +47,13 @@ public class LevelView {
 
         Map<Point3D, InfluenceEffect> influenceEffects = currentLevel.getInfluenceEffectMap();
 
-        List<InfluenceEffectView> influenceEffectViews;
-        for(InfluenceEffect influenceEffect: influenceEffects.values()) {
-            influenceEffectViews = influenceEffect.getObservers();
-            for(InfluenceEffectView influenceEffectView:influenceEffectViews) {
-                influenceEffectView.render(gc, offset, scrollOffset);
-            }
+        List<InfluenceEffectView> influenceEffectViews = new ArrayList<>();
+
+        for(InfluenceEffect influenceEffect : influenceEffects.values()) {
+            influenceEffectViews.add(influenceEffect.getObserver());
+        }
+        for(InfluenceEffectView influenceEffectView : influenceEffectViews) {
+            influenceEffectView.render(gc, offset, scrollOffset);
         }
 
         Iterator itr = observationViews.iterator();
@@ -91,7 +92,8 @@ public class LevelView {
         observationViews.add(observationView);
     }
 
-    public void refreshInfluenceEffects() {
+    public void refreshInfluenceEffectSprites() {
+        currentLevel.clearInfluenceEffectObservers();
         currentLevel.addObservers(registerInfluenceEffectObservers(currentLevel.getInfluenceEffectMap())); // TODO: replace observers
     }
 

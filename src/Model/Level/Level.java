@@ -355,4 +355,10 @@ public class Level {
         }
         return deadpool;
     }
+
+    public void clearInfluenceEffectObservers() {
+        for(Point3D point : influenceEffectLocations.keySet()) {
+            observers.remove(influenceEffectLocations.get(point).getObserver());
+        }
+    }
 }

@@ -116,7 +116,6 @@ public class InteractionHandler {
         List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
 
         for(Point3D point : influenceEffectPoints) {
-
             InfluenceEffect influenceEffect = influenceEffectLocations.get(point); //Get current influence effect
 
             if(entityLocations.hasKey(point)) {//Check if there is an entity on that location
