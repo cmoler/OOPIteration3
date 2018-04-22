@@ -9,9 +9,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.transform.Rotate;
 
 public class HUDStatsView {
+
     private Entity player;
     private int statBarWidth;
     private int statBarHeight;
+
     public HUDStatsView(Entity player) {
         this.player = player;
         statBarWidth = 200;

@@ -271,6 +271,7 @@ public class GameModel implements Visitable {
         ringItem.notifyObserver(new Point3D(4, -4, 0));
         currentLevel.addItemTo(new Point3D(4, -4, 0), ringItem);
 
+        player.addFriendly(pet);
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

@@ -5,6 +5,7 @@ import Model.Entity.Entity;
 import Model.MenuModel.MenuModel;
 import Model.MenuModel.PetMenu;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -28,6 +29,8 @@ public class PetView extends InGameMenuView {
 
     @Override
     protected void renderSubMenu(GraphicsContext gc) {
+
+
         selectedX = menuModel.getSelectedHorizontal();
         selectedY = menuModel.getSelectedVertical();
 
@@ -35,6 +38,15 @@ public class PetView extends InGameMenuView {
         selectedFocus = ((PetMenu)menuModel.getActiveState()).getSelectedFocus();
         selectedPriority = ((PetMenu)menuModel.getActiveState()).getSelectedPriority();
         pets = ((PetMenu)menuModel.getActiveState()).getPets();
+
+        if(pets == null) {
+            gc.fillText("No Pets Available", 400, 200);
+            return;
+        }
+        if(pets.size() == 0) {
+            gc.fillText("No Pets Available", 400, 200);
+            return;
+        }
 
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(10.0f);
@@ -50,6 +62,16 @@ public class PetView extends InGameMenuView {
         int startY = Commons.SCREEN_HEIGHT / 4;
         int width = Commons.SCREEN_WIDTH / 8;
         int height = Commons.SCREEN_HEIGHT / 8;
+
+        //Get pet sprite
+        Image petSprite = pets.get(selectedPet).getObserver().getSprite();
+
+        //Check if sprite null
+        if(petSprite == null) {
+            return;
+        }
+
+        gc.drawImage(petSprite, 600, 100, 100, 100);
 
 
     }

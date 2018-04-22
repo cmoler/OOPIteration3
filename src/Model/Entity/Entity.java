@@ -116,6 +116,7 @@ public class Entity {
         inventory = new Inventory();
         equipment = new Equipment();
         hotBar = new ItemHotBar();
+        friendlyList = new ArrayList<>();
         orientation = Orientation.NORTH;
 
         compatableTerrain = new ArrayList<>();
@@ -717,7 +718,7 @@ public class Entity {
     }
 
 
-    }
+
 
     public String getName() {
         return name;
