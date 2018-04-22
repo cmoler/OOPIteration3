@@ -104,7 +104,7 @@ public class GameModel implements Visitable {
 
         skillsFactory = new SkillsFactory(currentLevelMessenger);
 
-        entityFactory = new SummonerFactory(skillsFactory);
+        entityFactory = new SneakFactory(skillsFactory);
 
         player = entityFactory.buildEntity();
 
@@ -274,6 +274,15 @@ public class GameModel implements Visitable {
         ringItem.notifyObserver(new Point3D(4, -4, 0));
         currentLevel.addItemTo(new Point3D(4, -4, 0), ringItem);
 
+        WeaponItem rangedWeapon = itemFactory.getRangedWeapon();
+        rangedWeapon.notifyObserver(new Point3D(3, -2, -1));
+        currentLevel.addItemTo(new Point3D(3, -2, -1), rangedWeapon);
+
+        Trap trap = new Trap(new RemoveHealthCommand(50), 1);
+
+        currentLevel.addTrapTo(new Point3D(4, 0, -4), trap);
+        currentLevel.addDecalTo(new Point3D(-2, 0, 2), new Decal());
+        
         player.addFriendly(pet);
         aiMap.put(currentLevel,AIList);
 

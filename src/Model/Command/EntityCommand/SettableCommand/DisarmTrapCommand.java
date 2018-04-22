@@ -14,7 +14,7 @@ public class DisarmTrapCommand extends LevelCommand implements SettableCommand {
 
     public DisarmTrapCommand(LevelMessenger levelMessenger) {
         super(levelMessenger);
-        this.disarmStrength = 0;
+        this.disarmStrength = 5;
     }
 
     public void receiveLevel(Level level) {

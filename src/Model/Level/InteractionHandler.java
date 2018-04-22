@@ -56,7 +56,7 @@ public class InteractionHandler {
 
         for(Point3D point : entityPoints) {
             if(riverLocations.containsKey(point)) {
-                entityLocations.getValueFromKey(point).addVelocity(riverLocations.get(point).getFlowrate());
+                entityLocations.getValueFromKey(point).addVelocity(riverLocations.get(point).getPush());
             }
         }
     }

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Trap implements Visitable {
 
-    private List<LevelViewElement> observers;
+    private LevelViewElement observer;
 
     private boolean isVisible;
     private boolean isDisarmed;
@@ -22,7 +22,7 @@ public class Trap implements Visitable {
     private int trapStrength;
 
     public Trap(Command command, boolean isVisible, boolean isDisarmed, int trapStrength) {
-        this.observers = new ArrayList<>();
+
         this.isVisible = isVisible;
         this.isDisarmed = isDisarmed;
         this.command = command;
@@ -30,7 +30,7 @@ public class Trap implements Visitable {
     }
 
     public Trap(Command command, int trapStrength) {
-        this.observers = new ArrayList<>();
+
         this.trapStrength = trapStrength;
 
         isVisible = false;
@@ -45,9 +45,9 @@ public class Trap implements Visitable {
             isDisarmed = true;
             isVisible = true;
 
-            for(LevelViewElement observer : observers) {
+            if(observer != null)
                 observer.notifyViewElement();
-            }
+
         }
     }
 
@@ -60,9 +60,9 @@ public class Trap implements Visitable {
                 isDisarmed = true;
             }
 
-            for (LevelViewElement observer : observers) {
+            if(observer != null)
                 observer.notifyViewElement();
-            }
+
         } else {
             this.fire(entity);
         }
@@ -84,7 +84,7 @@ public class Trap implements Visitable {
         visitor.visitTrap(this);
     }
 
-    public void addObservers(LevelViewElement... observers) {
-        this.observers.addAll(Arrays.asList(observers));
+    public void setObserver(LevelViewElement observer) {
+        this.observer = observer;
     }
 }
