@@ -1,5 +1,6 @@
 package Model.AI.PetAI.PetStates;
 
+import Controller.Visitor.SavingVisitor;
 import Model.AI.AIState;
 import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
@@ -48,6 +49,11 @@ public class CombatPetState extends AIState {
                 moveToGoal(petPoint, nearestTarget);
             }
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitCombatPetState(this);
     }
 
     private void attack(Point3D position, Point3D goal) {

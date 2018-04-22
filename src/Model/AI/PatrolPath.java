@@ -1,5 +1,6 @@
 package Model.AI;
 
+import Controller.Visitor.SavingVisitor;
 import com.sun.javafx.geom.Vec3d;
 
 import java.util.ArrayList;
@@ -10,6 +11,22 @@ public class PatrolPath {
 
     public PatrolPath(ArrayList<Vec3d> patrolPath) {
         this.patrolPath = patrolPath;
+        this.index = 0;
+    }
+
+    public PatrolPath() {
+        ArrayList<Vec3d> path = new ArrayList<>();
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(1,-1,0));
+        path.add(new Vec3d(1,-1,0));
+        this.patrolPath = path;
         this.index = 0;
     }
 
@@ -25,4 +42,11 @@ public class PatrolPath {
     }
 
 
+    public void accept(SavingVisitor visitor) {
+        visitor.visitPatrolPath(this);
+    }
+
+    public ArrayList<Vec3d> getVectors() {
+        return patrolPath;
+    }
 }

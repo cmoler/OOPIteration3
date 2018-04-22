@@ -184,7 +184,7 @@ public class GameModel implements Visitable {
         path.add(new Vec3d(-1,0,1));
         path.add(new Vec3d(-1,0,1));
         path.add(new Vec3d(1,-1,0));
-        path.add(new Vec3d(1,-1,0));//*/
+        path.add(new Vec3d(1,-1,0));
         currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
         List<Entity> list = new ArrayList<>();
         list.add(player);
@@ -335,6 +335,14 @@ public class GameModel implements Visitable {
 
     public void resetPlayer() {
         player.reset();
+    }
+
+    public boolean hasAI() {
+        return aiMap != null && !aiMap.isEmpty();
+    }
+
+    public Map<Level, List<AIController>> getAiMap() {
+        return aiMap;
     }
 
     public class TeleportTuple {

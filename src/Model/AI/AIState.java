@@ -1,5 +1,6 @@
 package Model.AI;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 
 public abstract class AIState {
@@ -19,4 +20,6 @@ public abstract class AIState {
     public boolean wantToTalk(){
         return true;
     }
+
+    public abstract void accept(SavingVisitor visitor);
 }

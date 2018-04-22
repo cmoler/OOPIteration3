@@ -1,9 +1,10 @@
 package Controller.Visitor;
 
-import Model.AI.ConfusedAI;
-import Model.AI.FriendlyAI;
-import Model.AI.FrozenAI;
-import Model.AI.HostileAI;
+import Model.AI.*;
+import Model.AI.PetAI.PetStates.CombatPetState;
+import Model.AI.PetAI.PetStates.GeneralPetState;
+import Model.AI.PetAI.PetStates.ItemPetState;
+import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
@@ -116,4 +117,16 @@ public interface Visitor {
     void visitInfluenceEffect(InfluenceEffect linearInfluenceEffect);
 
     void visitObstacle(Obstacle obstacle);
+
+    void visitSlowedAI(SlowedAI slowedAI);
+
+    void visitPassivePetState(PassivePetState passivePetState);
+
+    void visitItemPetState(ItemPetState itemPetState);
+
+    void visitGeneralPetState(GeneralPetState generalPetState);
+
+    void visitCombatPetState(CombatPetState combatPetState);
+
+    void visitPatrolPath(PatrolPath patrolPath);
 }

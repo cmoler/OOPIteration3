@@ -1,5 +1,8 @@
 package Controller;
 
+import Model.AI.AIController;
+import Model.AI.HostileAI;
+import Model.AI.PatrolPath;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
@@ -65,6 +68,7 @@ public class GameLoader {
     private HashMap<String, InfluenceEffect> influenceRef = new HashMap<>();
     private LinkedList<GameModel.TeleportTuple> teleportTuples = new LinkedList<>();
     private LinkedList<GameModel.TeleportTuple> failedTuples = new LinkedList<>();
+    private HashMap<Level, List<AIController>> aiMap = new HashMap<>();
 
     public GameLoader(GameLoop gameLoop) {
         world = new ArrayList<>();
@@ -399,6 +403,10 @@ public class GameLoader {
                     addingEnt.setObserver(new SneakView(entity, pointsToAdd.get(i)));
                     break;
                 }
+            }
+
+            if(entity.getObserver() == null) {
+                entity.setObserver(new MonsterView(entity, new Point3D(0,1,-1)));
             }
 
             level.addEntityTo(pointsToAdd.get(i), entitiesToAdd.get(i));
@@ -1325,14 +1333,73 @@ public class GameLoader {
         NodeList levelList = document.getElementsByTagName("LEVELLIST");
         NodeList player = document.getElementsByTagName("PLAYER");
         NodeList queues = document.getElementsByTagName("TELEPORTQUEUE");
+        NodeList aiMap = document.getElementsByTagName("AICONTROLLERS");
 
         this.currentLevel = loadLevel(currentLevel);
         this.levelMessenger.setLevel(this.currentLevel);
         this.world = loadWorld(levelList);
         this.entity = loadPlayer(player);
         loadQueue(queues);
-        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, new HashMap<>(), teleportTuples, failedTuples );
+        loadAIMap(aiMap);
+        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, this.aiMap, teleportTuples, failedTuples );
         gameModelMessenger.setGameModel(gameModel);
+    }
+
+    private void loadAIMap(NodeList aiMap) {
+        String entRef;
+        String aiState;
+        String levelRef;
+        Level level = new Level();
+        Entity entity;
+        AIController controller = new AIController();
+        List<AIController> aiList = new ArrayList<>();
+
+        for(int i = 0; i < aiMap.getLength(); i++) {
+            NodeList controllerNodes = aiMap.item(i).getChildNodes();
+
+            for(int j = 0; j < controllerNodes.getLength(); j++) {
+                Node controllerNode = controllerNodes.item(j);
+
+                if(controllerNode.getNodeType() == Node.ELEMENT_NODE) {
+                    aiState = controllerNode.getAttributes().getNamedItem("aiState").getTextContent();
+                    entRef = controllerNode.getAttributes().getNamedItem("entityRef").getTextContent();
+                    levelRef = controllerNode.getAttributes().getNamedItem("levelRef").getTextContent();
+
+                    entity = entityRef.get(entRef);
+                    level = this.levelRef.get(levelRef);
+
+                    switch (aiState) {
+                        case "HostileAI":
+                            HostileAI hostileAI = new HostileAI(entity, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
+                            PatrolPath path = processPatrolPath(controllerNode.getChildNodes());
+                            hostileAI.setPatrolPath(path);
+                            controller.setActiveState(hostileAI);
+                            aiList.add(controller);
+                            break;
+                    }
+                }
+            }
+
+            this.aiMap.put(level, aiList);
+        }
+    }
+
+    private PatrolPath processPatrolPath(NodeList nodeList) {
+        ArrayList<Vec3d> points = new ArrayList<>();
+
+        for(int i = 0; i < nodeList.getLength(); i++) {
+            NodeList pathNodes = nodeList.item(i).getChildNodes();
+
+            for(int j = 0; j < pathNodes.getLength(); j++) {
+                Node path = pathNodes.item(j);
+
+                if(path.getNodeType() == Node.ELEMENT_NODE) {
+                    points.add(toVector(path.getAttributes().getNamedItem("vec").getTextContent()));
+                }
+            }
+        }
+
+        return new PatrolPath(points);
     }
 
     private Entity loadPlayer(NodeList player) {
@@ -1462,10 +1529,14 @@ public class GameLoader {
                     break;
                 }
 
-                else {
+                else if(skill.getName().equalsIgnoreCase("range")) {
                     entity.setObserver(new SneakView(entity, new Point3D(0,1,-1)));
                     break;
                 }
+            }
+
+            if(entity.getObserver() == null) {
+                entity.setObserver(new MonsterView(entity, new Point3D(0,1,-1)));
             }
 
             entityRef.put(reference, entity);

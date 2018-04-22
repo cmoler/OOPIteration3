@@ -1,5 +1,6 @@
 package Model.AI.PetAI.PetStates;
 
+import Controller.Visitor.SavingVisitor;
 import Model.AI.AIState;
 import Model.AI.PathingAlgorithm;
 import Model.AI.PetAI.PetPriority;
@@ -48,6 +49,11 @@ public class GeneralPetState extends AIState {
 
         Point3D goal = calculateGoal(petPoint, playerPoint, nearestItem, nearestTarget);
         moveToGoal(petPoint,goal);
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitGeneralPetState(this);
     }
 
     private void moveToGoal(Point3D start, Point3D goal){

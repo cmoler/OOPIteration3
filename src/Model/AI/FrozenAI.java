@@ -1,5 +1,6 @@
 package Model.AI;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 import Model.Level.Level;
 import Model.Level.Obstacle;
@@ -37,5 +38,10 @@ public class FrozenAI extends AIState {
             //previousState.nextMove();
         }
         currentTick++;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitFrozenAI(this);
     }
 }

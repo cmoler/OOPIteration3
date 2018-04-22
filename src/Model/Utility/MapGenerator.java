@@ -1,8 +1,12 @@
 package Model.Utility;
 
 import Controller.Factories.EntityFactories.EntityFactory;
+import Controller.Factories.EntityFactories.MonsterFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.SavingVisitor;
+import Model.AI.AIController;
+import Model.AI.HostileAI;
+import Model.AI.PatrolPath;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
@@ -26,6 +30,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MapGenerator extends Application {
     private static SavingVisitor savingVisitor;
@@ -39,10 +45,12 @@ public class MapGenerator extends Application {
     private static LevelMessenger levelMessenger;
     private static SkillsFactory skillsFactory;
     private static EntityFactory entityFactory;
+    private static Map<Level, List<AIController>> aiMap = new HashMap<>();
 
     public MapGenerator() throws IOException {
         savingVisitor = new SavingVisitor("SNEAK.xml");
         skillsFactory = new SkillsFactory(levelMessenger);
+        entityFactory = new MonsterFactory(skillsFactory);
     }
 
     private static void generateDemoMap() {
@@ -61,13 +69,42 @@ public class MapGenerator extends Application {
         createObstacle(level0);
         createRivers(level0);
         createEnities(level0);
+        makeEnemy(level0);
 
-        createTerrainsForWorld(level1);
+//        createTerrainsForWorld(level1);
         levels.add(level0);
         levels.add(level1);
 
-        gameModel = new GameModel(level0, null, levels, entity, null, null, null);
+        gameModel = new GameModel(level0, null, levels, entity, aiMap, null, null);
         savingVisitor.visitGameModel(gameModel);
+    }
+
+    private static void makeEnemy(Level level) {
+        ArrayList<AIController> aiControllers = new ArrayList<>();
+        ArrayList<Vec3d> path = new ArrayList<>();
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(1,-1,0));
+        path.add(new Vec3d(1,-1,0));
+
+        Entity enemy = entityFactory.buildEntity();
+        entityFactory.buildEntitySprite(enemy);
+
+        HostileAI hostileAI = new HostileAI(enemy, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
+        hostileAI.setPatrolPath(new PatrolPath(path));
+
+        AIController controller = new AIController();
+        controller.setActiveState(hostileAI);
+
+        level.addEntityTo(new Point3D(0, 3, -3), enemy);
+        aiControllers.add(controller);
+        aiMap.put(level, aiControllers);
     }
 
     private static void createTerrainsForWorld(Level levelToTeleportTo) {

@@ -1,5 +1,6 @@
 package Model.AI;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 import Model.Level.River;
 import Model.Utility.VectorToPointCalculator;
@@ -38,6 +39,11 @@ public class FriendlyAI extends AIState{
                 moveRandomly(position);
             }
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitFriendlyAI(this);
     }
 
     private boolean hasPatrolPath(){

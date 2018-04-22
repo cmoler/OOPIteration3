@@ -1,9 +1,10 @@
 package Controller.Visitor;
 
-import Model.AI.ConfusedAI;
-import Model.AI.FriendlyAI;
-import Model.AI.FrozenAI;
-import Model.AI.HostileAI;
+import Model.AI.*;
+import Model.AI.PetAI.PetStates.CombatPetState;
+import Model.AI.PetAI.PetStates.GeneralPetState;
+import Model.AI.PetAI.PetStates.ItemPetState;
+import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.AreaEffect;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.AreaEffect.OneShotAreaEffect;
@@ -93,6 +94,15 @@ public class SavingVisitor implements Visitor {
                     this.valueNode = new StringBuffer("<TELEPORTQUEUE id=" + "\"failed" + "\">");
                     visitTelportQueue(gameModel.getFailedQueue());
                 }
+
+                if(gameModel.hasAI()) {
+                    this.valueNode = new StringBuffer("<AICONTROLLERS>");
+                    this.valueNode.append("\n");
+                    this.valueNode.append("\t");
+                    visitAIMap(gameModel.getAiMap());
+                    this.valueNode.append("</AICONTROLLERS>");
+                    writer.write(this.valueNode.toString());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,6 +112,22 @@ public class SavingVisitor implements Visitor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void visitAIMap(Map<Level, List<AIController>> aiMap) {
+        aiMap.entrySet().forEach(entry -> {
+            Level level = entry.getKey();
+            entry.getValue().forEach(aiController -> {
+                StringBuffer controller = new StringBuffer("<" + aiController.getClass().getSimpleName()
+                        + " levelRef=" + "\"" + level.toString() + "\""
+                        + " aiState=" + "\"" + aiController.getActiveState().getClass().getSimpleName() + "\""
+                        + " entityRef=" + "\"" + aiController.getEntity().toString() + "\""
+                        + " reference=" + "\"" + aiController.toString() + "\">");
+                this.valueNode.append(controller);
+                aiController.accept(this);
+                this.valueNode.append("</" + aiController.getClass().getSimpleName() + ">");
+            });
+        });
     }
 
     private void visitTelportQueue(Queue<GameModel.TeleportTuple> teleportQueue) throws IOException {
@@ -812,7 +838,6 @@ public class SavingVisitor implements Visitor {
     }
 
     public void visitHostileAI(HostileAI hostileAI) {
-        // TODO: implement?
     }
 
     public void visitFrozenAI(FrozenAI frozenAI) {
@@ -1040,6 +1065,43 @@ public class SavingVisitor implements Visitor {
         this.valueNode.append(obstacleString);
         this.valueNode.append("\n");
         this.valueNode.append("\t");
+    }
+
+    @Override
+    public void visitSlowedAI(SlowedAI slowedAI) {
+
+    }
+
+    @Override
+    public void visitPassivePetState(PassivePetState passivePetState) {
+
+    }
+
+    @Override
+    public void visitItemPetState(ItemPetState itemPetState) {
+
+    }
+
+    @Override
+    public void visitGeneralPetState(GeneralPetState generalPetState) {
+
+    }
+
+    @Override
+    public void visitCombatPetState(CombatPetState combatPetState) {
+
+    }
+
+    @Override
+    public void visitPatrolPath(PatrolPath patrolPath) {
+        StringBuffer patrol = new StringBuffer("<PATROLPATH>");
+        this.valueNode.append(patrol);
+        this.valueNode.append("\n");
+        for(Vec3d vec: patrolPath.getVectors()) {
+            StringBuffer vector = new StringBuffer("<VECTOR vec=" + "\"" + vecToString(vec) + "\"/>");
+            this.valueNode.append(vector);
+        }
+        this.valueNode.append("</PATROLPATH>");
     }
 
     public void saveCurrentLevel(Level currentLevel) throws IOException {

@@ -1,5 +1,6 @@
 package Model.AI;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 
 public class AIController {
@@ -35,5 +36,9 @@ public class AIController {
 
     public boolean wantToTalk(){
         return activeState.wantToTalk();
+    }
+
+    public void accept(SavingVisitor visitor) {
+        activeState.accept(visitor);
     }
 }

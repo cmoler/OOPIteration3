@@ -1,5 +1,6 @@
 package Model.AI;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 
 public class SlowedAI extends AIState {
@@ -23,5 +24,10 @@ public class SlowedAI extends AIState {
             aiState.nextMove();
         }
         currentTick++;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitSlowedAI(this);
     }
 }

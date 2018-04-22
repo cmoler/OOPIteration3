@@ -1,5 +1,6 @@
 package Model.AI.PetAI.PetStates;
 
+import Controller.Visitor.SavingVisitor;
 import Model.AI.AIState;
 import Model.AI.PathingAlgorithm;
 import Model.Entity.Entity;
@@ -53,6 +54,11 @@ public class ItemPetState extends AIState {
             Point3D goal = calculateGoal(petPoint, nearestItem, nearestTarget);
             moveToGoal(petPoint,goal);
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitItemPetState(this);
     }
 
    /* private boolean isInRange(Point3D position, Point3D goal, Entity ent){

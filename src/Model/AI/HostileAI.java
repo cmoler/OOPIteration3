@@ -1,5 +1,6 @@
 package Model.AI;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 import Model.Level.River;
 import Model.Utility.BidiMap;
@@ -12,7 +13,7 @@ import javafx.geometry.Point3D;
 import java.util.*;
 
 
-public class HostileAI extends AIState{
+public class HostileAI extends AIState {
     private BidiMap<Point3D, Entity> entityMap;
     private List<Entity> targetList;
     private PathingAlgorithm pathCalculator;
@@ -141,7 +142,7 @@ public class HostileAI extends AIState{
 
     private Point3D getNearestTarget(Point3D origin) {
         List<Point3D> targetPoints = getTargetPoints();
-        Point3D minLocation = targetPoints.get(0);
+        Point3D minLocation = new Point3D(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
         double minDistance = Double.MAX_VALUE;
         double distance;
         for (Point3D point : targetPoints) {
@@ -173,5 +174,10 @@ public class HostileAI extends AIState{
     @Override
     public boolean wantToTalk(){
         return false;
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        patrolPath.accept(visitor);
     }
 }

@@ -1,5 +1,6 @@
 package Model.AI;
 
+import Controller.Visitor.SavingVisitor;
 import Model.Entity.Entity;
 import Model.Utility.RandomVelocityGenerator;
 
@@ -27,5 +28,10 @@ public class ConfusedAI extends AIState{
         else {
             super.getEntity().addVelocityFromControllerInput(RandomVelocityGenerator.generateRandomVelocity());
         }
+    }
+
+    @Override
+    public void accept(SavingVisitor visitor) {
+        visitor.visitConfusedAI(this);
     }
 }
