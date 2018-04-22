@@ -52,6 +52,8 @@ public class Entity {
     private Mount mount;
     private List<Entity> targetingList;
 
+    private long nextMoveTime = 0;
+
     public Entity(LevelViewElement observer, ItemHotBar hotBar, List<Skill> weaponSkills,
                   List<Skill> nonWeaponSkills, HashMap<Skill, SkillLevel> skillLevelsMap,
                   Vec3d velocity, NoiseLevel noiseLevel, SightRadius sightRadius, XPLevel xpLevel, Health health,
@@ -122,6 +124,14 @@ public class Entity {
 
     public boolean isMoveable() {
         return moveable;
+    }
+
+    public boolean canMove() {
+        return System.nanoTime() > nextMoveTime;
+    }
+
+    public void setNextMoveTime() {
+        nextMoveTime = System.nanoTime() + speed.getSpeed();
     }
 
     public void setMoveable(boolean moveable) {
@@ -278,6 +288,13 @@ public class Entity {
 
     public void addVelocity(Vec3d add){
         velocity.add(add);
+    }
+
+    public void addVelocityFromControllerInput(Vec3d add){
+        if(canMove()) {
+            addVelocity(add);
+            setNextMoveTime();
+        }
     }
 
     public void setVelocity(Vec3d velocity) {
@@ -557,7 +574,7 @@ public class Entity {
         return mana.getMaxMana();
     }
 
-    public int getSpeed() {
+    public long getSpeed() {
         return speed.getSpeed();
     }
 
@@ -601,7 +618,7 @@ public class Entity {
         return hotBar;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(long speed) {
         this.speed.setSpeed(speed);
     }
 

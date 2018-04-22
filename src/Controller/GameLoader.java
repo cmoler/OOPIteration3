@@ -982,7 +982,7 @@ public class GameLoader {
         int attackModifier;
         int defensePoints;
         int defenseModifier;
-        int speedAmount;
+        long speedAmount;
         int manaPoints;
         int maxMana;
         int sight;
@@ -1005,7 +1005,7 @@ public class GameLoader {
             maxGold = Integer.parseInt(entityNode.getAttributes().getNamedItem("maxGold").getTextContent());
             gold = new Gold(goldAmount, maxGold);
 
-            speedAmount = Integer.parseInt(entityNode.getAttributes().getNamedItem("speed").getTextContent());
+            speedAmount = Long.parseLong(entityNode.getAttributes().getNamedItem("speed").getTextContent());
             speed = new Speed(speedAmount);
 
             manaPoints = Integer.parseInt(entityNode.getAttributes().getNamedItem("manaPoints").getTextContent());
