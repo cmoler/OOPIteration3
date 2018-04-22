@@ -25,7 +25,6 @@ import View.Renderer;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -44,6 +43,7 @@ public class GameLoop {
     private EventHandler<KeyEvent> controls;
     private RunGame runGame;
     private Point2D scrollOffSet;
+    private boolean playerFresh = true;
 
     public GameLoop() {
         gameLoopMessenger = new GameLoopMessenger(this);
@@ -84,7 +84,6 @@ public class GameLoop {
     }
 
     public void openBarterWindow(Entity playerEntity, int playerBarterStrength, Entity receivingEntity) {
-        // TODO: implement
         if(playerEntity == null || receivingEntity == null) {
             // do nothing if either entity is null
         }else{
@@ -94,7 +93,6 @@ public class GameLoop {
     }
 
     public void openDialogWindow(Entity playerEntity, Entity receivingEntity) {
-        // TODO: implement
         System.out.println("I (player) am talking to you!");
 
         boolean wantToTalk = gameModel.getAIForEntity(receivingEntity).wantToTalk();
@@ -117,7 +115,7 @@ public class GameLoop {
     }
 
     public void loadGame(int i) {
-
+        playerFresh = true;
     }
 
     public void saveGame(int i) {
@@ -125,7 +123,7 @@ public class GameLoop {
     }
 
     public void newGame(int i) {
-
+        playerFresh = true;
     }
 
     public void setMenuState(MenuState menuState, MenuViewState menuViewState){
@@ -134,14 +132,15 @@ public class GameLoop {
     }
 
     private void setGameOver() {
-        //TODO: new state for game over screen*/
-        //menuModel.setActiveState();
+        setMenuState(new GameOverMenu(menuModel, this), new GameOverView(menuModel));
+        setInGameMenuKeySet();
     }
 
     public void tick() {
-        if(gameModel.playerIsDead()) {
-            gameModel.resetPlayer();
+        if(gameModel.playerIsDead() && playerFresh) {
+            //gameModel.resetPlayer();
             setGameOver();
+            playerFresh = false;
         }
         else{
             gameModel.advance();

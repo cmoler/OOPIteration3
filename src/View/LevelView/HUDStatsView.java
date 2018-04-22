@@ -19,7 +19,8 @@ public class HUDStatsView {
     }
 
     public void render(GraphicsContext gc) {
-        rotate(gc,0,0,0);
+        rotate(gc, 0, 0, 0);
+
         renderHealthBar(gc);
         renderExperienceBar(gc);
         renderManaBar(gc);
@@ -78,8 +79,4 @@ public class HUDStatsView {
         gc.setFill(fillColor);
         gc.fillRect(x, y, width*percentFill, height);
     }
-
-
-
-
 }

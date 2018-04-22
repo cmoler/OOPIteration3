@@ -46,7 +46,7 @@ public class SkillsFactory {
             ObserveEntityCommand observeEntityCommand = new ObserveEntityCommand(levelMessenger);
             RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(observeEntityCommand, 5, 1, Orientation.NORTH);
 
-            observeSkill = new Skill("Observe", radialInfluenceEffect, observeEntityCommand, sendInfluenceEffectCommand, 1, 1);
+            observeSkill = new Skill("Observe", radialInfluenceEffect, observeEntityCommand, sendInfluenceEffectCommand, 1, 100);
         }
 
         return observeSkill;

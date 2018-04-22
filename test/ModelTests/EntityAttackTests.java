@@ -45,7 +45,7 @@ public class EntityAttackTests {
         entity.equipWeapon(sword);
         entity.attack();
 
-        level.processInteractions();
+        level.advance();
         System.out.println(affectedEntity.getCurrentHealth());
     }
 }

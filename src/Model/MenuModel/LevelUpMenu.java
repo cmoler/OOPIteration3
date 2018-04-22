@@ -64,10 +64,19 @@ public class LevelUpMenu extends InGameMenuState {
         int i = 0;
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            if(i == selectedUpDown) {
-                Skill skill = (Skill) pair.getKey();
-                SkillLevel level = (SkillLevel) pair.getValue();
-                playersSkills.put(skill, new SkillLevel(level.getSkillLevel() + 1));
+            if(i == selectedUpDown - 1) {
+                if (selectedLeftRight == 1) {
+                    Skill skill = (Skill) pair.getKey();
+                    SkillLevel level = (SkillLevel) pair.getValue();
+                    level.decreaseSkillLevel();
+                    playersSkills.put(skill, level);
+                }
+                else if(selectedLeftRight == 2){
+                    Skill skill = (Skill) pair.getKey();
+                    SkillLevel level = (SkillLevel) pair.getValue();
+                    level.increaseSkillLevel();
+                    playersSkills.put(skill, level);
+                }
                 break;
             }
             i++;

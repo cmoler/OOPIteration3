@@ -121,13 +121,6 @@ public class GameModel implements Visitable {
         gin.setPrice(2);
         gin.onTouch(player);
 
-        player.addItemToInventory(potion);
-        player.addItemToInventory(manapotion);
-        player.addItemToInventory(healthpotion);
-        player.addItemToInventory(beer);
-        player.addItemToInventory(wine);
-        player.addItemToInventory(gin);
-
         entityFactory.buildEntitySprite(player);
 
         player.setMoveable(true);
@@ -136,7 +129,7 @@ public class GameModel implements Visitable {
         player.addWeaponSkills(attack);
         attack.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand og = new RemoveHealthCommand(1000);
-        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new LinearInfluenceEffect(og,2,10,Orientation.NORTH), 1000, 1,100,0,2);
+        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new LinearInfluenceEffect(og,2,10, Orientation.NORTH), 1000, 1,100,100,2);
         player.addItemToInventory(mace);
         player.equipWeapon(mace);
         player.setSightRadius(new SightRadius(7));
@@ -194,6 +187,7 @@ public class GameModel implements Visitable {
 //        aiMap.put(currentLevel,AIList);
         List<AIController> AIList = new ArrayList<>();
 
+
         entityFactory = new PetFactory(skillsFactory);
         Entity pet = entityFactory.buildEntity();
         entityFactory.buildEntitySprite(pet);
@@ -211,7 +205,7 @@ public class GameModel implements Visitable {
         List<Entity> petList = new ArrayList<>();
         petList.add(enemy);
         pet.setTargetingList(petList);
-        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
+        currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);//*/
         AIController test = new AIController();
 
         // Passive Pet AI
@@ -226,7 +220,16 @@ public class GameModel implements Visitable {
         ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, skillsFactory.getPickpocket());
         test.setActiveState(IPS);
 
+       /* List<Entity> petList = new ArrayList<>();
+        petList.add(enemy);
+        pet.setTargetingList(petList);
+        CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player,petList);
+        test.setActiveState(CPS);*/
+
+      // test.setActiveState(PPS);
+
         AIList.add(test);
+
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);
@@ -397,12 +400,9 @@ public class GameModel implements Visitable {
     public void advance() {
         processDeadEntities();
         processAIMoves();
-        currentLevel.processMoves();
-        currentLevel.processInteractions();
-        currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
+        currentLevel.advance();
 
         if(hasPlayer()) {
-            currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
             currentLevel.updateRenderLocations(getPlayerPosition(), player.getSight());
         }
 

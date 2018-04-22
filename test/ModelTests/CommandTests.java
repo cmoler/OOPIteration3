@@ -79,8 +79,7 @@ public class CommandTests {
 
         entity.useSkill(0);
 
-        level.processMoves();
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
         Assert.assertFalse(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
@@ -104,8 +103,7 @@ public class CommandTests {
 
         entity.useSkill(0);
 
-        level.processMoves();
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
         Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
@@ -152,8 +150,7 @@ public class CommandTests {
 
         entity.useSkill(0);
 
-        level.processMoves();
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
         Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
@@ -169,7 +166,7 @@ public class CommandTests {
         SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
 
         PickPocketCommand pickPocketCommand = new PickPocketCommand(levelMessenger);
-        LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 1, 1, Orientation.NORTH);
+        LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(pickPocketCommand, 0, 1, Orientation.NORTH);
 
         Skill pickpocketSkill = new Skill("Pickpocket", linearInfluenceEffect, new PickPocketCommand(levelMessenger), sendInfluenceEffectCommand, 1, 1);
 
@@ -193,12 +190,10 @@ public class CommandTests {
         Assert.assertTrue(victim.hasItemInInventory(item));
 
         try {
-            thief.useSkill(0);
-            level.processInteractions();
-
             while (!thief.hasItemInInventory(item)) {
                 thief.useSkill(0);
-                level.processInteractions();
+
+                level.advance();
             }
 
             Assert.assertTrue(thief.hasItemInInventory(item));
@@ -373,7 +368,7 @@ public class CommandTests {
         Assert.assertTrue(level.hasItem(item));
         Assert.assertEquals(level.getEntityPoint(entity), center);
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(entity.hasItemInInventory(item));
         Assert.assertFalse(level.hasItem(item));
@@ -388,17 +383,17 @@ public class CommandTests {
         RingItem item2 = new RingItem("thingie2", new ToggleHealthCommand( 10));
         item2.setCurrentLevelMessenger(messenger);
         level.addItemTo(center, item2);
-        level.processInteractions();
+        level.advance();
 
         ArmorItem item3 = new ArmorItem("thingie3", new ToggleHealthCommand( 10));
         item3.setCurrentLevelMessenger(messenger);
         level.addItemTo(center, item3);
-        level.processInteractions();
+        level.advance();
 
         WeaponItem item4 = new WeaponItem("thingie4", new RemoveHealthCommand( 10));
         item4.setCurrentLevelMessenger(messenger);
         level.addItemTo(center, item4);
-        level.processInteractions();
+        level.advance();
 
         Assert.assertFalse(entity.hasItemInInventory(item));
         Assert.assertTrue(entity.hasItemInInventory(item2));
@@ -454,7 +449,7 @@ public class CommandTests {
         Assert.assertTrue(level.hasItem(item));
         Assert.assertEquals(level.getEntityPoint(entity), center);
 
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(entity.hasItemInInventory(item));
         Assert.assertEquals(level.getEntityPoint(entity), center);
@@ -488,19 +483,19 @@ public class CommandTests {
         item2.setCurrentLevelMessenger(messenger);
 
         level.addItemTo(center, item2);
-        level.processInteractions();
+        level.advance();
 
         ArmorItem item3 = new ArmorItem("thingie3", new ToggleHealthCommand( 10));
         item3.setCurrentLevelMessenger(messenger);
 
         level.addItemTo(center, item3);
-        level.processInteractions();
+        level.advance();
 
         WeaponItem item4 = new WeaponItem("thingie4", new RemoveHealthCommand( 10));
         item4.setCurrentLevelMessenger(messenger);
 
         level.addItemTo(center, item4);
-        level.processInteractions();
+        level.advance();
 
         Assert.assertTrue(entity.hasItemInInventory(item));
         Assert.assertTrue(entity.hasItemInInventory(item2));
@@ -542,17 +537,15 @@ public class CommandTests {
         Assert.assertEquals(entity.getSpeed(),1, 0);
 
         entity.useSkill(0);
-        level.processMoves();
-        level.processInteractions();
-        level.processMoves();
+        level.advance();
+        level.advance();
 
         Assert.assertEquals(entity.getNoise(), 0, 0);
         Assert.assertEquals(entity.getSpeed(),0, 0);
 
         entity.useSkill(0);
-        level.processMoves();
-        level.processInteractions();
-        level.processMoves();
+        level.advance();
+        level.advance();
 
         Assert.assertEquals(entity.getNoise(), 1, 0);
         Assert.assertEquals(entity.getSpeed(),1, 0);

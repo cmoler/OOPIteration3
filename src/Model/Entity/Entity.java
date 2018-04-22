@@ -202,6 +202,9 @@ public class Entity {
 
     public void decreaseHealth(int amt) {
         health.decreaseCurrentHealth(amt);
+        if(health.getCurrentHealth() <= 0) {
+            observer.notifyViewElementDeath();
+        }
     }
 
     public void decreaseMaxHealth(int amt) {
@@ -213,7 +216,7 @@ public class Entity {
     }
 
     public void decreaseMana(int amt){
-        mana.increaseMana(amt);
+        mana.decreaseMana(amt);
     }
 
     public void increaseNoiseLevel(int amt) {
@@ -414,7 +417,7 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
-    } // TODO: add logic for mana costs
+    }
 
     public void addItemToHotBar(TakeableItem takeableItem, int index){
         hotBar.addItem(takeableItem, index);
@@ -621,5 +624,9 @@ public class Entity {
 
     public void addItemsToInventory(Inventory inv) {
         inventory.addInventory(inv);
+    }
+
+    public void regenerateMana() {
+        mana.regenerate();
     }
 }
