@@ -73,7 +73,7 @@ public class InventoryView extends InGameMenuView {
         int optionsStartY = Commons.SCREEN_HEIGHT / 2;
 
         if(takeableItem.getObserver() != null) {
-            gc.drawImage(takeableItem.getObserver().getSprite(), startX+25, startY + 50);
+            gc.drawImage(takeableItem.getObserver().getSprite(), startX+25, startY + 30, 150, 150);
         }
 
         boolean itemUsable = ((InventoryMenu)menuModel.getActiveState()).getItemUsableByPlayer();

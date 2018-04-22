@@ -76,7 +76,7 @@ public class StatsView extends InGameMenuView {
             if(player.getWeaponItem().getObserver()!= null) {
                 Image weapon = player.getWeaponItem().getObserver().getSprite();
 
-                gc.drawImage(weapon, startX + width / 6, startY + 2 * height / 5 - 40, 150, 150);
+                gc.drawImage(weapon, startX + width / 6, startY + 2 * height / 5 - 30, 150, 150);
             }
         }
 
@@ -93,7 +93,11 @@ public class StatsView extends InGameMenuView {
         if(ringItem == null){
             gc.fillText("No Ring \nEquipped", startX + 2 * width + width / 6, startY + 2 * height / 5);
         }else{
+            if(player.getRingItem().getObserver() != null) {
+                Image ring = player.getRingItem().getObserver().getSprite();
 
+                gc.drawImage(ring, startX + 2 * width + width / 6, startY + 2 * height / 5 - 75, 150, 150);
+            }
         }
 
         gc.strokeRect(startX, startY, width, height);
