@@ -50,23 +50,21 @@ public class ExitGameView extends MenuViewState {
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.fillText("Are you Sure? Unsaved changes wont be saved.", (topStartX), (startY));
 
-        gc.rect(bottomStartX, startY + TextBoxInfo.TEXTBOX_HEIGHT, width, TextBoxInfo.TEXTBOX_HEIGHT);
         gc.fillText("Go to Title Screen",bottomStartX, startY + TextBoxInfo.TEXTBOX_HEIGHT+TextBoxInfo.TEXTBOX_HEIGHT/4);
-
-        gc.rect(bottomStartX + width, startY + TextBoxInfo.TEXTBOX_HEIGHT, width, TextBoxInfo.TEXTBOX_HEIGHT);
         gc.fillText("Return to Game", (bottomStartX + width), (startY + TextBoxInfo.TEXTBOX_HEIGHT+TextBoxInfo.TEXTBOX_HEIGHT/4));
-
-        gc.rect(bottomStartX + width, startY + TextBoxInfo.TEXTBOX_HEIGHT, width, TextBoxInfo.TEXTBOX_HEIGHT);
         gc.fillText("Exit Game", (bottomStartX + 2 * width), (startY + TextBoxInfo.TEXTBOX_HEIGHT+TextBoxInfo.TEXTBOX_HEIGHT/4));
 
         int selectedXPos = bottomStartX + width * selectedX;
         int selectedYPos = startY + TextBoxInfo.TEXTBOX_HEIGHT/2;
 
-        if(selectedX != 2)
-            gc.drawImage(selected, selectedXPos, selectedYPos, width, TextBoxInfo.TEXTBOX_HEIGHT);
+        if(selectedX == 0)
+            gc.drawImage(selected, selectedXPos - width / 16, selectedYPos, width, TextBoxInfo.TEXTBOX_HEIGHT);
+
+        if(selectedX == 1)
+            gc.drawImage(selected, selectedXPos - width / 16, selectedYPos, 9 * width / 10, TextBoxInfo.TEXTBOX_HEIGHT);
 
         if(selectedX == 2)
-            gc.drawImage(selected, selectedXPos, selectedYPos, 2 * width / 3, TextBoxInfo.TEXTBOX_HEIGHT);
+            gc.drawImage(selected, selectedXPos - width / 16, selectedYPos, 3 * width / 5, TextBoxInfo.TEXTBOX_HEIGHT);
 
         gc.restore();
     }
