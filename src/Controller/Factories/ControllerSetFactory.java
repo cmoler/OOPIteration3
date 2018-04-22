@@ -57,6 +57,7 @@ public class ControllerSetFactory {
         newKeySet.add(new AttackKeyAction(keyBindingParser.parsePlayerKey("attack"), player));
         newKeySet.add(new DismountKeyAction(keyBindingParser.parsePlayerKey("dismount"), player));
 
+        newKeySet.add(new LockMovementKeyAction(keyBindingParser.parsePlayerKey("lockMovement"), player));
         newKeySet.add(new MoveNKeyAction(keyBindingParser.parsePlayerKey("moveN"), player, gameLoop));
         newKeySet.add(new MoveNEKeyAction(keyBindingParser.parsePlayerKey("moveNE"), player, gameLoop));
         newKeySet.add(new MoveSEKeyAction(keyBindingParser.parsePlayerKey("moveSE"), player, gameLoop));

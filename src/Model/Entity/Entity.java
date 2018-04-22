@@ -277,7 +277,7 @@ public class Entity {
     }
 
     public void addVelocity(Vec3d add){
-        velocity.add(add);
+        if(isMoveable()) velocity.add(add);
     }
 
     public void setVelocity(Vec3d velocity) {
