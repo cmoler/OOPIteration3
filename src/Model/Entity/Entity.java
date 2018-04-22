@@ -213,7 +213,7 @@ public class Entity {
     }
 
     public void decreaseMana(int amt){
-        mana.increaseMana(amt);
+        mana.decreaseMana(amt);
     }
 
     public void increaseNoiseLevel(int amt) {
@@ -414,7 +414,7 @@ public class Entity {
     
     public void attack() {
         getWeaponItem().attack(this);
-    } // TODO: add logic for mana costs
+    }
 
     public void addItemToHotBar(TakeableItem takeableItem, int index){
         hotBar.addItem(takeableItem, index);
