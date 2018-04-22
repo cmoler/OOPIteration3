@@ -121,7 +121,7 @@ public class ItemPetState extends AIState {
     }
 
     private Point3D getNearestEntity(Point3D origin) {
-        Point3D minLocation = new Point3D(0,0,0);
+        Point3D minLocation = new Point3D(Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE);
         double minDistance = Double.MAX_VALUE;
         for (Point3D point : entityMap.getKeyList()) {
             Entity entity = getEntityFromPoint(point);

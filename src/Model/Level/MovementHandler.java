@@ -49,8 +49,11 @@ public class MovementHandler {
                 if (!obstacleLocations.containsKey(contestedPoint) && entity.canMoveOnTerrain(terrainLocations.get(contestedPoint))){
                     if (entityLocations.hasKey(contestedPoint) && isAlive(entityLocations.getValueFromKey(contestedPoint))){
                         dialogCommand.execute(entity);
-
-                    } else {
+                    }
+                    else {
+                        if(entityLocations.hasKey(contestedPoint)){
+                            retrieveItems(entity,entityLocations.getValueFromKey(contestedPoint));
+                        }
                         //Update entity movement
                         entityLocations.removeByKey(entityPoint);
                         entityLocations.place(contestedPoint, entity);
@@ -75,6 +78,11 @@ public class MovementHandler {
                 entity.decrementVelocity();
             }
         }
+    }
+
+    private void retrieveItems(Entity looter, Entity deadEnt) {
+        looter.addItemsToInventory(deadEnt.getInventory());
+        entityLocations.removeByValue(deadEnt);
     }
 
     private boolean isAlive(Entity valueFromKey) {
