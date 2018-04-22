@@ -710,4 +710,8 @@ public class Entity {
     public void setTraversalStrength(int traversalStrength) {
         this.traversalStrength = traversalStrength;
     }
+
+    public void useItem() {
+
+    }
 }

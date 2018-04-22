@@ -62,7 +62,7 @@ public class BarterMenu extends MenuState {
             player.removeItemFromInventory(itemSelling);
             player.addGold(price);
             npc.removeGold(price);
-            npc.addItemToInventory(itemSelling);
+            itemSelling.onTouch(npc);
         }
     }
 
@@ -74,7 +74,7 @@ public class BarterMenu extends MenuState {
             player.removeGold(price);
             npc.removeItemFromInventory(itemBuying);
             npc.addGold(price);
-            player.addItemToInventory(itemBuying);
+            itemBuying.onTouch(player);
         }
     }
 
