@@ -114,16 +114,16 @@ public class HostileAI extends AIState{
 
     private void moveAlongPatrol() {
         if (patrolPath != null){
-            super.getEntity().addVelocity(patrolPath.getNextMove());
+            super.getEntity().addVelocityFromControllerInput(patrolPath.getNextMove());
         }
         else {
-            super.getEntity().addVelocity(RandomVelocityGenerator.generateRandomVelocity());
+            super.getEntity().addVelocityFromControllerInput(RandomVelocityGenerator.generateRandomVelocity());
         }
     }
 
     private void moveToGoal(Point3D start, Point3D goal){
         Point3D firstStep = pathCalculator.getAStarPoint(start, goal, super.getEntity());
-        super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
+        super.getEntity().addVelocityFromControllerInput(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
     private Point3D getEntityPoint(Entity entity, BidiMap<Point3D, Entity> entityLocations) {

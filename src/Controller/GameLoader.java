@@ -29,6 +29,7 @@ import View.LevelView.EntityView.MonsterView;
 import View.LevelView.EntityView.SmasherView;
 import View.LevelView.EntityView.SneakView;
 import View.LevelView.EntityView.SummonerView;
+import View.LevelView.ItemView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.w3c.dom.Document;
@@ -446,6 +447,7 @@ public class GameLoader {
                                     armorItem.setCurrentLevelMessenger(levelMessenger);
                                     armorItem.setDropStrategyEntity(entity);
                                     armorItem.setPrice(price);
+                                    armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(armorItem);
                                     itemRef.put(armorItem.toString(), armorItem);
                                     break;
@@ -455,6 +457,7 @@ public class GameLoader {
                                     consumableItem.setCurrentLevelMessenger(levelMessenger);
                                     consumableItem.setDropStrategyEntity(entity);
                                     consumableItem.setPrice(price);
+                                    consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(consumableItem);
                                     itemRef.put(consumableItem.toString(), consumableItem);
                                     break;
@@ -464,6 +467,7 @@ public class GameLoader {
                                     ringItem.setCurrentLevelMessenger(levelMessenger);
                                     ringItem.setDropStrategyEntity(entity);
                                     ringItem.setPrice(price);
+                                    ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(ringItem);
                                     itemRef.put(ringItem.toString(), ringItem);
                                     break;
@@ -490,6 +494,7 @@ public class GameLoader {
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
                                     weaponItem.setDropStrategyEntity(entity);
                                     weaponItem.setPrice(price);
+                                    weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(weaponItem);
                                     itemRef.put(weaponItem.toString(), weaponItem);
                                     break;
@@ -544,6 +549,7 @@ public class GameLoader {
                                             int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
                                             ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                             armorItem.setPrice(price);
+                                            armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                             itemHotBar.addItem(armorItem, index);
                                             itemRef.put(armorItem.toString(), armorItem);
                                         }
@@ -557,6 +563,7 @@ public class GameLoader {
                                         else {
                                             ConsumableItem consumableItem = new ConsumableItem(name, command);
                                             consumableItem.setPrice(price);
+                                            consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                             itemHotBar.addItem(consumableItem, index);
                                             itemRef.put(consumableItem.toString(), consumableItem);
                                         }
@@ -570,6 +577,7 @@ public class GameLoader {
                                         else {
                                             RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
                                             ringItem.setPrice(price);
+                                            ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                             itemHotBar.addItem(ringItem, index);
                                             itemRef.put(ringItem.toString(), ringItem);
                                         }
@@ -600,6 +608,7 @@ public class GameLoader {
 
                                             WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                             weaponItem.setPrice(price);
+                                            weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                             itemHotBar.addItem(weaponItem, index);
                                             itemRef.put(weaponItem.toString(), weaponItem);
                                         }
@@ -646,6 +655,7 @@ public class GameLoader {
                             else {
                                 int defense = Integer.parseInt(equipNode.getAttributes().getNamedItem("defense").getTextContent());
                                 armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
+                                armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                 armorItem.setPrice(price);
                                 itemRef.put(armorItem.toString(), armorItem);
                             }
@@ -659,6 +669,7 @@ public class GameLoader {
                             else {
                                 ringItem = new RingItem(name, (ToggleableCommand) command);
                                 ringItem.setPrice(price);
+                                ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                 itemRef.put(ringItem.toString(), ringItem);
                             }
                             break;
@@ -688,6 +699,7 @@ public class GameLoader {
 
                                 weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                 weaponItem.setPrice(price);
+                                weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                 itemRef.put(weaponItem.toString(), weaponItem);
                             }
                             break;
@@ -884,6 +896,7 @@ public class GameLoader {
                                     int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
                                     ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                     armorItem.setCurrentLevelMessenger(levelMessenger);
+                                    armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(armorItem);
                                     itemRef.put(armorItem.toString(), armorItem);
                                     break;
@@ -891,6 +904,7 @@ public class GameLoader {
                                 case "consumableitem":
                                     ConsumableItem consumableItem = new ConsumableItem(name, command);
                                     consumableItem.setCurrentLevelMessenger(levelMessenger);
+                                    consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(consumableItem);
                                     itemRef.put(consumableItem.toString(), consumableItem);
                                     break;
@@ -898,6 +912,7 @@ public class GameLoader {
                                 case "ringitem":
                                     RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
                                     ringItem.setCurrentLevelMessenger(levelMessenger);
+                                    ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(ringItem);
                                     itemRef.put(ringItem.toString(), ringItem);
                                     break;
@@ -922,6 +937,7 @@ public class GameLoader {
 
                                     WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
+                                    weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
                                     itemsToAdd.add(weaponItem);
                                     itemRef.put(weaponItem.toString(), weaponItem);
                                     break;
@@ -933,7 +949,7 @@ public class GameLoader {
         }
 
         for(int i = 0; i < pointsToAdd.size(); i++) {
-            level.addItemnTo(pointsToAdd.get(i), itemsToAdd.get(i));
+            level.addItemTo(pointsToAdd.get(i), itemsToAdd.get(i));
         }
     }
 
@@ -1177,13 +1193,14 @@ public class GameLoader {
                             this.commandRef.put(levelUpCommand.toString(), levelUpCommand);
                             return levelUpCommand;
 
-                        case "setassneakingcommand":
+                        case "togglesneaking":
+                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
+                            System.out.println(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
+                            hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
                             firstTimeExecuting = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("firstTimeExecuting").getTextContent());
                             oldSpeed = Integer.parseInt(commandNode.getAttributes().getNamedItem("oldSpeed").getTextContent());
                             oldNoise = Integer.parseInt(commandNode.getAttributes().getNamedItem("oldNoise").getTextContent());
-                            amount = Integer.parseInt(commandNode.getAttributes().getNamedItem("amount").getTextContent());
-                            hasFired = Boolean.parseBoolean(commandNode.getAttributes().getNamedItem("hasFired").getTextContent());
-                            ToggleSneaking toggleSneaking = new ToggleSneaking(hasFired, amount, oldSpeed, oldNoise, firstTimeExecuting);
+                            ToggleSneaking toggleSneaking = new ToggleSneaking(hasFired, amount, 0, 0, false);
                             this.commandRef.put(toggleSneaking.toString(), toggleSneaking);
                             return toggleSneaking;
 

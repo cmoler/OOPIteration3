@@ -30,6 +30,7 @@ public class DialogMenu extends MenuState {
     @Override
     public void select() {
         if(selectedLeftRight == 0) gameLoop.closeMenu();
+        // TODO: actually send barter skill level
         if(selectedLeftRight == 1) gameLoop.openBarterWindow(player, 1, npc);
     }
 

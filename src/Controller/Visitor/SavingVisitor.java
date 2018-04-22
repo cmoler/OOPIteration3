@@ -554,8 +554,8 @@ public class SavingVisitor implements Visitor {
 
         this.valueNode.append(skillString);
         visitInfluenceEffect(skill.getInfluenceEffect());
-        visitSettableCommand(skill.getBehavior());
-//TODO: DONT THINK I NEED THIS        visitSendInfluenceEffectCommand(skill.getSendInfluenceEffectCommand());
+        skill.getBehavior().accept(this);
+//        visitSettableCommand(skill.getBehavior());
         this.valueNode.append("</" + skill.getClass().getSimpleName() + ">");
         this.valueNode.append("\n");
         this.valueNode.append("\t");

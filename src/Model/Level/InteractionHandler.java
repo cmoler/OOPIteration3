@@ -120,7 +120,10 @@ public class InteractionHandler {
         for(Point3D point : influenceEffectPoints) {
 
             InfluenceEffect influenceEffect = influenceEffectLocations.get(point); //Get current influence effect
-
+            if(influenceEffect == null) { continue; }
+            if(influenceEffect.isStartPoint()) {
+                continue;
+            }
             if(entityLocations.hasKey(point)) {//Check if there is an entity on that location
                 Entity entity = entityLocations.getValueFromKey(point); //Get entity
                 influenceEffect.hitEntity(entity); //Trigger command

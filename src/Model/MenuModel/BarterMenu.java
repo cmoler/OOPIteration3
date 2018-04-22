@@ -13,7 +13,7 @@ public class BarterMenu extends MenuState {
     private Inventory playerInventory;
     private Inventory npcInventory;
 
-
+    // TODO: have barter skill matter
     public BarterMenu(MenuModel menuModel, GameLoop gameLoop, int barterStrength, Entity player, Entity npc) {
         super(menuModel, gameLoop);
         this.player = player;

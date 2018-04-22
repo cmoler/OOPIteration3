@@ -206,9 +206,10 @@ public class Renderer {
         ArrayList<LevelViewElement> observers = new ArrayList<>();
 
         for(Point3D point : itemMap.keySet()) {
-            ItemView observer = new ItemView(point);
 
-            observers.add(observer);
+            Item item = itemMap.get(point);
+
+            observers.add(item.getObserver());
         }
 
         return observers;

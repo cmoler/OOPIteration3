@@ -44,7 +44,7 @@ public class LevelView {
         gc.fillRect(0, 0, Commons.SCREEN_WIDTH, Commons.SCREEN_HEIGHT);
         for(int i = 4; i >= 0; i--) {
             for (LevelViewElement o : observers) {
-                if(o.getRenderPriority() == i) {//Ensures level objects are rendered in the correct order
+                if (o.getRenderPriority() == i) {//Ensures level objects are rendered in the correct order
                     o.render(gc, offset, scrollOffset);
                 }
             }

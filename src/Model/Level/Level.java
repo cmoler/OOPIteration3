@@ -47,7 +47,7 @@ public class Level {
         this.tilesSeenByPlayer = new ArrayList<>();
 
         this.movementHandler = new MovementHandler(terrainLocations, obstacleLocations, entityLocations,
-                mountLocations, influenceEffectLocations);
+                mountLocations, influenceEffectLocations, riverLocations);
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
                 trapLocations, mountLocations, influenceEffectLocations,
@@ -116,7 +116,7 @@ public class Level {
         }
     }
 
-    public void addItemnTo(Point3D point, Item item) {
+    public void addItemTo(Point3D point, Item item) {
         itemLocations.put(point, item);
     }
 

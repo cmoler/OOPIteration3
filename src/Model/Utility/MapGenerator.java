@@ -10,11 +10,13 @@ import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSp
 import Model.Command.EntityCommand.SettableCommand.*;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.*;
+import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import View.LevelView.EntityView.SmasherView;
+import View.LevelView.EntityView.SneakView;
 import View.LevelView.EntityView.SummonerView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.application.Application;
@@ -89,12 +91,40 @@ public class MapGenerator extends Application {
         ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
         RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
 
+        WeaponItem bane = new WeaponItem("ELECTRIFY",
+                new RemoveHealthCommand(10),
+                skillsFactory.getRangeSkill(),
+                new RadialInfluenceEffect(new RemoveHealthCommand(10), 4,10, Orientation.NORTH),
+                10,10,10,10,4);
+
+        WeaponItem boon = new WeaponItem("BOONY",
+                new RemoveHealthCommand(10),
+                skillsFactory.getRangeSkill(),
+                new RadialInfluenceEffect(new RemoveHealthCommand(10), 4,10, Orientation.NORTH),
+                10,10,10,10,4);
+
+        WeaponItem enchant = new WeaponItem("FREEZE",
+                new FreezeEntityCommand(levelMessenger),
+                skillsFactory.getRangeSkill(),
+                new AngularInfluenceEffect(new FreezeEntityCommand(levelMessenger), 4,10, Orientation.NORTH),
+                10,10,10,10,4);
+
+        WeaponItem staff = new WeaponItem("STAFF",
+                new RemoveHealthCommand(100),
+                skillsFactory.getStaffSkill(),
+                new LinearInfluenceEffect(new FreezeEntityCommand(levelMessenger), 4,10, Orientation.NORTH),
+                10,10,10,10,4);
+
         Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
             add(helmet);
             add(ringItem);
+            add(bane);
+            add(boon);
+            add(enchant);
+            add(staff);
         }}, 15);
 
-        Equipment equipment = new Equipment(null, helmet, ringItem);
+        Equipment equipment = new Equipment(null, null, null);
 
         ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
             add(skillsFactory.getBaneSkill());
@@ -151,7 +181,7 @@ public class MapGenerator extends Application {
             add(knuckles);
         }}, 15);
 
-        Equipment equipment = new Equipment(null, helmet, ringItem);
+        Equipment equipment = new Equipment(null, null, null);
 
         ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
             add(skillsFactory.getOneHandedSkill());
@@ -173,10 +203,16 @@ public class MapGenerator extends Application {
 
         entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
-        entity.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), weaponSkills.get(2));
+        entity.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
     }
 
     private static void createSneak() {
+        WeaponItem bow = new WeaponItem("Dark Bow",
+                new RemoveHealthCommand(5),
+                skillsFactory.getRangeSkill(),
+                new LinearInfluenceEffect(new RemoveHealthCommand(20), 4,10, Orientation.NORTH),
+                5,10,10,10,4);
+
         ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
         ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
         RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
@@ -184,9 +220,10 @@ public class MapGenerator extends Application {
         Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
             add(helmet);
             add(ringItem);
+            add(bow);
         }}, 15);
 
-        Equipment equipment = new Equipment(null, helmet, ringItem);
+        Equipment equipment = new Equipment(null, null, null);
 
         ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
             add(skillsFactory.getRangeSkill());
@@ -198,6 +235,7 @@ public class MapGenerator extends Application {
             add(skillsFactory.getBindWounds());
             add(skillsFactory.DisarmTrapSkill());
             add(skillsFactory.getSneakSkill());
+            add(skillsFactory.getPickpocket());
         }};
 
         entity = new Entity(null, new ItemHotBar(), weaponSkills,
@@ -205,11 +243,16 @@ public class MapGenerator extends Application {
                 new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
-                new Mount(Orientation.NORTH, new Speed(10), entityTerrain, new ArrayList<>()));
+                null);
 
         entity.addWeaponSkills(weaponSkills.get(0));
-        entity.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2), nonWeaponSkills.get(3), nonWeaponSkills.get(4));
-        entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
+        entity.addNonWeaponSkills(nonWeaponSkills.get(0),
+                nonWeaponSkills.get(1),
+                nonWeaponSkills.get(2),
+                nonWeaponSkills.get(3),
+                nonWeaponSkills.get(4),
+                nonWeaponSkills.get(5));
+        entity.setObserver(new SneakView(entity, new Point3D(0,1,-1)));
     }
 
     private static void createRivers(Level level) {
@@ -230,11 +273,7 @@ public class MapGenerator extends Application {
     }
 
     private static void createItems(Level level) {
-//        level0.addItemnTo(new Point3D(0,0,0), new InteractiveItem("Door", new ToggleManaCommand(10)));
-//        level0.addItemnTo(new Point3D(4,-4,0), new OneShotItem("The Bomb", new RemoveHealthCommand(20)));
-//        level0.addItemnTo(new Point3D(4,-3,1), new ArmorItem("Plain Helmet", new ToggleHealthCommand(10), 1));
-//        level0.addItemnTo(new Point3D(4,-5,1), new RingItem("The Flash's Ring", new ToggleSpeedCommand(10)));
-        level.addItemnTo(new Point3D(5,-4,-1), new ConsumableItem("Healing Potion", new AddHealthCommand(10)));
+        level.addItemTo(new Point3D(5,-4,-1), new ConsumableItem("Healing Potion", new AddHealthCommand(10)));
     }
 
     private static void createTerrains(Level level) {
@@ -263,14 +302,6 @@ public class MapGenerator extends Application {
                 level.addTerrainTo(points.get(j), Terrain.WATER);
             }
         }
-
-//        level0.addAreaEffectTo(new Point3D(-4,4,0), damage);
-//        level0.addAreaEffectTo(new Point3D(-4,3,1), damage);
-//        level0.addAreaEffectTo(new Point3D(-4,5,-1), damage);
-//        level0.addAreaEffectTo(new Point3D(-5,4,1), damage);
-//        level0.addAreaEffectTo(new Point3D(-3,4,-1), damage);
-//        level0.addAreaEffectTo(new Point3D(-5,5,0), damage);
-//        level0.addAreaEffectTo(new Point3D(-3,3,0), damage);
     }
 
     private static void createInfluenceAreas(Level level) {

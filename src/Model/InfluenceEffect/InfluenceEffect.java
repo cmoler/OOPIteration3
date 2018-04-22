@@ -33,7 +33,7 @@ public abstract class InfluenceEffect implements Visitable {
         this.speed = speed;
         //TODO: make nextMoveTime based on speed
         this.orientation = orientation;
-        count = 1;
+        count = 0;
         influenceEffectViews = new ArrayList<>();
         this.speed = 2000000000/speed;
         lastFireTime = System.nanoTime();

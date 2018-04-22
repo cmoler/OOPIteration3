@@ -44,6 +44,9 @@ public abstract class TakeableItem extends Item implements Visitable {
 
     public void setDropStrategyEntity(Entity entity) {
         dropStrategy.setEntity(entity);
+        if(observer != null) {
+            getObserver().setToRender(false);
+        }
     }
 
     public abstract void select();

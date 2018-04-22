@@ -1,9 +1,7 @@
 package Model.Level;
 
-import Controller.Factories.EntityFactories.EntityFactory;
-import Controller.Factories.EntityFactories.MonsterFactory;
-import Controller.Factories.EntityFactories.PetFactory;
-import Controller.Factories.EntityFactories.SmasherFactory;
+import Controller.Factories.EntityFactories.*;
+import Controller.Factories.ItemFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
@@ -20,6 +18,7 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.Entity.EntityAttributes.Skill;
+import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.TakeableItem.ConsumableItem;
@@ -86,7 +85,7 @@ public class GameModel implements Visitable {
 
         skillsFactory = new SkillsFactory(currentLevelMessenger);
 
-        entityFactory = new SmasherFactory(skillsFactory);
+        entityFactory = new SummonerFactory(skillsFactory);
 
         player = entityFactory.buildEntity();
 
@@ -127,9 +126,15 @@ public class GameModel implements Visitable {
         player.levelUp();
         Skill attack = new Skill();
         player.addWeaponSkills(attack);
+
+        RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
+        LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
+        SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(currentLevelMessenger);
+        Skill oneHandedSkill = skillsFactory.getOneHandedSkill();
+        player.addWeaponSkills(oneHandedSkill);
         attack.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand og = new RemoveHealthCommand(1000);
-        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new LinearInfluenceEffect(og,2,10, Orientation.NORTH), 1000, 1,100,100,2);
+        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new RadialInfluenceEffect(og,3,10, Orientation.NORTH), 1000, 1,100,100,2);
         player.addItemToInventory(mace);
         player.equipWeapon(mace);
         player.setSightRadius(new SightRadius(7));
@@ -218,6 +223,15 @@ public class GameModel implements Visitable {
         //AIList.add(test);
 
         //currentLevel.addInfluenceEffectTo(new Point3D(-2, -1, 3), new RadialInfluenceEffect(new RemoveHealthCommand(100), 5, 5, Orientation.NORTH));
+        ItemFactory itemFactory = new ItemFactory(skillsFactory, currentLevelMessenger);
+        WeaponItem weaponItem = itemFactory.getStaff();
+        weaponItem.notifyObserver(new Point3D(1, -1, 0));
+        currentLevel.addItemTo(new Point3D(1, -1, 0), weaponItem);
+
+        ConsumableItem potion1 = itemFactory.getPotion();
+        potion1.notifyObserver(new Point3D(3, -3, 0));
+
+        currentLevel.addItemTo(new Point3D(3, -3, 0), potion1);
         aiMap.put(currentLevel,AIList);
 
         levels.add(currentLevel);

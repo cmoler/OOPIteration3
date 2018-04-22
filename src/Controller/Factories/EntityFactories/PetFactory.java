@@ -28,6 +28,8 @@ public class PetFactory extends EntityFactory {
             }
         }
 
+        pet.addWeaponSkills(getSkillsFactory().getOneHandedSkill());
+
         pet.addNonWeaponSkills(
                 getSkillsFactory().getPickpocket()
         );

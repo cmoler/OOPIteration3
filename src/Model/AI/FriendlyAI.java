@@ -44,7 +44,7 @@ public class FriendlyAI extends AIState{
     }
 
     private void moveAlongPath(){
-        super.getEntity().addVelocity(patrolPath.getNextMove());
+        super.getEntity().addVelocityFromControllerInput(patrolPath.getNextMove());
     }
 
     private void moveRandomly(Point3D position){
@@ -61,7 +61,7 @@ public class FriendlyAI extends AIState{
             }
         } while (calcNeeded);
 
-        super.getEntity().addVelocity(randVelocity);
+        super.getEntity().addVelocityFromControllerInput(randVelocity);
     }
 
     private Point3D getEntityPoint(Entity entity, BidiMap<Point3D, Entity> entityLocations) {
