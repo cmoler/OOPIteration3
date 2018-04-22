@@ -22,7 +22,7 @@ public class TrapView extends LevelViewElement{
 
         String workingDir = System.getProperty("user.dir");
 
-        File file = new File(workingDir + "/src/View/Assets/scroll.png");
+        File file = new File(workingDir + "/src/View/Assets/traps.png");
 
         setSprite(new Image(file.toURI().toString()));
         isDetected = trap.getIsVisible();
