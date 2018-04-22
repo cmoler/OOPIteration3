@@ -111,9 +111,6 @@ public class Entity {
         hotBar = new ItemHotBar();
         orientation = Orientation.NORTH;
 
-        speed = new Speed();
-        speed.setSpeed(1);
-
         compatableTerrain = new ArrayList<>();
         compatableTerrain.add(Terrain.GRASS);
         moveable = true;
