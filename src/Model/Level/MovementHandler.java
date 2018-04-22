@@ -51,9 +51,10 @@ public class MovementHandler {
                 Point3D contestedPoint = calculateMove(entityPoint, entity.getVelocity());
 
                 if (!obstacleLocations.containsKey(contestedPoint) && entity.canMoveOnTerrain(terrainLocations.get(contestedPoint))){
-                    if (entityLocations.hasKey(contestedPoint) && isAlive(entityLocations.getValueFromKey(contestedPoint)) && !riverLocations.containsKey(entityPoint)){
-                        dialogCommand.execute(entity); // TODO: fix river not starting dialog box
-
+                    if (entityLocations.hasKey(contestedPoint) && isAlive(entityLocations.getValueFromKey(contestedPoint))){
+                        if(!riverLocations.containsKey(entityPoint)) { // dont start dialog if a river is forcing you onto another entity
+                            dialogCommand.execute(entity);
+                        }
                     } else {
                         //Update entity movement
                         entityLocations.removeByKey(entityPoint);
