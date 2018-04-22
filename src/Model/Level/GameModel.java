@@ -9,6 +9,8 @@ import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
+import Model.AI.PatrolPath;
+import Model.AI.PetAI.PetStates.CombatPetState;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.SendInfluenceEffectCommand;
@@ -161,6 +163,8 @@ public class GameModel implements Visitable {
         enemy.equipWeapon(sword);
 
         enemy.setSightRadius(new SightRadius(3));
+
+        enemy.setSpeed(1500000000l);
         ArrayList<Vec3d> path = new ArrayList<>();
         path.add(new Vec3d(1,0,-1));
         path.add(new Vec3d(1,0,-1));
@@ -177,14 +181,14 @@ public class GameModel implements Visitable {
         list.add(player);
         enemy.setTargetingList(list);
         HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap());
-        //hostileAI.setPatrolPath(new PatrolPath(path));
+        hostileAI.setPatrolPath(new PatrolPath(path));
         AIController controller = new AIController();
         controller.setActiveState(hostileAI);
         List<AIController> AIList = new ArrayList<>();
         AIList.add(controller);
         aiMap.put(currentLevel,AIList);
 
-        /*
+
         entityFactory = new PetFactory(skillsFactory);
         Entity pet = entityFactory.buildEntity();
         entityFactory.buildEntitySprite(pet);
@@ -201,17 +205,19 @@ public class GameModel implements Visitable {
         list.add(pet);
         currentLevel.addEntityTo(new Point3D(5, -5, 0), pet);
         PassivePetState PPS = new PassivePetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player);
-        AIController test = new AIController();
-        */
-       /* List<Entity> petList = new ArrayList<>();
+       AIController test = new AIController();
+
+        List<Entity> petList = new ArrayList<>();
         petList.add(enemy);
         pet.setTargetingList(petList);
-        CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player,petList);
-        test.setActiveState(CPS);*/
+     //   CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player,petList);
+     //   test.setActiveState(CPS);
 
-      // test.setActiveState(PPS);
+        test.setActiveState(PPS);
 
-        //AIList.add(test);
+        AIList.add(test);
+
+        pet.setSpeed(1000000000l);
 
         //currentLevel.addInfluenceEffectTo(new Point3D(-2, -1, 3), new RadialInfluenceEffect(new RemoveHealthCommand(100), 5, 5, Orientation.NORTH));
         aiMap.put(currentLevel,AIList);

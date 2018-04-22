@@ -61,7 +61,7 @@ public class CombatPetState extends AIState {
 
     private void moveToGoal(Point3D start, Point3D goal){
         Point3D firstStep = pathCalculator.getAStarPoint(start, goal, super.getEntity());
-        super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
+        super.getEntity().addVelocityFromControllerInput(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
     private Point3D getNearestTarget(Point3D origin) {

@@ -74,7 +74,7 @@ public class ItemPetState extends AIState {
 
     private void moveToGoal(Point3D start, Point3D goal){
         Point3D firstStep = pathCalculator.getAStarPoint(start, goal, super.getEntity());
-        super.getEntity().addVelocity(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
+        super.getEntity().addVelocityFromControllerInput(new Vec3d(firstStep.getX()-start.getX(),firstStep.getY()-start.getY(),firstStep.getZ()-start.getZ()));
     }
 
     private Point3D calculateGoal(Point3D origin, Point3D nearestItem, Point3D nearestEntity){

@@ -16,6 +16,7 @@ public class MovementHandler {
     private BidiMap<Point3D, Entity> entityLocations;
     private Map<Point3D, Mount> mountLocations;
     private Map<Point3D, InfluenceEffect> influenceEffectLocations;
+    private Map<Point3D, River> riverLocations;
 
     private DialogCommand dialogCommand;
 
@@ -23,13 +24,15 @@ public class MovementHandler {
                            Map<Point3D, Obstacle> obstacleLocations,
                            BidiMap<Point3D, Entity> entityLocations,
                            Map<Point3D, Mount> mountLocations,
-                           Map<Point3D, InfluenceEffect> influenceEffectLocations) {
+                           Map<Point3D, InfluenceEffect> influenceEffectLocations,
+                           Map<Point3D, River> riverLocations) {
 
         this.terrainLocations = terrainLocations;
         this.obstacleLocations = obstacleLocations;
         this.entityLocations = entityLocations;
         this.mountLocations = mountLocations;
-        this.influenceEffectLocations = influenceEffectLocations;;
+        this.influenceEffectLocations = influenceEffectLocations;
+        this.riverLocations = riverLocations;
     }
 
     public void processMoves(){
@@ -48,8 +51,8 @@ public class MovementHandler {
                 Point3D contestedPoint = calculateMove(entityPoint, entity.getVelocity());
 
                 if (!obstacleLocations.containsKey(contestedPoint) && entity.canMoveOnTerrain(terrainLocations.get(contestedPoint))){
-                    if (entityLocations.hasKey(contestedPoint) && isAlive(entityLocations.getValueFromKey(contestedPoint))){
-                        dialogCommand.execute(entity);
+                    if (entityLocations.hasKey(contestedPoint) && isAlive(entityLocations.getValueFromKey(contestedPoint)) && !riverLocations.containsKey(entityPoint)){
+                        dialogCommand.execute(entity); // TODO: fix river not starting dialog box
 
                     } else {
                         //Update entity movement

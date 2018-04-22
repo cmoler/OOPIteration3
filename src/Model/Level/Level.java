@@ -47,7 +47,7 @@ public class Level {
         this.tilesSeenByPlayer = new ArrayList<>();
 
         this.movementHandler = new MovementHandler(terrainLocations, obstacleLocations, entityLocations,
-                mountLocations, influenceEffectLocations);
+                mountLocations, influenceEffectLocations, riverLocations);
 
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
                 trapLocations, mountLocations, influenceEffectLocations,
