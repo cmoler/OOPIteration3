@@ -45,14 +45,21 @@ public class ItemPetState extends AIState {
         if (!hasItemsToLoot()){
             moveToGoal(petPoint,getEntityPoint(player,entityMap));
         }
-        else if(isInStealingRange(petPoint,nearestItem) && targetHasItemsToSteal(nearestItem)){
+        else if(isInStealingRange(petPoint,nearestTarget) && targetHasItemsToSteal(nearestTarget)){
+            System.out.println("Pickpocketing...");
             executePickpocket(super.getEntity());
         }
         else{
+            System.out.println("Test...");
             Point3D goal = calculateGoal(petPoint, nearestItem, nearestTarget);
             moveToGoal(petPoint,goal);
         }
     }
+
+   /* private boolean isInRange(Point3D position, Point3D goal, Entity ent){
+        ArrayList<Point3D> reachable = pathCalculator.getReachablePoints(position, 1, ent);
+        return reachable.contains(goal);
+    }*/
 
     private void executePickpocket(Entity pet) {
         pet.useSkill(pickPocketSkill);
@@ -64,11 +71,13 @@ public class ItemPetState extends AIState {
 
     private boolean targetHasItemsToSteal(Point3D nearestItem) {
         Entity target = entityMap.getValueFromKey(nearestItem);
+        System.out.println("This target has items?\t"+target.hasItems());
         return target.hasItems();
     }
 
     private boolean isInStealingRange(Point3D petPoint, Point3D nearestTarget){
-        return petPoint.distance(nearestTarget) == 1;
+        System.out.println("call"+HexDistanceCalculator.getHexDistance(petPoint,nearestTarget));
+        return HexDistanceCalculator.getHexDistance(petPoint,nearestTarget) == 1;
     }
 
     private void moveToGoal(Point3D start, Point3D goal){

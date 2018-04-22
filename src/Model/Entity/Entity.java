@@ -610,7 +610,7 @@ public class Entity {
     }
 
     public boolean hasItems() {
-        return inventory.size() >= 1;
+        return inventory.size() > 0;
     }
 
     public Equipment getEquipment() {

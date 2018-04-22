@@ -1,13 +1,11 @@
 package Model.Level;
 
-import Controller.Factories.EntityFactories.EntityFactory;
-import Controller.Factories.EntityFactories.MonsterFactory;
-import Controller.Factories.EntityFactories.PetFactory;
-import Controller.Factories.EntityFactories.SmasherFactory;
+import Controller.Factories.EntityFactories.*;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.AI.AIController;
+import Model.AI.FriendlyAI;
 import Model.AI.HostileAI;
 import Model.AI.PetAI.PetStates.ItemPetState;
 import Model.AreaEffect.InfiniteAreaEffect;
@@ -217,7 +215,9 @@ public class GameModel implements Visitable {
         test.setActiveState(CPS);*/
 
        // Item Pet AI
-        ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, skillsFactory.getPickpocket());
+        Skill pickpock = skillsFactory.getPickpocket();
+        pet.setSkillLevel(pickpock,1000);
+        ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, pickpock);
         test.setActiveState(IPS);
 
        /* List<Entity> petList = new ArrayList<>();
@@ -228,7 +228,24 @@ public class GameModel implements Visitable {
 
       // test.setActiveState(PPS);
 
+        ShopKeeperFactory friendlyFactory = new ShopKeeperFactory(skillsFactory);
+        Entity friendly = friendlyFactory.buildEntity();
+        friendlyFactory.buildEntitySprite(friendly);
+
+        ConsumableItem sin = new ConsumableItem("sin", new AddHealthCommand(20));
+        sin.setCurrentLevelMessenger(currentLevelMessenger);
+        sin.setPrice(2);
+        friendly.addItemToInventory(sin);
+        friendly.setMoveable(false);
+
+        currentLevel.addEntityTo(new Point3D(0,-1,1),friendly);
+
+        FriendlyAI friendlyAI = new FriendlyAI(friendly,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap());
+        AIController best = new AIController();
+        best.setActiveState(friendlyAI);
+
         AIList.add(test);
+        AIList.add(best);
 
         aiMap.put(currentLevel,AIList);
 
