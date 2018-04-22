@@ -116,13 +116,6 @@ public class GameModel implements Visitable {
         gin.setPrice(2);
         gin.onTouch(player);
 
-        player.addItemToInventory(potion);
-        player.addItemToInventory(manapotion);
-        player.addItemToInventory(healthpotion);
-        player.addItemToInventory(beer);
-        player.addItemToInventory(wine);
-        player.addItemToInventory(gin);
-
         entityFactory.buildEntitySprite(player);
 
         player.setMoveable(true);
