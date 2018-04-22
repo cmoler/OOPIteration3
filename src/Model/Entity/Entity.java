@@ -431,6 +431,7 @@ public class Entity {
     public WeaponItem getWeaponItem() {
         return equipment.getEquippedWeapon();
     }
+    public ArmorItem getArmorItem() { return equipment.getEquippedArmor(); }
     
     public void attack() {
         getWeaponItem().attack(this);
@@ -596,6 +597,14 @@ public class Entity {
 
     public int getDefenseModifier() {
         return defense.getModifier();
+    }
+
+    public void increaseDefense(int amount) {
+        defense.increaseDefensePoints(amount);
+    }
+
+    public void decreaseDefense(int amount) {
+        defense.decreaseDefensePoints(amount);
     }
 
     public Mount getMount() {

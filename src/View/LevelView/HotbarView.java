@@ -26,7 +26,7 @@ public class HotbarView {
 
         renderItemHotBarOverlay(gc);
         renderHotBarItems(gc, hotBar);
-
+        
         renderSkillBarOverlay(gc, player.getNonWeaponSkills());
         renderSkillBarItems(gc, player.getNonWeaponSkills());
     }
