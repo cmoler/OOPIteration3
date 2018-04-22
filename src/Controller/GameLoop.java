@@ -2,8 +2,11 @@ package Controller;
 
 import Controller.Factories.ControllerSetFactory;
 import Controller.Factories.EntityFactories.EntityFactory;
+import Controller.Factories.PetAIFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.SavingVisitor;
+import Model.AI.AIState;
+import Model.AI.PetAI.PetPriority;
 import Model.Entity.Entity;
 import Model.Level.GameLoopMessenger;
 import Model.Level.GameModel;
@@ -191,5 +194,17 @@ public class GameLoop {
 
     public void addScrollOffSet(Point2D mouseOffSet) {
         this.scrollOffSet = new Point2D(scrollOffSet.getX() + mouseOffSet.getX(), scrollOffSet.getY() + mouseOffSet.getY());
+    }
+
+    public PetAIFactory getPetAIFactoryFromCurrentLevel() {
+        return gameModel.getPetAIFactory();
+    }
+
+    public void setAIOnCurrentLevel(Entity entity, AIState aiState) {
+        gameModel.setAIOnCurrentLevel(entity, aiState);
+    }
+
+    public void setAIPriorityOnCurrentLevel(Entity entity, PetPriority petPriority) {
+        gameModel.setAIPriorityOnCurrentLevel(entity, petPriority);
     }
 }
