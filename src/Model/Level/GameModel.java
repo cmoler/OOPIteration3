@@ -124,6 +124,12 @@ public class GameModel implements Visitable {
         player.levelUp();
         Skill attack = new Skill();
         player.addWeaponSkills(attack);
+
+        RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
+        LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 1, Orientation.NORTH);
+        SendInfluenceEffectCommand sendInfluenceEffectCommand = new SendInfluenceEffectCommand(currentLevelMessenger);
+        Skill oneHandedSkill = skillsFactory.getOneHandedSkill();
+        player.addWeaponSkills(oneHandedSkill);
         attack.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand og = new RemoveHealthCommand(1000);
         WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new LinearInfluenceEffect(og,2,10, Orientation.NORTH), 1000, 1,100,100,2);
