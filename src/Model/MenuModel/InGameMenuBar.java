@@ -10,7 +10,7 @@ public class InGameMenuBar {
     private Entity player;
     private GameLoop gameLoop;
 
-    private int maxUp = 4;
+    private int maxUp = 5;
 
     public InGameMenuBar(MenuModel menuModel, Entity player, GameLoop gameLoop) {
         this.menuModel = menuModel;
@@ -31,12 +31,15 @@ public class InGameMenuBar {
                 gameLoop.setMenuState(new InventoryMenu(menuModel, player, gameLoop), new InventoryView(menuModel));
                 break;
             case 2:
-                gameLoop.setMenuState(new LevelUpMenu(menuModel, player, gameLoop), new LevelUpView(menuModel));
+                gameLoop.setMenuState(new PetMenu(menuModel, player, gameLoop), new PetView(menuModel));
                 break;
             case 3:
-                gameLoop.setMenuState(new SaveGameMenu(menuModel, player, gameLoop), new SaveGameView(menuModel));
+                gameLoop.setMenuState(new LevelUpMenu(menuModel, player, gameLoop), new LevelUpView(menuModel));
                 break;
             case 4:
+                gameLoop.setMenuState(new SaveGameMenu(menuModel, player, gameLoop), new SaveGameView(menuModel));
+                break;
+            case 5:
                 gameLoop.setMenuState(new ExitGameMenu(menuModel, player, gameLoop), new ExitGameView(menuModel));
                 break;
         }

@@ -37,9 +37,6 @@ public class ObserveEntityCommand extends GameLoopCommand implements SettableCom
     }
 
     public void receiveLevel(Level level) {
-        System.out.println("Received");
-        // remove projectiles that fired this command so we only observe one entity, and don't execute this command a bunch of times
-        level.removeInfluenceEffectsWithCommand(this);
         entityLocation = level.getEntityPoint(observedEntity);
     }
 

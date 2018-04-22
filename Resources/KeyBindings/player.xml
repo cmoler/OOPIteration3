@@ -26,8 +26,17 @@
     <Bind type="scrollRight">
         <key>Right</key>
     </Bind>
+    <Bind type="scrollUp">
+        <key>Up</key>
+    </Bind>
+    <Bind type="scrollDown">
+        <key>Down</key>
+    </Bind>
     <Bind type="select">
         <key>Enter</key>
+    </Bind>
+    <Bind type="selectItem">
+        <key>Space</key>
     </Bind>
     <Bind type="hotKey1">
         <key>1</key>

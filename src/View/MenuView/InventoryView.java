@@ -30,6 +30,9 @@ public class InventoryView extends InGameMenuView {
         if(inventory.size() == 0) height = 0;
         else height = 59 * Commons.SCREEN_HEIGHT / 60 / inventory.size();
 
+        gc.setFill(Color.LIMEGREEN);
+        gc.fillRect(startX, startY, width, height * inventory.size());
+
         gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
         gc.setFill(Color.WHITESMOKE);
         gc.setStroke(Color.BLACK);
@@ -70,22 +73,40 @@ public class InventoryView extends InGameMenuView {
         int optionsStartY = Commons.SCREEN_HEIGHT / 2;
 
         if(takeableItem.getObserver() != null) {
-            gc.drawImage(takeableItem.getObserver().getSprite(), startX+25, startY + 50);
+            gc.drawImage(takeableItem.getObserver().getSprite(), startX+25, startY + 30, 150, 150);
         }
-        //draw use
-        gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
-        gc.setFill(Color.WHITESMOKE);
-        gc.fillText("use", (optionsStartX+ width / 6), (optionsStartY+4*height/5));
-        gc.fillText("assign", (optionsStartX + width / 6), (optionsStartY + height+4*height/5));
-        gc.fillText("drop", (optionsStartX+ width / 6), (optionsStartY + 2*height+4*height/5));
 
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(5.0f);
-        gc.strokeRect(optionsStartX, optionsStartY, width, height);
-        gc.strokeRect(optionsStartX, optionsStartY + height, width, height);
-        gc.strokeRect(optionsStartX, optionsStartY + 2*height, width, height);
+        boolean itemUsable = ((InventoryMenu)menuModel.getActiveState()).getItemUsableByPlayer();
+        if(itemUsable) {
+            gc.setFill(Color.LIMEGREEN);
+            gc.fillRect(optionsStartX, optionsStartY, width, height * 3);
 
-        //draw selector
-        if(selectedX == 2) gc.drawImage(selected, optionsStartX, optionsStartY + selectedY*height, width, height);
+            gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
+            gc.setFill(Color.WHITESMOKE);
+            gc.fillText("use", (optionsStartX + width / 6), (optionsStartY + 4 * height / 5));
+            gc.fillText("assign", (optionsStartX + width / 6), (optionsStartY + height + 4 * height / 5));
+            gc.fillText("drop", (optionsStartX + width / 6), (optionsStartY + 2 * height + 4 * height / 5));
+
+            gc.setStroke(Color.BLACK);
+            gc.setLineWidth(5.0f);
+            gc.strokeRect(optionsStartX, optionsStartY, width, height);
+            gc.strokeRect(optionsStartX, optionsStartY + height, width, height);
+            gc.strokeRect(optionsStartX, optionsStartY + 2 * height, width, height);
+
+            //draw selector
+            if (selectedX == 2)
+                gc.drawImage(selected, optionsStartX, optionsStartY + selectedY * height, width, height);
+        }else{
+            gc.setFill(Color.LIMEGREEN);
+            gc.fillRect(startX, optionsStartY + 2 * height, width, height);
+
+            gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
+            gc.setFill(Color.WHITESMOKE);
+            gc.fillText("drop", (optionsStartX + width / 6), (optionsStartY + 2 * height + 4 * height / 5));
+
+            gc.strokeRect(optionsStartX, optionsStartY + 2 * height, width, height);
+            if (selectedX == 2)
+                gc.drawImage(selected, optionsStartX, optionsStartY + 2 * height, width, height);
+        }
     }
 }

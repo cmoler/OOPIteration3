@@ -4,6 +4,9 @@ import Configs.Commons;
 import Configs.TextBoxInfo;
 import Model.MenuModel.MenuModel;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class SaveGameView extends InGameMenuView {
 
@@ -24,6 +27,13 @@ public class SaveGameView extends InGameMenuView {
         int boxWidth = Commons.SCREEN_WIDTH / 4;
         int sizeOfSaveSlotY = (Commons.SCREEN_WIDTH/4)/numberOfSaves;
 
+        gc.setFill(Color.LIMEGREEN);
+        gc.fillRect(startX, startY, boxWidth, sizeOfSaveSlotY * numberOfSaves);
+
+        gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
+        gc.setFill(Color.WHITESMOKE);
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(10.0f);
         for(int i = 0; i < numberOfSaves; ++i){
             gc.strokeRect(startX, startY + sizeOfSaveSlotY * i, boxWidth, sizeOfSaveSlotY);
             gc.fillText("Save "+(i+1), (startX + boxWidth / 4), ( startY + sizeOfSaveSlotY * i + 3*sizeOfSaveSlotY/5));

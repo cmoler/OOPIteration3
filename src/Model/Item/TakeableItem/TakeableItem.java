@@ -10,7 +10,7 @@ import Model.Level.LevelMessenger;
 
 public abstract class TakeableItem extends Item implements Visitable {
 
-    private int price; // TODO: constructors/getters/setters for price of item
+    private int price;
     private DropStrategy dropStrategy;
 
     protected TakeableItem(String name, Command command) {
@@ -58,4 +58,6 @@ public abstract class TakeableItem extends Item implements Visitable {
     public void setPrice(int price){
         this.price = price;
     }
+
+    public abstract boolean usableByEntity(Entity entity);
 }

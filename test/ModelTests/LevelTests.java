@@ -285,6 +285,6 @@ public class LevelTests {
         Assert.assertEquals(5, linear2.getMovesRemaining(), 0);
 
         Assert.assertEquals(100, entity.getCurrentHealth(), 0);
-        Assert.assertEquals(20, dummy.getCurrentHealth(), 0);
-    } // TODO: get view portion of influence effects working, it is hard to test where they are moving to coordinates-wise
+        Assert.assertEquals(70, dummy.getCurrentHealth(), 0);
+    }
 }

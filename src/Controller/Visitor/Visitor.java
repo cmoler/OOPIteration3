@@ -97,6 +97,8 @@ public interface Visitor {
 
     void visitAddHealthCommand(AddHealthCommand addHealthCommand);
 
+    void visitAddManaCommand(AddManaCommand addManaCommand);
+
     void visitBarterCommand(BarterCommand barterCommand);
 
     void visitConfuseEntityCommand(ConfuseEntityCommand confuseEntityCommand);

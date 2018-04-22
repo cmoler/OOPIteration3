@@ -24,6 +24,7 @@ public class Entity {
 
     private HashMap<Skill, SkillLevel> skillLevelsMap;
     private int currentlySelectedSkill;
+    private int currentlySelectedItem;
     private List<Skill> weaponSkills;
     private List<Skill> nonWeaponSkills;
 
@@ -43,6 +44,7 @@ public class Entity {
 
     private Equipment equipment;
     private Inventory inventory;
+    private int traversalStrength;
 
     private ItemHotBar hotBar;
 
@@ -51,6 +53,7 @@ public class Entity {
 
     private Mount mount;
     private List<Entity> targetingList;
+    private List<Entity> friendlyList;
 
     private long nextMoveTime = 0;
 
@@ -82,11 +85,13 @@ public class Entity {
         this.moveable = moveable;
         this.mount = mount;
         targetingList = new ArrayList<>();
+        traversalStrength = 1;
     }
 
     public Entity() {
         skillLevelsMap = new HashMap<>();
         currentlySelectedSkill = 0;
+        currentlySelectedItem = 0;
         weaponSkills = new ArrayList<>();
         nonWeaponSkills = new ArrayList<>();
         observer = null;
@@ -117,6 +122,7 @@ public class Entity {
 
         mount = null;
         targetingList = new ArrayList<>();
+        traversalStrength = 1;
     }
 
     public boolean isMoveable() {
@@ -234,7 +240,7 @@ public class Entity {
         noiseLevel.decreaseNoise(amt);
     }
 
-    public void increaseSpeed(long amt) {
+    public void increaseSpeed(int amt) {
         speed.increaseSpeed(amt);
     }
 
@@ -258,7 +264,23 @@ public class Entity {
         targetingList.remove(ent);
     }
 
-    public void decreaseSpeed(long amt){
+    public List<Entity> getFriendlyList(){
+        return friendlyList;
+    }
+
+    public void setFriendlyList(List<Entity> friendlyList){
+        this.friendlyList = friendlyList;
+    }
+
+    public void addFriendly(Entity entity){
+        friendlyList.add(entity);
+    }
+
+    public void removeFriendly(Entity entity){
+        friendlyList.remove(entity);
+    }
+
+    public void decreaseSpeed(int amt){
         speed.decreaseSpeed(amt);
     }
 
@@ -428,8 +450,10 @@ public class Entity {
     public WeaponItem getWeaponItem() {
         return equipment.getEquippedWeapon();
     }
-    
-    public void attack() { // todo: ADD precondition for null wep -> no attack
+    public ArmorItem getArmorItem() { return equipment.getEquippedArmor(); }
+    public RingItem getRingItem() { return equipment.getEquippedRing(); }
+
+    public void attack() {
         getWeaponItem().attack(this);
     }
 
@@ -439,6 +463,11 @@ public class Entity {
 
     public void useHotBar(int index){
         hotBar.use(index);
+    }
+
+    public void useItem() {
+        hotBar.use(currentlySelectedItem);
+        hotBar.removeItem(currentlySelectedItem);
     }
 
     public void useSkill(int index){ // TODO: add logic for mana costs
@@ -469,6 +498,20 @@ public class Entity {
     public void scrollRight(){
         if(currentlySelectedSkill >= nonWeaponSkills.size() - 1) currentlySelectedSkill = 0;
         else currentlySelectedSkill ++;
+    }
+
+    public void scrollUp() {
+        if(currentlySelectedItem <= 0) { currentlySelectedItem = hotBar.getSize()-1; }
+        else { currentlySelectedItem--; }
+    }
+
+    public void scrollDown() {
+        if(currentlySelectedItem >= hotBar.getSize()-1) { currentlySelectedItem = 0; }
+        else { currentlySelectedItem++; }
+    }
+
+    public int getCurrentlySelectedItemIndex() {
+        return currentlySelectedItem;
     }
 
     public boolean hasFreeSpaceInInventory() {
@@ -595,6 +638,14 @@ public class Entity {
         return defense.getModifier();
     }
 
+    public void increaseDefense(int amount) {
+        defense.increaseDefensePoints(amount);
+    }
+
+    public void decreaseDefense(int amount) {
+        defense.decreaseDefensePoints(amount);
+    }
+
     public Mount getMount() {
         return mount;
     }
@@ -650,5 +701,13 @@ public class Entity {
 
     public void setSkillPointsAvaiable(int amount){
         xpLevel.setPointsAvailable(amount);
+    }
+
+    public int getTraversalStrength() {
+        return traversalStrength;
+    }
+
+    public void setTraversalStrength(int traversalStrength) {
+        this.traversalStrength = traversalStrength;
     }
 }

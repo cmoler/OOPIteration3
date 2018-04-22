@@ -266,19 +266,6 @@ public class Level {
         }
     }
 
-    public void removeInfluenceEffectsWithCommand(Command command) {
-        List<Point3D> influenceEffectPoints = new ArrayList<>(influenceEffectLocations.keySet());
-
-        for(Point3D point : influenceEffectPoints) {
-            InfluenceEffect influenceEffect = influenceEffectLocations.get(point);
-
-            if(influenceEffect.getCommand().equals(command)) { // remove all instances of the influence effect if the command matches
-                influenceEffectLocations.remove(point, influenceEffect);
-            }
-        }
-    }
-
-
     public void updateRenderLocations(Point3D playerPos, int playerViewDistance) {
         HexMathHelper hexMathHelper = new HexMathHelper();
 

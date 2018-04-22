@@ -26,7 +26,7 @@ public class HotbarView {
 
         renderItemHotBarOverlay(gc);
         renderHotBarItems(gc, hotBar);
-
+        
         renderSkillBarOverlay(gc, player.getNonWeaponSkills());
         renderSkillBarItems(gc, player.getNonWeaponSkills());
     }
@@ -39,6 +39,11 @@ public class HotbarView {
         gc.setFill(Color.BLACK);
         gc.setFont(Font.font ("Verdana", FontWeight.BOLD, 16));
         for(int i = 0; i < 5; i++) {
+            if(i == player.getCurrentlySelectedItemIndex()) {
+                gc.setFill(Color.RED);
+                gc.fillRect(Commons.SCREEN_WIDTH-itemSize, itemHotBarStartY + (itemSize*i), itemSize , itemSize);
+                gc.setFill(Color.BLACK);
+            }
             renderSquareBorder(gc, Commons.SCREEN_WIDTH-itemSize, itemHotBarStartY + (itemSize*i), itemSize);
 
             gc.fillText(Integer.toString(i+1), Commons.SCREEN_WIDTH-itemSize+5, itemHotBarStartY + (itemSize*i) + 20);
@@ -49,6 +54,7 @@ public class HotbarView {
     private void renderHotBarItems(GraphicsContext gc, ItemHotBar hotBar) {
         gc.setFill(Color.BLACK);
         gc.setFont(Font.font ("Verdana", FontWeight.BOLD, 10));
+
         for(int i = 0; i < 5; i++) {
             if(hotBar.getItem(i) == null) {
                 gc.fillText("Empty", Commons.SCREEN_WIDTH-itemSize+15, itemHotBarStartY + (itemSize*i) + 40);

@@ -20,6 +20,11 @@ public class RingItem extends TakeableItem {
         ringEquipStrategy.useStrategy();
     }
 
+    @Override
+    public boolean usableByEntity(Entity entity) {
+        return true;
+    }
+
     protected void setItemStrategyEntity(Entity entity) {
         ringEquipStrategy.setEntity(entity);
     }

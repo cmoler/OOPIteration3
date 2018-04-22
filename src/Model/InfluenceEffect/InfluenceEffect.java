@@ -111,7 +111,7 @@ public abstract class InfluenceEffect implements Visitable {
         if(commandAmount < 0) {
             commandAmount = 0;
         }
-
+        System.out.println("Setting amount: " + commandAmount);
         command.setAmount(commandAmount);
     }
 

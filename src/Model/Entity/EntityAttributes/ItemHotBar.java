@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class ItemHotBar implements Visitable {
 
     private TakeableItem[] items = new TakeableItem[5];
+    private int selectedIndex;
 
     public ItemHotBar(){
 
@@ -45,6 +46,16 @@ public class ItemHotBar implements Visitable {
     public void accept(Visitor visitor) { // TODO: change? if so how prevent LoD?
         for(TakeableItem item: items) {
             item.accept(visitor);
+        }
+    }
+
+    public int getSize() {
+        return items.length;
+    }
+
+    public void removeItem(int i) {
+        if(i < 5 && i >= 0) {
+            items[i] = null;
         }
     }
 }

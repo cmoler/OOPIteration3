@@ -20,6 +20,11 @@ public class ConsumableItem extends TakeableItem {
         consumeStrategy.useStrategy();
     }
 
+    @Override
+    public boolean usableByEntity(Entity entity) {
+        return true;
+    }
+
     protected void setItemStrategyEntity(Entity entity) {
         consumeStrategy.setEntity(entity);
     }

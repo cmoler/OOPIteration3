@@ -49,9 +49,6 @@ public class WeaponItem extends TakeableItem{
 
     public void attack(Entity entity) {
 
-
-
-
         if(entity.getManaPoints() > useCost && canAttack()) {
 
             entity.decreaseMana(useCost);
@@ -67,9 +64,6 @@ public class WeaponItem extends TakeableItem{
 
             setNextAttackTime();
         }
-        else {
-            System.out.println("You should have waited!");
-        }
     }
 
     private boolean canAttack() {
@@ -83,6 +77,14 @@ public class WeaponItem extends TakeableItem{
     @Override
     public void select() {
         weaponEquipStrategy.useStrategy();
+    }
+
+    @Override
+    public boolean usableByEntity(Entity entity) {
+        if(entity.hasSkill(getHostSKill())) {
+            return true;
+        }
+        else return false;
     }
 
     protected void setItemStrategyEntity(Entity entity) {

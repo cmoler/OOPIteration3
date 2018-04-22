@@ -1,6 +1,8 @@
 package Model.MenuModel;
 
+import Controller.Factories.SkillsFactory;
 import Controller.GameLoop;
+import Model.Command.EntityCommand.SettableCommand.BarterCommand;
 import Model.Entity.Entity;
 
 public class DialogMenu extends MenuState {
@@ -30,8 +32,9 @@ public class DialogMenu extends MenuState {
     @Override
     public void select() {
         if(selectedLeftRight == 0) gameLoop.closeMenu();
-        // TODO: actually send barter skill level
-        if(selectedLeftRight == 1) gameLoop.openBarterWindow(player, 1, npc);
+        if(selectedLeftRight == 1) {
+            gameLoop.openBarterWindow(player, npc);
+        }
     }
 
     public boolean getWantToTalk(){
