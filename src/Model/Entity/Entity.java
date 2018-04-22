@@ -514,6 +514,9 @@ public class Entity {
         return currentlySelectedItem;
     }
 
+    public int getCurrentlySelectedSkillIndex() {
+        return currentlySelectedSkill;
+    }
     public boolean hasFreeSpaceInInventory() {
         return inventory.hasFreeSpace();
     }

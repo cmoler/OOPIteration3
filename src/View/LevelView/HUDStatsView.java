@@ -29,16 +29,19 @@ public class HUDStatsView {
     }
 
     public void renderHealthBar(GraphicsContext gc) {
+        //Find percentage of health
         float currentHealth = (float) player.getCurrentHealth();
         float maxHealth = (float) player.getMaxHealth();
         float healthPercentage = currentHealth/maxHealth;
 
+        //Render red bar based on percentage
         renderStatBar((int)(statBarHeight*2.5), 0, statBarWidth, statBarHeight, healthPercentage, Color.RED, gc);
 
 
     }
 
     public void renderManaBar(GraphicsContext gc) {
+        //Find percentage of mana availab;e
         float currentMana = (float) player.getManaPoints();
         float maxMana = (float) player.getMaxMana();
         float manaPercentage = currentMana/maxMana;
@@ -47,6 +50,7 @@ public class HUDStatsView {
     }
 
     public void renderExperienceBar(GraphicsContext gc) {
+        //Find percentage of experience earned towards next level
         float currentExperience = (float) player.getExperience();
         float experienceAtLevelUp = currentExperience + (float) player.getExperienceToNextLevel();
         float experiencePercentage = currentExperience/experienceAtLevelUp;
@@ -57,6 +61,7 @@ public class HUDStatsView {
     public void renderPlayerLevel(GraphicsContext gc) {
         int level = player.getLevel();
 
+        //Render golden background behind number
         gc.setFill(Color.GOLDENROD);
         gc.fillRect(0, 0, (statBarHeight*2.5), (statBarHeight*2.5));
 
@@ -64,6 +69,7 @@ public class HUDStatsView {
         gc.setFill(Color.BLACK);
         gc.setFont(Font.font ("Verdana", FontWeight.BOLD, 30));
 
+        //Render level number
         gc.fillText(Integer.toString(level), 15, 35);
     }
 
@@ -72,6 +78,7 @@ public class HUDStatsView {
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 
+    //Renders a stat bar given a color and percent fill
     public void renderStatBar(int x, int y, int width, int height, float percentFill, Color fillColor, GraphicsContext gc) {
         gc.setFill(Color.GRAY);
         gc.fillRect(x, y, width, height);
