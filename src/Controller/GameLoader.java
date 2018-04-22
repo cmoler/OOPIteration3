@@ -64,14 +64,14 @@ public class GameLoader {
     public GameLoader(GameLoop gameLoop) {
         world = new ArrayList<>();
         this.gameLoopMessenger = new GameLoopMessenger(gameLoop);
-        gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
+        gameModelMessenger = new GameModelMessenger(gameLoopMessenger, this.gameModel);
         levelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
     }
 
     public GameLoader(GameLoopMessenger gameLoopMessenger) {
         world = new ArrayList<>();
         this.gameLoopMessenger = gameLoopMessenger;
-        gameModelMessenger = new GameModelMessenger(gameLoopMessenger, gameModel);
+        gameModelMessenger = new GameModelMessenger(gameLoopMessenger, this.gameModel);
         levelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
     }
 
@@ -1086,7 +1086,8 @@ public class GameLoader {
         this.world = loadWorld(levelList);
         this.entity = loadPlayer(player);
         loadQueue(queues);
-        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, new HashMap<>(), null, null );
+        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, new HashMap<>(), teleportTuples, failedTuples );
+        gameModelMessenger.setGameModel(gameModel);
     }
 
     private Entity loadPlayer(NodeList player) {

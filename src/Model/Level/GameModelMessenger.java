@@ -23,4 +23,8 @@ public class GameModelMessenger {
     public void sendCommandToGameModel(GameModelCommand command) {
         command.receiveGameModel(gameModel);
     }
+
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel = gameModel;
+    }
 }

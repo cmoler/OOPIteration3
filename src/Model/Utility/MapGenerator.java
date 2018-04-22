@@ -4,6 +4,7 @@ import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.SavingVisitor;
 import Model.AreaEffect.InfiniteAreaEffect;
+import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Command.EntityCommand.SettableCommand.*;
@@ -208,7 +209,8 @@ public class MapGenerator extends Application {
 }
 
     private static void createAreaEffects(Level level) {
-        InfiniteAreaEffect damage = new InfiniteAreaEffect(new RemoveHealthCommand(5));
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level, new Point3D(0,1,-1));
+        InfiniteAreaEffect damage = new InfiniteAreaEffect(teleportEntityCommand);
         RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
         level.addAreaEffectTo(new Point3D(-4, 4, 0), damage);

@@ -351,4 +351,10 @@ public class Level {
         entityLocations.removeByKey(destinationPoint);
         entityLocations.place(pointToAddTo, entityAtPoint);
     }
+
+    public void removeMount(Mount mount) {
+        if(mountLocations.containsValue(mount)) {
+            mountLocations.values().remove(mount);
+        }
+    }
 }

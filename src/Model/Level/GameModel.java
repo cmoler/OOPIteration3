@@ -64,12 +64,7 @@ public class GameModel implements Visitable {
         this.levels = levels;
         this.player = player;
         this.aiMap = aiMap;
-
-
-
         this.currentLevel.setMovementHandlerDialogCommand(this.currentLevelMessenger);
-
-        //TODO: Save this
         this.teleportQueue = teleportQueue;
         this.failedTeleportQueue = failedTeleportQueue;
     }
@@ -204,7 +199,7 @@ public class GameModel implements Visitable {
     }
 
     public boolean isTeleportQueueEmpty() {
-        return teleportQueue.isEmpty();
+        return teleportQueue == null || teleportQueue.isEmpty();
     }
 
     public Queue<TeleportTuple> getTeleportQueue() {
@@ -212,7 +207,7 @@ public class GameModel implements Visitable {
     }
 
     public boolean isFailedQueueEmpty() {
-        return failedTeleportQueue.isEmpty();
+        return failedTeleportQueue == null || failedTeleportQueue.isEmpty();
     }
 
     public Queue<TeleportTuple> getFailedQueue() {
@@ -285,15 +280,22 @@ public class GameModel implements Visitable {
     }
 
     private void moveEntityToLevel(Entity entity, Level destinationLevel, Point3D destinationPoint) {
-        destinationLevel.addEntityTo(destinationPoint, entity);
+        if(entity.isMounted()) {
+            Mount mount = entity.getMount();
+            currentLevel.removeMount(mount);
+            destinationLevel.addMountTo(destinationPoint, mount);
+            mount.notifyObservers(destinationPoint);
+        }
 
         List<LevelViewElement> observers = new ArrayList<>();
         observers.add(entity.getObserver());
-
-        destinationLevel.addObservers(observers);
+        entity.notifyObservers(destinationPoint);
 
         currentLevel.removeEntityFrom(entity);
         currentLevel.removeObservers(observers);
+
+        destinationLevel.addEntityTo(destinationPoint, entity);
+        destinationLevel.addObservers(observers);
     }
 
     private void changeCurrentLevelToDestination(Level destinationLevel) {
@@ -307,13 +309,12 @@ public class GameModel implements Visitable {
         processAIMoves();
         currentLevel.processMoves();
         currentLevel.processInteractions();
+        processTeleportQueue();
 
         if(hasPlayer()) {
             currentLevel.updateTerrainFog(getPlayerPosition(), player.getSight());
             currentLevel.updateRenderLocations(getPlayerPosition(), player.getSight());
         }
-
-        processTeleportQueue();
     }
 
     private void processAIMoves(){
