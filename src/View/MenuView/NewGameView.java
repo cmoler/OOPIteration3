@@ -5,11 +5,13 @@ import Configs.TextBoxInfo;
 import Model.Item.TakeableItem.ConsumableItem;
 import Model.MenuModel.KeyBindings;
 import Model.MenuModel.MenuModel;
+import View.Sprites;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.transform.Rotate;
 
 import java.io.File;
 
@@ -74,5 +76,32 @@ public class NewGameView extends MenuViewState {
 
         gc.drawImage(selected, bottomLeftStartX, selectionBoxY, bottomLeftWidth, bottomLeftHeight);
 
+        Image playerSprite = null;
+        switch (selectedY){
+            case 0:
+                playerSprite = Sprites.getInstance().getSmasherSprite();
+                break;
+            case 1:
+                playerSprite = Sprites.getInstance().getSummonerSprite();
+                break;
+            case 2:
+                playerSprite = Sprites.getInstance().getSneakSprite();
+                break;
+        }
+
+        //Rotate 180 degrees so sprite is facing downwards
+        rotate(gc, 180, Commons.SCREEN_WIDTH/2 + 150, Commons.SCREEN_HEIGHT*1/2 + 100);
+
+        //Render player sprite
+        gc.drawImage(playerSprite, Commons.SCREEN_WIDTH/2, Commons.SCREEN_HEIGHT/2, 300, 300);
+
+        //Set rotate back to normal
+        rotate(gc, 0, 0, 0);
+
+    }
+
+    private void rotate(GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 }
