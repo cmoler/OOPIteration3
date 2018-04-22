@@ -2,6 +2,7 @@ package Model.Level;
 
 import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
+import Model.Entity.Entity;
 import com.sun.javafx.geom.Vec3d;
 
 public class River implements Visitable {
@@ -21,5 +22,9 @@ public class River implements Visitable {
 
     public void accept(Visitor visitor) {
         visitor.visitRiver(this);
+    }
+
+    public boolean isTraversable(Entity e) {
+        return e.getTraversalStrength() > flowrate.length();
     }
 }

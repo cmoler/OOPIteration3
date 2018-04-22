@@ -1,6 +1,7 @@
 package Model.AI;
 
 import Model.Entity.Entity;
+import Model.Level.River;
 import Model.Utility.VectorToPointCalculator;
 import Model.Utility.BidiMap;
 import Model.Level.Obstacle;
@@ -18,10 +19,10 @@ public class FriendlyAI extends AIState{
     private Point3D origin;
     private double moveRadius;
 
-    public FriendlyAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap) {
+    public FriendlyAI(Entity ent, Map<Point3D, Terrain> terrainMap, BidiMap<Point3D, Entity> entityMap, Map<Point3D, Obstacle> obstacleMap, Map<Point3D, River> riverMap) {
         super(ent);
         this.entityMap = entityMap;
-        this.pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap);
+        this.pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap, riverMap,entityMap );
         origin = getEntityPoint(super.getEntity(), entityMap);
         moveRadius = super.getEntity().getSight(); //TODO: LoD violation?
     }

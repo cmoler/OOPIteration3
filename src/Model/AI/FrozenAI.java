@@ -22,14 +22,19 @@ public class FrozenAI extends AIState {
         this.controller = controller;
         previousState = aiState;
         this.duration = duration;
+        System.out.println("FrozenAI: " + duration);
+
     }
 
 
     @Override
     public void nextMove() {
-        if(currentTick > duration) controller.setActiveState(previousState);
+        if(currentTick > duration) {
+            System.out.println("Reseting");
+            controller.setActiveState(previousState);
+        }
         else if(currentTick % 20 ==0 ){
-            previousState.nextMove();
+            //previousState.nextMove();
         }
         currentTick++;
     }
