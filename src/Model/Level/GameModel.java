@@ -124,7 +124,7 @@ public class GameModel implements Visitable {
         player.addWeaponSkills(attack);
         attack.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand og = new RemoveHealthCommand(1000);
-        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new LinearInfluenceEffect(og,2,10,Orientation.NORTH), 1000, 1,100,0,2);
+        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new LinearInfluenceEffect(og,2,10, Orientation.NORTH), 1000, 1,100,100,2);
         player.addItemToInventory(mace);
         player.equipWeapon(mace);
         player.setSightRadius(new SightRadius(7));
@@ -155,9 +155,10 @@ public class GameModel implements Visitable {
         enemy.addWeaponSkills(skill);
         skill.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand bleh = new RemoveHealthCommand(5);
-        WeaponItem sword = new WeaponItem("Sword of Darkness", bleh, skill, new LinearInfluenceEffect(bleh,2,10,Orientation.NORTH), 5, 1,100,0,2);
+        WeaponItem sword = new WeaponItem("Sword of Darkness", bleh, skill, new LinearInfluenceEffect(bleh,2,10,Orientation.NORTH), 5, 1,1,450,2);
         enemy.addItemToInventory(sword);
         enemy.equipWeapon(sword);
+
         enemy.setSightRadius(new SightRadius(3));
         ArrayList<Vec3d> path = new ArrayList<>();
         path.add(new Vec3d(1,0,-1));
@@ -192,7 +193,7 @@ public class GameModel implements Visitable {
         enemy.addWeaponSkills(skill1);
         skill1.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand rawr = new RemoveHealthCommand(5);
-        WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 1,100,0,1);
+        WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 1,100,450,1);
         enemy.addItemToInventory(claw);
         enemy.equipWeapon(claw);
         pet.setSightRadius(new SightRadius(2));

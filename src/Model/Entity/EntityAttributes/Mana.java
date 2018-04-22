@@ -7,8 +7,8 @@ public class Mana {
     private int regenRate;
 
     public Mana() {
-        manaPoints = 50;
-        maxMana = 100;
+        manaPoints = 500;
+        maxMana = 500;
         regenRate = 1;
     }
 
@@ -21,9 +21,7 @@ public class Mana {
     public void increaseMana(int amount) {
         if(manaPoints + amount > maxMana) {
             manaPoints = maxMana;
-        }
-
-        else {
+        } else {
             manaPoints += amount;
         }
     }
@@ -31,9 +29,7 @@ public class Mana {
     public void decreaseMana(int amount) {
         if(manaPoints - amount < 0) {
             manaPoints = 0;
-        }
-
-        else {
+        } else {
             manaPoints -= amount;
         }
     }
@@ -51,10 +47,6 @@ public class Mana {
     }
 
     public void regenerate() {
-        manaPoints += regenRate;
-
-        if(manaPoints > maxMana) {
-            manaPoints = maxMana;
-        }
+        increaseMana(regenRate);
     }
 }
