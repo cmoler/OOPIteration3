@@ -100,7 +100,7 @@ public class PetMenu extends InGameMenuState {
                 aiState = petAIFactory.getPassivePetState();
                 break;
         }
-        gameLoop.setAIOnCurrentLevel(pets.get(selectedPet), aiState);
+        if(pets != null && pets.get(selectedPet) != null) gameLoop.setAIOnCurrentLevel(pets.get(selectedPet), aiState);
     }
 
     private void priorityPart() {
@@ -116,16 +116,16 @@ public class PetMenu extends InGameMenuState {
         if(selectedPriority > 3) selectedPriority = 0;
         switch (selectedPriority){
             case 0:
-                gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.ITEMS);
+                if(pets != null && pets.get(selectedPet) != null) gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.ITEMS);
                 break;
             case 1:
-                gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.PLAYER);
+                if(pets != null && pets.get(selectedPet) != null) gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.PLAYER);
                 break;
             case 2:
-                gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.ENEMIES);
+                if(pets != null && pets.get(selectedPet) != null) gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.ENEMIES);
                 break;
             case 3:
-                gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.NONE);
+                if(pets != null && pets.get(selectedPet) != null) gameLoop.setAIPriorityOnCurrentLevel(pets.get(selectedPet), PetPriority.NONE);
                 break;
         }
     }

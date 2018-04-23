@@ -342,6 +342,7 @@ public class MapGenerator extends Application {
         level1.addRiverTo(new Point3D(-2, -1, 3), new River(new Vec3d(-1, 1 , 0)));
         level1.addRiverTo(new Point3D(-3, 0, 3), new River(new Vec3d(0, 1 , -1)));
         level1.addRiverTo(new Point3D(-3, 1, 2), new River(new Vec3d(0, 1 , -1)));
+        level1.addRiverTo(new Point3D(-3, 2, 1), new River(new Vec3d(0, 1 , -1)));
 
         radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
         radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));

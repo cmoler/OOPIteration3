@@ -51,11 +51,22 @@ public class PetMenuView extends InGameMenuView {
 
         gc.setFill(Color.LIMEGREEN);
         gc.fillRect(2*Commons.SCREEN_WIDTH / 7, 2 * Commons.SCREEN_HEIGHT / 7, 2 * Commons.SCREEN_WIDTH / 5, 4 * Commons.SCREEN_HEIGHT / 7);
+        if(pets == null){
+            int startX = Commons.SCREEN_WIDTH / 3;
+            int startY = Commons.SCREEN_HEIGHT / 4;
+            int width = Commons.SCREEN_WIDTH / 8;
+            int height = Commons.SCREEN_HEIGHT / 8;
 
-        renderPetSprite(gc);
-        renderPetName(gc);
-        renderPetFocus(gc);
-        if(selectedFocus == 0) renderPetPriority(gc);
+            gc.setFont(new Font(40.0f).font("System", FontWeight.BOLD, 40.0f));
+            gc.setFill(Color.WHITESMOKE);
+            gc.fillText("No Pet Available", startX, startY);
+        }
+        else if(pets != null) {
+            renderPetSprite(gc);
+            renderPetName(gc);
+            renderPetFocus(gc);
+            if (selectedFocus == 0) renderPetPriority(gc);
+        }
     }
 
     private void renderPetSprite(GraphicsContext gc) {

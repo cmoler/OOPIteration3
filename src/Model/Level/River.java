@@ -7,8 +7,9 @@ import com.sun.javafx.geom.Vec3d;
 
 public class River implements Visitable {
     private Vec3d flowrate;
-    private long nextMoveTime = 0;
-    private long speed = 50000000l;
+    private int delay = 30;
+    private int tick = 0;
+    private int speed = 1;
 
     public River(Vec3d flowrate) {
         this.flowrate = flowrate;
@@ -19,6 +20,7 @@ public class River implements Visitable {
             setNextMoveTime();
             return flowrate;
         }
+        tick += speed;
         return new Vec3d(0, 0,0 );
     }
 
@@ -26,7 +28,7 @@ public class River implements Visitable {
         return flowrate;
     }
 
-    public void setSpeed(long speed){
+    public void setSpeed(int speed){
         this.speed = speed;
     }
 
@@ -43,10 +45,10 @@ public class River implements Visitable {
     }
 
     private boolean canMove(){
-        return System.nanoTime() > nextMoveTime;
+        return tick > delay;
     }
 
     private void setNextMoveTime() {
-        nextMoveTime = System.nanoTime() + speed;
+        tick = 0;
     }
 }
