@@ -104,6 +104,7 @@ public class InventoryView extends InGameMenuView {
             gc.setFill(Color.WHITESMOKE);
             gc.fillText("drop", (optionsStartX + width / 6), (optionsStartY + 2 * height + 4 * height / 5));
 
+            gc.setLineWidth(5.0f);
             gc.strokeRect(optionsStartX, optionsStartY + 2 * height, width, height);
             if (selectedX == 2)
                 gc.drawImage(selected, optionsStartX, optionsStartY + 2 * height, width, height);

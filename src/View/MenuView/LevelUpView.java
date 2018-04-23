@@ -89,7 +89,7 @@ public class LevelUpView extends InGameMenuView {
             SkillLevel level = (SkillLevel) pair.getValue();
 
             gc.fillText("-", startX + width / 7, startY + i * height+3*height/5);
-            gc.fillText(skill.getName()+":", startX+width / 2, startY + i * height+3*height/5);
+            gc.fillText(skill.getName()+":", startX+width / 2, startY + i * height+3*height/5, 4 * width / 3);
             gc.fillText(Integer.toString(level.getSkillLevel()), startX + 2 * width, startY + i * height+3*height/5);
             gc.fillText("+", startX + 2 * width + 3 * width / 7, startY + i * height+3*height/5);
 
