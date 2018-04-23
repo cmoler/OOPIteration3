@@ -116,7 +116,7 @@ public class ItemFactory {
 
     public ConsumableItem getPotion() {
         AddHealthCommand command = new AddHealthCommand(50);
-        ConsumableItem potion = new ConsumableItem("Potion", command);
+        ConsumableItem potion = new ConsumableItem("Health Potion", command);
         potion.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -201,7 +201,7 @@ public class ItemFactory {
     }
 
     public RingItem getSpeedRing() {
-        ToggleSpeedCommand command = new ToggleSpeedCommand(10);
+        ToggleSpeedCommand command = new ToggleSpeedCommand(-0500000000);
         RingItem ringItem = new RingItem("Speed Ring", command);
         ringItem.setCurrentLevelMessenger(levelMessenger);
 

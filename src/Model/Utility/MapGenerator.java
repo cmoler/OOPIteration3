@@ -176,75 +176,15 @@ public class MapGenerator extends Application {
     }
 
     private static void createSummoner() {
-     /*   ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
-        ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
-        RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
-
-        WeaponItem bane = new WeaponItem("ELECTRIFY",
-                new RemoveHealthCommand(10),
-                skillsFactory.getRangeSkill(),
-                new RadialInfluenceEffect(new RemoveHealthCommand(10), 4,0500000000L, Orientation.NORTH),
-                10,10,10,10,4);
-
-        WeaponItem boon = new WeaponItem("BOONY",
-                new RemoveHealthCommand(10),
-                skillsFactory.getRangeSkill(),
-                new RadialInfluenceEffect(new RemoveHealthCommand(10), 4,0500000000L, Orientation.NORTH),
-                10,10,10,10,4);
-
-        WeaponItem enchant = new WeaponItem("FREEZE",
-                new FreezeEntityCommand(levelMessenger),
-                skillsFactory.getRangeSkill(),
-                new AngularInfluenceEffect(new FreezeEntityCommand(levelMessenger), 4,0500000000L, Orientation.NORTH),
-                10,10,10,10,4);
-
-        WeaponItem staff = new WeaponItem("STAFF",
-                new RemoveHealthCommand(100),
-                skillsFactory.getStaffSkill(),
-                new LinearInfluenceEffect(new FreezeEntityCommand(levelMessenger), 4,0500000000L, Orientation.NORTH),
-                10,10,10,10,4);
-
-        Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
-            add(helmet);
-            add(ringItem);
-            add(bane);
-            add(boon);
-            add(enchant);
-            add(staff);
-        }}, 15);
-
-        Equipment equipment = new Equipment(null, null, null);
-
-        ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
-            add(skillsFactory.getBaneSkill());
-            add(skillsFactory.getBoonSkill());
-            add(skillsFactory.getEnchantSkill());
-            add(skillsFactory.getStaffSkill());
-        }};
-
-        ArrayList<Skill> nonWeaponSkills = new ArrayList<Skill>() {{
-            add(skillsFactory.getObserveSkill());
-            add(skillsFactory.getBargainSkill());
-            add(skillsFactory.getBindWounds());
-        }};
-
-        player = new Entity(null, new ItemHotBar(), new ArrayList<>(),
-                new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
-                new XPLevel(), new Health(100, 100), new Mana(100, 10, 100), new Speed(0500000000L),
-                new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
-                equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
-                null, new ArrayList<>(), new ArrayList<>());
-
-        player.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2), weaponSkills.get(3));
-        player.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
-        player.setObserver(new SummonerView(player, new Point3D(0,1,-1)));*/
-
         entityFactory = new SummonerFactory(skillsFactory);
         player = entityFactory.buildEntity();
         entityFactory.buildEntitySprite(player);
         player.addItemToInventory(itemFactory.getMediumArmor());
         player.addItemToInventory(itemFactory.getManaPotion());
         player.addItemToInventory(itemFactory.getManaPotion());
+        player.addItemToInventory(itemFactory.getManaPotion());
+        player.addItemToInventory(itemFactory.getPotion());
+        player.addItemToInventory(itemFactory.getPotion());
         player.addItemToInventory(itemFactory.getStaff());
         player.addItemToInventory(itemFactory.getSpeedRing());
 
@@ -252,59 +192,6 @@ public class MapGenerator extends Application {
     }
 
     private static void createSmasher() {
-      /*  ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
-        ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
-        RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
-        WeaponItem warHammer = new WeaponItem("War Hammer Of Destruction",
-                new RemoveHealthCommand(20),
-                skillsFactory.getTwoHandedSkill(),
-                new LinearInfluenceEffect(new RemoveHealthCommand(20), 1,0500000000L, Orientation.NORTH),
-                20,2,10,45,1);
-
-        WeaponItem sword = new WeaponItem("Plain Ol' Sword",
-                new RemoveHealthCommand(10),
-                skillsFactory.getTwoHandedSkill(),
-                new LinearInfluenceEffect(new RemoveHealthCommand(10), 1,0500000000L, Orientation.NORTH),
-                10,5,10,15,1);
-
-        WeaponItem knuckles = new WeaponItem("Brass Knuckles",
-                new RemoveHealthCommand(5),
-                skillsFactory.getTwoHandedSkill(),
-                new LinearInfluenceEffect(new RemoveHealthCommand(5), 1,0500000000L, Orientation.NORTH),
-                5,10,10,5,1);
-
-        Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
-            add(helmet);
-            add(ringItem);
-            add(warHammer);
-            add(sword);
-            add(knuckles);
-        }}, 15);
-
-        Equipment equipment = new Equipment(null, null, null);
-
-        ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
-            add(skillsFactory.getOneHandedSkill());
-            add(skillsFactory.getTwoHandedSkill());
-            add(skillsFactory.getBrawlerSkill());
-        }};
-
-        ArrayList<Skill> nonWeaponSkills = new ArrayList<Skill>() {{
-            add(skillsFactory.getObserveSkill());
-            add(skillsFactory.getBargainSkill());
-            add(skillsFactory.getBindWounds());
-        }};
-        player = new Entity(null, new ItemHotBar(), weaponSkills,
-                nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
-                new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(0500000000L),
-                new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
-                equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
-                null, new ArrayList<>(), new ArrayList<>());
-
-        player.setObserver(new SmasherView(player, new Point3D(0,1,-1)));
-        player.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
-        player.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));*/
-
         entityFactory = new SmasherFactory(skillsFactory);
         player = entityFactory.buildEntity();
         entityFactory.buildEntitySprite(player);
@@ -317,53 +204,6 @@ public class MapGenerator extends Application {
     }
 
     private static void createSneak() {
-    /*    WeaponItem bow = new WeaponItem("Dark Bow",
-                new RemoveHealthCommand(5),
-                skillsFactory.getRangeSkill(),
-                new LinearInfluenceEffect(new RemoveHealthCommand(20), 4,0500000000L, Orientation.NORTH),
-                5,10,10,10,4);
-
-        ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
-        ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
-        RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
-
-        Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
-            add(helmet);
-            add(ringItem);
-            add(bow);
-        }}, 15);
-
-        Equipment equipment = new Equipment(null, null, null);
-
-        ArrayList<Skill> weaponSkills = new ArrayList<Skill>() {{
-            add(skillsFactory.getRangeSkill());
-        }};
-
-        ArrayList<Skill> nonWeaponSkills = new ArrayList<Skill>() {{
-            add(skillsFactory.getObserveSkill());
-            add(skillsFactory.getBargainSkill());
-            add(skillsFactory.getBindWounds());
-            add(skillsFactory.DisarmTrapSkill());
-            add(skillsFactory.getSneakSkill());
-            add(skillsFactory.getPickpocket());
-        }};
-
-        player = new Entity(null, new ItemHotBar(), new ArrayList<>(),
-                new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(6),
-                new XPLevel(), new Health(300, 300), new Mana(100, 100, 100), new Speed(0500000000L),
-                new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
-                equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
-                null, new ArrayList<>(), new ArrayList<>());
-
-        player.addWeaponSkills(weaponSkills.get(0));
-        player.addNonWeaponSkills(nonWeaponSkills.get(0),
-                nonWeaponSkills.get(1),
-                nonWeaponSkills.get(2),
-                nonWeaponSkills.get(3),
-                nonWeaponSkills.get(4),
-                nonWeaponSkills.get(5));
-        player.setObserver(new SneakView(player, new Point3D(0,1,-1)));*/
-
         entityFactory = new SneakFactory(skillsFactory);
         player = entityFactory.buildEntity();
         entityFactory.buildEntitySprite(player);
@@ -406,8 +246,7 @@ public class MapGenerator extends Application {
                 level.addTerrainTo(points.get(j), Terrain.GRASS);
             }
         }
-
-}
+    }
 
     private static void createAreaEffects(Level level) {
         TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level1, new Point3D(0,0,0));

@@ -209,6 +209,7 @@ public class GameLoop {
         } finally {
             renderer.closeMenu();
             gameModel = gameLoader.getGameModel();
+
             ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
 
             renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));

@@ -1176,7 +1176,7 @@ public class GameLoader {
                                     ConsumableItem consumableItem = new ConsumableItem(name, command);
                                     consumableItem.setCurrentLevelMessenger(levelMessenger);
                                     consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
-                                    itemView.setManaPotion();
+                                    itemView.setPotion();
                                     consumableItem.setObserver(itemView);
                                     itemsToAdd.add(consumableItem);
                                     itemRef.put(reference, consumableItem);
@@ -1192,7 +1192,7 @@ public class GameLoader {
                                     itemRef.put(reference, ringItem);
                                     break;
 
-                                case "weaponitem": //TODO: this needs to be changed
+                                case "weaponitem":
                                     Skill weaponSkill;
                                     InfluenceEffect influenceEffect;
                                     int damage;
@@ -1660,7 +1660,6 @@ public class GameLoader {
         NodeList player = document.getElementsByTagName("PLAYER");
         NodeList queues = document.getElementsByTagName("TELEPORTQUEUE");
         NodeList aiMap = document.getElementsByTagName("AICONTROLLERS");
-
         this.currentLevel = loadLevel(currentLevel);
         this.levelMessenger.setLevel(this.currentLevel);
         this.world = loadWorld(levelList);
