@@ -240,15 +240,16 @@ public class GameLoop {
     }
 
     public void tick() {
-        gameModel.advance();
-        renderer.updateCurrentLevel(gameModel.getCurrentLevel());
-        if(gameModel.playerIsDead() && playerFresh) {
-            //gameModel.resetPlayer();
-            setGameOver();
-            playerFresh = false;
-        }
-        else{
+        if(gameModel != null) {
             gameModel.advance();
+            renderer.updateCurrentLevel(gameModel.getCurrentLevel());
+            if (gameModel.playerIsDead() && playerFresh) {
+                //gameModel.resetPlayer();
+                setGameOver();
+                playerFresh = false;
+            } else {
+                gameModel.advance();
+            }
         }
     }
 
