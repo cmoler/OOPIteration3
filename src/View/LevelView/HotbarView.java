@@ -118,7 +118,7 @@ public class HotbarView {
         for(int i = 0; i < playerSkills.size(); i++) {
 
             //Render skill name
-            gc.fillText(playerSkills.get(i).getName(), (Commons.SCREEN_WIDTH/2)-(itemSize*playerSkills.size())/2 + (itemSize*i) + 25, 30);
+            gc.fillText(playerSkills.get(i).getName(), (Commons.SCREEN_WIDTH/2)-(itemSize*playerSkills.size())/2 + (itemSize*i) + 10, 40, 60);
 
         }
     }

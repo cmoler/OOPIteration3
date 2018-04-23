@@ -100,7 +100,7 @@ public class GameModel implements Visitable {
 
         skillsFactory = new SkillsFactory(currentLevelMessenger);
 
-        entityFactory = new SummonerFactory(skillsFactory);
+        entityFactory = new SneakFactory(skillsFactory);
 
         player = entityFactory.buildEntity();
 
