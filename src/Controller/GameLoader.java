@@ -1440,6 +1440,22 @@ public class GameLoader {
                     Command command = processCommand(effectNode.getChildNodes());
                     AreaEffectView areaEffectView = new AreaEffectView(new Point3D(0,0,0));
 
+                    if(command instanceof AddHealthCommand) {
+                        areaEffectView.setHealthPool();
+                    }
+
+                    else if(command instanceof RemoveHealthCommand) {
+                        areaEffectView.setDamagePool();
+                    }
+
+                    else if(command instanceof LevelUpCommand) {
+                        areaEffectView.setLevelUp();
+                    }
+
+                    else if(command instanceof InstaDeathCommand) {
+                        areaEffectView.setInstantDeath();
+                    }
+
                     if(command != null) {
                         switch (effectNode.getNodeName().toLowerCase()) {
                             case "oneshotareaeffect":

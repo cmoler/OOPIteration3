@@ -407,9 +407,9 @@ public class MapGenerator extends Application {
         InfiniteAreaEffect homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
         RadialInfluenceEffect homeEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 1; i++) {
             ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-5, 5, 0));
-            for(int j = 0; j < points.size(); j++) {
+            for(int j = 0; j < 1; j++) {
                 level1.addAreaEffectTo(points.get(j), homeTeleport);
             }
         }
@@ -417,9 +417,9 @@ public class MapGenerator extends Application {
         teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level0, new Point3D(0,0,0));
         homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
         homeEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 1; i++) {
             ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-4, 4, 0));
-            for(int j = 0; j < points.size(); j++) {
+            for(int j = 0; j < 1; j++) {
                 level2.addAreaEffectTo(points.get(j), homeTeleport);
             }
         }
@@ -427,9 +427,9 @@ public class MapGenerator extends Application {
         teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level0, new Point3D(0,0,0));
         homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
         homeEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 1; i++) {
             ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-4, 4, 0));
-            for(int j = 0; j < points.size(); j++) {
+            for(int j = 0; j < 1; j++) {
                 level3.addAreaEffectTo(points.get(j), homeTeleport);
             }
         }
@@ -437,9 +437,9 @@ public class MapGenerator extends Application {
         teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level0, new Point3D(0,0,0));
         homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
         homeEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 1; i++) {
             ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-4, 4, 0));
-            for(int j = 0; j < points.size(); j++) {
+            for(int j = 0; j < 1; j++) {
                 level4.addAreaEffectTo(points.get(j), homeTeleport);
             }
         }
