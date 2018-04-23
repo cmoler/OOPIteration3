@@ -110,6 +110,10 @@ public class MapGenerator extends Application {
         enemy.addItemToInventory(longsword);
         enemy.equipWeapon(longsword);
 
+        WeaponItem longersword = itemFactory.getTwoHandedSword();
+        other.addItemToInventory(longersword);
+        other.equipWeapon(longersword);
+
         entityFactory.buildEntitySprite(enemy);
         entityFactory.buildEntitySprite(other);
 
