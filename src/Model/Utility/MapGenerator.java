@@ -88,21 +88,6 @@ public class MapGenerator extends Application {
 
     private static void generateDemoMap() {
         makeGame();
-
-//        createTerrains(level0);
-//        createAreaEffects(level0);
-//        createInfluenceAreas(level0);
-//        createItems(level0);
-//        createMounts(level0);
-//        createTraps(level0);
-//        createObstacle(level0);
-//        createRivers(level0);
-//        createEnities(level0);
-//        makeEnemy(level0);
-//
-//        createTerrainsForWorld(level1);
-//        levels.add(level0);
-//        levels.add(level1);
     }
 
     private static void makeEnemy(Level level) {
@@ -111,35 +96,40 @@ public class MapGenerator extends Application {
         path.add(new Vec3d(1,0,-1));
 
         entityFactory = new MonsterFactory(skillsFactory);
-        Entity other = entityFactory.buildEntity();
         Entity enemy = entityFactory.buildEntity();
-        enemy.setSpeed(1500000000L);
+        enemy.setSpeed(2000000000L);
+        enemy.setSightRadius(new SightRadius(3));
         enemy.setTargetingList(new ArrayList<Entity>(){{add(player);}});
+
+        Entity other = entityFactory.buildEntity();
+        other.setSpeed(1500000000L);
+        other.setSightRadius(new SightRadius(3));
+        other.setTargetingList(new ArrayList<Entity>(){{add(player);}});
 
         WeaponItem longsword = itemFactory.getTwoHandedSword();
         enemy.addItemToInventory(longsword);
         enemy.equipWeapon(longsword);
 
         entityFactory.buildEntitySprite(enemy);
+        entityFactory.buildEntitySprite(other);
 
         HostileAI hostileAI = new HostileAI(enemy, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
         hostileAI.setPatrolPath(new PatrolPath(path));
 
+        ArrayList<Vec3d> path2 = new ArrayList<>();
+        path2.add(new Vec3d(1,1,0));
+
+        HostileAI hostileAI2 = new HostileAI(other, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
+        hostileAI2.setPatrolPath(new PatrolPath(path2));
+
         AIController controller = new AIController();
         controller.setActiveState(hostileAI);
 
-        aiControllers.add(controller);
+        AIController controller2 = new AIController();
+        controller2.setActiveState(hostileAI2);
 
-        hostileAI = new HostileAI(other, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
-        hostileAI.setPatrolPath(new PatrolPath(path));
-
-        controller = new AIController();
-        controller.setActiveState(hostileAI);
-
-        level.addEntityTo(new Point3D(0, 3, -3), enemy);
-        //level.addEntityTo(new Point3D(0, -3, 3), other);
-
-        aiControllers.add(controller);
+        level.addEntityTo(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(new Point3D(0,1,-1),Orientation.NORTH), Orientation.NORTH), Orientation.NORTH), Orientation.NORTH), Orientation.NORTH), Orientation.NORTH), enemy);
+        level.addEntityTo(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(Orientation.getAdjacentPoint(new Point3D(0,1,-1),Orientation.SOUTH), Orientation.SOUTH), Orientation.SOUTH), Orientation.SOUTH), Orientation.SOUTH), Orientation.SOUTH), other);
 
         entityFactory = new PetFactory(skillsFactory);
         Entity pet = entityFactory.buildEntity();
@@ -153,12 +143,14 @@ public class MapGenerator extends Application {
                 pet);
 
         entityFactory.buildEntitySprite(pet);
-        pet.setTargetingList(new ArrayList<Entity>() {{ add(enemy); }});
+        pet.setTargetingList(new ArrayList<Entity>() {{ add(enemy); add(other); }});
         pet.setMoveable(true);
         pet.setNoise(5);
         pet.setName("McNugget");
         pet.setSpeed(1000000000l);
-        pet.setSightRadius(new SightRadius(5));
+        pet.setSightRadius(new SightRadius(3));
+        pet.increaseMaxHealth(50);
+        pet.increaseHealth(50);
         WeaponItem sword = itemFactory.getOneHandedSword();
         pet.addItemToInventory(sword);
         pet.equipWeapon(sword);
@@ -166,13 +158,20 @@ public class MapGenerator extends Application {
         pet.addItemToInventory(itemFactory.getHealthRing());
         pet.addItemToInventory(itemFactory.getFreezeBow());
 
-        level.addEntityTo(new Point3D(-3, 5, -2), pet);
+        level.addEntityTo(Orientation.getAdjacentPoint(new Point3D(0,1,-1),Orientation.SOUTH), pet);
 
         GeneralPetState passivePetState = petAIFactory.getGeneralPetState();
-        controller.setActiveState(passivePetState);
+
+        AIController controller3 = new AIController();
+        controller3.setActiveState(passivePetState);
+
+        aiControllers.add(controller);
+        aiControllers.add(controller2);
+        aiControllers.add(controller3);
 
         player.addFriendly(pet);
         enemy.addTarget(pet);
+        other.addTarget(pet);
         aiMap.put(level, aiControllers);
     }
 

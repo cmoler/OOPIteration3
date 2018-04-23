@@ -32,7 +32,7 @@ public class ItemFactory {
 
     //Instantiates a one handed weapon
     public WeaponItem getOneHandedSword() {
-        RemoveHealthCommand command = new RemoveHealthCommand(25);
+        RemoveHealthCommand command = new RemoveHealthCommand(12);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getOneHandedSkill();
         WeaponItem oneHandedSword = new WeaponItem("One Handed Sword", command, skill, influenceEffect, 10, 0330000000l, 10, 10, 1 );
@@ -49,7 +49,7 @@ public class ItemFactory {
 
     //Instantiates a two handed weapon
     public WeaponItem getTwoHandedSword() {
-        RemoveHealthCommand command = new RemoveHealthCommand(50);
+        RemoveHealthCommand command = new RemoveHealthCommand(20);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getTwoHandedSkill();
         WeaponItem twoHandedSword = new WeaponItem("Two Handed Sword", command, skill, influenceEffect, 20, 0500000000l, 10, 10, 1 );
@@ -66,7 +66,7 @@ public class ItemFactory {
 
     //Instantiates a brawler weapon
     public WeaponItem getBrawlerWeapon() {
-        RemoveHealthCommand command = new RemoveHealthCommand(10);
+        RemoveHealthCommand command = new RemoveHealthCommand(6);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getBrawlerSkill();
         WeaponItem brawlerWeapon = new WeaponItem("Brawler Weapon", command, skill, influenceEffect, 5, 0250000000l, 10, 10, 1 );
@@ -99,7 +99,7 @@ public class ItemFactory {
     }
 
     public WeaponItem getRangedWeapon(){
-        RemoveHealthCommand command = new RemoveHealthCommand(30);
+        RemoveHealthCommand command = new RemoveHealthCommand(15);
         AngularInfluenceEffect influenceEffect = new AngularInfluenceEffect(command, 10, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getRangeSkill();
         WeaponItem bow = new WeaponItem("Shotgun Crossbow", command, skill, influenceEffect, 8, 0250000000l, 10, 10, 1 );
