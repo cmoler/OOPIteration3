@@ -139,15 +139,13 @@ public class GameModel implements Visitable {
         player.setMoveable(true);
         player.setNoise(5);
         player.levelUp();
-        Skill attack = new Skill();
-        player.addWeaponSkills(attack);
         player.setSpeed(0500000000l);
 
         Skill oneHandedSkill = skillsFactory.getOneHandedSkill();
         player.addWeaponSkills(oneHandedSkill);
-        attack.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
         SettableCommand og = new RemoveHealthCommand(1000);
-        WeaponItem mace = new WeaponItem("Sword of Light", og, attack, new RadialInfluenceEffect(og,5,0250000000l, Orientation.NORTH), 1000, 0500000000l,100,100,2);
+        WeaponItem mace = new WeaponItem("Sword of Light", og, oneHandedSkill, new RadialInfluenceEffect(og,5,0250000000l, Orientation.NORTH), 1000, 0500000000l,100,100,4);
+        mace.setCurrentLevelMessenger(currentLevelMessenger);
         player.addItemToInventory(mace);
         //player.equipWeapon(mace);
         player.setSightRadius(new SightRadius(7));

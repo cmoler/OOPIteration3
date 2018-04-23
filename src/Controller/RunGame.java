@@ -30,7 +30,7 @@ public class RunGame extends Application{
     @Override
     public void start(Stage primaryStage){
 
-        //Initialization Shit
+        //Initialization
         mainStage = primaryStage;
         mainStage.setTitle("HYPED MEAN PENGUINS BACK FOR DAVE SMALL DAVE MEDIUM DAVE LARGE DAVE MORE");
 
@@ -44,28 +44,6 @@ public class RunGame extends Application{
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         canvas.setFocusTraversable(true);
-
-        /*
-        List<LevelViewElement> observers = new ArrayList<>();
-        Level level = new Level(observers);
-
-        Entity entity = new Entity();
-        entity.setOrientation(Orientation.NORTH);
-        EntityView ev = new EntityView(entity);
-
-        level.addEntityTo(new Point3D(0, 0, 0), entity);
-
-        ArrayList<LevelViewElement> terrains = new ArrayList<>();
-        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
-
-        for(int i = 0; i < 8; i++) {
-            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(new Point3D(0, 0, 0));
-            for(int j = 0; j < points.size(); j++) {
-                terrains.add(new TerrainView(points.get(j), 100));
-            }
-        }
-
-*/
         
         GameLoop gameLoop = new GameLoop();
         gameLoop.init();

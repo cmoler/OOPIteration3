@@ -103,9 +103,16 @@ public class CommandTests {
 
         Assert.assertEquals(100, entity.getCurrentHealth());
 
-        entity.useSkill(0);
+        while(!level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed()
+                && !level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHEAST)).getIsDisarmed()
+                && !level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTHWEST)).getIsDisarmed()
+                && !level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTH)).getIsDisarmed()
+                && !level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHEAST)).getIsDisarmed()
+                && !level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.SOUTHWEST)).getIsDisarmed()) {
+            entity.useSkill(0);
 
-        level.advance();
+            level.advance();
+        }
 
         Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsVisible());
         Assert.assertTrue(level.getTrapMap().get(Orientation.getAdjacentPoint(center, Orientation.NORTH)).getIsDisarmed());
@@ -542,10 +549,12 @@ public class CommandTests {
         level.advance();
 
         Assert.assertEquals(entity.getNoise(), 0, 0);
-        Assert.assertEquals(entity.getSpeed(),100000000l, (long) 0770000000l);
+        Assert.assertEquals(entity.getSpeed(),100000000l, 0770000000l);
 
-        entity.useSkill(0);
-        level.advance();
+        while(entity.getNoise() != 1) {
+            entity.useSkill(0);
+            level.advance();
+        }
 
         Assert.assertEquals(entity.getNoise(), 1, 0);
         Assert.assertEquals(entity.getSpeed(),0500000000l, 0);
