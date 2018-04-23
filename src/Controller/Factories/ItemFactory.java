@@ -10,6 +10,7 @@ import Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand;
 import Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.Skill;
+import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.Item.Item;
 import Model.Item.TakeableItem.ArmorItem;
@@ -32,7 +33,7 @@ public class ItemFactory {
     //Instantiates a one handed weapon
     public WeaponItem getOneHandedSword() {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
-        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getOneHandedSkill();
         WeaponItem oneHandedSword = new WeaponItem("One Handed Sword", command, skill, influenceEffect, 10, 10, 10, 10, 1 );
         oneHandedSword.setCurrentLevelMessenger(levelMessenger);
@@ -49,7 +50,7 @@ public class ItemFactory {
     //Instantiates a two handed weapon
     public WeaponItem getTwoHandedSword() {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
-        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getTwoHandedSkill();
         WeaponItem twoHandedSword = new WeaponItem("Two Handed Sword", command, skill, influenceEffect, 20, 5, 10, 10, 1 );
         twoHandedSword.setCurrentLevelMessenger(levelMessenger);
@@ -66,7 +67,7 @@ public class ItemFactory {
     //Instantiates a brawler weapon
     public WeaponItem getBrawlerWeapon() {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
-        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getBrawlerSkill();
         WeaponItem brawlerWeapon = new WeaponItem("Brawler Weapon", command, skill, influenceEffect, 5, 20, 10, 10, 1 );
         brawlerWeapon.setCurrentLevelMessenger(levelMessenger);
@@ -83,7 +84,7 @@ public class ItemFactory {
     //Instantiates a staff
     public WeaponItem getStaff(){
         RemoveHealthCommand command = new RemoveHealthCommand(10);
-        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 10, Orientation.NORTH);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getStaffSkill();
         WeaponItem staff1 = new WeaponItem("Staff", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
         staff1.setCurrentLevelMessenger(levelMessenger);
@@ -99,9 +100,9 @@ public class ItemFactory {
 
     public WeaponItem getRangedWeapon(){
         RemoveHealthCommand command = new RemoveHealthCommand(10);
-        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 10, 10, Orientation.NORTH);
+        AngularInfluenceEffect influenceEffect = new AngularInfluenceEffect(command, 10, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getRangeSkill();
-        WeaponItem bow = new WeaponItem("Ranged Weapon", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        WeaponItem bow = new WeaponItem("Shotgun Crossbow", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
         bow.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -143,7 +144,7 @@ public class ItemFactory {
 
     public WeaponItem getFreezeBow() {
         FreezeEntityCommand command = new FreezeEntityCommand(levelMessenger);
-        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 10, 10, Orientation.NORTH);
+        LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 10, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getRangeSkill();
         WeaponItem bow = new WeaponItem("Freeze Bow", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
         bow.setCurrentLevelMessenger(levelMessenger);
