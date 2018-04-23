@@ -8,7 +8,7 @@ public class XPLevel {
     private int expToNextLevel; // TODO: according to the UML, this is supposed to be derived?
 
     public XPLevel() {
-        this.level = 0;
+        this.level = 1;
         this.experience = 0;
         this.pointsAvailable = 0;
         this.expToNextLevel = 100; // TODO: define more complex algorithm for increasing level and managing experience

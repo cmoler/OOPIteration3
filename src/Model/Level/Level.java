@@ -280,11 +280,17 @@ public class Level {
         HexMathHelper hexMathHelper = new HexMathHelper();
 
         for(LevelViewElement o : observers) {
-            if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {//If object in view of player, update location
-                o.locationViewedByPlayer();
+            try {
+                if (hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerViewDistance) {//If object in view of player, update location
+                    o.locationViewedByPlayer();
+                }
+                if (hexMathHelper.getDistance(playerPos, o.getRenderLocation()) <= playerViewDistance) {
+                    o.rendererLocationViewedByPlayer();
+                }
             }
-            if(hexMathHelper.getDistance(playerPos, o.getRenderLocation()) <= playerViewDistance) {
-                o.rendererLocationViewedByPlayer();
+
+            catch (Exception e) {
+                System.err.println("WHAT");
             }
         }
     }

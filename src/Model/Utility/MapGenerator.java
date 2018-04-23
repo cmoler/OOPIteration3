@@ -3,6 +3,7 @@ package Model.Utility;
 import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.EntityFactories.MonsterFactory;
 import Controller.Factories.EntityFactories.PetFactory;
+import Controller.Factories.ItemFactory;
 import Controller.Factories.PetAIFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.SavingVisitor;
@@ -12,6 +13,9 @@ import Model.AI.PatrolPath;
 import Model.AI.PetAI.PetStates.GeneralPetState;
 import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
+import Model.AreaEffect.OneShotAreaEffect;
+import Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand;
+import Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
@@ -21,11 +25,13 @@ import Model.Entity.EntityAttributes.*;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
 import View.LevelView.EntityView.SmasherView;
 import View.LevelView.EntityView.SneakView;
 import View.LevelView.EntityView.SummonerView;
+import View.LevelView.ItemView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
@@ -302,7 +308,7 @@ public class MapGenerator extends Application {
 
         entity = new Entity(null, new ItemHotBar(), new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(6),
-                new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(10),
+                new XPLevel(), new Health(300, 300), new Mana(100, 100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
                 null, new ArrayList<>(), new ArrayList<>());
@@ -408,6 +414,33 @@ public class MapGenerator extends Application {
             }
         }
 
+        // LEVEL 2 AREA EFFECTS
+        OneShotAreaEffect levelUpEffect = new OneShotAreaEffect(new LevelUpCommand());
+        OneShotAreaEffect instantDeathCommand = new OneShotAreaEffect(new InstaDeathCommand());
+        InfiniteAreaEffect healthPool = new InfiniteAreaEffect(new AddHealthCommand(1));
+        InfiniteAreaEffect damagePool = new InfiniteAreaEffect(new RemoveHealthCommand(1));
+        ItemFactory itemFactory = new ItemFactory(skillsFactory, levelMessenger);
+
+        level2.addAreaEffectTo(new Point3D(-2,1,1), levelUpEffect);
+        level2.addAreaEffectTo(new Point3D(2,-1,-1), instantDeathCommand);
+
+        level2.addAreaEffectTo(new Point3D(0,-3,3), healthPool);
+        level2.addAreaEffectTo(new Point3D(0,3,-3), damagePool);
+
+        // LEVEL 2 ITEMS
+        OneShotItem hurts = new OneShotItem("YEAH", new RemoveHealthCommand(100));
+        ConsumableItem healingPotion = new ConsumableItem("Healing Potion", new AddHealthCommand(100));
+        WeaponItem brawler = itemFactory.getBrawlerWeapon();
+        level2.addItemTo(new Point3D(2,0,-2), healingPotion);
+        level2.addItemTo(new Point3D(-2,0,2), brawler);
+        level2.addItemTo(new Point3D(-4,0,4), hurts);
+
+        // Level 2 Traps
+        Trap trap = new Trap(new RemoveHealthCommand(100), 10);
+        level2.addTrapTo(new Point3D(-6, 0, 6), trap);
+
+        // END OF LEVEL 2
+
         radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
         radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
         level3.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
@@ -481,7 +514,7 @@ public class MapGenerator extends Application {
         // LEVEL 3
         teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level2, new Point3D(0,1,-1));
         homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
-//        level0.addAreaEffectTo(new Point3D(5, -5, 0), homeTeleport);
+        level0.addAreaEffectTo(new Point3D(5, -5, 0), homeTeleport);
 
         // LEVEL 4
         teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level3, new Point3D(0,1,-1));

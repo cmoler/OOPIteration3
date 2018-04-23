@@ -70,12 +70,14 @@ public class GameLoader {
     private HashMap<Level, List<AIController>> aiMap = new HashMap<>();
     private Queue<ReferenceMap> needToSetMap = new LinkedList<ReferenceMap>();
     private PetAIFactory petAIFactory;
+    private SkillsFactory skillsFactory;
 
     public GameLoader(GameLoop gameLoop) {
         world = new ArrayList<>();
         this.gameLoopMessenger = new GameLoopMessenger(gameLoop);
         gameModelMessenger = new GameModelMessenger(gameLoopMessenger, this.gameModel);
         levelMessenger = new LevelMessenger(gameModelMessenger, currentLevel);
+        skillsFactory = new SkillsFactory(levelMessenger);
     }
 
     public GameLoader(GameLoopMessenger gameLoopMessenger) {
@@ -924,9 +926,12 @@ public class GameLoader {
                         command = processCommand(itemNode.getChildNodes());
                         if (command != null) {
                             name = itemNode.getAttributes().getNamedItem("name").getTextContent();
+                            ItemView itemView = new ItemView(new Point3D(0,0,0));
                             switch (itemNode.getNodeName().toLowerCase()) {
                                 case "oneshotitem":
                                     OneShotItem oneShotItem = new OneShotItem(name, command);
+                                    itemView.setPotion();
+                                    oneShotItem.setObserver(itemView);
                                     itemsToAdd.add(oneShotItem);
                                     itemRef.put(reference,oneShotItem);
                                     break;
@@ -934,6 +939,8 @@ public class GameLoader {
                                 case "interactiveitem":
                                     InteractiveItem interactiveItem = new InteractiveItem(name, command);
                                     itemsToAdd.add(interactiveItem);
+                                    itemView.setPotion();
+                                    interactiveItem.setObserver(itemView);
                                     itemRef.put(reference, interactiveItem);
                                     break;
 
@@ -942,6 +949,18 @@ public class GameLoader {
                                     ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                     armorItem.setCurrentLevelMessenger(levelMessenger);
                                     armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    if(defense > 15) {
+                                        itemView.setHeavyArmor();
+                                    }
+
+                                    else if(defense > 10) {
+                                        itemView.setMediumArmor();
+                                    }
+
+                                    else
+                                        itemView.setLightArmor();
+
+                                    armorItem.setObserver(itemView);
                                     itemsToAdd.add(armorItem);
                                     itemRef.put(reference, armorItem);
                                     break;
@@ -950,6 +969,8 @@ public class GameLoader {
                                     ConsumableItem consumableItem = new ConsumableItem(name, command);
                                     consumableItem.setCurrentLevelMessenger(levelMessenger);
                                     consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    itemView.setManaPotion();
+                                    consumableItem.setObserver(itemView);
                                     itemsToAdd.add(consumableItem);
                                     itemRef.put(reference, consumableItem);
                                     break;
@@ -958,6 +979,8 @@ public class GameLoader {
                                     RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
                                     ringItem.setCurrentLevelMessenger(levelMessenger);
                                     ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    itemView.setHealthRing();
+                                    ringItem.setObserver(itemView);
                                     itemsToAdd.add(ringItem);
                                     itemRef.put(reference, ringItem);
                                     break;
@@ -983,6 +1006,7 @@ public class GameLoader {
                                     WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
                                     weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    weaponItem.setObserver(itemView);
                                     itemsToAdd.add(weaponItem);
                                     itemRef.put(reference, weaponItem);
                                     break;
@@ -994,6 +1018,7 @@ public class GameLoader {
         }
 
         for(int i = 0; i < pointsToAdd.size(); i++) {
+            itemsToAdd.get(i).notifyObserver(pointsToAdd.get(i));
             level.addItemTo(pointsToAdd.get(i), itemsToAdd.get(i));
         }
     }
