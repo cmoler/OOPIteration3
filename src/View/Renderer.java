@@ -24,6 +24,8 @@ public class Renderer {
 
     private MenuView menuView;
 
+    private Level currentLevel;
+
     List<TerrainView> terrainObservers;
 
     public Renderer() {
@@ -47,6 +49,7 @@ public class Renderer {
 
     public void updateCurrentLevel(Level newCurrentLevel) {
         levelView.setCurrentLevel(newCurrentLevel);
+        currentLevel = newCurrentLevel;
     }
 
     public void setActiveMenuState(MenuViewState menuViewState) {
@@ -233,8 +236,12 @@ public class Renderer {
     }
 
     public void updateTerrainFog(Point3D playerPos, int playerSightRadius) {
+        if(currentLevel == null) {
+            return;
+        }
         HexMathHelper hexMathHelper = new HexMathHelper();
-        for(TerrainView o: terrainObservers) {
+        List<LevelViewElement> levelObservers = currentLevel.getObservers();
+        for(LevelViewElement o: levelObservers) {
             if(hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerSightRadius) {
                 o.setShrouded(false);
             } else {

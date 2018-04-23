@@ -64,41 +64,13 @@ public class TerrainView extends LevelViewElement{
         //Render terrain sprite
         super.render(gc, playerPos, scrollOffset);
 
-        if(isShrouded()) {//Render fog if its shrouded
-            renderHex(gc, playerPos, scrollOffset, fogSprite);
-        }
-    }
 
-    private void renderHex(GraphicsContext gc, Point2D playerPos, Point2D scrollOffset, Image renderSprite) {
-        int width = getSize();
-        int height = (int)(width * (Math.sqrt(3)/2));
-
-        HexMathHelper hexMathHelper = new HexMathHelper();
-        int xOffset = hexMathHelper.getXCoord(location)-(int)playerPos.getX();
-        int yOffset = hexMathHelper.getYCoord(location) - (int)playerPos.getY();
-
-        rotate(gc, getOrientation().getDegreeOfOrientation(getOrientation()), ((xOffset*width)*.75)+(width/2) + Commons.SCREEN_WIDTH/2 + scrollOffset.getX(), (yOffset*(height/2))+(height/2) + Commons.SCREEN_HEIGHT/2 + scrollOffset.getY());
-        gc.drawImage(renderSprite, (int)((xOffset*width)*.75) + Commons.SCREEN_WIDTH/2 + scrollOffset.getX(), (yOffset*(height/2)) + Commons.SCREEN_HEIGHT/2 + scrollOffset.getY(), width, height);
     }
 
 
-    public boolean isShrouded() {
-        return isShrouded;
-    }
 
-    public void setShrouded(boolean shrouded) {
-        if(!shrouded) {
-            setSeen(true);
-        }//Tile is unshrouded at least once, therefor seen
-        isShrouded = shrouded;
-    }
 
-    private void setSeen(boolean seen) {
-        this.isSeen = seen;
-    }
-    public boolean isSeen() {
-        return isSeen;
-    }
+
 
     @Override
     public int getRenderPriority() {

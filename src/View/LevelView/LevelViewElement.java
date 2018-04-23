@@ -20,6 +20,8 @@ public abstract class LevelViewElement {
     protected Image sprite;
     protected Image fogSprite;
     private HexMathHelper hexMathHelper;
+    private boolean isShrouded;
+    private boolean isSeen;
 
     protected LevelViewElement(Point3D location, int renderPriority) {
         this.location = location;
@@ -30,6 +32,9 @@ public abstract class LevelViewElement {
         size = 75;
         this.renderPriority = renderPriority;
         fogSprite = Sprites.getInstance().getFogSprite();
+
+        isShrouded = true;
+        isSeen = false;
     }
 
     public abstract void notifyViewElement();
@@ -47,6 +52,23 @@ public abstract class LevelViewElement {
         if(renderLocation != location) {
             gc.drawImage(fogSprite, (int)((xOffset*width)*.75) + Commons.SCREEN_WIDTH/2 + scrollOffset.getX(), (yOffset*(height/2)) + Commons.SCREEN_HEIGHT/2 + scrollOffset.getY(), width, height);
         }
+
+        if(isShrouded()) {//Render fog if its shrouded
+            renderHex(gc, playerPos, scrollOffset, fogSprite);
+        }
+
+    }
+
+    protected void renderHex(GraphicsContext gc, Point2D playerPos, Point2D scrollOffset, Image renderSprite) {
+        int width = getSize();
+        int height = (int)(width * (Math.sqrt(3)/2));
+
+        HexMathHelper hexMathHelper = new HexMathHelper();
+        int xOffset = hexMathHelper.getXCoord(location)-(int)playerPos.getX();
+        int yOffset = hexMathHelper.getYCoord(location) - (int)playerPos.getY();
+
+        rotate(gc, getOrientation().getDegreeOfOrientation(getOrientation()), ((xOffset*width)*.75)+(width/2) + Commons.SCREEN_WIDTH/2 + scrollOffset.getX(), (yOffset*(height/2))+(height/2) + Commons.SCREEN_HEIGHT/2 + scrollOffset.getY());
+        gc.drawImage(renderSprite, (int)((xOffset*width)*.75) + Commons.SCREEN_WIDTH/2 + scrollOffset.getX(), (yOffset*(height/2)) + Commons.SCREEN_HEIGHT/2 + scrollOffset.getY(), width, height);
     }
 
     protected void rotate(GraphicsContext gc, double angle, double px, double py) {
@@ -103,6 +125,24 @@ public abstract class LevelViewElement {
 
     public Image getSprite() {
         return sprite;
+    }
+
+    public boolean isShrouded() {
+        return isShrouded;
+    }
+
+    public void setShrouded(boolean shrouded) {
+        if(!shrouded) {
+            setSeen(true);
+        }//Tile is unshrouded at least once, therefor seen
+        isShrouded = shrouded;
+    }
+
+    protected void setSeen(boolean seen) {
+        this.isSeen = seen;
+    }
+    public boolean isSeen() {
+        return isSeen;
     }
 }
 

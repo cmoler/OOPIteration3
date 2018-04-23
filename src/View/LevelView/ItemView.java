@@ -59,7 +59,12 @@ public class ItemView extends LevelViewElement{
     }
 
     public void setTwoHandedWeapon() {
+        String workingDir = System.getProperty("user.dir");
+        int randInt = (rand.nextInt(3))+1;
+        System.out.println(randInt);
+        File file = new File(workingDir + "/src/View/Assets/twoHanded" + Integer.toString(randInt) + ".png");
 
+        setSprite(new Image(file.toURI().toString()));
     }
 
     public void setStaff() {
@@ -144,6 +149,7 @@ public class ItemView extends LevelViewElement{
 
         setSprite(new Image(file.toURI().toString()));
     }
+
 
 
 }
