@@ -35,6 +35,7 @@ import View.LevelView.EntityView.MonsterView;
 import View.LevelView.EntityView.SmasherView;
 import View.LevelView.EntityView.SneakView;
 import View.LevelView.EntityView.SummonerView;
+import View.LevelView.EntityView.*;
 import View.LevelView.ItemView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
@@ -320,6 +321,7 @@ public class GameLoader {
                         Mana mana;
                         Speed speed;
                         Gold gold;
+                        String name;
                         Attack attack;
                         Defense defense;
                         Equipment equipment;
@@ -329,6 +331,8 @@ public class GameLoader {
                         Mount mount;
                         ArrayList<Entity> friends = new ArrayList<>();
                         ArrayList<Entity> targets = new ArrayList<>();
+
+                        name = entityNode.getAttributes().getNamedItem("name").getTextContent();
 
                         noise = Integer.parseInt(entityNode.getAttributes().getNamedItem("noiseLevel").getTextContent());
                         noiseLevel = new NoiseLevel(noise);
@@ -384,6 +388,8 @@ public class GameLoader {
                                 noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
                                 inventory, orientation, compatableTerrain, moveable, mount, new ArrayList<>(), new ArrayList<>());
 
+                        entity.setName(name);
+
                         processFriendsAndFoes(entityNode.getChildNodes(), entity);
                         inventory.setStrategies(entity);
                         equipment.setStrategies(entity);
@@ -401,7 +407,10 @@ public class GameLoader {
 
             for(Skill skill: addingEnt.getWeaponSkills()) {
                 if(skill.getName().equalsIgnoreCase("one-handed")) {
-                    addingEnt.setObserver(new SmasherView(addingEnt, pointsToAdd.get(i)));
+                    if(addingEnt.getName().equals("McNugget")){
+                        addingEnt.setObserver(new PetView(addingEnt, pointsToAdd.get(i)));
+                    }
+                    else addingEnt.setObserver(new SmasherView(addingEnt, pointsToAdd.get(i)));
                     break;
                 }
 
@@ -416,7 +425,10 @@ public class GameLoader {
                 }
             }
 
-            if(addingEnt.getObserver() == null) {
+            if(addingEnt.getName() == "McNugget"){
+                addingEnt.setObserver(new PetView(addingEnt, pointsToAdd.get(i)));
+            }
+            else if(addingEnt.getObserver() == null) {
                 addingEnt.setObserver(new MonsterView(addingEnt, pointsToAdd.get(i)));
             }
 
@@ -1091,7 +1103,23 @@ public class GameLoader {
 
                                     WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
-                                    weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    switch (weaponSkill.getName()){
+                                        case "One-Handed":
+                                            itemView.setOneHandedSword();
+                                            break;
+                                        case "Two-Handed":
+                                            itemView.setTwoHandedWeapon();
+                                            break;
+                                        case "Brawler":
+                                            itemView.setBrawlerWeapon();
+                                            break;
+                                        case "Staff":
+                                            itemView.setStaff();
+                                            break;
+                                        case "Range":
+                                            itemView.setRangedWeapon();
+                                            break;
+                                    }
                                     weaponItem.setObserver(itemView);
                                     itemsToAdd.add(weaponItem);
                                     itemRef.put(reference, weaponItem);

@@ -512,6 +512,7 @@ public class SavingVisitor implements Visitor {
                 + " defenseModifier=" + "\"" + entity.getDefenseModifier() + "\""
                 + " orientation=" + "\"" + entity.getOrientation() + "\""
                 + " moveable=" + "\"" + entity.isMoveable() + "\""
+                + " name=" + "\"" + entity.getName() + "\""
                 + " reference=" + "\"" + entity.toString() + "\"" + ">");
 
         entityString.append("\n");
