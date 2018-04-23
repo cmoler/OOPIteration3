@@ -254,7 +254,7 @@ public class GameLoop {
 
     public void render(GraphicsContext gc){
         if(gameModel != null) {
-            renderer.updateTerrainFog(gameModel.getPlayerPosition(), gameModel.getPlayer().getSight());
+            renderer.updateTerrainFog(gameModel.getCurrentLevel(), gameModel.getPlayerPosition(), gameModel.getPlayer().getSight());
             renderer.render(gc, gameModel.getPlayerPosition(), scrollOffSet);
         }
 

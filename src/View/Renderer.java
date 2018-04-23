@@ -3,7 +3,6 @@ package View;
 
 import Model.AreaEffect.AreaEffect;
 import Model.Entity.Entity;
-import Model.InfluenceEffect.InfluenceEffect;
 import Model.Item.Item;
 import Model.Level.*;
 import Model.Utility.BidiMap;
@@ -15,6 +14,7 @@ import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,14 +24,14 @@ public class Renderer {
 
     private MenuView menuView;
 
-    List<TerrainView> terrainObservers;
+    Map<Level, List<TerrainView>> terrainObserversMap;
 
     public Renderer() {
         levelView = new LevelView();
 
         menuView = new MenuView();
 
-        terrainObservers = new ArrayList<>();
+        terrainObserversMap = new HashMap<>();
 
         Sprites.getInstance().initSprites();
     }
@@ -69,7 +69,7 @@ public class Renderer {
 
         List<LevelViewElement> observers = new ArrayList<>();
         if (level != null) {
-            observers.addAll(registerTerrainObservers(level.getTerrainMap()));
+            observers.addAll(registerTerrainObservers(level, level.getTerrainMap()));
 
             observers.addAll(registerItemObservers(level.getItemMap()));
 
@@ -201,8 +201,8 @@ public class Renderer {
         return observers;
     }
 
-    private ArrayList<LevelViewElement> registerTerrainObservers(Map<Point3D, Terrain> terrainMap) {
-        ArrayList<LevelViewElement> observers = new ArrayList<>();
+    private ArrayList<LevelViewElement> registerTerrainObservers(Level level, Map<Point3D, Terrain> terrainMap) {
+        ArrayList<TerrainView> observers = new ArrayList<>();
 
         for(Point3D point : terrainMap.keySet()) {
             Terrain terrain = terrainMap.get(point);
@@ -210,10 +210,12 @@ public class Renderer {
             TerrainView observer = new TerrainView(terrain, point);
 
             observers.add(observer);
-            terrainObservers.add(observer);
+
         }
 
-        return observers;
+        terrainObserversMap.put(level, observers);
+
+        return new ArrayList<>(observers);
     }
 
     public void setHotBarView(HotbarView hbv) { levelView.setHotbarView(hbv);}
@@ -222,14 +224,14 @@ public class Renderer {
         menuView.setInMenu(false);
     }
 
-    public void updateTerrainFog(Point3D playerPos, int playerSightRadius) {
+    public void updateTerrainFog(Level currentLevel, Point3D playerPos, int playerSightRadius) {
         if(!menuView.inMenu()) {
             HexMathHelper hexMathHelper = new HexMathHelper();
-            for (TerrainView o : terrainObservers) {
-                if (hexMathHelper.getDistance(playerPos, o.getLocation()) <= playerSightRadius) {
-                    o.setShrouded(false);
+            for (TerrainView terrainView : terrainObserversMap.get(currentLevel)) {
+                if (hexMathHelper.getDistance(playerPos, terrainView.getLocation()) <= playerSightRadius) {
+                    terrainView.setShrouded(false);
                 } else {
-                    o.setShrouded(true);
+                    terrainView.setShrouded(true);
                 }
             }
         }
