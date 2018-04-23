@@ -20,6 +20,10 @@ public class ShopKeepView extends EntityView {
 
     @Override
     public void notifyViewElementDeath() {
+        String workingDir = System.getProperty("user.dir");
 
+        File file = new File(workingDir + "/src/View/Assets/grave.png");
+
+        setSprite(new Image(file.toURI().toString()));
     }
 }
