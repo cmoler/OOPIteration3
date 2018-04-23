@@ -63,6 +63,9 @@ public class GameLoop {
         scrollOffSet = new Point2D(0, 0);
         controls = new KeyEventImplementor(this);
         menuModel = new MenuModel(this);
+//        gameModel = new GameModel(gameLoopMessenger);
+//
+//        gameModel.initWorldMap();
         renderer = new Renderer();
         ((KeyEventImplementor) controls).createMainMenuSet(menuModel);
         setMenuState(new MainMenuState(menuModel, this), new TitleScreenView(menuModel));
@@ -86,9 +89,7 @@ public class GameLoop {
     }
 
     public void createObservationWindow(Entity entity, String randomEntityFacts) {
-        // TODO: implement
         renderer.addObservationView(new ObservationView(entity, randomEntityFacts));
-
     }
 
     public void loadGame(int i) {

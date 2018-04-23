@@ -6,13 +6,10 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 
-public class DecalView extends LevelViewElement { // TODO: implement
-
-    // private Decal decal; TODO: needed?
+public class DecalView extends LevelViewElement {
 
     public DecalView(Point3D location) {
         super(location, 2);
-        //  this.decal = decal; TODO: needed?
 
         String workingDir = System.getProperty("user.dir");
 
@@ -30,6 +27,4 @@ public class DecalView extends LevelViewElement { // TODO: implement
     public void notifyViewElementDeath() {
 
     }
-
-
 }

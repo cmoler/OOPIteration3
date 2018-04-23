@@ -476,7 +476,7 @@ public class Entity {
         hotBar.removeItem(currentlySelectedItem);
     }
 
-    public void useSkill(int index){ // TODO: add logic for mana costs
+    public void useSkill(int index){
         if(nonWeaponSkills.size() - 1 < index || index < 0) return;
         else{
             nonWeaponSkills.get(index).fire(this);
@@ -494,7 +494,7 @@ public class Entity {
 
     public void useSkill(){
         nonWeaponSkills.get(currentlySelectedSkill).fire(this);
-    } // TODO: add logic for mana costs
+    }
 
     public void scrollLeft(){
         if(currentlySelectedSkill <= 0) currentlySelectedSkill = nonWeaponSkills.size() - 1;
@@ -555,7 +555,7 @@ public class Entity {
         return inventory.takeRandomItem();
     }
 
-    public String getRandomFacts(int observeStrength) { // TODO: make more complex random-ness for observe
+    public String getRandomFacts(int observeStrength) {
         Random random = new Random();
 
         int randomAttribute = random.nextInt(5);

@@ -33,7 +33,7 @@ public class RunGame extends Application{
     @Override
     public void start(Stage primaryStage){
 
-        //Initialization Shit
+        //Initialization
         mainStage = primaryStage;
         mainStage.setTitle("HYPED MEAN PENGUINS BACK FOR DAVE SMALL DAVE MEDIUM DAVE LARGE DAVE MORE");
 

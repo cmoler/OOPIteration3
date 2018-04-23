@@ -8,11 +8,8 @@ import java.io.File;
 
 public class AreaEffectView extends LevelViewElement {
 
-
-
     public AreaEffectView(Point3D location) {
         super(location, 2);
-
 
         String workingDir = System.getProperty("user.dir");
 

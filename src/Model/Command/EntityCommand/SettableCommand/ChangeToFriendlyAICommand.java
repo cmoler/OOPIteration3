@@ -36,6 +36,6 @@ public class ChangeToFriendlyAICommand extends GameModelCommand implements Comma
 
 
     public void accept(Visitor visitor) {
-        //TODO: Implement This
+
     }
 }

@@ -19,7 +19,7 @@ public class ShopKeeperFactory extends EntityFactory {
         return buildEntity(null);
     }
 
-    public Entity buildEntity(TakeableItem... items) { // TODO: add skills to shopkeeper
+    public Entity buildEntity(TakeableItem... items) {
         Entity shopKeep = new Entity();
 
         if(items != null) {

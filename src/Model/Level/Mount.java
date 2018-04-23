@@ -1,5 +1,3 @@
-//TODO: Add Default Constructor and see if Observers are needed.*/
-
 package Model.Level;
 
 import Controller.Visitor.Visitable;

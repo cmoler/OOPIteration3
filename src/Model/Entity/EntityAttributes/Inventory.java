@@ -76,7 +76,7 @@ public class Inventory implements Visitable {
         return maxSize;
     }
 
-    public void accept(Visitor visitor) { // TODO: change? if so how prevent LoD?
+    public void accept(Visitor visitor) {
         for(TakeableItem item: inventory) {
             item.accept(visitor);
         }

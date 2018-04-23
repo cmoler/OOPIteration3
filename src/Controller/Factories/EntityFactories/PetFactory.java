@@ -19,7 +19,7 @@ public class PetFactory extends EntityFactory {
         return buildEntity(null);
     }
 
-    public Entity buildEntity(TakeableItem... items) { // TODO: add more skills for pets
+    public Entity buildEntity(TakeableItem... items) {
         Entity pet = new Entity();
 
         if(items != null) {
