@@ -499,29 +499,45 @@ public class GameLoader {
                         else {
                             switch (itemNode.getNodeName().toLowerCase()) {
                                 case "armoritem":
+                                    ItemView armorItemView = new ItemView(new Point3D(0,0,0));
                                     int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
                                     ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                     armorItem.setCurrentLevelMessenger(levelMessenger);
                                     armorItem.setPrice(price);
-                                    armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    armorItem.setObserver(armorItemView);
+                                    if(defense > 15) {
+                                        armorItemView.setHeavyArmor();
+                                    }
+
+                                    else if(defense > 10) {
+                                        armorItemView.setMediumArmor();
+                                    }
+
+                                    else
+                                        armorItemView.setLightArmor();
+
                                     itemsToAdd.add(armorItem);
                                     itemRef.put(itemReference, armorItem);
                                     break;
 
                                 case "consumableitem":
+                                    ItemView consumableItemView = new ItemView(new Point3D(0,0,0));
                                     ConsumableItem consumableItem = new ConsumableItem(name, command);
                                     consumableItem.setCurrentLevelMessenger(levelMessenger);
                                     consumableItem.setPrice(price);
-                                    consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    consumableItem.setObserver(consumableItemView);
                                     itemsToAdd.add(consumableItem);
+                                    consumableItemView.setPotion();
                                     itemRef.put(itemReference, consumableItem);
                                     break;
 
                                 case "ringitem":
+                                    ItemView ringItemView = new ItemView(new Point3D(0,0,0));
                                     RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
                                     ringItem.setCurrentLevelMessenger(levelMessenger);
                                     ringItem.setPrice(price);
-                                    ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    ringItem.setObserver(ringItemView);
+                                    ringItemView.setHealthRing();
                                     itemsToAdd.add(ringItem);
                                     itemRef.put(itemReference, ringItem);
                                     break;
@@ -547,7 +563,26 @@ public class GameLoader {
                                     WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                     weaponItem.setCurrentLevelMessenger(levelMessenger);
                                     weaponItem.setPrice(price);
-                                    weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    ItemView weaponView = new ItemView(new Point3D(0,0,0));
+                                    weaponItem.setObserver(weaponView);
+
+                                    switch (weaponSkill.getName()){
+                                        case "One-Handed":
+                                            weaponView.setOneHandedSword();
+                                            break;
+                                        case "Two-Handed":
+                                            weaponView.setTwoHandedWeapon();
+                                            break;
+                                        case "Brawler":
+                                            weaponView.setBrawlerWeapon();
+                                            break;
+                                        case "Staff":
+                                            weaponView.setStaff();
+                                            break;
+                                        case "Range":
+                                            weaponView.setRangedWeapon();
+                                            break;
+                                    }
                                     itemsToAdd.add(weaponItem);
                                     itemRef.put(itemReference, weaponItem);
                                     break;
@@ -601,7 +636,20 @@ public class GameLoader {
                                             int defense = Integer.parseInt(itemNode.getAttributes().getNamedItem("defense").getTextContent());
                                             ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                             armorItem.setPrice(price);
-                                            armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                            ItemView armorItemView = new ItemView(new Point3D(0,0,0));
+                                            armorItem.setObserver(armorItemView);
+
+                                            if(defense > 15) {
+                                                armorItemView.setHeavyArmor();
+                                            }
+
+                                            else if(defense > 10) {
+                                                armorItemView.setMediumArmor();
+                                            }
+
+                                            else
+                                                armorItemView.setLightArmor();
+
                                             itemHotBar.addItem(armorItem, index);
                                             itemRef.put(reference, armorItem);
                                         }
@@ -615,7 +663,9 @@ public class GameLoader {
                                         else {
                                             ConsumableItem consumableItem = new ConsumableItem(name, command);
                                             consumableItem.setPrice(price);
-                                            consumableItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                            ItemView consumableItemView = new ItemView(new Point3D(0,0,0));
+                                            consumableItem.setObserver(consumableItemView);
+                                            consumableItemView.setPotion();
                                             itemHotBar.addItem(consumableItem, index);
                                             itemRef.put(reference, consumableItem);
                                         }
@@ -629,7 +679,9 @@ public class GameLoader {
                                         else {
                                             RingItem ringItem = new RingItem(name, (ToggleableCommand) command);
                                             ringItem.setPrice(price);
-                                            ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                            ItemView ringItemView = new ItemView(new Point3D(0,0,0));
+                                            ringItem.setObserver(ringItemView);
+                                            ringItemView.setHealthRing();
                                             itemHotBar.addItem(ringItem, index);
                                             itemRef.put(reference, ringItem);
                                         }
@@ -660,7 +712,27 @@ public class GameLoader {
 
                                             WeaponItem weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                             weaponItem.setPrice(price);
-                                            weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
+
+                                            ItemView weaponView = new ItemView(new Point3D(0,0,0));
+
+                                            switch (weaponSkill.getName()){
+                                                case "One-Handed":
+                                                    weaponView.setOneHandedSword();
+                                                    break;
+                                                case "Two-Handed":
+                                                    weaponView.setTwoHandedWeapon();
+                                                    break;
+                                                case "Brawler":
+                                                    weaponView.setBrawlerWeapon();
+                                                    break;
+                                                case "Staff":
+                                                    weaponView.setStaff();
+                                                    break;
+                                                case "Range":
+                                                    weaponView.setRangedWeapon();
+                                                    break;
+                                            }
+                                            weaponItem.setObserver(weaponView);
 
                                             itemHotBar.addItem(weaponItem, index);
                                             itemRef.put(reference, weaponItem);
@@ -708,7 +780,20 @@ public class GameLoader {
                             else {
                                 int defense = Integer.parseInt(equipNode.getAttributes().getNamedItem("defense").getTextContent());
                                 armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
-                                armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
+
+                                ItemView armorItemView = new ItemView(new Point3D(0,0,0));
+                                if(defense > 15) {
+                                    armorItemView.setHeavyArmor();
+                                }
+
+                                else if(defense > 10) {
+                                    armorItemView.setMediumArmor();
+                                }
+
+                                else
+                                    armorItemView.setLightArmor();
+
+                                armorItem.setObserver(armorItemView);
                                 armorItem.setPrice(price);
                                 itemRef.put(reference, armorItem);
                             }
@@ -722,7 +807,9 @@ public class GameLoader {
                             else {
                                 ringItem = new RingItem(name, (ToggleableCommand) command);
                                 ringItem.setPrice(price);
-                                ringItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                ItemView ringItemView = new ItemView(new Point3D(0,0,0));
+                                ringItemView.setHealthRing();
+                                ringItem.setObserver(ringItemView);
                                 itemRef.put(reference, ringItem);
                             }
                             break;
@@ -752,7 +839,28 @@ public class GameLoader {
 
                                 weaponItem = new WeaponItem(name, (SettableCommand) command, weaponSkill, influenceEffect, damage, speed, accuracy, useCost, range);
                                 weaponItem.setPrice(price);
-                                weaponItem.setObserver(new ItemView(new Point3D(0,0,0)));
+
+                                ItemView weaponView = new ItemView(new Point3D(0,0,0));
+
+                                switch (weaponSkill.getName()){
+                                    case "One-Handed":
+                                        weaponView.setOneHandedSword();
+                                        break;
+                                    case "Two-Handed":
+                                        weaponView.setTwoHandedWeapon();
+                                        break;
+                                    case "Brawler":
+                                        weaponView.setBrawlerWeapon();
+                                        break;
+                                    case "Staff":
+                                        weaponView.setStaff();
+                                        break;
+                                    case "Range":
+                                        weaponView.setRangedWeapon();
+                                        break;
+                                }
+
+                                weaponItem.setObserver(weaponView);
                                 itemRef.put(reference, weaponItem);
                             }
                             break;
@@ -1047,6 +1155,7 @@ public class GameLoader {
                                     ArmorItem armorItem = new ArmorItem(name, (ToggleableCommand) command, defense);
                                     armorItem.setCurrentLevelMessenger(levelMessenger);
                                     armorItem.setObserver(new ItemView(new Point3D(0,0,0)));
+                                    System.out.println("LOAD ITEM");
                                     if(defense > 15) {
                                         itemView.setHeavyArmor();
                                     }
@@ -1330,22 +1439,6 @@ public class GameLoader {
                 if(effectNode.getNodeType() == Node.ELEMENT_NODE) {
                     Command command = processCommand(effectNode.getChildNodes());
                     AreaEffectView areaEffectView = new AreaEffectView(new Point3D(0,0,0));
-
-                    if(command instanceof AddHealthCommand) {
-                        areaEffectView.setHealthPool();
-                    }
-
-                    else if(command instanceof RemoveHealthCommand) {
-                        areaEffectView.setDamagePool();
-                    }
-
-                    else if(command instanceof LevelUpCommand) {
-                        areaEffectView.setLevelUp();
-                    }
-
-                    else if(command instanceof InstaDeathCommand) {
-                        areaEffectView.setInstantDeath();
-                    }
 
                     if(command != null) {
                         switch (effectNode.getNodeName().toLowerCase()) {

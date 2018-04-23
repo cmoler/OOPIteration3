@@ -174,7 +174,7 @@ public class ItemFactory {
 
     public ArmorItem getMediumArmor() {
         ToggleHealthCommand command = new ToggleHealthCommand(10);
-        ArmorItem armorItem = new ArmorItem("Medium Armor", command, 10);
+        ArmorItem armorItem = new ArmorItem("Medium Armor", command, 11);
         armorItem.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -188,7 +188,7 @@ public class ItemFactory {
 
     public ArmorItem getHeavyArmor() {
         ToggleHealthCommand command = new ToggleHealthCommand(15);
-        ArmorItem armorItem = new ArmorItem("Heavy Armor", command, 15);
+        ArmorItem armorItem = new ArmorItem("Heavy Armor", command, 16);
         armorItem.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
