@@ -3,6 +3,7 @@ package Model.Utility;
 import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.EntityFactories.MonsterFactory;
 import Controller.Factories.EntityFactories.PetFactory;
+import Controller.Factories.ItemFactory;
 import Controller.Factories.PetAIFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.SavingVisitor;
@@ -10,7 +11,6 @@ import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
 import Model.AI.PetAI.PetStates.GeneralPetState;
-import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
@@ -45,17 +45,20 @@ public class MapGenerator extends Application {
     private static Level level3;
     private static Level level4;
 
-    private static Entity entity;
+    private static Entity player;
     private static GameModel gameModel;
     private static LevelMessenger levelMessenger;
     private static SkillsFactory skillsFactory;
     private static EntityFactory entityFactory;
+    private static ItemFactory itemFactory;
     private static Map<Level, List<AIController>> aiMap = new HashMap<>();
 
     public MapGenerator() throws IOException {
+        levelMessenger = new LevelMessenger(null, null);
         savingVisitor = new SavingVisitor("SNEAK.xml");
         skillsFactory = new SkillsFactory(levelMessenger);
         entityFactory = new MonsterFactory(skillsFactory);
+        itemFactory = new ItemFactory(skillsFactory, levelMessenger);
     }
 
     private static void generateDemoMap() {
@@ -84,7 +87,8 @@ public class MapGenerator extends Application {
 
         Entity other = entityFactory.buildEntity();
         Entity enemy = entityFactory.buildEntity();
-        enemy.setTargetingList(new ArrayList<Entity>() {{ add(level.getEntityAtPoint(new Point3D(0,1,-1))); }});
+        enemy.setTargetingList(new ArrayList<Entity>(){{add(player);}});
+
         entityFactory.buildEntitySprite(enemy);
 
         HostileAI hostileAI = new HostileAI(enemy, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
@@ -102,7 +106,7 @@ public class MapGenerator extends Application {
         controller.setActiveState(hostileAI);
 
         level.addEntityTo(new Point3D(0, 3, -3), enemy);
-        level.addEntityTo(new Point3D(0, -3, 3), other);
+        //level.addEntityTo(new Point3D(0, -3, 3), other);
 
         aiControllers.add(controller);
 
@@ -114,7 +118,8 @@ public class MapGenerator extends Application {
                 skillsFactory.getPickpocket(),
                 level.getRiverMap(),
                 level.getEntityMap(),
-                level.getEntityAtPoint(new Point3D(0,1,-1)), pet);
+                player,
+                pet);
 
         entityFactory.buildEntitySprite(pet);
         pet.setTargetingList(new ArrayList<Entity>() {{ add(enemy); }});
@@ -123,12 +128,16 @@ public class MapGenerator extends Application {
         pet.setName("McNugget");
         pet.setSpeed(1000000000l);
         pet.setSightRadius(new SightRadius(5));
+/*        WeaponItem claws = itemFactory.getOneHandedSword();
+        pet.addWeaponSkills(skillsFactory.getOneHandedSkill());
+        claws.onTouch(pet);
+        pet.equipWeapon(claws);*/
         level.addEntityTo(new Point3D(-3, 5, -2), pet);
 
         GeneralPetState passivePetState = petAIFactory.getGeneralPetState();
         controller.setActiveState(passivePetState);
 
-        level.getEntityAtPoint(new Point3D(0,1,-1)).addFriendly(pet);
+        player.addFriendly(pet);
         aiMap.put(level, aiControllers);
     }
 
@@ -145,7 +154,7 @@ public class MapGenerator extends Application {
     }
 
     private static void createEnities(Level level) {
-        level.addEntityTo(new Point3D(0,1,-1), entity);
+        level.addEntityTo(new Point3D(0,1,-1), player);
     }
 
     private static void createSummoner() {
@@ -201,16 +210,16 @@ public class MapGenerator extends Application {
             add(skillsFactory.getBindWounds());
         }};
 
-        entity = new Entity(null, new ItemHotBar(), new ArrayList<>(),
+        player = new Entity(null, new ItemHotBar(), new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 10, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
                 null, new ArrayList<>(), new ArrayList<>());
 
-        entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2), weaponSkills.get(3));
-        entity.addWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
-        entity.setObserver(new SummonerView(entity, new Point3D(0,1,-1)));
+        player.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2), weaponSkills.get(3));
+        player.addWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
+        player.setObserver(new SummonerView(player, new Point3D(0,1,-1)));
     }
 
     private static void createSmasher() {
@@ -256,16 +265,16 @@ public class MapGenerator extends Application {
             add(skillsFactory.getBargainSkill());
             add(skillsFactory.getBindWounds());
         }};
-        entity = new Entity(null, new ItemHotBar(), weaponSkills,
+        player = new Entity(null, new ItemHotBar(), weaponSkills,
                 nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
                 null, new ArrayList<>(), new ArrayList<>());
 
-        entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
-        entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
-        entity.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
+        player.setObserver(new SmasherView(player, new Point3D(0,1,-1)));
+        player.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
+        player.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
     }
 
     private static void createSneak() {
@@ -300,22 +309,22 @@ public class MapGenerator extends Application {
             add(skillsFactory.getPickpocket());
         }};
 
-        entity = new Entity(null, new ItemHotBar(), new ArrayList<>(),
+        player = new Entity(null, new ItemHotBar(), new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(6),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
                 null, new ArrayList<>(), new ArrayList<>());
 
-        entity.addWeaponSkills(weaponSkills.get(0));
-        entity.addNonWeaponSkills(nonWeaponSkills.get(0),
+        player.addWeaponSkills(weaponSkills.get(0));
+        player.addNonWeaponSkills(nonWeaponSkills.get(0),
                 nonWeaponSkills.get(1),
                 nonWeaponSkills.get(2),
                 nonWeaponSkills.get(3),
                 nonWeaponSkills.get(4),
                 nonWeaponSkills.get(5));
-        entity.setObserver(new SneakView(entity, new Point3D(0,1,-1)));
-        level0.addEntityTo(new Point3D(0,0,0), entity);
+        player.setObserver(new SneakView(player, new Point3D(0,1,-1)));
+        level0.addEntityTo(new Point3D(0,0,0), player);
     }
 
     private static void createRivers(Level level) {
@@ -373,7 +382,6 @@ public class MapGenerator extends Application {
 
     public static void makeGame() {
         ArrayList<Level> levels = new ArrayList<>();
-        levelMessenger = new LevelMessenger(null, null);
 
         /** TERRAINS **/
 
@@ -448,6 +456,8 @@ public class MapGenerator extends Application {
                 level3.addTerrainTo(points.get(j), Terrain.GRASS);
             }
         }
+
+        makeEnemy(level3);
 
         radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
         radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
@@ -530,7 +540,7 @@ public class MapGenerator extends Application {
         levels.add(level3);
         levels.add(level4);
 
-        gameModel = new GameModel(level0, null, levels, entity, aiMap, null, null);
+        gameModel = new GameModel(level0, null, levels, player, aiMap, null, null);
         savingVisitor.visitGameModel(gameModel);
     }
 
