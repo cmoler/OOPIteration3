@@ -23,7 +23,10 @@ import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.InteractiveItem;
 import Model.Item.Item;
 import Model.Item.OneShotItem;
-import Model.Item.TakeableItem.*;
+import Model.Item.TakeableItem.ArmorItem;
+import Model.Item.TakeableItem.ConsumableItem;
+import Model.Item.TakeableItem.RingItem;
+import Model.Item.TakeableItem.TakeableItem;
 import Model.Level.*;
 import Model.Utility.BidiMap;
 import View.LevelView.EntityView.SmasherView;
@@ -31,17 +34,18 @@ import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 import org.junit.Before;
 import org.junit.Test;
-
-import org.testfx.framework.junit.ApplicationTest;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class SavingVisitorTests extends ApplicationTest {
+public class SavingVisitorTests {
 
     private SavingVisitor savingVisitor;
     private GameLoader gameLoader;
@@ -118,14 +122,14 @@ public class SavingVisitorTests extends ApplicationTest {
 
         level.addRiverTo(new Point3D(0,0,0), new River(new Vec3d(0,0,0)));
 
-        level.addMountTo(new Point3D(0,0,0), new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
+        level.addMountTo(new Point3D(0,0,0), new Mount(Orientation.NORTH, new Speed(10), mountTerrain));
 
         entity = new Entity(null, itemHotBar, new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100, 1), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
-                new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()), new ArrayList<>(), new ArrayList<>());
+                new Mount(Orientation.NORTH, new Speed(10), mountTerrain), new ArrayList<>(), new ArrayList<>());
 
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
         entity.setObserver(new SmasherView(entity, new Point3D(0,0,0)));

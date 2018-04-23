@@ -28,11 +28,11 @@ public class Mount implements Visitable {
         movementSpeed.setSpeed(1);
     }
 
-    public Mount(Orientation orientation, Speed movementSpeed, List<Terrain> passableTerrain, List<LevelViewElement> observers) {
+    public Mount(Orientation orientation, Speed movementSpeed, List<Terrain> passableTerrain) {
         this.orientation = orientation;
         this.movementSpeed = movementSpeed;
         this.passableTerrain = passableTerrain;
-        this.observers = observers;
+        this.observers = new ArrayList<>();
     }
 
     public Speed getMovementSpeed() {

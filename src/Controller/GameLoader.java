@@ -174,7 +174,7 @@ public class GameLoader {
                     orientation = Orientation.toOrientation(mountNode.getAttributes().getNamedItem("orientation").getTextContent());
                     processTerrainList(element, terrains);
 
-                    mountsToAdd.add(new Mount(orientation, speed, terrains, new ArrayList<>()));
+                    mountsToAdd.add(new Mount(orientation, speed, terrains));
                 }
             }
         }
@@ -761,7 +761,7 @@ public class GameLoader {
                 speed = new Speed(Integer.parseInt(mountNode.getAttributes().getNamedItem("speed").getTextContent()));
                 orientation = Orientation.toOrientation(mountNode.getAttributes().getNamedItem("orientation").getTextContent());
                 processTerrainList((Element)mountNode, terrains);
-                return new Mount(orientation, speed, terrains, new ArrayList<>());
+                return new Mount(orientation, speed, terrains);
             }
         }
 

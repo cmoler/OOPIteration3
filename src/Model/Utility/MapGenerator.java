@@ -332,7 +332,7 @@ public class MapGenerator extends Application {
 
     private static void createMounts(Level level) {
         ArrayList<Terrain> mountTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); add(Terrain.WATER); }};
-        level.addMountTo(new Point3D(0,2,-2), new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
+        level.addMountTo(new Point3D(0,2,-2), new Mount(Orientation.NORTH, new Speed(10), mountTerrain));
     }
 
     private static void createItems(Level level) {
@@ -398,6 +398,37 @@ public class MapGenerator extends Application {
             }
         }
 
+        level1.addTerrainTo(new Point3D(5, 0, -5), Terrain.MOUNTAINS);
+        level1.addTerrainTo(new Point3D(5, -1, -4), Terrain.WATER);
+        level1.addObstacleTo(new Point3D( 5, -2, -3), new Obstacle());
+
+        ArrayList passableTerrains = new ArrayList();
+        passableTerrains.add(Terrain.GRASS);
+        passableTerrains.add(Terrain.MOUNTAINS);
+        passableTerrains.add(Terrain.WATER);
+        Mount mount = new Mount(Orientation.NORTH, new Speed(-0425000000l), passableTerrains);
+        level1.addMountTo(new Point3D(-2, 0, 2), mount);
+
+        level1.addRiverTo(new Point3D(-3, 3, 0), new River(new Vec3d(1, 0 , -1)));
+        level1.addRiverTo(new Point3D(-2, 3, -1), new River(new Vec3d(1, 0 , -1)));
+        level1.addRiverTo(new Point3D(-1, 3, -2), new River(new Vec3d(1, 0 , -1)));
+        level1.addRiverTo(new Point3D(0, 3, -3), new River(new Vec3d(1, -1 , 0)));
+        level1.addRiverTo(new Point3D(1, 2, -3), new River(new Vec3d(1, -1 , 0)));
+        level1.addRiverTo(new Point3D(2, 1, -3), new River(new Vec3d(1, -1 , 0)));
+        level1.addRiverTo(new Point3D(3, 0, -3), new River(new Vec3d(0, -1 , 1)));
+        level1.addRiverTo(new Point3D(3, -1, -2), new River(new Vec3d(0, -1 , 1)));
+        level1.addRiverTo(new Point3D(3, -2, -1), new River(new Vec3d(0, -1 , 1)));
+        level1.addRiverTo(new Point3D(3, -3, 0), new River(new Vec3d(-1, 0 , 1)));
+        level1.addRiverTo(new Point3D(2, -3, 1), new River(new Vec3d(-1, 0 , 1)));
+        level1.addRiverTo(new Point3D(1, -3, 2), new River(new Vec3d(-1, 0 , 1)));
+        level1.addRiverTo(new Point3D(0, -3, 3), new River(new Vec3d(-1, 1 , 0)));
+        level1.addRiverTo(new Point3D(-1, -2, 3), new River(new Vec3d(-1, 1 , 0)));
+        level1.addRiverTo(new Point3D(-2, -1, 3), new River(new Vec3d(-1, 1 , 0)));
+        level1.addRiverTo(new Point3D(-3, 0, 3), new River(new Vec3d(0, 1 , -1)));
+        level1.addRiverTo(new Point3D(-3, 1, 2), new River(new Vec3d(0, 1 , -1)));
+        level1.addRiverTo(new Point3D(-3, 2, 1), new River(new Vec3d(0, 1 , -1)));
+
+
         radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
         radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
         level2.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
@@ -436,7 +467,7 @@ public class MapGenerator extends Application {
         RadialInfluenceEffect homeEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
 
         for(int i = 0; i < 2; i++) {
-            ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-4, 4, 0));
+            ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-5, 5, 0));
             for(int j = 0; j < points.size(); j++) {
                 level1.addAreaEffectTo(points.get(j), homeTeleport);
             }
