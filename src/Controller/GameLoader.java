@@ -30,6 +30,7 @@ import Model.Item.Item;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
+import View.LevelView.AreaEffectView;
 import View.LevelView.EntityView.MonsterView;
 import View.LevelView.EntityView.SmasherView;
 import View.LevelView.EntityView.SneakView;
@@ -1300,15 +1301,37 @@ public class GameLoader {
                 Node effectNode = effectNodes.item(j);
                 if(effectNode.getNodeType() == Node.ELEMENT_NODE) {
                     Command command = processCommand(effectNode.getChildNodes());
+                    AreaEffectView areaEffectView = new AreaEffectView(new Point3D(0,0,0));
+
+                    if(command instanceof AddHealthCommand) {
+                        areaEffectView.setHealthPool();
+                    }
+
+                    else if(command instanceof RemoveHealthCommand) {
+                        areaEffectView.setDamagePool();
+                    }
+
+                    else if(command instanceof LevelUpCommand) {
+                        areaEffectView.setLevelUp();
+                    }
+
+                    else if(command instanceof InstaDeathCommand) {
+                        areaEffectView.setInstantDeath();
+                    }
 
                     if(command != null) {
                         switch (effectNode.getNodeName().toLowerCase()) {
                             case "oneshotareaeffect":
-                                effectsToAdd.add(new OneShotAreaEffect(command));
+                                OneShotAreaEffect oneShotAreaEffect = new OneShotAreaEffect(command);
+                                oneShotAreaEffect.setObserver(areaEffectView);
+
+                                effectsToAdd.add(oneShotAreaEffect);
                                 break;
 
                             case "infiniteareaeffect":
-                                effectsToAdd.add(new InfiniteAreaEffect(command));
+                                InfiniteAreaEffect infiniteAreaEffect = new InfiniteAreaEffect(command);
+                                infiniteAreaEffect.setObserver(areaEffectView);
+                                effectsToAdd.add(infiniteAreaEffect);
                                 break;
                         }
                     }
@@ -1317,6 +1340,7 @@ public class GameLoader {
         }
 
         for(int i = 0; i < pointsToAdd.size(); i++) {
+            effectsToAdd.get(i).notifyObserver(pointsToAdd.get(i));
             level.addAreaEffectTo(pointsToAdd.get(i), effectsToAdd.get(i));
         }
     }

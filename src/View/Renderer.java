@@ -168,9 +168,8 @@ public class Renderer {
         ArrayList<LevelViewElement> observers = new ArrayList<>();
 
         for(Point3D point : areaEffectMap.keySet()) {
-            AreaEffectView observer = new AreaEffectView(point);
-
-            observers.add(observer);
+            AreaEffect areaEffect = areaEffectMap.get(point);
+            observers.add(areaEffect.getObserver());
         }
 
         return observers;
