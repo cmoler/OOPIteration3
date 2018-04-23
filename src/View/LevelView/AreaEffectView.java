@@ -6,14 +6,10 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 
-public class AreaEffectView extends LevelViewElement { // TODO: implement
-
-
+public class AreaEffectView extends LevelViewElement {
 
     public AreaEffectView(Point3D location) {
         super(location, 2);
-    //    this.effect = effect; TODO: needed?
-
 
         String workingDir = System.getProperty("user.dir");
 
@@ -31,6 +27,4 @@ public class AreaEffectView extends LevelViewElement { // TODO: implement
     public void notifyViewElementDeath() {
 
     }
-
-
 }

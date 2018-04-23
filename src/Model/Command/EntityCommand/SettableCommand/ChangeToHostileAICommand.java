@@ -44,6 +44,6 @@ public class ChangeToHostileAICommand extends GameModelCommand implements Comman
     }
 
     public void accept(Visitor visitor) {
-        //TODO: Implement This
+
     }
 }

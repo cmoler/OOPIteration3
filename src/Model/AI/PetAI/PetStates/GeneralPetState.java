@@ -40,7 +40,7 @@ public class GeneralPetState extends AIState {
 
     @Override
     public void nextMove() {
-        Point3D petPoint = getPetPoint(); //TODO: Implement a "case statement" that handles commands to Pet to do different actions based on priority
+        Point3D petPoint = getPetPoint();
 
         Point3D nearestItem = getNearestItem(petPoint);
         Point3D nearestSteal = getNearestStealingTarget(petPoint);
@@ -134,7 +134,6 @@ public class GeneralPetState extends AIState {
                 return holder.get(rand.nextInt(3));
             }
         }
-        //TODO: Other cases for priority if the need/time arises
         return Math.min(sDist,Math.min(iDist,eDist));
     }
 
@@ -174,7 +173,7 @@ public class GeneralPetState extends AIState {
         Point3D minLocation = new Point3D(Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE);
         double minDistance = Double.MAX_VALUE;
         for (Point3D point : targetPoints) {
-            if (!entityMap.getValueFromKey(point).equals(player) && !entityMap.getValueFromKey(point).equals(super.getEntity())) { //TODO: Possible LoD violation?
+            if (!entityMap.getValueFromKey(point).equals(player) && !entityMap.getValueFromKey(point).equals(super.getEntity())) {
                 double distance = HexDistanceCalculator.getHexDistance(origin,point);
                 if (distance < minDistance) {
                     minDistance = distance;

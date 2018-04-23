@@ -91,7 +91,6 @@ public class Renderer {
         ArrayList<LevelViewElement> observers = new ArrayList<>();
 
         for(Point3D point : decalMap.keySet()) {
-            //   Decal decal = decalLocations.get(point); TODO: needed?
 
             DecalView observer = new DecalView(point);
 
@@ -100,20 +99,6 @@ public class Renderer {
 
         return observers;
     }
-
-   /* private ArrayList<LevelViewElement> registerInfluenceEffectObservers(Map<Point3D, InfluenceEffect> influenceEffectMap) {
-        ArrayList<LevelViewElement> observers = new ArrayList<>();
-
-        for(Point3D point : influenceEffectMap.keySet()) {
-            InfluenceEffect effect = influenceEffectMap.get(point);
-
-            InfluenceEffectView observer = new InfluenceEffectView(effect, point);
-
-            observers.add(observer);
-        }
-
-        return observers;
-    }*/
 
     private ArrayList<LevelViewElement> registerMountObservers(Map<Point3D, Mount> mountMap) {
         ArrayList<LevelViewElement> observers = new ArrayList<>();

@@ -208,7 +208,7 @@ public class CommandTests {
             Assert.assertTrue(thief.hasItemInInventory(item));
             Assert.assertFalse(victim.hasItemInInventory(item));
 
-        } catch (Exception e) { // TODO: fix once AI controller logic is set
+        } catch (Exception e) {
             Assert.assertFalse(thief.hasItemInInventory(item));
             Assert.assertTrue(victim.hasItemInInventory(item));
         }

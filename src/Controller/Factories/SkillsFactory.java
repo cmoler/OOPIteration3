@@ -39,8 +39,6 @@ public class SkillsFactory {
         this.sendInfluenceEffectCommand = new SendInfluenceEffectCommand(levelMessenger);
     }
 
-    // TODO tweak speeds, costs, accuracy, etc. for Skills
-
     public Skill getObserveSkill() {
         if(observeSkill == null) {
             ObserveEntityCommand observeEntityCommand = new ObserveEntityCommand(levelMessenger);

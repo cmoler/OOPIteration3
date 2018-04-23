@@ -43,7 +43,7 @@ public class ItemHotBar implements Visitable {
             return null;
     }
 
-    public void accept(Visitor visitor) { // TODO: change? if so how prevent LoD?
+    public void accept(Visitor visitor) {
         for(TakeableItem item: items) {
             item.accept(visitor);
         }

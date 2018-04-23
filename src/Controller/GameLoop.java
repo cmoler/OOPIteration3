@@ -105,9 +105,7 @@ public class GameLoop {
     }
 
     public void createObservationWindow(Entity entity, String randomEntityFacts) {
-        // TODO: implement
         renderer.addObservationView(new ObservationView(entity, randomEntityFacts));
-
     }
 
     public void startTimer() {

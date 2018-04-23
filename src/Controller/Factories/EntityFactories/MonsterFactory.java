@@ -19,7 +19,7 @@ public class MonsterFactory extends EntityFactory {
         return buildEntity(null);
     }
 
-    public Entity buildEntity(TakeableItem... items) { // TODO: add skills for monsters
+    public Entity buildEntity(TakeableItem... items) {
         Entity monster = new Entity();
 
         if(items != null) {

@@ -472,7 +472,6 @@ public class GameModel implements Visitable {
         currentLevel = destinationLevel;
         currentLevelMessenger.setLevel(currentLevel);
         currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
-        // TODO: notify pets when player teleports, so we can teleport them as well
     }
 
     public void advance() {

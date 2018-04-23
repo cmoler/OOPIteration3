@@ -24,7 +24,7 @@ public class FriendlyAI extends AIState{
         this.entityMap = entityMap;
         this.pathCalculator = new PathingAlgorithm(terrainMap,obstacleMap, riverMap,entityMap );
         origin = getEntityPoint(super.getEntity(), entityMap);
-        moveRadius = super.getEntity().getSight(); //TODO: LoD violation?
+        moveRadius = super.getEntity().getSight();
     }
 
     @Override

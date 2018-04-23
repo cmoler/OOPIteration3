@@ -28,7 +28,7 @@ public class ItemFactory {
     public ItemFactory(SkillsFactory skillsFactory, LevelMessenger levelMessenger) {
         this.skillsFactory = skillsFactory;
         this.levelMessenger = levelMessenger;
-    } // TODO: modify speeds for attacks
+    }
 
     //Instantiates a one handed weapon
     public WeaponItem getOneHandedSword() {
