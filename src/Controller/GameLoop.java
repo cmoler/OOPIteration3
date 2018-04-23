@@ -68,7 +68,7 @@ public class GameLoop {
 
         gameModel = new GameModel(gameLoopMessenger);
 
-        gameModel.init();
+        gameModel.initWorldMap();
 
         renderer = new Renderer();
 

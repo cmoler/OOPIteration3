@@ -20,6 +20,7 @@ import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Orientation;
 import Model.Entity.EntityAttributes.SightRadius;
 import Model.Entity.EntityAttributes.Skill;
+import Model.Entity.EntityAttributes.Speed;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
 import Model.Item.TakeableItem.ArmorItem;
@@ -28,6 +29,7 @@ import Model.Item.TakeableItem.RingItem;
 import Model.Item.TakeableItem.WeaponItem;
 import Model.Utility.BidiMap;
 import View.LevelView.LevelViewElement;
+import View.LevelView.MountView;
 import com.sun.javafx.geom.Vec3d;
 import javafx.geometry.Point3D;
 
@@ -75,214 +77,6 @@ public class GameModel implements Visitable {
 
         this.currentLevel.setMovementHandlerDialogCommand(this.currentLevelMessenger);
     }
-
-    public void init() {
-        currentLevel = new Level();
-        currentLevelMessenger.setLevel(currentLevel);
-        currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
-
-        levels.add(currentLevel);
-
-        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 8, 0, Orientation.NORTH);
-        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
-        //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
-        currentLevel.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(0,0,0), Orientation.SOUTH), Terrain.GRASS);
-        for(int i = 0; i < 8; i++) {
-            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
-            for(int j = 0; j < points.size(); j++) {
-                currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
-            }
-        }
-
-        currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
-        currentLevel.addAreaEffectTo(new Point3D(-2, 1, 1), new InfiniteAreaEffect(new RemoveHealthCommand(10)));
-        currentLevel.addObstacleTo(new Point3D(-2, 2, 0), new Obstacle());
-
-        skillsFactory = new SkillsFactory(currentLevelMessenger);
-
-        entityFactory = new SneakFactory(skillsFactory);
-
-        player = entityFactory.buildEntity();
-
-        ConsumableItem potion = new ConsumableItem("potion", new AddHealthCommand(20));
-        potion.setCurrentLevelMessenger(currentLevelMessenger);
-        potion.setPrice(2);
-        potion.onTouch(player);
-
-        ConsumableItem manapotion = new ConsumableItem("manapotion", new AddHealthCommand(20));
-        manapotion.setCurrentLevelMessenger(currentLevelMessenger);
-        manapotion.setPrice(2);
-        manapotion.onTouch(player);
-
-        ConsumableItem healthpotion = new ConsumableItem("healthpotion", new AddHealthCommand(20));
-        healthpotion.setCurrentLevelMessenger(currentLevelMessenger);
-        healthpotion.setPrice(2);
-        healthpotion.onTouch(player);
-
-        ConsumableItem beer = new ConsumableItem("beer", new AddHealthCommand(20));
-        beer.setCurrentLevelMessenger(currentLevelMessenger);
-        beer.setPrice(2);
-        beer.onTouch(player);
-
-        ConsumableItem wine = new ConsumableItem("wine", new AddHealthCommand(20));
-        wine.setCurrentLevelMessenger(currentLevelMessenger);
-        wine.setPrice(2);
-        wine.onTouch(player);
-
-        ConsumableItem gin = new ConsumableItem("gin", new AddHealthCommand(20));
-        gin.setCurrentLevelMessenger(currentLevelMessenger);
-        gin.setPrice(2);
-        gin.onTouch(player);
-
-        entityFactory.buildEntitySprite(player);
-
-        player.setMoveable(true);
-        player.setNoise(5);
-        player.levelUp();
-        player.setSpeed(0500000000l);
-
-        Skill oneHandedSkill = skillsFactory.getOneHandedSkill();
-        player.addWeaponSkills(oneHandedSkill);
-        SettableCommand og = new RemoveHealthCommand(1000);
-        WeaponItem mace = new WeaponItem("Sword of Light", og, oneHandedSkill, new RadialInfluenceEffect(og,5,0250000000l, Orientation.NORTH), 1000, 0500000000l,100,100,4);
-        mace.setCurrentLevelMessenger(currentLevelMessenger);
-        player.addItemToInventory(mace);
-        //player.equipWeapon(mace);
-        player.setSightRadius(new SightRadius(7));
-        currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
-
-        entityFactory = new MonsterFactory(skillsFactory);
-        Entity enemy = entityFactory.buildEntity();
-        entityFactory.buildEntitySprite(enemy);
-
-        enemy.setMoveable(true);
-        enemy.setNoise(5);
-        Skill skill = new Skill();
-        enemy.addWeaponSkills(skill);
-        enemy.setSpeed(1500000000l);
-        skill.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
-        SettableCommand bleh = new RemoveHealthCommand(5);
-        WeaponItem sword = new WeaponItem("Sword of Darkness", bleh, skill, new LinearInfluenceEffect(bleh,2,10,Orientation.NORTH), 5, 0500000000l,1,450,2);
-        enemy.addItemToInventory(sword);
-        enemy.equipWeapon(sword);
-
-        enemy.setSightRadius(new SightRadius(3));
-        ArrayList<Vec3d> path = new ArrayList<>();
-        path.add(new Vec3d(1,0,-1));
-        path.add(new Vec3d(1,0,-1));
-        path.add(new Vec3d(-1,1,0));
-        path.add(new Vec3d(-1,1,0));
-        path.add(new Vec3d(0,-1,1));
-        path.add(new Vec3d(0,-1,1));
-        path.add(new Vec3d(-1,0,1));
-        path.add(new Vec3d(-1,0,1));
-        path.add(new Vec3d(1,-1,0));
-        path.add(new Vec3d(1,-1,0));//*/
-        currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
-        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
-        hostileAI.setPatrolPath(new PatrolPath(path));
-        AIController controller = new AIController();
-        controller.setActiveState(hostileAI);
-        List<AIController> AIList = new ArrayList<>();
-        aiMap.put(currentLevel,AIList);
-
-        Skill pickpock = skillsFactory.getPickpocket();
-        entityFactory = new PetFactory(skillsFactory);
-        Entity pet = entityFactory.buildEntity();
-        petAIFactory = new PetAIFactory(currentLevel.getTerrainMap(), currentLevel.getObstacleMap(),currentLevel.getItemMap(), pickpock, currentLevel.getRiverMap(), currentLevel.getEntityMap(), player, pet);
-        entityFactory.buildEntitySprite(pet);
-        pet.setMoveable(true);
-        pet.setNoise(5);
-        pet.setName("McNugget");
-        pet.setSpeed(1000000000l);
-        pet.addTarget(enemy);
-        enemy.addTarget(pet);
-        enemy.addTarget(player);
-        Skill skill1 = new Skill();
-        enemy.addWeaponSkills(skill1);
-        skill1.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
-        SettableCommand rawr = new RemoveHealthCommand(5);
-        WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 10000000l,100,450,1);
-
-        pet.addItemToInventory(claw);
-        pet.equipWeapon(claw);
-        pet.setSightRadius(new SightRadius(5));
-        currentLevel.addEntityTo(new Point3D(0, 4, -4), pet);
-        AIController test = new AIController();
-
-
-
-        //AIList.add(test);
-
-        //currentLevel.addInfluenceEffectTo(new Point3D(-2, -1, 3), new RadialInfluenceEffect(new RemoveHealthCommand(100), 5, 5, Orientation.NORTH));
-        ItemFactory itemFactory = new ItemFactory(skillsFactory, currentLevelMessenger);
-        WeaponItem weaponItem = itemFactory.getStaff();
-        weaponItem.notifyObserver(new Point3D(1, -1, 0));
-        currentLevel.addItemTo(new Point3D(1, -1, 0), weaponItem);
-
-        // Passive Pet AI
-        PassivePetState PPS = petAIFactory.getPassivePetState();
-        test.setActiveState(PPS);
-
-        // Combat Pet AI
-        /*CombatPetState CPS = new CombatPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),player, currentLevel.getRiverMap());
-        test.setActiveState(CPS);*/
-
-       // Item Pet AI
-        /*Skill pickpock = skillsFactory.getPickpocket();
-        pet.setSkillLevel(pickpock,1000);
-        ItemPetState IPS = new ItemPetState(pet,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(),currentLevel.getItemMap(),player, pickpock, currentLevel.getRiverMap());
-        test.setActiveState(IPS);*/
-
-        // General Pet AI
-        pet.setSkillLevel(pickpock,1000);
-        GeneralPetState GPS = petAIFactory.getGeneralPetState();
-        test.setActiveState(GPS);
-
-
-        ShopKeeperFactory friendlyFactory = new ShopKeeperFactory(skillsFactory);
-        Entity friendly = friendlyFactory.buildEntity();
-        friendlyFactory.buildEntitySprite(friendly);
-
-        ConsumableItem sin = new ConsumableItem("sin", new AddHealthCommand(20));
-        sin.setCurrentLevelMessenger(currentLevelMessenger);
-        sin.setPrice(2);
-        friendly.addItemToInventory(sin);
-        friendly.setMoveable(false);
-
-        currentLevel.addEntityTo(new Point3D(0,-1,1),friendly);
-
-        FriendlyAI friendlyAI = new FriendlyAI(friendly,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
-        AIController best = new AIController();
-        best.setActiveState(friendlyAI);
-
-
-        AIList.add(best);
-        AIList.add(test);
-        AIList.add(controller);
-        ArmorItem lightArmor = itemFactory.getHeavyArmor();
-        lightArmor.notifyObserver(new Point3D(3, -3, 0));
-        currentLevel.addItemTo(new Point3D(3, -3, 0), lightArmor);
-
-        RingItem ringItem = itemFactory.getHealthRing();
-        ringItem.notifyObserver(new Point3D(4, -4, 0));
-        currentLevel.addItemTo(new Point3D(4, -4, 0), ringItem);
-
-        WeaponItem rangedWeapon = itemFactory.getRangedWeapon();
-        rangedWeapon.notifyObserver(new Point3D(3, -2, -1));
-        currentLevel.addItemTo(new Point3D(3, -2, -1), rangedWeapon);
-
-        Trap trap = new Trap(new RemoveHealthCommand(50), 1);
-
-        currentLevel.addTrapTo(new Point3D(4, 0, -4), trap);
-        currentLevel.addDecalTo(new Point3D(-2, 0, 2), new Decal());
-        
-        player.addFriendly(pet);
-        aiMap.put(currentLevel,AIList);
-
-        levels.add(currentLevel);
-    }
-
 
     public Level getCurrentLevel(){
         return currentLevel;
@@ -479,12 +273,12 @@ public class GameModel implements Visitable {
         processDeadEntities();
         processAIMoves();
         currentLevel.advance();
+        processTeleportQueue();
 
         if(hasPlayer()) {
             currentLevel.updateRenderLocations(getPlayerPosition(), player.getSight());
         }
 
-        processTeleportQueue();
     }
 
     private void processAIMoves(){
@@ -540,5 +334,182 @@ public class GameModel implements Visitable {
 
     public void accept(Visitor visitor) {
         visitor.visitGameModel(this);
+    }
+
+    public void initWorldMap(){
+        currentLevel = new Level();
+
+        currentLevelMessenger.setLevel(currentLevel);
+        currentLevel.setMovementHandlerDialogCommand(currentLevelMessenger);
+
+        levels.add(currentLevel);
+
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 8, 0, Orientation.NORTH);
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
+        //currentLevel.addMountTo(new Point3D(0, 1, -1), new Mount());
+        currentLevel.addTerrainTo(Orientation.getAdjacentPoint(new Point3D(0,0,0), Orientation.SOUTH), Terrain.GRASS);
+        for(int i = 0; i < 8; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
+            for(int j = 0; j < points.size(); j++) {
+                currentLevel.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
+        }
+
+        currentLevel.addRiverTo(new Point3D(1, 2, -3), new River(new Vec3d(0, 1, -1)));
+        currentLevel.addRiverTo(new Point3D(1, 1, -2), new River(new Vec3d(0, 1, -1)));
+        currentLevel.addRiverTo(new Point3D(1, 0, -1), new River(new Vec3d(0, 1, -1)));
+        currentLevel.addAreaEffectTo(new Point3D(-2, 1, 1), new InfiniteAreaEffect(new RemoveHealthCommand(10)));
+        currentLevel.addObstacleTo(new Point3D(-2, 2, 0), new Obstacle());
+
+        skillsFactory = new SkillsFactory(currentLevelMessenger);
+
+        entityFactory = new SneakFactory(skillsFactory);
+
+        player = entityFactory.buildEntity();
+
+        ConsumableItem potion = new ConsumableItem("potion", new AddHealthCommand(20));
+        potion.setCurrentLevelMessenger(currentLevelMessenger);
+        potion.setPrice(2);
+        potion.onTouch(player);
+
+
+        entityFactory.buildEntitySprite(player);
+
+        player.setMoveable(true);
+        player.setNoise(5);
+        player.levelUp();
+        player.setSpeed(0500000000l);
+
+        Skill oneHandedSkill = skillsFactory.getOneHandedSkill();
+        player.addWeaponSkills(oneHandedSkill);
+        ItemFactory itemFactory = new ItemFactory(skillsFactory, currentLevelMessenger);
+        WeaponItem mace = itemFactory.getOneHandedSword();
+        player.addItemToInventory(mace);
+        //player.equipWeapon(mace);
+        player.setSightRadius(new SightRadius(7));
+        currentLevel.addEntityTo(new Point3D(0, -5, 5), player);
+
+        entityFactory = new MonsterFactory(skillsFactory);
+        Entity enemy = entityFactory.buildEntity();
+        entityFactory.buildEntitySprite(enemy);
+
+        enemy.setMoveable(true);
+        enemy.setNoise(5);
+        Skill skill = new Skill();
+        enemy.addWeaponSkills(skill);
+        enemy.setSpeed(1500000000l);
+        skill.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
+        WeaponItem sword = itemFactory.getOneHandedSword();
+        sword.onTouch(enemy);
+        enemy.equipWeapon(sword);
+
+        enemy.setSightRadius(new SightRadius(3));
+        ArrayList<Vec3d> path = new ArrayList<>();
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(1,0,-1));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(-1,1,0));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(0,-1,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(-1,0,1));
+        path.add(new Vec3d(1,-1,0));
+        path.add(new Vec3d(1,-1,0));//*/
+        currentLevel.addEntityTo(new Point3D(0, 3, -3),enemy);
+        HostileAI hostileAI = new HostileAI(enemy,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
+        hostileAI.setPatrolPath(new PatrolPath(path));
+        AIController controller = new AIController();
+        controller.setActiveState(hostileAI);
+        List<AIController> AIList = new ArrayList<>();
+        aiMap.put(currentLevel,AIList);
+
+        Skill pickpock = skillsFactory.getPickpocket();
+        entityFactory = new PetFactory(skillsFactory);
+        Entity pet = entityFactory.buildEntity();
+        petAIFactory = new PetAIFactory(currentLevel.getTerrainMap(), currentLevel.getObstacleMap(),currentLevel.getItemMap(), pickpock, currentLevel.getRiverMap(), currentLevel.getEntityMap(), player, pet);
+        entityFactory.buildEntitySprite(pet);
+        pet.setMoveable(true);
+        pet.setNoise(5);
+        pet.setName("McNugget");
+        pet.setSpeed(1000000000l);
+        pet.addTarget(enemy);
+        enemy.addTarget(pet);
+        enemy.addTarget(player);
+        Skill skill1 = new Skill();
+        enemy.addWeaponSkills(skill1);
+        skill1.setSendInfluenceEffectCommand(new SendInfluenceEffectCommand(currentLevelMessenger));
+        SettableCommand rawr = new RemoveHealthCommand(5);
+        WeaponItem claw = new WeaponItem("Sharp Claw", rawr, skill1, new LinearInfluenceEffect(rawr,1,10,Orientation.NORTH), 5, 10000000l,100,450,1);
+
+        pet.addItemToInventory(claw);
+        pet.equipWeapon(claw);
+        pet.setSightRadius(new SightRadius(5));
+        currentLevel.addEntityTo(new Point3D(0, 4, -4), pet);
+        AIController test = new AIController();
+        ArrayList passableTerrains = new ArrayList();
+        passableTerrains.add(Terrain.GRASS);
+        passableTerrains.add(Terrain.MOUNTAINS);
+        passableTerrains.add(Terrain.WATER);
+        Mount mount = new Mount(Orientation.NORTH, new Speed(-0425000000l), passableTerrains, new ArrayList<>());
+        currentLevel.addMountTo(new Point3D(-3, 0, 3), mount);
+
+        //currentLevel.addInfluenceEffectTo(new Point3D(-2, -1, 3), new RadialInfluenceEffect(new RemoveHealthCommand(100), 5, 5, Orientation.NORTH));
+        WeaponItem weaponItem = itemFactory.getStaff();
+        weaponItem.notifyObserver(new Point3D(1, -1, 0));
+        currentLevel.addItemTo(new Point3D(1, -1, 0), weaponItem);
+
+        // Passive Pet AI
+        PassivePetState PPS = petAIFactory.getPassivePetState();
+        test.setActiveState(PPS);
+
+        // General Pet AI
+        pet.setSkillLevel(pickpock,1000);
+        GeneralPetState GPS = petAIFactory.getGeneralPetState();
+        test.setActiveState(GPS);
+
+
+        ShopKeeperFactory friendlyFactory = new ShopKeeperFactory(skillsFactory);
+        Entity friendly = friendlyFactory.buildEntity();
+        friendlyFactory.buildEntitySprite(friendly);
+
+        ConsumableItem sin = new ConsumableItem("sin", new AddHealthCommand(20));
+        sin.setCurrentLevelMessenger(currentLevelMessenger);
+        sin.setPrice(2);
+        friendly.addItemToInventory(sin);
+        friendly.setMoveable(false);
+
+        currentLevel.addEntityTo(new Point3D(0,-1,1),friendly);
+
+        FriendlyAI friendlyAI = new FriendlyAI(friendly,currentLevel.getTerrainMap(),currentLevel.getEntityMap(),currentLevel.getObstacleMap(), currentLevel.getRiverMap());
+        AIController best = new AIController();
+        best.setActiveState(friendlyAI);
+
+
+        AIList.add(best);
+        AIList.add(test);
+        AIList.add(controller);
+        ArmorItem lightArmor = itemFactory.getHeavyArmor();
+        lightArmor.notifyObserver(new Point3D(3, -3, 0));
+        currentLevel.addItemTo(new Point3D(3, -3, 0), lightArmor);
+
+        RingItem ringItem = itemFactory.getHealthRing();
+        ringItem.notifyObserver(new Point3D(4, -4, 0));
+        currentLevel.addItemTo(new Point3D(4, -4, 0), ringItem);
+
+        WeaponItem rangedWeapon = itemFactory.getRangedWeapon();
+        rangedWeapon.notifyObserver(new Point3D(3, -2, -1));
+        currentLevel.addItemTo(new Point3D(3, -2, -1), rangedWeapon);
+
+        Trap trap = new Trap(new RemoveHealthCommand(50), 0);
+
+        currentLevel.addTrapTo(new Point3D(4, 0, -4), trap);
+        currentLevel.addDecalTo(new Point3D(-2, 0, 2), new Decal());
+        currentLevel.addTerrainTo(new Point3D(-5, 0 ,5), Terrain.MOUNTAINS);
+        player.addFriendly(pet);
+        aiMap.put(currentLevel,AIList);
+
+        levels.add(currentLevel);
+
+
     }
 }
