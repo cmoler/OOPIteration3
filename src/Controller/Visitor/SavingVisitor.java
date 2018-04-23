@@ -14,6 +14,7 @@ import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleMa
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Command.EntityCommand.SettableCommand.*;
 import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
+import Model.Condition.HasItemCondition;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.*;
 import Model.InfluenceEffect.InfluenceEffect;
@@ -755,7 +756,20 @@ public class SavingVisitor implements Visitor {
     }
 
     public void visitItem(InteractiveItem item) {
-        processItem(item);
+        StringBuffer itemString = new StringBuffer("<" + item.getClass().getSimpleName()
+                + " name=" + "\"" + item.getName() + "\""
+                + " isToBeDeleted=" + "\"" + item.isToBeDeleted() + "\""
+                + " reference=" + "\"" + item.toString() + "\">");
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append(itemString);
+        item.getCommand().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        item.getCondition().accept(this);
+        this.valueNode.append("\n");
+        this.valueNode.append("\t");
+        this.valueNode.append("</" + item.getClass().getSimpleName() + ">");
     }
 
     public void visitItem(ArmorItem armorItem) {
@@ -1123,6 +1137,13 @@ public class SavingVisitor implements Visitor {
             this.valueNode.append(vector);
         }
         this.valueNode.append("</PATROLPATH>");
+    }
+
+    @Override
+    public void visitHasItemCommand(HasItemCondition hasItemCondition) {
+        StringBuffer buffer = new StringBuffer("<" + hasItemCondition.getClass().getSimpleName()
+                + " itemName=" + "\"" + hasItemCondition.getName() + "\"/>");
+        this.valueNode.append(buffer);
     }
 
     public void saveCurrentLevel(Level currentLevel) throws IOException {

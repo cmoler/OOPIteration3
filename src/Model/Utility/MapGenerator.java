@@ -19,11 +19,13 @@ import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Command.EntityCommand.SettableCommand.*;
+import Model.Condition.HasItemCondition;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.*;
 import Model.InfluenceEffect.AngularInfluenceEffect;
 import Model.InfluenceEffect.LinearInfluenceEffect;
 import Model.InfluenceEffect.RadialInfluenceEffect;
+import Model.Item.InteractiveItem;
 import Model.Item.OneShotItem;
 import Model.Item.TakeableItem.*;
 import Model.Level.*;
@@ -467,8 +469,9 @@ public class MapGenerator extends Application {
 
         // LEVEL 2 ITEMS
         OneShotItem hurts = new OneShotItem("YEAH", new RemoveHealthCommand(100));
-        ConsumableItem healingPotion = new ConsumableItem("Healing Potion", new AddHealthCommand(100));
+        ConsumableItem healingPotion = new ConsumableItem("key", new AddHealthCommand(100));
         WeaponItem brawler = itemFactory.getBrawlerWeapon();
+        InteractiveItem interactiveItem = new InteractiveItem("Door", new TeleportEntityCommand(levelMessenger, level0, new Point3D(0,0,0)), new HasItemCondition("key"));
         level2.addItemTo(new Point3D(2,0,-2), healingPotion);
         level2.addItemTo(new Point3D(-2,0,2), brawler);
         level2.addItemTo(new Point3D(-4,0,4), hurts);

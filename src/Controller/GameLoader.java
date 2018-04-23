@@ -19,6 +19,8 @@ import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneak
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleManaCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
+import Model.Condition.Condition;
+import Model.Condition.HasItemCondition;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.*;
 import Model.InfluenceEffect.AngularInfluenceEffect;
@@ -1003,7 +1005,6 @@ public class GameLoader {
     private void processItems(Element element, Level level) {
         List<Point3D> pointsToAdd = getKeyPoints(element);
         List<Item> itemsToAdd = new ArrayList<>();
-        Command command;
         String name;
         String reference;
 
@@ -1021,7 +1022,9 @@ public class GameLoader {
                     }
 
                     else {
-                        command = processCommand(itemNode.getChildNodes());
+                        Command command = processCommand(itemNode.getChildNodes());
+                        Condition condition = processCondition(itemNode.getChildNodes());
+
                         if (command != null) {
                             name = itemNode.getAttributes().getNamedItem("name").getTextContent();
                             ItemView itemView = new ItemView(new Point3D(0,0,0));
@@ -1035,7 +1038,7 @@ public class GameLoader {
                                     break;
 
                                 case "interactiveitem":
-                                    InteractiveItem interactiveItem = new InteractiveItem(name, command);
+                                    InteractiveItem interactiveItem = new InteractiveItem(name, command, condition);
                                     itemsToAdd.add(interactiveItem);
                                     itemView.setPotion();
                                     interactiveItem.setObserver(itemView);
@@ -1135,6 +1138,25 @@ public class GameLoader {
             itemsToAdd.get(i).notifyObserver(pointsToAdd.get(i));
             level.addItemTo(pointsToAdd.get(i), itemsToAdd.get(i));
         }
+    }
+
+    private Condition processCondition(NodeList childNodes) {
+        String name;
+
+        for(int i = 0; i < childNodes.getLength(); i++) {
+            Node conNode = childNodes.item(i);
+
+            if(conNode.getNodeType() == Node.ELEMENT_NODE && conNode.getNodeName().contains("Condition")) {
+                name = conNode.getAttributes().getNamedItem("itemName").getTextContent();
+
+                switch (conNode.getNodeName()) {
+                    case "HasItemCondition":
+                        return new HasItemCondition(name);
+                }
+            }
+        }
+
+        return null;
     }
 
     private InfluenceEffect processWeaponInfluenceEffect(NodeList childNodes) {

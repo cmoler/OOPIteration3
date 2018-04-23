@@ -92,4 +92,14 @@ public class Inventory implements Visitable {
             item.setItemStrategyEntity(entity);
         }
     }
+
+    public boolean hasItem(String itemName) {
+        for(TakeableItem item: inventory) {
+            if(item.getName().equalsIgnoreCase(itemName)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

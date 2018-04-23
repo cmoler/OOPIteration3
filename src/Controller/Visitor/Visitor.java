@@ -14,6 +14,7 @@ import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleMa
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand;
 import Model.Command.EntityCommand.SettableCommand.*;
 import Model.Command.EntityCommand.SettableCommand.ToggleableCommand.ToggleSneaking;
+import Model.Condition.HasItemCondition;
 import Model.Entity.Entity;
 import Model.Entity.EntityAttributes.Equipment;
 import Model.Entity.EntityAttributes.Inventory;
@@ -129,4 +130,6 @@ public interface Visitor {
     void visitCombatPetState(CombatPetState combatPetState);
 
     void visitPatrolPath(PatrolPath patrolPath);
+
+    void visitHasItemCommand(HasItemCondition hasItemCondition);
 }

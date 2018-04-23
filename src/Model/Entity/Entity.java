@@ -731,5 +731,9 @@ public class Entity {
     public String getName() {
         return name;
     }
+
+    public boolean hasItemInInventory(String itemName) {
+        return inventory.hasItem(itemName);
+    }
 }
 
