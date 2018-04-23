@@ -16,7 +16,7 @@ public class InfluenceEffectView extends LevelViewElement {
 
         String workingDir = System.getProperty("user.dir");
 
-        File file = new File(workingDir + "/src/View/Assets/star.png");
+        File file = new File(workingDir + "/src/View/Assets/bluefireball.png");
 
         setSprite(new Image(file.toURI().toString()));
 
