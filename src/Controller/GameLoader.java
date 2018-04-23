@@ -1148,7 +1148,7 @@ public class GameLoader {
                                 case "interactiveitem":
                                     InteractiveItem interactiveItem = new InteractiveItem(name, command, condition);
                                     itemsToAdd.add(interactiveItem);
-                                    itemView.setPotion();
+                                    itemView.setDoor();
                                     interactiveItem.setObserver(itemView);
                                     itemRef.put(reference, interactiveItem);
                                     break;

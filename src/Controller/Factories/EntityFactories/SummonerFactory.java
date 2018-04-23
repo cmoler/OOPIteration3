@@ -4,6 +4,7 @@ import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 
 import Model.Entity.EntityAttributes.SightRadius;
+import Model.Item.TakeableItem.TakeableItem;
 import View.LevelView.EntityView.SummonerView;
 import javafx.geometry.Point3D;
 
@@ -34,6 +35,35 @@ public class SummonerFactory extends EntityFactory {
         );
 
         summoner.setName("summoner");
+
+        return summoner;
+    }
+
+    public Entity buildEntity(TakeableItem... items) {
+        Entity summoner = new Entity();
+        summoner.setSpeed(0640000000L);
+        summoner.setSightRadius(new SightRadius(3));
+
+        summoner.addWeaponSkills(
+                getSkillsFactory().getStaffSkill(),
+                getSkillsFactory().getBaneSkill(),
+                getSkillsFactory().getBoonSkill(),
+                getSkillsFactory().getEnchantSkill()
+        );
+
+        summoner.addNonWeaponSkills(
+                getSkillsFactory().getBargainSkill(),
+                getSkillsFactory().getObserveSkill(),
+                getSkillsFactory().getBindWounds()
+        );
+
+        summoner.setName("summoner");
+
+        if(items != null) {
+            for (int i = 0; i < items.length; ++i) {
+                summoner.addItemToInventory(items[i]);
+            }
+        }
 
         return summoner;
     }

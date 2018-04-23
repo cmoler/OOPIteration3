@@ -198,8 +198,45 @@ public class MapGenerator extends Application {
     }
 
     private static void createSummoner() {
-        entityFactory = new SummonerFactory(skillsFactory);
-        player = entityFactory.buildEntity();
+        WeaponItem bane = new WeaponItem("ELECTRIFY",
+                new RemoveHealthCommand(10),
+                skillsFactory.getBaneSkill(),
+                new RadialInfluenceEffect(new RemoveHealthCommand(10), 4,0250000000l, Orientation.NORTH),
+                10,0250000000l,10,10,4);
+
+        WeaponItem boon = new WeaponItem("Heal All Health",
+                new AddHealthCommand(1000),
+                skillsFactory.getBoonSkill(),
+                new LinearInfluenceEffect(new AddHealthCommand(1000), 0,0250000000l, Orientation.NORTH),
+                10,0250000000l,10,10,4);
+
+        WeaponItem enchant = new WeaponItem("Freeze",
+                new FreezeEntityCommand(levelMessenger),
+                skillsFactory.getEnchantSkill(),
+                new AngularInfluenceEffect(new FreezeEntityCommand(levelMessenger), 4,0250000000l, Orientation.NORTH),
+                10,0250000000l,10,10,4);
+
+        WeaponItem confuse = new WeaponItem("Confuse",
+                new ConfuseEntityCommand(levelMessenger),
+                skillsFactory.getEnchantSkill(),
+                new AngularInfluenceEffect(new ConfuseEntityCommand(levelMessenger), 4,0250000000l, Orientation.NORTH),
+                10,0250000000l,10,10,4);
+
+        WeaponItem slow = new WeaponItem("Slow Down",
+                new SlowEntityCommand(levelMessenger),
+                skillsFactory.getEnchantSkill(),
+                new AngularInfluenceEffect(new SlowEntityCommand(levelMessenger), 4,0250000000l, Orientation.NORTH),
+                10,0250000000l,10,10,4);
+
+        WeaponItem staff = new WeaponItem("Big Ol Staff",
+                new RemoveHealthCommand(100),
+                skillsFactory.getStaffSkill(),
+                new LinearInfluenceEffect(new RemoveHealthCommand(100), 4,0250000000l, Orientation.NORTH),
+                10,0250000000l,10,10,4);
+
+        SummonerFactory entityFactory = new SummonerFactory(skillsFactory);
+        player = entityFactory.buildEntity(bane, boon, enchant, staff, confuse, slow);
+
         entityFactory.buildEntitySprite(player);
         player.addItemToInventory(itemFactory.getMediumArmor());
         player.addItemToInventory(itemFactory.getManaPotion());
@@ -209,6 +246,8 @@ public class MapGenerator extends Application {
         player.addItemToInventory(itemFactory.getPotion());
         player.addItemToInventory(itemFactory.getStaff());
         player.addItemToInventory(itemFactory.getSpeedRing());
+        player.increaseMaxHealth(400);
+        player.increaseHealth(400);
 
         level0.addEntityTo(new Point3D(0,0,0), player);
     }
@@ -221,6 +260,8 @@ public class MapGenerator extends Application {
         player.addItemToInventory(itemFactory.getOneHandedSword());
         player.addItemToInventory(itemFactory.getTwoHandedSword());
         player.addItemToInventory(itemFactory.getBrawlerWeapon());
+        player.increaseMaxHealth(400);
+        player.increaseHealth(400);
 
         level0.addEntityTo(new Point3D(0,0,0), player);
     }
@@ -232,6 +273,8 @@ public class MapGenerator extends Application {
         player.addItemToInventory(itemFactory.getRangedWeapon());
         player.addItemToInventory(itemFactory.getLightArmor());
         player.addItemToInventory(itemFactory.getFreezeBow());
+        player.increaseMaxHealth(400);
+        player.increaseHealth(400);
 
         level0.addEntityTo(new Point3D(0,0,0), player);
     }
@@ -375,10 +418,10 @@ public class MapGenerator extends Application {
         level2.addItemTo(new Point3D(2,0,-2), healingPotion);
         level2.addItemTo(new Point3D(-2,0,2), brawler);
         level2.addItemTo(new Point3D(-4,0,4), hurts);
-        level2.addItemTo(new Point3D(-6, 0, 6), interactiveItem);
+        level2.addItemTo(new Point3D(-8, 0, 8), interactiveItem);
 
         // Level 2 Traps
-        Trap trap = new Trap(new RemoveHealthCommand(100), 10);
+        Trap trap = new Trap(new RemoveHealthCommand(100), 1);
         level2.addTrapTo(new Point3D(-6, 0, 6), trap);
 
         // END OF LEVEL 2

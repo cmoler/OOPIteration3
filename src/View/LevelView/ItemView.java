@@ -148,4 +148,11 @@ public class ItemView extends LevelViewElement{
     }
 
 
+    public void setDoor() {
+        String workingDir = System.getProperty("user.dir");
+
+        File file = new File(workingDir + "/src/View/Assets/door.png");
+
+        setSprite(new Image(file.toURI().toString()));
+    }
 }
