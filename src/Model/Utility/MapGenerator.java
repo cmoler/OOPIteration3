@@ -239,9 +239,6 @@ public class MapGenerator extends Application {
 
         entityFactory.buildEntitySprite(player);
         player.addItemToInventory(itemFactory.getMediumArmor());
-        player.addItemToInventory(itemFactory.getManaPotion());
-        player.addItemToInventory(itemFactory.getManaPotion());
-        player.addItemToInventory(itemFactory.getManaPotion());
         player.addItemToInventory(itemFactory.getPotion());
         player.addItemToInventory(itemFactory.getPotion());
         player.addItemToInventory(itemFactory.getStaff());

@@ -1,6 +1,6 @@
 <GAMEMODEL>
 <CURRENTLEVEL>
-<LEVEL reference="Model.Level.Level@5dab5fd4">
+<LEVEL reference="Model.Level.Level@36f10027">
 <LEVELMAP id="TERRAIN">
 	<KEY key="-4,-5,9"/>
 	<VALUE value="GRASS"/>
@@ -38,10 +38,10 @@
 	<KEY key="2,5,-7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,5,-5"/>
+	<KEY key="0,-5,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-5,5"/>
+	<KEY key="0,5,-5"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="7,-7,0"/>
@@ -245,19 +245,19 @@
 	<KEY key="2,-2,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,2,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,2,-2"/>
+	<KEY key="0,-2,2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,8,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-2,2"/>
+	<KEY key="-2,2,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,-1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-8,4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="2,-1,-1"/>
@@ -275,13 +275,10 @@
 	<KEY key="-8,8,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-8,4"/>
+	<KEY key="0,2,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="1,1,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-4,4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="4,-4,0"/>
@@ -290,13 +287,16 @@
 	<KEY key="-4,4,0"/>
 	<VALUE value="GRASS"/>
 
+	<KEY key="0,-4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,4,-4"/>
+	<VALUE value="GRASS"/>
+
 	<KEY key="0,-8,8"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,8,-8"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,4,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-8,10"/>
@@ -881,10 +881,10 @@
 	<KEY key="5,-1,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,0,5"/>
+	<KEY key="5,0,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,0,-5"/>
+	<KEY key="-5,0,5"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-8,3,5"/>
@@ -1000,22 +1000,22 @@
 	<KEY key="5,0,-5"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@5550eb05" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1ae716c2"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@6ff1c5d7" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@144c9b36"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="-5,0,5"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@62dc5fce" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@7fa32c15"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@4e56c199" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1da9fe9c"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="-5,5,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@787199ca" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5a02c100"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@23e73536" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@53029f57"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="5,-5,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@5a20c7a1" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@3c058b74"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@2b20d6a7" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@792f8041"/>
 	</InfiniteAreaEffect></VALUE>
 </LEVELMAP>
 
@@ -1040,42 +1040,42 @@
 <LEVELMAP id="ENTITY">
 	<KEY key="0,0,0"/>
 	<VALUE>
-	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="500" maxHealth="500" manaPoints="500" maxMana="500" regenRate="1" speed="127926272" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="smasher" reference="Model.Entity.Entity@a72af1f">
+	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="500" maxHealth="500" manaPoints="500" maxMana="500" regenRate="1" speed="127926272" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="smasher" reference="Model.Entity.Entity@4621763e">
 	<WEAPONSKILLS>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@5d9d9f29" name="One-Handed" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@484eeaf7">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@4134d7e1" name="One-Handed" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@63fb54d7">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@1f95dba1" name="Two-Handed" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@65851699" name="Two-Handed" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@d081208" name="Brawler" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@77a1d633">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@183ca9c7" name="Brawler" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@35b0ec4e">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/></Skill>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/></Skill>
 	
 </WEAPONSKILLS>
-<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@40d238e4" name="Bargain" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@2525a2d7">
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5172a141">
+<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@1adfb589" name="Bargain" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5b985d77">
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@7585d14f">
 	</BarterCommand>
 	</LinearInfluenceEffect>
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5172a141">
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@7585d14f">
 	</BarterCommand></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@71878300" name="Observe" accuracy="1" useCost="100" level="1">
-	<RadialInfluenceEffect point="0,0,0" speed="83886080" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@289bf512">
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7067d538"/>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@7d33e2ec" name="Observe" accuracy="1" useCost="100" level="1">
+	<RadialInfluenceEffect point="0,0,0" speed="83886080" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@47e5912d">
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@207397d9"/>
 	</RadialInfluenceEffect>
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7067d538"/></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@40fe1642" name="Bind Wounds" accuracy="1" useCost="15" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@78dcf2f9">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@3c603c0a"/>
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@207397d9"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@304f020d" name="Bind Wounds" accuracy="1" useCost="15" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@39990545">
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@62cdb490"/>
 	</LinearInfluenceEffect>
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@3c603c0a"/></Skill>
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@62cdb490"/></Skill>
 	
 </NONWEAPONSKILLS>
 <TERRAINLIST>	
@@ -1087,43 +1087,43 @@
 </Equipment>
 <Inventory maxSize="10">
 <ITEMLIST>
-	<ArmorItem price="37" name="Heavy Armor" isToBeDeleted="false" defense="16" reference="Model.Item.TakeableItem.ArmorItem@4b246df1">
-		<ToggleHealthCommand amount="15" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@5a4bfb8"/>
-	</ArmorItem><WeaponItem price="5" name="One Handed Sword" damage="10" speed="56623104" accuracy="10" useCost="60" range="1" reference="Model.Item.TakeableItem.WeaponItem@1af0cecf">
+	<ArmorItem price="37" name="Heavy Armor" isToBeDeleted="false" defense="16" reference="Model.Item.TakeableItem.ArmorItem@94a3d1d">
+		<ToggleHealthCommand amount="15" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@353baeb2"/>
+	</ArmorItem><WeaponItem price="5" name="One Handed Sword" damage="10" speed="56623104" accuracy="10" useCost="60" range="1" reference="Model.Item.TakeableItem.WeaponItem@44f9267d">
 	
-		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@274d21f7"/>
-	<Skill name="One-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@5d9d9f29">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@484eeaf7">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/></Skill>
+		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4b1f6346"/>
+	<Skill name="One-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@4134d7e1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@63fb54d7">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@4f6e8b0a">
-		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@274d21f7"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@13e51ded">
+		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4b1f6346"/>
 	</LinearInfluenceEffect>
-	</WeaponItem><WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@6f17a420">
+	</WeaponItem><WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@7bc36f1d">
 	
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@730d99bb"/>
-	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@1f95dba1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@760464d6"/>
+	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@65851699">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@3d015cb4">
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@730d99bb"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@46b13c03">
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@760464d6"/>
 	</LinearInfluenceEffect>
-	</WeaponItem><WeaponItem price="5" name="Brawler Weapon" damage="5" speed="44040192" accuracy="10" useCost="40" range="1" reference="Model.Item.TakeableItem.WeaponItem@60ca6c5">
+	</WeaponItem><WeaponItem price="5" name="Brawler Weapon" damage="5" speed="44040192" accuracy="10" useCost="40" range="1" reference="Model.Item.TakeableItem.WeaponItem@7d805b4d">
 	
-		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@54e82480"/>
-	<Skill name="Brawler" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@d081208">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@77a1d633">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/></Skill>
+		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1d5b7867"/>
+	<Skill name="Brawler" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@183ca9c7">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@35b0ec4e">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@4bb7afe7">
-		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@54e82480"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@482c9dce">
+		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1d5b7867"/>
 	</LinearInfluenceEffect>
 	</WeaponItem></ITEMLIST></Inventory>
 <ItemHotBar>
@@ -1131,7 +1131,7 @@
 </ITEMLIST>
 </ItemHotBar>
 <FRIENDLIST>
-<FRIEND entityReference="Model.Entity.Entity@6e676d45"/></FRIENDLIST>
+<FRIEND entityReference="Model.Entity.Entity@35ae1d3a"/></FRIENDLIST>
 <TARGETING>
 </TARGETING>
 </Entity></VALUE>
@@ -1139,7 +1139,7 @@
 </LEVEL>
 </CURRENTLEVEL>
 <LEVELLIST>
-<LEVEL reference="Model.Level.Level@5dab5fd4">
+<LEVEL reference="Model.Level.Level@36f10027">
 <LEVELMAP id="TERRAIN">
 	<KEY key="-4,-5,9"/>
 	<VALUE value="GRASS"/>
@@ -1177,10 +1177,10 @@
 	<KEY key="2,5,-7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,5,-5"/>
+	<KEY key="0,-5,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-5,5"/>
+	<KEY key="0,5,-5"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="7,-7,0"/>
@@ -1384,19 +1384,19 @@
 	<KEY key="2,-2,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,2,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,2,-2"/>
+	<KEY key="0,-2,2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,8,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-2,2"/>
+	<KEY key="-2,2,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,-1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-8,4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="2,-1,-1"/>
@@ -1414,13 +1414,10 @@
 	<KEY key="-8,8,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-8,4"/>
+	<KEY key="0,2,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="1,1,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-4,4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="4,-4,0"/>
@@ -1429,13 +1426,16 @@
 	<KEY key="-4,4,0"/>
 	<VALUE value="GRASS"/>
 
+	<KEY key="0,-4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,4,-4"/>
+	<VALUE value="GRASS"/>
+
 	<KEY key="0,-8,8"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,8,-8"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,4,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-8,10"/>
@@ -2020,10 +2020,10 @@
 	<KEY key="5,-1,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,0,5"/>
+	<KEY key="5,0,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,0,-5"/>
+	<KEY key="-5,0,5"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-8,3,5"/>
@@ -2139,22 +2139,22 @@
 	<KEY key="5,0,-5"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@5550eb05" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1ae716c2"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@6ff1c5d7" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@144c9b36"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="-5,0,5"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@62dc5fce" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@7fa32c15"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@4e56c199" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1da9fe9c"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="-5,5,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@787199ca" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5a02c100"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@23e73536" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@53029f57"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="5,-5,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@5a20c7a1" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@3c058b74"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@2b20d6a7" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@792f8041"/>
 	</InfiniteAreaEffect></VALUE>
 </LEVELMAP>
 
@@ -2179,42 +2179,42 @@
 <LEVELMAP id="ENTITY">
 	<KEY key="0,0,0"/>
 	<VALUE>
-	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="500" maxHealth="500" manaPoints="500" maxMana="500" regenRate="1" speed="127926272" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="smasher" reference="Model.Entity.Entity@a72af1f">
+	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="500" maxHealth="500" manaPoints="500" maxMana="500" regenRate="1" speed="127926272" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="smasher" reference="Model.Entity.Entity@4621763e">
 	<WEAPONSKILLS>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@5d9d9f29" name="One-Handed" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@484eeaf7">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@4134d7e1" name="One-Handed" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@63fb54d7">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@1f95dba1" name="Two-Handed" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@65851699" name="Two-Handed" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@d081208" name="Brawler" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@77a1d633">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@183ca9c7" name="Brawler" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@35b0ec4e">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/></Skill>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/></Skill>
 	
 </WEAPONSKILLS>
-<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@40d238e4" name="Bargain" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@2525a2d7">
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5172a141">
+<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@1adfb589" name="Bargain" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5b985d77">
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@7585d14f">
 	</BarterCommand>
 	</LinearInfluenceEffect>
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5172a141">
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@7585d14f">
 	</BarterCommand></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@71878300" name="Observe" accuracy="1" useCost="100" level="1">
-	<RadialInfluenceEffect point="0,0,0" speed="83886080" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@289bf512">
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7067d538"/>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@7d33e2ec" name="Observe" accuracy="1" useCost="100" level="1">
+	<RadialInfluenceEffect point="0,0,0" speed="83886080" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@47e5912d">
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@207397d9"/>
 	</RadialInfluenceEffect>
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7067d538"/></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@40fe1642" name="Bind Wounds" accuracy="1" useCost="15" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@78dcf2f9">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@3c603c0a"/>
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@207397d9"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@304f020d" name="Bind Wounds" accuracy="1" useCost="15" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@39990545">
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@62cdb490"/>
 	</LinearInfluenceEffect>
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@3c603c0a"/></Skill>
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@62cdb490"/></Skill>
 	
 </NONWEAPONSKILLS>
 <TERRAINLIST>	
@@ -2226,43 +2226,43 @@
 </Equipment>
 <Inventory maxSize="10">
 <ITEMLIST>
-	<ArmorItem price="37" name="Heavy Armor" isToBeDeleted="false" defense="16" reference="Model.Item.TakeableItem.ArmorItem@4b246df1">
-		<ToggleHealthCommand amount="15" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@5a4bfb8"/>
-	</ArmorItem><WeaponItem price="5" name="One Handed Sword" damage="10" speed="56623104" accuracy="10" useCost="60" range="1" reference="Model.Item.TakeableItem.WeaponItem@1af0cecf">
+	<ArmorItem price="37" name="Heavy Armor" isToBeDeleted="false" defense="16" reference="Model.Item.TakeableItem.ArmorItem@94a3d1d">
+		<ToggleHealthCommand amount="15" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@353baeb2"/>
+	</ArmorItem><WeaponItem price="5" name="One Handed Sword" damage="10" speed="56623104" accuracy="10" useCost="60" range="1" reference="Model.Item.TakeableItem.WeaponItem@44f9267d">
 	
-		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@274d21f7"/>
-	<Skill name="One-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@5d9d9f29">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@484eeaf7">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/></Skill>
+		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4b1f6346"/>
+	<Skill name="One-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@4134d7e1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@63fb54d7">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@4f6e8b0a">
-		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@274d21f7"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@13e51ded">
+		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4b1f6346"/>
 	</LinearInfluenceEffect>
-	</WeaponItem><WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@6f17a420">
+	</WeaponItem><WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@7bc36f1d">
 	
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@730d99bb"/>
-	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@1f95dba1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@760464d6"/>
+	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@65851699">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@3d015cb4">
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@730d99bb"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@46b13c03">
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@760464d6"/>
 	</LinearInfluenceEffect>
-	</WeaponItem><WeaponItem price="5" name="Brawler Weapon" damage="5" speed="44040192" accuracy="10" useCost="40" range="1" reference="Model.Item.TakeableItem.WeaponItem@60ca6c5">
+	</WeaponItem><WeaponItem price="5" name="Brawler Weapon" damage="5" speed="44040192" accuracy="10" useCost="40" range="1" reference="Model.Item.TakeableItem.WeaponItem@7d805b4d">
 	
-		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@54e82480"/>
-	<Skill name="Brawler" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@d081208">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@77a1d633">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/></Skill>
+		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1d5b7867"/>
+	<Skill name="Brawler" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@183ca9c7">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@35b0ec4e">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@4bb7afe7">
-		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@54e82480"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@482c9dce">
+		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1d5b7867"/>
 	</LinearInfluenceEffect>
 	</WeaponItem></ITEMLIST></Inventory>
 <ItemHotBar>
@@ -2270,12 +2270,12 @@
 </ITEMLIST>
 </ItemHotBar>
 <FRIENDLIST>
-<FRIEND entityReference="Model.Entity.Entity@6e676d45"/></FRIENDLIST>
+<FRIEND entityReference="Model.Entity.Entity@35ae1d3a"/></FRIENDLIST>
 <TARGETING>
 </TARGETING>
 </Entity></VALUE>
 </LEVELMAP>
-</LEVEL><LEVEL reference="Model.Level.Level@787199ca">
+</LEVEL><LEVEL reference="Model.Level.Level@23e73536">
 <LEVELMAP id="TERRAIN">
 	<KEY key="-4,-5,9"/>
 	<VALUE value="GRASS"/>
@@ -2502,25 +2502,37 @@
 	<KEY key="0,0,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,0,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,-1,0"/>
+	<KEY key="2,-1,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="8,-8,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-8,8,0"/>
+	<KEY key="1,-1,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,0,-2"/>
+	<KEY key="0,-1,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-2,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,1,1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,2,-2"/>
+	<KEY key="-4,4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,8,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="1,1,-2"/>
@@ -2538,22 +2550,7 @@
 	<KEY key="0,4,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-4,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-4,4,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-1,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-1,1,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,1,-1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,-2,0"/>
+	<KEY key="0,-2,2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,2,0"/>
@@ -2562,16 +2559,19 @@
 	<KEY key="-4,8,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-2,2"/>
+	<KEY key="0,2,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,-1,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-8,4"/>
+	<KEY key="-2,0,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-1,-1"/>
+	<KEY key="2,0,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-8,4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-8,10"/>
@@ -3066,7 +3066,7 @@
 	<KEY key="2,3,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-3,0"/>
+	<KEY key="-6,6,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="6,-6,0"/>
@@ -3075,7 +3075,10 @@
 	<KEY key="-3,3,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-6,6,0"/>
+	<KEY key="0,-6,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,6,-6"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,-3,3"/>
@@ -3084,10 +3087,7 @@
 	<KEY key="0,3,-3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-6,6"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,6,-6"/>
+	<KEY key="3,-3,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-9,7,2"/>
@@ -3156,11 +3156,11 @@
 	<KEY key="5,-1,-4"/>
 	<VALUE value="WATER"/>
 
-	<KEY key="-5,0,5"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="5,0,-5"/>
 	<VALUE value="MOUNTAINS"/>
+
+	<KEY key="-5,0,5"/>
+	<VALUE value="GRASS"/>
 
 	<KEY key="-8,3,5"/>
 	<VALUE value="GRASS"/>
@@ -3275,7 +3275,7 @@
 	<KEY key="-4,4,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@5dab5fd4" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@7ce4aed9"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@36f10027" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@732f1ec"/>
 	</InfiniteAreaEffect></VALUE>
 </LEVELMAP>
 
@@ -3383,7 +3383,7 @@
 
 <LEVELMAP id="ENTITY">
 </LEVELMAP>
-</LEVEL><LEVEL reference="Model.Level.Level@5a20c7a1">
+</LEVEL><LEVEL reference="Model.Level.Level@2b20d6a7">
 <LEVELMAP id="TERRAIN">
 	<KEY key="-4,-5,9"/>
 	<VALUE value="GRASS"/>
@@ -3607,58 +3607,25 @@
 	<KEY key="5,-3,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,0,-2"/>
+	<KEY key="-4,4,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,1,1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,8,-8"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-2,0,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,-1,0"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="0,0,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-8,4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="4,-4,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-4,4,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="8,-8,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-8,8,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,1,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-4,8,-4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-4,4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,4,-4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-8,8"/>
+	<KEY key="1,-1,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,-1,1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-1,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,1,-1"/>
@@ -3670,16 +3637,49 @@
 	<KEY key="0,-2,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,2,-2"/>
+	<KEY key="-2,2,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,2,0"/>
+	<KEY key="-4,8,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,-1,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-1,-1"/>
+	<KEY key="2,0,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-8,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,0,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,1,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-8,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,8,-8"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-8,10"/>
@@ -4177,19 +4177,19 @@
 	<KEY key="0,-6,6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-3,0"/>
+	<KEY key="-6,6,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="6,-6,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-6,6,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,-3,3"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-3,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,6,-6"/>
@@ -4264,10 +4264,10 @@
 	<KEY key="5,-1,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,0,5"/>
+	<KEY key="5,0,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,0,-5"/>
+	<KEY key="-5,0,5"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-8,3,5"/>
@@ -4383,27 +4383,27 @@
 	<KEY key="-2,1,1"/>
 	<VALUE>
 	<OneShotAreaEffect hasNotFired="true">
-		<LevelUpCommand reference="Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand@1f3d150e"/>
+		<LevelUpCommand reference="Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand@78978874"/>
 	</OneShotAreaEffect></VALUE>
 	<KEY key="2,-1,-1"/>
 	<VALUE>
 	<OneShotAreaEffect hasNotFired="true">
-		<InstaDeathCommand reference="Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand@ae4ee4d"/>
+		<InstaDeathCommand reference="Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand@3e495f41"/>
 	</OneShotAreaEffect></VALUE>
 	<KEY key="0,-3,3"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<AddHealthCommand amount="1" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@7c5aa061"/>
+		<AddHealthCommand amount="1" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@122777ab"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="0,3,-3"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<RemoveHealthCommand amount="1" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@25914b55"/>
+		<RemoveHealthCommand amount="1" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@28a4992"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="-3,3,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@5dab5fd4" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5273af8c"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@36f10027" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@469aa59f"/>
 	</InfiniteAreaEffect></VALUE>
 </LEVELMAP>
 
@@ -4413,32 +4413,32 @@
 <LEVELMAP id="ITEM">
 	<KEY key="2,0,-2"/>
 	<VALUE>
-	<ConsumableItem price="0" name="key" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@7f48a509">
-		<AddHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@56385b29"/>
+	<ConsumableItem price="0" name="key" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@325d495a">
+		<AddHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@1b6efa95"/>
 	</ConsumableItem></VALUE>
 	<KEY key="-2,0,2"/>
-	<VALUE><WeaponItem price="5" name="Brawler Weapon" damage="5" speed="44040192" accuracy="10" useCost="40" range="1" reference="Model.Item.TakeableItem.WeaponItem@79dc7958">
+	<VALUE><WeaponItem price="5" name="Brawler Weapon" damage="5" speed="44040192" accuracy="10" useCost="40" range="1" reference="Model.Item.TakeableItem.WeaponItem@4b78f6b3">
 	
-		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@369cb620"/>
-	<Skill name="Brawler" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@d081208">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@77a1d633">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/></Skill>
+		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@585d141e"/>
+	<Skill name="Brawler" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@183ca9c7">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@35b0ec4e">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@cc63d17">
-		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@369cb620"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9281d6">
+		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@585d141e"/>
 	</LinearInfluenceEffect>
 	</WeaponItem></VALUE>
 	<KEY key="-4,0,4"/>
 	<VALUE>
-	<OneShotItem name="YEAH" isToBeDeleted="false" reference="Model.Item.OneShotItem@18b3ceb5">
-		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@23f7242"/>
+	<OneShotItem name="YEAH" isToBeDeleted="false" reference="Model.Item.OneShotItem@6cc46903">
+		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@6085d746"/>
 	</OneShotItem></VALUE>
 	<KEY key="-8,0,8"/>
 	<VALUE>
-	<InteractiveItem name="Door" isToBeDeleted="false" reference="Model.Item.InteractiveItem@51c1e993">
-		<TeleportEntityCommand levelReference="Model.Level.Level@5dab5fd4" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@6cd25839"/>
+	<InteractiveItem name="Door" isToBeDeleted="false" reference="Model.Item.InteractiveItem@5048c2ac">
+		<TeleportEntityCommand levelReference="Model.Level.Level@36f10027" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@44406542"/>
 	<HasItemCondition itemName="key"/>
 	</InteractiveItem></VALUE>
 </LEVELMAP>
@@ -4447,7 +4447,7 @@
 	<KEY key="-6,0,6"/>
 	<VALUE>
 	<Trap isVisible="false" isDisarmed="false" trapStrength="1">
-		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@6a12e570"/>
+		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@b0380b8"/>
 	</Trap></VALUE>
 </LEVELMAP>
 
@@ -4462,7 +4462,7 @@
 
 <LEVELMAP id="ENTITY">
 </LEVELMAP>
-</LEVEL><LEVEL reference="Model.Level.Level@5550eb05">
+</LEVEL><LEVEL reference="Model.Level.Level@6ff1c5d7">
 <LEVELMAP id="TERRAIN">
 	<KEY key="-4,-5,9"/>
 	<VALUE value="GRASS"/>
@@ -4653,7 +4653,7 @@
 	<KEY key="0,0,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,1,1"/>
+	<KEY key="4,-4,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="1,-1,0"/>
@@ -4671,7 +4671,7 @@
 	<KEY key="2,-2,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-4,8,-4"/>
+	<KEY key="-2,2,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,2,-2"/>
@@ -4680,34 +4680,31 @@
 	<KEY key="0,-2,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,-1,2"/>
+	<KEY key="-4,8,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-8,4"/>
+	<KEY key="-1,-1,2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="2,-1,-1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,0,2"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="2,0,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-4,0"/>
+	<KEY key="4,-8,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="8,-8,0"/>
+	<KEY key="-2,0,2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-8,8,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-4,4,0"/>
+	<KEY key="8,-8,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,2,0"/>
+	<KEY key="-2,1,1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="1,1,-2"/>
@@ -4716,13 +4713,16 @@
 	<KEY key="0,-4,4"/>
 	<VALUE value="GRASS"/>
 
+	<KEY key="0,4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,4,0"/>
+	<VALUE value="GRASS"/>
+
 	<KEY key="0,-8,8"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,8,-8"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,4,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="2,-9,7"/>
@@ -5112,10 +5112,10 @@
 	<KEY key="-3,3,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,-6,0"/>
+	<KEY key="-6,6,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-6,6,0"/>
+	<KEY key="6,-6,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,-3,3"/>
@@ -5282,7 +5282,7 @@
 	<KEY key="-3,3,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@5dab5fd4" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@13463712"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@36f10027" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@45725979"/>
 	</InfiniteAreaEffect></VALUE>
 </LEVELMAP>
 
@@ -5307,13 +5307,13 @@
 <LEVELMAP id="ENTITY">
 	<KEY key="0,7,-7"/>
 	<VALUE>
-	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="500" maxMana="500" regenRate="1" speed="2000000000" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="grok" reference="Model.Entity.Entity@6334be45">
+	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="500" maxMana="500" regenRate="1" speed="2000000000" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="grok" reference="Model.Entity.Entity@7a5a4e2b">
 	<WEAPONSKILLS>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@1f95dba1" name="Two-Handed" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@65851699" name="Two-Handed" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
 	
 </WEAPONSKILLS>
 <NONWEAPONSKILLS>
@@ -5323,17 +5323,17 @@
 </TERRAINLIST>
 
 <Equipment>
-	<WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@4d15c998">
+	<WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@5339aed9">
 	
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@33785393"/>
-	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@1f95dba1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1494bb89"/>
+	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@65851699">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@4e3c19e9">
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@33785393"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@385efe3">
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1494bb89"/>
 	</LinearInfluenceEffect>
 	</WeaponItem>
 </Equipment>
@@ -5346,24 +5346,24 @@
 <FRIENDLIST>
 </FRIENDLIST>
 <TARGETING>
-<TARGET entityReference="Model.Entity.Entity@a72af1f"/><TARGET entityReference="Model.Entity.Entity@6e676d45"/></TARGETING>
+<TARGET entityReference="Model.Entity.Entity@4621763e"/><TARGET entityReference="Model.Entity.Entity@35ae1d3a"/></TARGETING>
 </Entity></VALUE>
 	<KEY key="0,0,0"/>
 	<VALUE>
-	<Entity velocity="0,0,0" noiseLevel="5" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="150" maxHealth="150" manaPoints="500" maxMana="500" regenRate="1" speed="1000000000" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="McNugget" reference="Model.Entity.Entity@6e676d45">
+	<Entity velocity="0,0,0" noiseLevel="5" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="150" maxHealth="150" manaPoints="500" maxMana="500" regenRate="1" speed="1000000000" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="McNugget" reference="Model.Entity.Entity@35ae1d3a">
 	<WEAPONSKILLS>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@5d9d9f29" name="One-Handed" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@484eeaf7">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@4134d7e1" name="One-Handed" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@63fb54d7">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/></Skill>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/></Skill>
 	
 </WEAPONSKILLS>
-<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@b64dba7" name="Pickpocket" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@6ce0599b">
-	<PickPocketCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.PickPocketCommand@fda1496"></PickPocketCommand>
+<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@78ea1f4f" name="Pickpocket" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@54ebd77b">
+	<PickPocketCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.PickPocketCommand@4a3af459"></PickPocketCommand>
 	</LinearInfluenceEffect>
-	<PickPocketCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.PickPocketCommand@fda1496"></PickPocketCommand></Skill>
+	<PickPocketCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.PickPocketCommand@4a3af459"></PickPocketCommand></Skill>
 	
 </NONWEAPONSKILLS>
 <TERRAINLIST>	
@@ -5371,38 +5371,38 @@
 </TERRAINLIST>
 
 <Equipment>
-	<WeaponItem price="5" name="One Handed Sword" damage="10" speed="56623104" accuracy="10" useCost="60" range="1" reference="Model.Item.TakeableItem.WeaponItem@7e4f2a35">
+	<WeaponItem price="5" name="One Handed Sword" damage="10" speed="56623104" accuracy="10" useCost="60" range="1" reference="Model.Item.TakeableItem.WeaponItem@7b435664">
 	
-		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@50929744"/>
-	<Skill name="One-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@5d9d9f29">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@484eeaf7">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/></Skill>
+		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@57154418"/>
+	<Skill name="One-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@4134d7e1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@63fb54d7">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@3e50204c">
-		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@50929744"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5d4f118e">
+		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@57154418"/>
 	</LinearInfluenceEffect>
 	</WeaponItem>
 </Equipment>
 <Inventory maxSize="10">
 <ITEMLIST>
-	<ConsumableItem price="2" name="Health Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@6171fdb4">
-		<AddHealthCommand amount="50" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@66e86d2d"/>
+	<ConsumableItem price="2" name="Health Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@40cabe42">
+		<AddHealthCommand amount="50" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@21db3049"/>
 	</ConsumableItem>
-	<RingItem price="24" name="Health Ring" isToBeDeleted="false" reference="Model.Item.TakeableItem.RingItem@2284ee03">
-		<ToggleHealthCommand amount="50" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@1d69e85f"/>
-	</RingItem><WeaponItem price="20" name="Freeze Bow" damage="8" speed="44040192" accuracy="10" useCost="100" range="1" reference="Model.Item.TakeableItem.WeaponItem@731b2a1b">
+	<RingItem price="24" name="Health Ring" isToBeDeleted="false" reference="Model.Item.TakeableItem.RingItem@5c1395ee">
+		<ToggleHealthCommand amount="50" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@79f53c83"/>
+	</RingItem><WeaponItem price="20" name="Freeze Bow" damage="8" speed="44040192" accuracy="10" useCost="100" range="1" reference="Model.Item.TakeableItem.WeaponItem@6cd8a551">
 	
-	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@563fb050"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@534eb862">
-	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1379944">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@2b56308b"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@2b56308b"/></Skill>
+	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@14f989fb"/>
+	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@5485d26f">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@444fd58">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@2d1f22ac"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@2d1f22ac"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="10" movesRemaining="10" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@40a881">
-	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@563fb050"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="10" movesRemaining="10" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@7571d0a5">
+	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@14f989fb"/>
 	</LinearInfluenceEffect>
 	</WeaponItem></ITEMLIST></Inventory>
 <ItemHotBar>
@@ -5412,17 +5412,17 @@
 <FRIENDLIST>
 </FRIENDLIST>
 <TARGETING>
-<TARGET entityReference="Model.Entity.Entity@6334be45"/><TARGET entityReference="Model.Entity.Entity@2a1f49a1"/></TARGETING>
+<TARGET entityReference="Model.Entity.Entity@7a5a4e2b"/><TARGET entityReference="Model.Entity.Entity@182351a9"/></TARGETING>
 </Entity></VALUE>
 	<KEY key="0,-5,5"/>
 	<VALUE>
-	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="500" maxMana="500" regenRate="1" speed="1500000000" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="grok" reference="Model.Entity.Entity@2a1f49a1">
+	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="500" maxMana="500" regenRate="1" speed="1500000000" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="grok" reference="Model.Entity.Entity@182351a9">
 	<WEAPONSKILLS>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@1f95dba1" name="Two-Handed" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@65851699" name="Two-Handed" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
 	
 </WEAPONSKILLS>
 <NONWEAPONSKILLS>
@@ -5432,17 +5432,17 @@
 </TERRAINLIST>
 
 <Equipment>
-	<WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@266b8d43">
+	<WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@f9d62ce">
 	
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1babdd73"/>
-	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@1f95dba1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@2c10e058"/>
+	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@65851699">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@16374e5">
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1babdd73"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@784ebd34">
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@2c10e058"/>
 	</LinearInfluenceEffect>
 	</WeaponItem>
 </Equipment>
@@ -5455,10 +5455,10 @@
 <FRIENDLIST>
 </FRIENDLIST>
 <TARGETING>
-<TARGET entityReference="Model.Entity.Entity@a72af1f"/><TARGET entityReference="Model.Entity.Entity@6e676d45"/></TARGETING>
+<TARGET entityReference="Model.Entity.Entity@4621763e"/><TARGET entityReference="Model.Entity.Entity@35ae1d3a"/></TARGETING>
 </Entity></VALUE>
 </LEVELMAP>
-</LEVEL><LEVEL reference="Model.Level.Level@62dc5fce">
+</LEVEL><LEVEL reference="Model.Level.Level@4e56c199">
 <LEVELMAP id="TERRAIN">
 	<KEY key="-3,-5,8"/>
 	<VALUE value="GRASS"/>
@@ -5622,7 +5622,10 @@
 	<KEY key="5,-3,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-1,-1"/>
+	<KEY key="-4,4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,1,1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,0,0"/>
@@ -5643,22 +5646,40 @@
 	<KEY key="2,-2,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,1,1"/>
+	<KEY key="0,2,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-4,0"/>
+	<KEY key="-2,2,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-8,8,0"/>
+	<KEY key="0,-2,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="8,-8,0"/>
+	<KEY key="-4,8,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-1,2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="4,-8,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-4,4,0"/>
+	<KEY key="2,-1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,0,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,0,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,8,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="1,1,-2"/>
@@ -5674,27 +5695,6 @@
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,8,-8"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-2,2,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-4,8,-4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,2,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-2,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-1,-1,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-2,0,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,0,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-6,-2,8"/>
@@ -5985,7 +5985,7 @@
 	<KEY key="2,3,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-3,0"/>
+	<KEY key="0,-6,6"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="6,-6,0"/>
@@ -5994,19 +5994,19 @@
 	<KEY key="-6,6,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,3,0"/>
+	<KEY key="0,-3,3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-6,6"/>
+	<KEY key="0,3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-3,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,6,-6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-3,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,3,-3"/>
+	<KEY key="-3,3,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-7,0,7"/>
@@ -6116,7 +6116,7 @@
 	<KEY key="-3,3,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@5dab5fd4" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@462c0e8"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@36f10027" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@341ae60"/>
 	</InfiniteAreaEffect></VALUE>
 </LEVELMAP>
 
@@ -6143,42 +6143,42 @@
 </LEVEL>
 </LEVELLIST>
 <PLAYER>
-	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="500" maxHealth="500" manaPoints="500" maxMana="500" regenRate="1" speed="127926272" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="smasher" reference="Model.Entity.Entity@a72af1f">
+	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="3" level="1" experience="0" experienceToNextLevel="100" currentHealth="500" maxHealth="500" manaPoints="500" maxMana="500" regenRate="1" speed="127926272" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="smasher" reference="Model.Entity.Entity@4621763e">
 	<WEAPONSKILLS>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@5d9d9f29" name="One-Handed" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@484eeaf7">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@4134d7e1" name="One-Handed" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@63fb54d7">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@1f95dba1" name="Two-Handed" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@65851699" name="Two-Handed" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@d081208" name="Brawler" accuracy="1" useCost="0" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@77a1d633">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@183ca9c7" name="Brawler" accuracy="1" useCost="0" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@35b0ec4e">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/>
 	</LinearInfluenceEffect>
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/></Skill>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/></Skill>
 	
 </WEAPONSKILLS>
-<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@40d238e4" name="Bargain" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@2525a2d7">
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5172a141">
+<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@1adfb589" name="Bargain" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5b985d77">
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@7585d14f">
 	</BarterCommand>
 	</LinearInfluenceEffect>
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5172a141">
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@7585d14f">
 	</BarterCommand></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@71878300" name="Observe" accuracy="1" useCost="100" level="1">
-	<RadialInfluenceEffect point="0,0,0" speed="83886080" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@289bf512">
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7067d538"/>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@7d33e2ec" name="Observe" accuracy="1" useCost="100" level="1">
+	<RadialInfluenceEffect point="0,0,0" speed="83886080" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@47e5912d">
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@207397d9"/>
 	</RadialInfluenceEffect>
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7067d538"/></Skill>
-	<Skill reference="Model.Entity.EntityAttributes.Skill@40fe1642" name="Bind Wounds" accuracy="1" useCost="15" level="1">
-	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@78dcf2f9">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@3c603c0a"/>
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@207397d9"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@304f020d" name="Bind Wounds" accuracy="1" useCost="15" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@39990545">
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@62cdb490"/>
 	</LinearInfluenceEffect>
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@3c603c0a"/></Skill>
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@62cdb490"/></Skill>
 	
 </NONWEAPONSKILLS>
 <TERRAINLIST>	
@@ -6190,43 +6190,43 @@
 </Equipment>
 <Inventory maxSize="10">
 <ITEMLIST>
-	<ArmorItem price="37" name="Heavy Armor" isToBeDeleted="false" defense="16" reference="Model.Item.TakeableItem.ArmorItem@4b246df1">
-		<ToggleHealthCommand amount="15" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@5a4bfb8"/>
-	</ArmorItem><WeaponItem price="5" name="One Handed Sword" damage="10" speed="56623104" accuracy="10" useCost="60" range="1" reference="Model.Item.TakeableItem.WeaponItem@1af0cecf">
+	<ArmorItem price="37" name="Heavy Armor" isToBeDeleted="false" defense="16" reference="Model.Item.TakeableItem.ArmorItem@94a3d1d">
+		<ToggleHealthCommand amount="15" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@353baeb2"/>
+	</ArmorItem><WeaponItem price="5" name="One Handed Sword" damage="10" speed="56623104" accuracy="10" useCost="60" range="1" reference="Model.Item.TakeableItem.WeaponItem@44f9267d">
 	
-		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@274d21f7"/>
-	<Skill name="One-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@5d9d9f29">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@484eeaf7">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@408283f"/></Skill>
+		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4b1f6346"/>
+	<Skill name="One-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@4134d7e1">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@63fb54d7">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@24c487d8"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@4f6e8b0a">
-		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@274d21f7"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@13e51ded">
+		<RemoveHealthCommand amount="12" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4b1f6346"/>
 	</LinearInfluenceEffect>
-	</WeaponItem><WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@6f17a420">
+	</WeaponItem><WeaponItem price="10" name="Two Handed Sword" damage="20" speed="83886080" accuracy="10" useCost="100" range="2" reference="Model.Item.TakeableItem.WeaponItem@7bc36f1d">
 	
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@730d99bb"/>
-	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@1f95dba1">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@5849fad0">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@48878486"/></Skill>
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@760464d6"/>
+	<Skill name="Two-Handed" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@65851699">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="2" movesRemaining="2" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@9fce809">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@c544cff"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@3d015cb4">
-		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@730d99bb"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@46b13c03">
+		<RemoveHealthCommand amount="20" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@760464d6"/>
 	</LinearInfluenceEffect>
-	</WeaponItem><WeaponItem price="5" name="Brawler Weapon" damage="5" speed="44040192" accuracy="10" useCost="40" range="1" reference="Model.Item.TakeableItem.WeaponItem@60ca6c5">
+	</WeaponItem><WeaponItem price="5" name="Brawler Weapon" damage="5" speed="44040192" accuracy="10" useCost="40" range="1" reference="Model.Item.TakeableItem.WeaponItem@7d805b4d">
 	
-		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@54e82480"/>
-	<Skill name="Brawler" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@d081208">
-	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@77a1d633">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@32ad5128"/></Skill>
+		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1d5b7867"/>
+	<Skill name="Brawler" accuracy="1" useCost="0" reference="Model.Entity.EntityAttributes.Skill@183ca9c7">
+	<LinearInfluenceEffect point="0,0,0" speed="0" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@35b0ec4e">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35ca5767"/></Skill>
 	
 	
-	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@4bb7afe7">
-		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@54e82480"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@482c9dce">
+		<RemoveHealthCommand amount="6" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@1d5b7867"/>
 	</LinearInfluenceEffect>
 	</WeaponItem></ITEMLIST></Inventory>
 <ItemHotBar>
@@ -6234,11 +6234,11 @@
 </ITEMLIST>
 </ItemHotBar>
 <FRIENDLIST>
-<FRIEND entityReference="Model.Entity.Entity@6e676d45"/></FRIENDLIST>
+<FRIEND entityReference="Model.Entity.Entity@35ae1d3a"/></FRIENDLIST>
 <TARGETING>
 </TARGETING>
 </Entity></PLAYER>
 <AICONTROLLERS>
-	<AIController levelRef="Model.Level.Level@5550eb05" aiState="HostileAI" entityRef="Model.Entity.Entity@6334be45" reference="Model.AI.AIController@1efc2fc5"><PATROLPATH>
-<VECTOR vec="1,0,-1"/></PATROLPATH></AIController><AIController levelRef="Model.Level.Level@5550eb05" aiState="HostileAI" entityRef="Model.Entity.Entity@2a1f49a1" reference="Model.AI.AIController@164a1c0f"><PATROLPATH>
-<VECTOR vec="1,1,0"/></PATROLPATH></AIController><AIController levelRef="Model.Level.Level@5550eb05" aiState="GeneralPetState" entityRef="Model.Entity.Entity@6e676d45" reference="Model.AI.AIController@661a7462"></AIController></AICONTROLLERS></GAMEMODEL>
+	<AIController levelRef="Model.Level.Level@6ff1c5d7" aiState="HostileAI" entityRef="Model.Entity.Entity@7a5a4e2b" reference="Model.AI.AIController@23398f9e"><PATROLPATH>
+<VECTOR vec="1,0,-1"/></PATROLPATH></AIController><AIController levelRef="Model.Level.Level@6ff1c5d7" aiState="HostileAI" entityRef="Model.Entity.Entity@182351a9" reference="Model.AI.AIController@7bf7ba5e"><PATROLPATH>
+<VECTOR vec="1,1,0"/></PATROLPATH></AIController><AIController levelRef="Model.Level.Level@6ff1c5d7" aiState="GeneralPetState" entityRef="Model.Entity.Entity@35ae1d3a" reference="Model.AI.AIController@394ac057"></AIController></AICONTROLLERS></GAMEMODEL>

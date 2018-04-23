@@ -16,7 +16,7 @@ public class Inventory implements Visitable {
     private int maxSize;
 
     public Inventory() {
-        inventory = new ArrayList<>(10);
+        inventory = new ArrayList<>(20);
         maxSize = 10;
     }
 
