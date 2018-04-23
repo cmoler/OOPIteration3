@@ -568,6 +568,23 @@ public class SavingVisitor implements Visitor {
 
         visitItemHotBar(entity.getItemHotBar());
         this.valueNode.append("\n");
+
+        this.valueNode.append("<FRIENDLIST>");
+        this.valueNode.append("\n");
+        for(Entity friend: entity.getFriendlyList()) {
+            this.valueNode.append("<FRIEND entityReference=" + "\"" + friend.toString() + "\"/>");
+        }
+        this.valueNode.append("</FRIENDLIST>");
+
+        this.valueNode.append("\n");
+        this.valueNode.append("<TARGETING>");
+        this.valueNode.append("\n");
+        for (Entity target: entity.getTargetingList()) {
+            this.valueNode.append("<TARGET entityReference=" + "\"" + target.toString() + "\"/>");
+        }
+
+        this.valueNode.append("</TARGETING>");
+        this.valueNode.append("\n");
         this.valueNode.append("</" + entity.getClass().getSimpleName() + ">");
     }
 

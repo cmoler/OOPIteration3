@@ -125,7 +125,7 @@ public class SavingVisitorTests extends ApplicationTest {
                 new XPLevel(), new Health(100, 100), new Mana(100, 100, 1), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, false,
-                new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()));
+                new Mount(Orientation.NORTH, new Speed(10), mountTerrain, new ArrayList<>()), new ArrayList<>(), new ArrayList<>());
 
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
         entity.setObserver(new SmasherView(entity, new Point3D(0,0,0)));

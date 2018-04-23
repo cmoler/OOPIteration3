@@ -46,10 +46,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class GameLoader {
 
@@ -69,6 +66,7 @@ public class GameLoader {
     private LinkedList<GameModel.TeleportTuple> teleportTuples = new LinkedList<>();
     private LinkedList<GameModel.TeleportTuple> failedTuples = new LinkedList<>();
     private HashMap<Level, List<AIController>> aiMap = new HashMap<>();
+    private Queue<ReferenceMap> needToSetMap = new LinkedList<ReferenceMap>();
 
     public GameLoader(GameLoop gameLoop) {
         world = new ArrayList<>();
@@ -323,6 +321,8 @@ public class GameLoader {
                         Orientation orientation;
                         List<Terrain> compatableTerrain = new ArrayList<>();
                         Mount mount;
+                        ArrayList<Entity> friends = new ArrayList<>();
+                        ArrayList<Entity> targets = new ArrayList<>();
 
                         noise = Integer.parseInt(entityNode.getAttributes().getNamedItem("noiseLevel").getTextContent());
                         noiseLevel = new NoiseLevel(noise);
@@ -376,8 +376,9 @@ public class GameLoader {
 
                         Entity entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
                                 noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
-                                inventory, orientation, compatableTerrain, moveable, mount);
+                                inventory, orientation, compatableTerrain, moveable, mount, new ArrayList<>(), new ArrayList<>());
 
+                        processFriendsAndFoes(entityNode.getChildNodes(), entity);
                         inventory.setStrategies(entity);
                         equipment.setStrategies(entity);
                         hotBar.setStrategies(entity);
@@ -414,6 +415,31 @@ public class GameLoader {
             }
 
             level.addEntityTo(pointsToAdd.get(i), entitiesToAdd.get(i));
+        }
+    }
+
+    private void processFriendsAndFoes(NodeList nodeList, Entity entity) {
+        String entityRef;
+        for(int i = 0; i < nodeList.getLength(); i++) {
+            NodeList listNodes = nodeList.item(i).getChildNodes();
+
+            for(int j = 0; j < listNodes.getLength(); j++) {
+                Node listNode = listNodes.item(j);
+
+                if(listNode.getNodeType() == Node.ELEMENT_NODE) {
+                    System.out.println(listNode.getNodeName());
+                    switch (listNode.getNodeName()) {
+                        case "FRIEND":
+                            break;
+
+                        case "TARGET":
+                            entityRef = listNode.getAttributes().getNamedItem("entityReference").getTextContent();
+                            ReferenceMap referenceMap = new ReferenceMap(entityRef,"target", entity);
+                            this.needToSetMap.add(referenceMap);
+                            break;
+                    }
+                }
+            }
         }
     }
 
@@ -1347,6 +1373,10 @@ public class GameLoader {
         this.entity = loadPlayer(player);
         loadQueue(queues);
         loadAIMap(aiMap);
+        for(ReferenceMap referenceMap: needToSetMap) {
+            referenceMap.addReference();
+        }
+
         this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, this.aiMap, teleportTuples, failedTuples );
         gameModelMessenger.setGameModel(gameModel);
     }
@@ -1356,7 +1386,7 @@ public class GameLoader {
         String aiState;
         String levelRef;
         Level level = new Level();
-        AIController controller = new AIController();
+
         List<AIController> aiList = new ArrayList<>();
 
         for(int i = 0; i < aiMap.getLength(); i++) {
@@ -1375,6 +1405,7 @@ public class GameLoader {
 
                     switch (aiState) {
                         case "HostileAI":
+                            AIController controller = new AIController();
                             HostileAI hostileAI = new HostileAI(entity, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
                             PatrolPath path = processPatrolPath(controllerNode.getChildNodes());
                             hostileAI.setPatrolPath(path);
@@ -1521,7 +1552,7 @@ public class GameLoader {
 
             entity = new Entity(null, hotBar, weaponSkills, nonWeaponSkills, skillLevelsMap, velocity,
                     noiseLevel, sightRadius, xpLevel, health, mana, speed, gold, attack, defense, equipment,
-                    inventory, orientation, compatableTerrain, moveable, mount);
+                    inventory, orientation, compatableTerrain, moveable, mount, new ArrayList<>(), new ArrayList<>());
 
             for(Skill skill: entity.getWeaponSkills()) {
                 if(skill.getName().equalsIgnoreCase("one-handed")) {
@@ -1707,5 +1738,29 @@ public class GameLoader {
 
     public GameModel getGameModel() {
         return gameModel;
+    }
+
+    private class ReferenceMap {
+        private String listType;
+        private Entity entity;
+        private String reference;
+
+        public ReferenceMap(String reference, String listType, Entity entity) {
+            this.listType = listType;
+            this.reference = reference;
+            this.entity = entity;
+        }
+
+        public void addReference() {
+            switch (listType) {
+                case "target":
+                    entity.addTarget(entityRef.get(reference));
+                    break;
+
+                case "friend":
+                    entity.addFriendly(entityRef.get(reference));
+                    break;
+            }
+        }
     }
 }

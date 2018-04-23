@@ -93,7 +93,9 @@ public class MapGenerator extends Application {
 //        path.add(new Vec3d(1,-1,0));
 //        path.add(new Vec3d(1,-1,0));
 
+        Entity other = entityFactory.buildEntity();
         Entity enemy = entityFactory.buildEntity();
+        enemy.setTargetingList(new ArrayList<Entity>() {{ add(level.getEntityAtPoint(new Point3D(0,1,-1))); }});
         entityFactory.buildEntitySprite(enemy);
 
         HostileAI hostileAI = new HostileAI(enemy, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
@@ -102,8 +104,20 @@ public class MapGenerator extends Application {
         AIController controller = new AIController();
         controller.setActiveState(hostileAI);
 
-        level.addEntityTo(new Point3D(0, 3, -3), enemy);
+
         aiControllers.add(controller);
+
+        hostileAI = new HostileAI(other, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
+        hostileAI.setPatrolPath(new PatrolPath(path));
+
+        controller = new AIController();
+        controller.setActiveState(hostileAI);
+
+        level.addEntityTo(new Point3D(0, 3, -3), enemy);
+        level.addEntityTo(new Point3D(0, -3, 3), other);
+
+        aiControllers.add(controller);
+
         aiMap.put(level, aiControllers);
     }
 
@@ -181,7 +195,7 @@ public class MapGenerator extends Application {
                 new XPLevel(), new Health(100, 100), new Mana(100, 10, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
-                null);
+                null, new ArrayList<>(), new ArrayList<>());
 
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2), weaponSkills.get(3));
         entity.addWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
@@ -236,7 +250,7 @@ public class MapGenerator extends Application {
                 new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
-                null);
+                null, new ArrayList<>(), new ArrayList<>());
 
         entity.setObserver(new SmasherView(entity, new Point3D(0,1,-1)));
         entity.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
@@ -280,7 +294,7 @@ public class MapGenerator extends Application {
                 new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
-                null);
+                null, new ArrayList<>(), new ArrayList<>());
 
         entity.addWeaponSkills(weaponSkills.get(0));
         entity.addNonWeaponSkills(nonWeaponSkills.get(0),

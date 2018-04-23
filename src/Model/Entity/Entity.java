@@ -64,7 +64,7 @@ public class Entity {
                   Vec3d velocity, NoiseLevel noiseLevel, SightRadius sightRadius, XPLevel xpLevel, Health health,
                   Mana mana, Speed speed, Gold gold, Attack attack, Defense defense, Equipment equipment,
                   Inventory inventory, Orientation orientation, List<Terrain> compatableTerrain, boolean moveable,
-                  Mount mount) {
+                  Mount mount, ArrayList<Entity> targetingList, ArrayList<Entity> friendlylist) {
         this.observer = observer;
         this.hotBar = hotBar;
         this.weaponSkills = weaponSkills;
@@ -86,7 +86,8 @@ public class Entity {
         this.compatableTerrain = compatableTerrain;
         this.moveable = moveable;
         this.mount = mount;
-        targetingList = new ArrayList<>();
+        this.targetingList = targetingList;
+        this.friendlyList = friendlylist;
         traversalStrength = 1;
     }
 
