@@ -176,7 +176,7 @@ public class GameLoader {
                     orientation = Orientation.toOrientation(mountNode.getAttributes().getNamedItem("orientation").getTextContent());
                     processTerrainList(element, terrains);
 
-                    mountsToAdd.add(new Mount(orientation, speed, terrains, new ArrayList<>()));
+                    mountsToAdd.add(new Mount(orientation, speed, terrains));
                 }
             }
         }
@@ -763,7 +763,7 @@ public class GameLoader {
                 speed = new Speed(Integer.parseInt(mountNode.getAttributes().getNamedItem("speed").getTextContent()));
                 orientation = Orientation.toOrientation(mountNode.getAttributes().getNamedItem("orientation").getTextContent());
                 processTerrainList((Element)mountNode, terrains);
-                return new Mount(orientation, speed, terrains, new ArrayList<>());
+                return new Mount(orientation, speed, terrains);
             }
         }
 
@@ -774,8 +774,6 @@ public class GameLoader {
         Command command;
         InfluenceEffect influenceEffect = null;
         SendInfluenceEffectCommand sendInfluenceEffectCommand = null;
-        Skill newSkill;
-        SkillLevel skillLevel;
 
         String name;
         int useCost;
@@ -796,13 +794,58 @@ public class GameLoader {
                             influenceEffect = processInfluenceEffect(skillNode.getChildNodes());
                             skillReference = skillNode.getAttributes().getNamedItem("reference").getTextContent();
 
+                            Skill newSkill = null;
+                            SkillLevel skillLevel;
+
                             if (skillRef.containsKey(skillReference)) {
                                 skills.add(skillRef.get(skillReference));
                             } else if (command != null) {
                                 name = skillNode.getAttributes().getNamedItem("name").getTextContent();
-                                useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
-                                accuracy = Integer.parseInt(skillNode.getAttributes().getNamedItem("accuracy").getTextContent());
-                                newSkill = new Skill(name, influenceEffect, (SettableCommand) command, new SendInfluenceEffectCommand(levelMessenger), accuracy, useCost);
+                                switch (name){
+                                    case "Observe":
+                                        newSkill = skillsFactory.getObserveSkill();
+                                        break;
+                                    case "Bind Wounds":
+                                        newSkill = skillsFactory.getBindWounds();
+                                        break;
+                                    case "Bargain":
+                                        newSkill = skillsFactory.getBargainSkill();
+                                        break;
+                                    case "One-Handed":
+                                        newSkill = skillsFactory.getOneHandedSkill();
+                                        break;
+                                    case "Two-Handed":
+                                        newSkill = skillsFactory.getTwoHandedSkill();
+                                        break;
+                                    case "Brawler":
+                                        newSkill = skillsFactory.getBrawlerSkill();
+                                        break;
+                                    case "Enchant":
+                                        newSkill = skillsFactory.getEnchantSkill();
+                                        break;
+                                    case "Boon":
+                                        newSkill = skillsFactory.getBoonSkill();
+                                        break;
+                                    case "Bane":
+                                        newSkill = skillsFactory.getBaneSkill();
+                                        break;
+                                    case "Staff":
+                                        newSkill = skillsFactory.getStaffSkill();
+                                        break;
+                                    case "Sneak":
+                                        newSkill = skillsFactory.getSneakSkill();
+                                        break;
+                                    case "Detect and Remove Trap":
+                                        newSkill = skillsFactory.DisarmTrapSkill();
+                                        break;
+                                    case "Pickpocket":
+                                        newSkill = skillsFactory.getPickpocket();
+                                        break;
+                                    case "Range":
+                                        newSkill = skillsFactory.getRangeSkill();
+                                        break;
+                                }
+
                                 skills.add(newSkill);
 
                                 skillLevelAmount = Integer.parseInt(skillNode.getAttributes().getNamedItem("level").getTextContent());
@@ -821,8 +864,6 @@ public class GameLoader {
         Command command;
         InfluenceEffect influenceEffect = null;
         SendInfluenceEffectCommand sendInfluenceEffectCommand = null;
-        Skill newSkill;
-        SkillLevel skillLevel;
         String skillReference;
 
         String name;
@@ -840,6 +881,8 @@ public class GameLoader {
                     for (int j = 0; j < skillNodes.getLength(); j++) {
                         Node skillNode = skillNodes.item(j);
                         if (skillNode.getNodeType() == Node.ELEMENT_NODE && skillNode.getNodeName().contains("Skill")) {
+                            Skill newSkill = null;
+                            SkillLevel skillLevel;
                             command = processCommand(skillNode.getChildNodes());
                             influenceEffect = processInfluenceEffect(skillNode.getChildNodes());
                             skillReference = skillNode.getAttributes().getNamedItem("reference").getTextContent();
@@ -848,9 +891,51 @@ public class GameLoader {
                                 skills.add(skillRef.get(skillReference));
                             } else if (command != null) {
                                 name = skillNode.getAttributes().getNamedItem("name").getTextContent();
-                                useCost = Integer.parseInt(skillNode.getAttributes().getNamedItem("useCost").getTextContent());
-                                accuracy = Integer.parseInt(skillNode.getAttributes().getNamedItem("accuracy").getTextContent());
-                                newSkill = new Skill(name, influenceEffect, (SettableCommand) command, new SendInfluenceEffectCommand(levelMessenger), accuracy, useCost);
+                                switch (name){
+                                    case "Observe":
+                                        newSkill = skillsFactory.getObserveSkill();
+                                        break;
+                                    case "Bind Wounds":
+                                        newSkill = skillsFactory.getBindWounds();
+                                        break;
+                                    case "Bargain":
+                                        newSkill = skillsFactory.getBargainSkill();
+                                        break;
+                                    case "One-Handed":
+                                        newSkill = skillsFactory.getOneHandedSkill();
+                                        break;
+                                    case "Two-Handed":
+                                        newSkill = skillsFactory.getTwoHandedSkill();
+                                        break;
+                                    case "Brawler":
+                                        newSkill = skillsFactory.getBrawlerSkill();
+                                        break;
+                                    case "Enchant":
+                                        newSkill = skillsFactory.getEnchantSkill();
+                                        break;
+                                    case "Boon":
+                                        newSkill = skillsFactory.getBoonSkill();
+                                        break;
+                                    case "Bane":
+                                        newSkill = skillsFactory.getBaneSkill();
+                                        break;
+                                    case "Staff":
+                                        newSkill = skillsFactory.getStaffSkill();
+                                        break;
+                                    case "Sneak":
+                                        newSkill = skillsFactory.getSneakSkill();
+                                        break;
+                                    case "Detect and Remove Trap":
+                                        newSkill = skillsFactory.DisarmTrapSkill();
+                                        break;
+                                    case "Pickpocket":
+                                        newSkill = skillsFactory.getPickpocket();
+                                        break;
+                                    case "Range":
+                                        newSkill = skillsFactory.getRangeSkill();
+                                        break;
+                                }
+
                                 skills.add(newSkill);
 
                                 skillLevelAmount = Integer.parseInt(skillNode.getAttributes().getNamedItem("level").getTextContent());
@@ -1076,17 +1161,50 @@ public class GameLoader {
             if(influenceNode.getNodeType() == Node.ELEMENT_NODE) {
                 if (influenceNode.getNodeName().contains("Skill")) {
                     name = influenceNode.getAttributes().getNamedItem("name").getTextContent();
+                    reference = influenceNode.getAttributes().getNamedItem("reference").getTextContent();
+                    if(skillRef.containsKey(reference)) {
+                        return skillRef.get(reference);
+                    }
+                    else switch (name){
+                        case "Observe":
+                            return skillsFactory.getObserveSkill();
+                        case "Bind Wounds":
+                            return skillsFactory.getBindWounds();
+                        case "Bargain":
+                            return skillsFactory.getBargainSkill();
+                        case "One-Handed":
+                            return skillsFactory.getOneHandedSkill();
+                        case "Two-Handed":
+                            return skillsFactory.getTwoHandedSkill();
+                        case "Brawler":
+                            return skillsFactory.getBrawlerSkill();
+                        case "Enchant":
+                            return skillsFactory.getEnchantSkill();
+                        case "Boon":
+                            return skillsFactory.getBoonSkill();
+                        case "Bane":
+                            return skillsFactory.getBaneSkill();
+                        case "Staff":
+                            return skillsFactory.getStaffSkill();
+                        case "Sneak":
+                            return skillsFactory.getSneakSkill();
+                        case "Detect and Remove Trap":
+                            return skillsFactory.DisarmTrapSkill();
+                        case "Pickpocket":
+                            return skillsFactory.getPickpocket();
+                        case "Range":
+                            return skillsFactory.getRangeSkill();
+                    }
+
+
                     command = processCommand(influenceNode.getChildNodes());
                     influenceEffect = processInfluenceEffect(influenceNode.getChildNodes());
                     accuracy = Integer.parseInt(influenceNode.getAttributes().getNamedItem("accuracy").getTextContent());
                     useCost = Integer.parseInt(influenceNode.getAttributes().getNamedItem("useCost").getTextContent());
-                    reference = influenceNode.getAttributes().getNamedItem("reference").getTextContent();
 
-                    if(skillRef.containsKey(reference)) {
-                        return skillRef.get(reference);
-                    }
 
-                    else if(command != null) {
+
+                     if(command != null) {
                         skill = new Skill(name, influenceEffect, (SettableCommand) command, new SendInfluenceEffectCommand(levelMessenger),accuracy, useCost);
                         skillRef.put(reference, skill);
                         return skill;
@@ -1410,6 +1528,7 @@ public class GameLoader {
 
         this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, this.aiMap, teleportTuples, failedTuples);
         gameModel.setPetFactory(petAIFactory);
+        gameModel.setSkillsFactory(skillsFactory);
         gameModelMessenger.setGameModel(gameModel);
     }
 

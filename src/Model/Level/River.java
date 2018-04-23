@@ -8,7 +8,7 @@ import com.sun.javafx.geom.Vec3d;
 public class River implements Visitable {
     private Vec3d flowrate;
     private long nextMoveTime = 0;
-    private long speed = 0500000000l;
+    private long speed = 50000000l;
 
     public River(Vec3d flowrate) {
         this.flowrate = flowrate;
