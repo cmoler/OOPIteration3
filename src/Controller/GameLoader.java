@@ -1,5 +1,7 @@
 package Controller;
 
+import Controller.Factories.PetAIFactory;
+import Controller.Factories.SkillsFactory;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
@@ -67,6 +69,7 @@ public class GameLoader {
     private LinkedList<GameModel.TeleportTuple> failedTuples = new LinkedList<>();
     private HashMap<Level, List<AIController>> aiMap = new HashMap<>();
     private Queue<ReferenceMap> needToSetMap = new LinkedList<ReferenceMap>();
+    private PetAIFactory petAIFactory;
 
     public GameLoader(GameLoop gameLoop) {
         world = new ArrayList<>();
@@ -430,12 +433,15 @@ public class GameLoader {
                     System.out.println(listNode.getNodeName());
                     switch (listNode.getNodeName()) {
                         case "FRIEND":
+                            entityRef = listNode.getAttributes().getNamedItem("entityReference").getTextContent();
+                            ReferenceMap referenceMap = new ReferenceMap(entityRef,"friend", entity);
+                            this.needToSetMap.add(referenceMap);
                             break;
 
                         case "TARGET":
                             entityRef = listNode.getAttributes().getNamedItem("entityReference").getTextContent();
-                            ReferenceMap referenceMap = new ReferenceMap(entityRef,"target", entity);
-                            this.needToSetMap.add(referenceMap);
+                            ReferenceMap targetMap = new ReferenceMap(entityRef,"target", entity);
+                            this.needToSetMap.add(targetMap);
                             break;
                     }
                 }
@@ -1377,7 +1383,8 @@ public class GameLoader {
             referenceMap.addReference();
         }
 
-        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, this.aiMap, teleportTuples, failedTuples );
+        this.gameModel = new GameModel(this.currentLevel, this.levelMessenger, this.world, this.entity, this.aiMap, teleportTuples, failedTuples);
+        gameModel.setPetFactory(petAIFactory);
         gameModelMessenger.setGameModel(gameModel);
     }
 
@@ -1402,14 +1409,70 @@ public class GameLoader {
 
                     Entity entity = entityRef.get(entRef);
                     level = this.levelRef.get(levelRef);
+                    AIController controller = new AIController();
+
+                    Skill pickPocketSkill = null;
+                    for(Skill pick: skillRef.values()) {
+                        if(pick.getName().equalsIgnoreCase("pickpocket")) {
+                            pickPocketSkill = pick;
+                            break;
+                        }
+                    }
+
+                    if(pickPocketSkill != null) {
+                        petAIFactory = new PetAIFactory(level.getTerrainMap(),
+                                level.getObstacleMap(),
+                                level.getItemMap(),
+                                pickPocketSkill,
+                                level.getRiverMap(),
+                                level.getEntityMap(),
+                                this.entity, entity);
+
+                    }
+
+                    else {
+                        SkillsFactory skillsFactory = new SkillsFactory(levelMessenger);
+                        petAIFactory = new PetAIFactory(level.getTerrainMap(),
+                                level.getObstacleMap(),
+                                level.getItemMap(),
+                                skillsFactory.getPickpocket(),
+                                level.getRiverMap(),
+                                level.getEntityMap(),
+                                this.entity,
+                                entity);
+                    }
 
                     switch (aiState) {
                         case "HostileAI":
-                            AIController controller = new AIController();
+                            controller = new AIController();
                             HostileAI hostileAI = new HostileAI(entity, level.getTerrainMap(), level.getEntityMap(), level.getObstacleMap(), level.getRiverMap());
                             PatrolPath path = processPatrolPath(controllerNode.getChildNodes());
                             hostileAI.setPatrolPath(path);
                             controller.setActiveState(hostileAI);
+                            aiList.add(controller);
+                            break;
+
+                        case "CombatPetState":
+                            controller = new AIController();
+                            controller.setActiveState(petAIFactory.getCombatPetState());
+                            aiList.add(controller);
+                            break;
+
+                        case "GeneralPetState":
+                            controller = new AIController();
+                            controller.setActiveState(petAIFactory.getGeneralPetState());
+                            aiList.add(controller);
+                            break;
+
+                        case "ItemPetState":
+                            controller = new AIController();
+                            controller.setActiveState(petAIFactory.getItemPetState());
+                            aiList.add(controller);
+                            break;
+
+                        case "PassivePetState":
+                            controller = new AIController();
+                            controller.setActiveState(petAIFactory.getPassivePetState());
                             aiList.add(controller);
                             break;
                     }

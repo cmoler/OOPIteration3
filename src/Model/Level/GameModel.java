@@ -390,6 +390,10 @@ public class GameModel implements Visitable {
         }
     }
 
+    public void setPetFactory(PetAIFactory petAIFactory) {
+        this.petAIFactory = petAIFactory;
+    }
+
     public class TeleportTuple {
         private Entity entity;
         private Level destLevel;

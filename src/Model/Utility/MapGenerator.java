@@ -2,11 +2,15 @@ package Model.Utility;
 
 import Controller.Factories.EntityFactories.EntityFactory;
 import Controller.Factories.EntityFactories.MonsterFactory;
+import Controller.Factories.EntityFactories.PetFactory;
+import Controller.Factories.PetAIFactory;
 import Controller.Factories.SkillsFactory;
 import Controller.Visitor.SavingVisitor;
 import Model.AI.AIController;
 import Model.AI.HostileAI;
 import Model.AI.PatrolPath;
+import Model.AI.PetAI.PetStates.GeneralPetState;
+import Model.AI.PetAI.PetStates.PassivePetState;
 import Model.AreaEffect.InfiniteAreaEffect;
 import Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand;
 import Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand;
@@ -37,6 +41,7 @@ public class MapGenerator extends Application {
     private static SavingVisitor savingVisitor;
     private static Level level0;
     private static Level level1;
+    private static Level level2;
     private static Level level3;
     private static Level level4;
 
@@ -54,44 +59,28 @@ public class MapGenerator extends Application {
     }
 
     private static void generateDemoMap() {
-        ArrayList<Level> levels = new ArrayList<>();
-        levelMessenger = new LevelMessenger(null, null);
+        makeGame();
 
-        level0 = new Level();
-        level1 = new Level();
-
-        createTerrains(level0);
-        createAreaEffects(level0);
-        createInfluenceAreas(level0);
-        createItems(level0);
-        createMounts(level0);
-        createTraps(level0);
-        createObstacle(level0);
-        createRivers(level0);
-        createEnities(level0);
-        makeEnemy(level0);
-
-        createTerrainsForWorld(level1);
-        levels.add(level0);
-        levels.add(level1);
-
-        gameModel = new GameModel(level0, null, levels, entity, aiMap, null, null);
-        savingVisitor.visitGameModel(gameModel);
+//        createTerrains(level0);
+//        createAreaEffects(level0);
+//        createInfluenceAreas(level0);
+//        createItems(level0);
+//        createMounts(level0);
+//        createTraps(level0);
+//        createObstacle(level0);
+//        createRivers(level0);
+//        createEnities(level0);
+//        makeEnemy(level0);
+//
+//        createTerrainsForWorld(level1);
+//        levels.add(level0);
+//        levels.add(level1);
     }
 
     private static void makeEnemy(Level level) {
         ArrayList<AIController> aiControllers = new ArrayList<>();
         ArrayList<Vec3d> path = new ArrayList<>();
         path.add(new Vec3d(1,0,-1));
-//        path.add(new Vec3d(1,0,-1));
-//        path.add(new Vec3d(-1,1,0));
-//        path.add(new Vec3d(-1,1,0));
-//        path.add(new Vec3d(0,-1,1));
-//        path.add(new Vec3d(0,-1,1));
-//        path.add(new Vec3d(-1,0,1));
-//        path.add(new Vec3d(-1,0,1));
-//        path.add(new Vec3d(1,-1,0));
-//        path.add(new Vec3d(1,-1,0));
 
         Entity other = entityFactory.buildEntity();
         Entity enemy = entityFactory.buildEntity();
@@ -103,7 +92,6 @@ public class MapGenerator extends Application {
 
         AIController controller = new AIController();
         controller.setActiveState(hostileAI);
-
 
         aiControllers.add(controller);
 
@@ -118,6 +106,29 @@ public class MapGenerator extends Application {
 
         aiControllers.add(controller);
 
+        entityFactory = new PetFactory(skillsFactory);
+        Entity pet = entityFactory.buildEntity();
+        PetAIFactory petAIFactory = new PetAIFactory(level.getTerrainMap(),
+                level.getObstacleMap(),
+                level.getItemMap(),
+                skillsFactory.getPickpocket(),
+                level.getRiverMap(),
+                level.getEntityMap(),
+                level.getEntityAtPoint(new Point3D(0,1,-1)), pet);
+
+        entityFactory.buildEntitySprite(pet);
+        pet.setTargetingList(new ArrayList<Entity>() {{ add(enemy); }});
+        pet.setMoveable(true);
+        pet.setNoise(5);
+        pet.setName("McNugget");
+        pet.setSpeed(1000000000l);
+        pet.setSightRadius(new SightRadius(5));
+        level.addEntityTo(new Point3D(-3, 5, -2), pet);
+
+        GeneralPetState passivePetState = petAIFactory.getGeneralPetState();
+        controller.setActiveState(passivePetState);
+
+        level.getEntityAtPoint(new Point3D(0,1,-1)).addFriendly(pet);
         aiMap.put(level, aiControllers);
     }
 
@@ -290,7 +301,7 @@ public class MapGenerator extends Application {
         }};
 
         entity = new Entity(null, new ItemHotBar(), new ArrayList<>(),
-                new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
+                new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(6),
                 new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(10),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
@@ -304,6 +315,7 @@ public class MapGenerator extends Application {
                 nonWeaponSkills.get(4),
                 nonWeaponSkills.get(5));
         entity.setObserver(new SneakView(entity, new Point3D(0,1,-1)));
+        level0.addEntityTo(new Point3D(0,0,0), entity);
     }
 
     private static void createRivers(Level level) {
@@ -359,6 +371,138 @@ public class MapGenerator extends Application {
     private static void createInfluenceAreas(Level level) {
     }
 
+    public static void makeGame() {
+        ArrayList<Level> levels = new ArrayList<>();
+        levelMessenger = new LevelMessenger(null, null);
+
+        /** TERRAINS **/
+
+        RadialInfluenceEffect radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
+        level0.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+        //MAIN WORLD
+        for(int i = 0; i < 10; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
+            for(int j = 0; j < points.size(); j++) {
+                level0.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
+        }
+
+        radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
+        level1.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+        for(int i = 0; i < 10; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
+            for(int j = 0; j < points.size(); j++) {
+                level1.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
+        }
+
+        radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
+        level2.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+        for(int i = 0; i < 10; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
+            for(int j = 0; j < points.size(); j++) {
+                level2.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
+        }
+
+        radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
+        level3.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+        for(int i = 0; i < 9; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
+            for(int j = 0; j < points.size(); j++) {
+                level3.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
+        }
+
+        radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+        radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
+        level4.addTerrainTo(new Point3D(0, 0, 0), Terrain.GRASS);
+        for(int i = 0; i < 8; i++) {
+            ArrayList<Point3D> points = radialInfluenceEffect.nextMove(radialInfluenceEffect.getOriginPoint());
+            for(int j = 0; j < points.size(); j++) {
+                level4.addTerrainTo(points.get(j), Terrain.GRASS);
+            }
+        }
+
+
+        /** TELEPORTS **/
+
+        TeleportEntityCommand teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level0, new Point3D(0,0,0));
+        InfiniteAreaEffect homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
+        RadialInfluenceEffect homeEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+
+        for(int i = 0; i < 2; i++) {
+            ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-4, 4, 0));
+            for(int j = 0; j < points.size(); j++) {
+                level1.addAreaEffectTo(points.get(j), homeTeleport);
+            }
+        }
+
+        teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level0, new Point3D(0,0,0));
+        homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
+        homeEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+        for(int i = 0; i < 2; i++) {
+            ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-4, 4, 0));
+            for(int j = 0; j < points.size(); j++) {
+                level2.addAreaEffectTo(points.get(j), homeTeleport);
+            }
+        }
+
+        teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level0, new Point3D(0,0,0));
+        homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
+        homeEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+        for(int i = 0; i < 2; i++) {
+            ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-4, 4, 0));
+            for(int j = 0; j < points.size(); j++) {
+                level3.addAreaEffectTo(points.get(j), homeTeleport);
+            }
+        }
+
+        teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level0, new Point3D(0,0,0));
+        homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
+        homeEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
+        for(int i = 0; i < 2; i++) {
+            ArrayList<Point3D> points = homeEffect.nextMove(new Point3D(-4, 4, 0));
+            for(int j = 0; j < points.size(); j++) {
+                level4.addAreaEffectTo(points.get(j), homeTeleport);
+            }
+        }
+
+        /** Telports From Main Word **/
+        teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level1, new Point3D(0,1,-1));
+        homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
+
+        level0.addAreaEffectTo(new Point3D(-5, 5, 0), homeTeleport);
+
+        // LEVEL 3
+        teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level2, new Point3D(0,1,-1));
+        homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
+//        level0.addAreaEffectTo(new Point3D(5, -5, 0), homeTeleport);
+
+        // LEVEL 4
+        teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level3, new Point3D(0,1,-1));
+        homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
+        level0.addAreaEffectTo(new Point3D(5, 0, -5), homeTeleport);
+
+        // LEVEL 5
+        teleportEntityCommand = new TeleportEntityCommand(levelMessenger, level4, new Point3D(0,1,-1));
+        homeTeleport = new InfiniteAreaEffect(teleportEntityCommand);
+        level0.addAreaEffectTo(new Point3D(-5, 0, 5), homeTeleport);
+
+        levels.add(level0);
+        levels.add(level1);
+        levels.add(level2);
+        levels.add(level3);
+        levels.add(level4);
+
+        gameModel = new GameModel(level0, null, levels, entity, aiMap, null, null);
+        savingVisitor.visitGameModel(gameModel);
+    }
+
     public static void main(String... args) {
         launch(args);
     }
@@ -370,6 +514,12 @@ public class MapGenerator extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        level0 = new Level();
+        level1 = new Level();
+        level2 = new Level();
+        level3 = new Level();
+        level4 = new Level();
 
         createSneak();
         generateDemoMap();
