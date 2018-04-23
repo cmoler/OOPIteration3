@@ -283,7 +283,7 @@ public class GameLoader {
         int attackModifier;
         int defensePoints;
         int defenseModifier;
-        int speedAmount;
+        long speedAmount;
         int manaPoints;
         int maxMana;
         int sight;
@@ -391,9 +391,9 @@ public class GameLoader {
                         entity.setName(name);
 
                         processFriendsAndFoes(entityNode.getChildNodes(), entity);
-                        inventory.setStrategies(entity);
-                        equipment.setStrategies(entity);
-                        hotBar.setStrategies(entity);
+                        inventory.setStrategies(entity, levelMessenger);
+                        equipment.setStrategies(entity, levelMessenger);
+                        hotBar.setStrategies(entity, levelMessenger);
 
                         entitiesToAdd.add(entity);
                         entityRef.put(reference, entity);
@@ -566,7 +566,7 @@ public class GameLoader {
                                     ItemView weaponView = new ItemView(new Point3D(0,0,0));
                                     weaponItem.setObserver(weaponView);
 
-                                    switch (weaponSkill.getName()){
+                                    switch (weaponSkill.getName()) {
                                         case "One-Handed":
                                             weaponView.setOneHandedSword();
                                             break;
@@ -814,7 +814,7 @@ public class GameLoader {
                             }
                             break;
 
-                        case "weaponitem": //TODO: this needs to be changed
+                        case "weaponitem":
                             if(itemRef.containsKey(reference)) {
                                 weaponItem = (WeaponItem)itemRef.get(reference);
                             }

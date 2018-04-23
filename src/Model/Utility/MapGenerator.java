@@ -57,6 +57,9 @@ public class MapGenerator extends Application {
     private static EntityFactory entityFactory;
     private static ItemFactory itemFactory;
     private static Map<Level, List<AIController>> aiMap;
+    private static List<Entity> petList;
+    private static List<Entity> monsterList;
+    private static List<Entity> shopkeeperList;
 
     public MapGenerator() throws IOException {
         levelMessenger = new LevelMessenger(null, null);
@@ -67,6 +70,9 @@ public class MapGenerator extends Application {
         entityFactory = new MonsterFactory(skillsFactory);
         itemFactory = new ItemFactory(skillsFactory, levelMessenger);
         aiMap = new HashMap<>();
+        petList = new ArrayList<>();
+        monsterList = new ArrayList<>();
+        shopkeeperList = new ArrayList<>();
     }
 
     public void reinit() {
@@ -75,6 +81,9 @@ public class MapGenerator extends Application {
         entityFactory = new MonsterFactory(skillsFactory);
         itemFactory = new ItemFactory(skillsFactory, levelMessenger);
         aiMap = new HashMap<>();
+        petList = new ArrayList<>();
+        monsterList = new ArrayList<>();
+        shopkeeperList = new ArrayList<>();
     }
 
     private static void generateDemoMap() {
@@ -106,6 +115,10 @@ public class MapGenerator extends Application {
         Entity enemy = entityFactory.buildEntity();
         enemy.setSpeed(1500000000L);
         enemy.setTargetingList(new ArrayList<Entity>(){{add(player);}});
+
+        WeaponItem longsword = itemFactory.getTwoHandedSword();
+        enemy.addItemToInventory(longsword);
+        enemy.equipWeapon(longsword);
 
         entityFactory.buildEntitySprite(enemy);
 
@@ -146,16 +159,20 @@ public class MapGenerator extends Application {
         pet.setName("McNugget");
         pet.setSpeed(1000000000l);
         pet.setSightRadius(new SightRadius(5));
-/*        WeaponItem claws = itemFactory.getOneHandedSword();
-        pet.addWeaponSkills(skillsFactory.getOneHandedSkill());
-        claws.onTouch(pet);
-        pet.equipWeapon(claws);*/
+        WeaponItem sword = itemFactory.getOneHandedSword();
+        pet.addItemToInventory(sword);
+        pet.equipWeapon(sword);
+        pet.addItemToInventory(itemFactory.getPotion());
+        pet.addItemToInventory(itemFactory.getHealthRing());
+        pet.addItemToInventory(itemFactory.getFreezeBow());
+
         level.addEntityTo(new Point3D(-3, 5, -2), pet);
 
         GeneralPetState passivePetState = petAIFactory.getGeneralPetState();
         controller.setActiveState(passivePetState);
 
         player.addFriendly(pet);
+        enemy.addTarget(pet);
         aiMap.put(level, aiControllers);
     }
 

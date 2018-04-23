@@ -632,7 +632,7 @@ public class SavingVisitor implements Visitor {
     }
 
     public void visitEquipment(Equipment equipment) {
-        StringBuffer equipString = new StringBuffer("<" + equipment.getClass().getSimpleName() + ">");
+        StringBuffer equipString = new StringBuffer("<" + equipment.getClass().getSimpleName() + ">" + "\n" + "\t");
         this.valueNode.append(equipString);
 
         if(equipment.hasArmor()) {

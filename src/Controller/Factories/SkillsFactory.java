@@ -56,7 +56,7 @@ public class SkillsFactory {
             AddHealthCommand addHealthCommand = new AddHealthCommand(10);
             LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(addHealthCommand, 0, 0500000000L, Orientation.NORTH);
 
-            bindWounds = new Skill("Bind Wounds", linearInfluenceEffect, addHealthCommand, sendInfluenceEffectCommand, 1, 1);
+            bindWounds = new Skill("Bind Wounds", linearInfluenceEffect, addHealthCommand, sendInfluenceEffectCommand, 1, 15);
         }
 
         return bindWounds;
@@ -76,9 +76,9 @@ public class SkillsFactory {
     public Skill getOneHandedSkill() {
         if(oneHandedSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 0500000000L, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 0, Orientation.NORTH);
 
-            oneHandedSkill = new Skill("One-Handed", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
+            oneHandedSkill = new Skill("One-Handed", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 0);
         }
 
         return oneHandedSkill;
@@ -87,9 +87,9 @@ public class SkillsFactory {
     public Skill getTwoHandedSkill() {
         if(twoHandedSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 2, 0500000000L, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 2, 0, Orientation.NORTH);
 
-            twoHandedSkill = new Skill("Two-Handed", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
+            twoHandedSkill = new Skill("Two-Handed", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 0);
         }
 
         return twoHandedSkill;
@@ -98,9 +98,9 @@ public class SkillsFactory {
     public Skill getBrawlerSkill() {
         if(brawlerSkill == null) {
             RemoveHealthCommand removeHealthCommand = new RemoveHealthCommand(15);
-            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 0500000000L, Orientation.NORTH);
+            LinearInfluenceEffect linearInfluenceEffect = new LinearInfluenceEffect(removeHealthCommand, 1, 0, Orientation.NORTH);
 
-            brawlerSkill = new Skill("Brawler", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 1);
+            brawlerSkill = new Skill("Brawler", linearInfluenceEffect, removeHealthCommand, sendInfluenceEffectCommand, 1, 0);
         }
 
         return brawlerSkill;

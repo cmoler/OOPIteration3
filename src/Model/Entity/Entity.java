@@ -558,7 +558,7 @@ public class Entity {
     public String getRandomFacts(int observeStrength) {
         Random random = new Random();
 
-        int randomAttribute = random.nextInt(5);
+        int randomAttribute = random.nextInt(6);
 
         int error = 100 - observeStrength;
 
@@ -577,8 +577,11 @@ public class Entity {
                 int goldGuess = getCurrentGold() + (error / 10 * (random.nextInt(3)) - 1);
                 return "Current Gold: " + goldGuess;
             case 3:
-                int maxHPGuess = getMaxHealth() + (error / 10 * (random.nextInt(3)) - 1);
-                return "Max HP: " + maxHPGuess;
+                int sightRadGuess = getSight() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Current Sight Radius: " + sightRadGuess;
+            case 4:
+                int levelGuess = getLevel() + (error / 10 * (random.nextInt(3)) - 1);
+                return "Current XP Level: " + levelGuess;
             default: return "Nothing to report!";
         }
     }

@@ -4,6 +4,7 @@ import Model.Entity.Entity;
 import Model.Item.TakeableItem.ArmorItem;
 import Model.Item.TakeableItem.RingItem;
 import Model.Item.TakeableItem.WeaponItem;
+import Model.Level.LevelMessenger;
 
 public class Equipment {
 
@@ -100,18 +101,21 @@ public class Equipment {
         return equippedRing;
     }
 
-    public void setStrategies(Entity entity) {
+    public void setStrategies(Entity entity, LevelMessenger levelMessenger) {
         if(equippedWeapon != null) {
+            equippedWeapon.setCurrentLevelMessenger(levelMessenger);
             equippedWeapon.setItemStrategyEntity(entity);
             equippedWeapon.setDropStrategyEntity(entity);
         }
 
         if(equippedArmor != null) {
+            equippedArmor.setCurrentLevelMessenger(levelMessenger);
             equippedArmor.setItemStrategyEntity(entity);
             equippedArmor.setDropStrategyEntity(entity);
         }
 
         if(equippedRing != null) {
+            equippedRing.setCurrentLevelMessenger(levelMessenger);
             equippedRing.setItemStrategyEntity(entity);
             equippedRing.setDropStrategyEntity(entity);
         }
