@@ -16,6 +16,7 @@ public class SummonerFactory extends EntityFactory {
     @Override
     public Entity buildEntity() {
         Entity summoner = new Entity();
+        summoner.setSpeed(0660000000L);
 
         summoner.addWeaponSkills(
                 getSkillsFactory().getStaffSkill(),
@@ -29,6 +30,8 @@ public class SummonerFactory extends EntityFactory {
                 getSkillsFactory().getObserveSkill(),
                 getSkillsFactory().getBindWounds()
         );
+
+        summoner.setName("summoner");
 
         return summoner;
     }

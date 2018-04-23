@@ -21,16 +21,16 @@ public class AreaEffectTests {
 
         OneShotAreaEffect oneshot = new OneShotAreaEffect(levelUpCommand);
 
-        Assert.assertEquals(0, entity.getLevel(), 0);
-
-        oneshot.trigger(entity);
         Assert.assertEquals(1, entity.getLevel(), 0);
 
         oneshot.trigger(entity);
-        Assert.assertEquals(1, entity.getLevel(), 0);
+        Assert.assertEquals(2, entity.getLevel(), 0);
 
         oneshot.trigger(entity);
-        Assert.assertEquals(1, entity.getLevel(), 0);
+        Assert.assertEquals(2, entity.getLevel(), 0);
+
+        oneshot.trigger(entity);
+        Assert.assertEquals(2, entity.getLevel(), 0);
     }
 
     @Test
@@ -94,9 +94,6 @@ public class AreaEffectTests {
 
         InfiniteAreaEffect infinite = new InfiniteAreaEffect(levelUpCommand);
 
-        Assert.assertEquals(0, entity.getLevel(), 0);
-
-        infinite.trigger(entity);
         Assert.assertEquals(1, entity.getLevel(), 0);
 
         infinite.trigger(entity);
@@ -104,6 +101,9 @@ public class AreaEffectTests {
 
         infinite.trigger(entity);
         Assert.assertEquals(3, entity.getLevel(), 0);
+
+        infinite.trigger(entity);
+        Assert.assertEquals(4, entity.getLevel(), 0);
     }
 
     @Test

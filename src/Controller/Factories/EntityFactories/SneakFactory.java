@@ -16,6 +16,7 @@ public class SneakFactory extends EntityFactory {
     @Override
     public Entity buildEntity() {
         Entity sneak = new Entity();
+        sneak.setSpeed(0500000000L);
 
         sneak.addWeaponSkills(getSkillsFactory().getRangeSkill());
 
@@ -26,6 +27,9 @@ public class SneakFactory extends EntityFactory {
                 getSkillsFactory().getSneakSkill(),
                 getSkillsFactory().DisarmTrapSkill()
         );
+
+
+        sneak.setName("sneak");
 
         return sneak;
     }

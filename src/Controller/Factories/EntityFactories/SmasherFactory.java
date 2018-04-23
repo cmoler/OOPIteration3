@@ -16,6 +16,7 @@ public class SmasherFactory extends EntityFactory {
     @Override
     public Entity buildEntity() {
         Entity smasher = new Entity();
+        smasher.setSpeed(0750000000L);
 
         smasher.addWeaponSkills(getSkillsFactory().getOneHandedSkill(),
                 getSkillsFactory().getTwoHandedSkill(),
@@ -26,6 +27,8 @@ public class SmasherFactory extends EntityFactory {
                 getSkillsFactory().getObserveSkill(),
                 getSkillsFactory().getBindWounds()
         );
+
+        smasher.setName("smasher");
 
         return smasher;
     }

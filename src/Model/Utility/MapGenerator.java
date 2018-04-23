@@ -1,8 +1,6 @@
 package Model.Utility;
 
-import Controller.Factories.EntityFactories.EntityFactory;
-import Controller.Factories.EntityFactories.MonsterFactory;
-import Controller.Factories.EntityFactories.PetFactory;
+import Controller.Factories.EntityFactories.*;
 import Controller.Factories.ItemFactory;
 import Controller.Factories.PetAIFactory;
 import Controller.Factories.SkillsFactory;
@@ -43,7 +41,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MapGenerator extends Application {
-    private static SavingVisitor savingVisitor;
+    private static SavingVisitor sneakSavingVisitor;
+    private static SavingVisitor smasherSavingVisitor;
+    private static SavingVisitor summonerSavingVisitor;
     private static Level level0;
     private static Level level1;
     private static Level level2;
@@ -56,14 +56,25 @@ public class MapGenerator extends Application {
     private static SkillsFactory skillsFactory;
     private static EntityFactory entityFactory;
     private static ItemFactory itemFactory;
-    private static Map<Level, List<AIController>> aiMap = new HashMap<>();
+    private static Map<Level, List<AIController>> aiMap;
 
     public MapGenerator() throws IOException {
         levelMessenger = new LevelMessenger(null, null);
-        savingVisitor = new SavingVisitor("SNEAK.xml");
+        sneakSavingVisitor = new SavingVisitor("SNEAK.xml");
+        smasherSavingVisitor = new SavingVisitor("SMASHER.xml");
+        summonerSavingVisitor = new SavingVisitor("SUMMONER.xml");
         skillsFactory = new SkillsFactory(levelMessenger);
         entityFactory = new MonsterFactory(skillsFactory);
         itemFactory = new ItemFactory(skillsFactory, levelMessenger);
+        aiMap = new HashMap<>();
+    }
+
+    public void reinit() {
+        levelMessenger = new LevelMessenger(null, null);
+        skillsFactory = new SkillsFactory(levelMessenger);
+        entityFactory = new MonsterFactory(skillsFactory);
+        itemFactory = new ItemFactory(skillsFactory, levelMessenger);
+        aiMap = new HashMap<>();
     }
 
     private static void generateDemoMap() {
@@ -90,8 +101,10 @@ public class MapGenerator extends Application {
         ArrayList<Vec3d> path = new ArrayList<>();
         path.add(new Vec3d(1,0,-1));
 
+        entityFactory = new MonsterFactory(skillsFactory);
         Entity other = entityFactory.buildEntity();
         Entity enemy = entityFactory.buildEntity();
+        enemy.setSpeed(1500000000L);
         enemy.setTargetingList(new ArrayList<Entity>(){{add(player);}});
 
         entityFactory.buildEntitySprite(enemy);
@@ -163,32 +176,32 @@ public class MapGenerator extends Application {
     }
 
     private static void createSummoner() {
-        ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
+     /*   ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
         ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
         RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
 
         WeaponItem bane = new WeaponItem("ELECTRIFY",
                 new RemoveHealthCommand(10),
                 skillsFactory.getRangeSkill(),
-                new RadialInfluenceEffect(new RemoveHealthCommand(10), 4,10, Orientation.NORTH),
+                new RadialInfluenceEffect(new RemoveHealthCommand(10), 4,0500000000L, Orientation.NORTH),
                 10,10,10,10,4);
 
         WeaponItem boon = new WeaponItem("BOONY",
                 new RemoveHealthCommand(10),
                 skillsFactory.getRangeSkill(),
-                new RadialInfluenceEffect(new RemoveHealthCommand(10), 4,10, Orientation.NORTH),
+                new RadialInfluenceEffect(new RemoveHealthCommand(10), 4,0500000000L, Orientation.NORTH),
                 10,10,10,10,4);
 
         WeaponItem enchant = new WeaponItem("FREEZE",
                 new FreezeEntityCommand(levelMessenger),
                 skillsFactory.getRangeSkill(),
-                new AngularInfluenceEffect(new FreezeEntityCommand(levelMessenger), 4,10, Orientation.NORTH),
+                new AngularInfluenceEffect(new FreezeEntityCommand(levelMessenger), 4,0500000000L, Orientation.NORTH),
                 10,10,10,10,4);
 
         WeaponItem staff = new WeaponItem("STAFF",
                 new RemoveHealthCommand(100),
                 skillsFactory.getStaffSkill(),
-                new LinearInfluenceEffect(new FreezeEntityCommand(levelMessenger), 4,10, Orientation.NORTH),
+                new LinearInfluenceEffect(new FreezeEntityCommand(levelMessenger), 4,0500000000L, Orientation.NORTH),
                 10,10,10,10,4);
 
         Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
@@ -217,36 +230,47 @@ public class MapGenerator extends Application {
 
         player = new Entity(null, new ItemHotBar(), new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
-                new XPLevel(), new Health(100, 100), new Mana(100, 10, 100), new Speed(10),
+                new XPLevel(), new Health(100, 100), new Mana(100, 10, 100), new Speed(0500000000L),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
                 null, new ArrayList<>(), new ArrayList<>());
 
         player.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2), weaponSkills.get(3));
-        player.addWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
-        player.setObserver(new SummonerView(player, new Point3D(0,1,-1)));
+        player.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
+        player.setObserver(new SummonerView(player, new Point3D(0,1,-1)));*/
+
+        entityFactory = new SummonerFactory(skillsFactory);
+        player = entityFactory.buildEntity();
+        entityFactory.buildEntitySprite(player);
+        player.addItemToInventory(itemFactory.getMediumArmor());
+        player.addItemToInventory(itemFactory.getManaPotion());
+        player.addItemToInventory(itemFactory.getManaPotion());
+        player.addItemToInventory(itemFactory.getStaff());
+        player.addItemToInventory(itemFactory.getSpeedRing());
+
+        level0.addEntityTo(new Point3D(0,0,0), player);
     }
 
     private static void createSmasher() {
-        ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
+      /*  ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
         ArmorItem helmet = new ArmorItem("Helmet", new ToggleHealthCommand(10), 10);
         RingItem ringItem = new RingItem("Ring", new ToggleSpeedCommand(10));
         WeaponItem warHammer = new WeaponItem("War Hammer Of Destruction",
                 new RemoveHealthCommand(20),
                 skillsFactory.getTwoHandedSkill(),
-                new LinearInfluenceEffect(new RemoveHealthCommand(20), 1,10, Orientation.NORTH),
+                new LinearInfluenceEffect(new RemoveHealthCommand(20), 1,0500000000L, Orientation.NORTH),
                 20,2,10,45,1);
 
         WeaponItem sword = new WeaponItem("Plain Ol' Sword",
                 new RemoveHealthCommand(10),
                 skillsFactory.getTwoHandedSkill(),
-                new LinearInfluenceEffect(new RemoveHealthCommand(10), 1,5, Orientation.NORTH),
+                new LinearInfluenceEffect(new RemoveHealthCommand(10), 1,0500000000L, Orientation.NORTH),
                 10,5,10,15,1);
 
-        WeaponItem knuckles = new WeaponItem("Brass Knucles",
+        WeaponItem knuckles = new WeaponItem("Brass Knuckles",
                 new RemoveHealthCommand(5),
                 skillsFactory.getTwoHandedSkill(),
-                new LinearInfluenceEffect(new RemoveHealthCommand(5), 1,10, Orientation.NORTH),
+                new LinearInfluenceEffect(new RemoveHealthCommand(5), 1,0500000000L, Orientation.NORTH),
                 5,10,10,5,1);
 
         Inventory inventory = new Inventory(new ArrayList<TakeableItem>() {{
@@ -272,21 +296,31 @@ public class MapGenerator extends Application {
         }};
         player = new Entity(null, new ItemHotBar(), weaponSkills,
                 nonWeaponSkills, new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(10),
-                new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(10),
+                new XPLevel(), new Health(100, 100), new Mana(100, 100, 100), new Speed(0500000000L),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
                 null, new ArrayList<>(), new ArrayList<>());
 
         player.setObserver(new SmasherView(player, new Point3D(0,1,-1)));
         player.addWeaponSkills(weaponSkills.get(0), weaponSkills.get(1), weaponSkills.get(2));
-        player.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));
+        player.addNonWeaponSkills(nonWeaponSkills.get(0), nonWeaponSkills.get(1), nonWeaponSkills.get(2));*/
+
+        entityFactory = new SmasherFactory(skillsFactory);
+        player = entityFactory.buildEntity();
+        entityFactory.buildEntitySprite(player);
+        player.addItemToInventory(itemFactory.getHeavyArmor());
+        player.addItemToInventory(itemFactory.getOneHandedSword());
+        player.addItemToInventory(itemFactory.getTwoHandedSword());
+        player.addItemToInventory(itemFactory.getBrawlerWeapon());
+
+        level0.addEntityTo(new Point3D(0,0,0), player);
     }
 
     private static void createSneak() {
-        WeaponItem bow = new WeaponItem("Dark Bow",
+    /*    WeaponItem bow = new WeaponItem("Dark Bow",
                 new RemoveHealthCommand(5),
                 skillsFactory.getRangeSkill(),
-                new LinearInfluenceEffect(new RemoveHealthCommand(20), 4,10, Orientation.NORTH),
+                new LinearInfluenceEffect(new RemoveHealthCommand(20), 4,0500000000L, Orientation.NORTH),
                 5,10,10,10,4);
 
         ArrayList<Terrain> entityTerrain = new ArrayList<Terrain>(){{ add(Terrain.GRASS); }};
@@ -316,7 +350,7 @@ public class MapGenerator extends Application {
 
         player = new Entity(null, new ItemHotBar(), new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>(), new Vec3d(0,0,0), new NoiseLevel(5), new SightRadius(6),
-                new XPLevel(), new Health(300, 300), new Mana(100, 100, 100), new Speed(10),
+                new XPLevel(), new Health(300, 300), new Mana(100, 100, 100), new Speed(0500000000L),
                 new Gold(100, 100), new Attack(100, 1), new Defense(100, 1),
                 equipment, inventory, Orientation.NORTH, new ArrayList<Terrain>() {{ add(Terrain.GRASS); }}, true,
                 null, new ArrayList<>(), new ArrayList<>());
@@ -328,7 +362,15 @@ public class MapGenerator extends Application {
                 nonWeaponSkills.get(3),
                 nonWeaponSkills.get(4),
                 nonWeaponSkills.get(5));
-        player.setObserver(new SneakView(player, new Point3D(0,1,-1)));
+        player.setObserver(new SneakView(player, new Point3D(0,1,-1)));*/
+
+        entityFactory = new SneakFactory(skillsFactory);
+        player = entityFactory.buildEntity();
+        entityFactory.buildEntitySprite(player);
+        player.addItemToInventory(itemFactory.getRangedWeapon());
+        player.addItemToInventory(itemFactory.getLightArmor());
+        player.addItemToInventory(itemFactory.getFreezeBow());
+
         level0.addEntityTo(new Point3D(0,0,0), player);
     }
 
@@ -439,8 +481,6 @@ public class MapGenerator extends Application {
         level1.addRiverTo(new Point3D(-2, -1, 3), new River(new Vec3d(-1, 1 , 0)));
         level1.addRiverTo(new Point3D(-3, 0, 3), new River(new Vec3d(0, 1 , -1)));
         level1.addRiverTo(new Point3D(-3, 1, 2), new River(new Vec3d(0, 1 , -1)));
-        level1.addRiverTo(new Point3D(-3, 2, 1), new River(new Vec3d(0, 1 , -1)));
-
 
         radialInfluenceEffect = new RadialInfluenceEffect(new RemoveHealthCommand(15), 10, 5, Orientation.SOUTHEAST);
         radialInfluenceEffect.setOriginPoint(new Point3D(0,0,0));
@@ -573,7 +613,6 @@ public class MapGenerator extends Application {
         levels.add(level4);
 
         gameModel = new GameModel(level0, null, levels, player, aiMap, null, null);
-        savingVisitor.visitGameModel(gameModel);
     }
 
     public static void main(String... args) {
@@ -593,9 +632,32 @@ public class MapGenerator extends Application {
         level2 = new Level();
         level3 = new Level();
         level4 = new Level();
+        createSmasher();
+        generateDemoMap();
+        smasherSavingVisitor.visitGameModel(gameModel);
 
+        reinit();
+
+        level0 = new Level();
+        level1 = new Level();
+        level2 = new Level();
+        level3 = new Level();
+        level4 = new Level();
+        createSummoner();
+        generateDemoMap();
+        summonerSavingVisitor.visitGameModel(gameModel);
+
+        reinit();
+
+        level0 = new Level();
+        level1 = new Level();
+        level2 = new Level();
+        level3 = new Level();
+        level4 = new Level();
         createSneak();
         generateDemoMap();
+        sneakSavingVisitor.visitGameModel(gameModel);
+
         System.exit(0);
     }
 }

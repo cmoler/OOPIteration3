@@ -1,24 +1,42 @@
 <GAMEMODEL>
 <CURRENTLEVEL>
-<LEVEL reference="Model.Level.Level@68bd8ba8">
+<LEVEL reference="Model.Level.Level@e16c89b">
 <LEVELMAP id="TERRAIN">
-	<KEY key="2,5,-7"/>
+	<KEY key="-4,-5,9"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,-5,-2"/>
+	<KEY key="4,5,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,6,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,7,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-7,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-5,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,5,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-5,-3"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-5,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,5,2"/>
+	<KEY key="2,5,-7"/>
 	<VALUE value="GRASS"/>
-
-	<KEY key="5,-5,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,5,0"/>
-	<VALUE value="WATER"/>
 
 	<KEY key="0,5,-5"/>
 	<VALUE value="GRASS"/>
@@ -26,34 +44,55 @@
 	<KEY key="0,-5,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,7,-7"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="7,-7,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-7,7"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-7,7,0"/>
 	<VALUE value="GRASS"/>
 
+	<KEY key="3,-10,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-10,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,10,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,10,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-10,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-10,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,10,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,10,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,6,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-3,4"/>
+	<VALUE value="GRASS"/>
+
 	<KEY key="-4,3,1"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="-1,-2,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,2,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="3,-2,-1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-3,2,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,-6,4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="3,-6,3"/>
@@ -62,52 +101,31 @@
 	<KEY key="1,3,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-3,-1"/>
+	<KEY key="2,-6,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,6,-3"/>
+	<KEY key="4,-3,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,6,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,-3,4"/>
+	<KEY key="5,-8,3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,6,-4"/>
+	<KEY key="-5,8,-3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-6,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,-4,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-2,4,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,4,-5"/>
+	<KEY key="-5,4,1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="5,-4,-1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,-4,5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,4,1"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="1,6,-7"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="7,-6,-1"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="-1,-6,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,6,1"/>
+	<KEY key="1,6,-7"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="2,-3,1"/>
@@ -122,46 +140,16 @@
 	<KEY key="-1,3,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-4,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,-4,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-3,4,-1"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="-1,4,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="5,-6,1"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="1,-6,5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,6,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,6,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="1,0,-1"/>
+	<KEY key="7,-8,1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,0,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,-2,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-1,2,-1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,1,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="3,-1,-2"/>
+	<KEY key="-7,8,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-1,3"/>
@@ -170,40 +158,34 @@
 	<KEY key="-3,1,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,3,-6"/>
+	<KEY key="2,1,-3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,-3,-3"/>
+	<KEY key="3,-1,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,-3,6"/>
+	<KEY key="-9,5,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-6,3,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="3,2,-5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="5,-2,-3"/>
+	<KEY key="9,-5,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-3,-2,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,2,3"/>
+	<KEY key="3,2,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,0,-3"/>
+	<KEY key="-10,6,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-6,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-3,0,3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,2,-4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="4,-2,-2"/>
+	<KEY key="3,0,-3"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-2,4"/>
@@ -212,22 +194,16 @@
 	<KEY key="-4,2,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,4,-7"/>
+	<KEY key="2,2,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,-4,-3"/>
+	<KEY key="4,-2,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-3,-4,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,4,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,4,-6"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="6,-4,-2"/>
+	<KEY key="3,4,-7"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-4,6"/>
@@ -236,31 +212,28 @@
 	<KEY key="-6,4,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,3,-5"/>
+	<KEY key="2,4,-6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,-3,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-2,-3,5"/>
+	<KEY key="6,-4,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-5,3,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-3,0"/>
+	<KEY key="5,-3,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-1,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,0,0"/>
-	<VALUE value="WATER"/>
+	<VALUE value="GRASS"/>
 
-	<KEY key="4,-4,0"/>
+	<KEY key="-8,8,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="1,-1,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,1,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,-1,1"/>
@@ -269,115 +242,136 @@
 	<KEY key="-1,1,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,2,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-2,2,0"/>
+	<KEY key="0,1,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="2,-2,0"/>
 	<VALUE value="GRASS"/>
 
+	<KEY key="0,2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,8,-4"/>
+	<VALUE value="GRASS"/>
+
 	<KEY key="0,-2,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,3,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,4,-4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-4,4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-3,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,1,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,0,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,1,1"/>
 	<VALUE value="GRASS"/>
 
+	<KEY key="4,-4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-8,0"/>
+	<VALUE value="GRASS"/>
+
 	<KEY key="-4,4,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,-6,0"/>
+	<KEY key="0,-8,8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-6,6,0"/>
+	<KEY key="0,8,-8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,3,0"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="0,-6,6"/>
+	<KEY key="0,-4,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,6,-6"/>
+	<KEY key="-2,2,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,0,2"/>
+	<KEY key="0,4,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-1,-1"/>
+	<KEY key="1,1,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,-1,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,0,-7"/>
+	<KEY key="-2,0,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,0,7"/>
+	<KEY key="2,0,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,1,-6"/>
+	<KEY key="4,-8,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,-1,-5"/>
+	<KEY key="-2,-8,10"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,-1,6"/>
+	<KEY key="2,8,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-9,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,9,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-3,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,3,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-9,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-9,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,9,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,9,-6"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-6,1,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,0,-6"/>
+	<KEY key="6,-1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-9,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,9,-10"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-6,0,6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,2,-7"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="7,-2,-5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,-2,7"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-7,2,5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="4,1,-5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="5,-1,-4"/>
+	<KEY key="6,0,-6"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,-1,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,1,4"/>
+	<KEY key="4,1,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,0,-5"/>
+	<KEY key="-4,1,3"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-3,-1,4"/>
@@ -386,64 +380,574 @@
 	<KEY key="3,1,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-1,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-4,1,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,0,5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="4,2,-6"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-6,2,4"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="6,-2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-1,-3"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,-2,6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,0,-4"/>
+	<KEY key="-6,2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-9,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-9,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,9,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,9,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-3,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,3,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-4,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,4,-10"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,0,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,3,-7"/>
+	<KEY key="4,0,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,-3,-4"/>
+	<KEY key="-4,-4,8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-4,-3,7"/>
+	<KEY key="-8,4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,4,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-4,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-7,3,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,1,-7"/>
+	<KEY key="7,-3,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,-1,-6"/>
+	<KEY key="-8,-1,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,1,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-9,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,9,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,0,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,0,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-9,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,9,-9"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-6,-1,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,1,6"/>
+	<KEY key="6,1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,-2,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,2,-10"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="5,-7,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-7,5"/>
+	<KEY key="-5,7,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,7,-2"/>
+	<KEY key="8,-10,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-10,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,10,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,10,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,5,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-5,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,5,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-10,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,10,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-5,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,5,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-7,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,7,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-7,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,7,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-10,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-10,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,10,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,10,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-7,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,7,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-10,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,10,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-5,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,5,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,5,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-5,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,-1,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,1,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,0,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,0,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-8,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,8,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-8,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,8,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-8,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,8,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-10,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,10,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-8,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,8,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,0,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,0,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-6,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,6,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-6,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,6,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-6,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,6,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-6,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,6,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,7,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-7,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-9,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,9,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,0,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,0,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-2,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,2,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-3,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,3,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,9,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-9,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-1,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,0,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,0,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,4,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-4,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-4,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,4,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,1,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-1,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,0,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,0,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-9,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,9,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-7,5"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,7,-5"/>
@@ -461,40 +965,22 @@
 	<KEY key="-3,7,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-5,2"/>
+	<KEY key="-9,8,1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-5,3"/>
+	<KEY key="9,-8,-1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,5,-2"/>
+	<KEY key="-1,-7,8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,5,-3"/>
+	<KEY key="-8,7,1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="1,5,-6"/>
+	<KEY key="1,7,-8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,-5,-1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-1,-5,6"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-6,5,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="4,-5,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,-5,4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-4,5,-1"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="-1,5,-4"/>
+	<KEY key="8,-7,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="6,-7,1"/>
@@ -511,40 +997,25 @@
 </LEVELMAP>
 
 <LEVELMAP id="AREAEFFECT">
-	<KEY key="-3,4,-1"/>
+	<KEY key="5,0,-5"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@73545da5" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@490cc2e9"/>
 	</InfiniteAreaEffect></VALUE>
-	<KEY key="-4,3,1"/>
+	<KEY key="-5,0,5"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
-	</InfiniteAreaEffect></VALUE>
-	<KEY key="-4,5,-1"/>
-	<VALUE>
-	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
-	</InfiniteAreaEffect></VALUE>
-	<KEY key="-4,4,0"/>
-	<VALUE>
-	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
-	</InfiniteAreaEffect></VALUE>
-	<KEY key="-3,3,0"/>
-	<VALUE>
-	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@2a0f527e" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@647f2ef0"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="-5,5,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@5c9570f4" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@73a1ea05"/>
 	</InfiniteAreaEffect></VALUE>
-	<KEY key="-5,4,1"/>
+	<KEY key="5,-5,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@23eddaad" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@3ef8688e"/>
 	</InfiniteAreaEffect></VALUE>
 </LEVELMAP>
 
@@ -552,94 +1023,64 @@
 </LEVELMAP>
 
 <LEVELMAP id="ITEM">
-	<KEY key="5,-4,-1"/>
-	<VALUE>
-	<ConsumableItem price="0" name="Healing Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@58a226b6">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5cc606c1"/>
-	</ConsumableItem></VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="TRAP">
-	<KEY key="0,-2,2"/>
-	<VALUE>
-	<Trap isVisible="false" isDisarmed="false" trapStrength="10">
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@3e6268f"/>
-	</Trap></VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="OBSTACLE">
-	<KEY key="-5,0,5"/>
-	<VALUE>
-	<Obstacle/>
-	</VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="RIVER">
-	<KEY key="-1,-1,2"/>
-	<VALUE>
-	<River flowRate="1,0,0"/>
-	</VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="MOUNT">
-	<KEY key="0,2,-2"/>
-	<VALUE><Mount orientation="NORTH" speed="10">
-<TERRAINLIST>	
-<TERRAIN value="GRASS"/>	
-<TERRAIN value="WATER"/>
-</TERRAINLIST>
-</Mount></VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="ENTITY">
-	<KEY key="0,1,-1"/>
+	<KEY key="0,0,0"/>
 	<VALUE>
-	<Entity velocity="0,0,0" noiseLevel="5" sightRadius="10" level="0" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="100" maxMana="10" regenRate="100" speed="10" goldAmount="100" maxGold="100" attackPoints="100" attackModifier="1" defensePoints="100" defenseModifier="1" orientation="NORTH" moveable="true" reference="Model.Entity.Entity@328b3c4f">
+	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="2" level="1" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="500" maxMana="500" regenRate="1" speed="113246208" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="summoner" reference="Model.Entity.Entity@b87c984">
 	<WEAPONSKILLS>
-	<Skill name="Bane" accuracy="1" useCost="1" level="0">
-	<AngularInfluenceEffect speed="2000000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@cb1065c">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@60adf905"/>
-	</AngularInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@60adf905"/></Skill>
-	<Skill name="Boon" accuracy="1" useCost="1" level="0">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@6f61e5de">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@6b669d88"/>
-	</LinearInfluenceEffect><AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@6b669d88"/></Skill>
-	<Skill name="Enchant" accuracy="1" useCost="1" level="0">
-	<AngularInfluenceEffect speed="2000000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@5d365a01">
-	<FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@3d990b6c"/>
-	</AngularInfluenceEffect><FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@3d990b6c"/></Skill>
-	<Skill name="Staff" accuracy="1" useCost="1" level="0">
-	<LinearInfluenceEffect speed="2000000000" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@67645e57">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/></Skill>
-	<Skill name="Observe" accuracy="1" useCost="100" level="1">
-	<RadialInfluenceEffect speed="200000000" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@7dda5ee2">
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/>
-	</RadialInfluenceEffect><ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/></Skill>
-	<Skill name="Bargain" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@389935d0">
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d">
-	</BarterCommand>
-	</LinearInfluenceEffect><BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d"/></Skill>
-	<Skill name="Bind Wounds" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@7026b6c5">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/>
-	</LinearInfluenceEffect><AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@6ea33e97" name="Staff" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@491dbd75">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/>
+	</LinearInfluenceEffect>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@487cafc0" name="Bane" accuracy="1" useCost="1" level="1">
+	<AngularInfluenceEffect point="0,0,0" speed="83886080" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@78650b3c">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5a4b0a6"/>
+	</AngularInfluenceEffect>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5a4b0a6"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@694e29d6" name="Boon" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@21f64372">
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@10ebe4d2"/>
+	</LinearInfluenceEffect>
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@10ebe4d2"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@151ff9" name="Enchant" accuracy="1" useCost="1" level="1">
+	<AngularInfluenceEffect point="0,0,0" speed="83886080" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@40072118">
+	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@6086883e"/>
+	</AngularInfluenceEffect>
+	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@6086883e"/></Skill>
 	
 </WEAPONSKILLS>
-<NONWEAPONSKILLS><Skill name="Observe" accuracy="1" useCost="100" level="1">
-	<RadialInfluenceEffect speed="200000000" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@7dda5ee2">
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/>
-	</RadialInfluenceEffect><ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/></Skill>
-	<Skill name="Bargain" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@389935d0">
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d">
+<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@7735ceea" name="Bargain" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@73f8aa8f">
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@3cfa1d56">
 	</BarterCommand>
-	</LinearInfluenceEffect><BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d"/></Skill>
-	<Skill name="Bind Wounds" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@7026b6c5">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/>
-	</LinearInfluenceEffect><AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/></Skill>
+	</LinearInfluenceEffect>
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@3cfa1d56">
+	</BarterCommand></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@5a9a6d63" name="Observe" accuracy="1" useCost="100" level="1">
+	<RadialInfluenceEffect point="0,0,0" speed="83886080" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@458ce430">
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@119f43c7"/>
+	</RadialInfluenceEffect>
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@119f43c7"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@4202ef7f" name="Bind Wounds" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@27853fa9">
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@4bf996a2"/>
+	</LinearInfluenceEffect>
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@4bf996a2"/></Skill>
 	
 </NONWEAPONSKILLS>
 <TERRAINLIST>	
@@ -648,90 +1089,82 @@
 
 <Equipment>
 </Equipment>
-<Inventory maxSize="15">
+<Inventory maxSize="10">
 <ITEMLIST>
-	<ArmorItem price="0" name="Helmet" isToBeDeleted="false" defense="10" reference="Model.Item.TakeableItem.ArmorItem@2ed32784">
-		<ToggleHealthCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@577ad475"/>
+	<ArmorItem price="23" name="Medium Armor" isToBeDeleted="false" defense="10" reference="Model.Item.TakeableItem.ArmorItem@69f64689">
+		<ToggleHealthCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@29cb10b"/>
 	</ArmorItem>
-	<RingItem price="0" name="Ring" isToBeDeleted="false" reference="Model.Item.TakeableItem.RingItem@122fc0c1">
-		<ToggleSpeedCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand@60b88121"/>
-	</RingItem><WeaponItem price="0" name="ELECTRIFY" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@57e065b5">
+	<ConsumableItem price="2" name="Mana Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@c6aae86">
+		<AddManaCommand amount="50"/>
+	</ConsumableItem>
+	<ConsumableItem price="2" name="Mana Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@b21652f">
+		<AddManaCommand amount="50"/>
+	</ConsumableItem><WeaponItem price="12" name="Staff" damage="8" speed="5" accuracy="10" useCost="10" range="1" reference="Model.Item.TakeableItem.WeaponItem@5038a8cc">
 	
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5638da40"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@3a7d218e">
-	<LinearInfluenceEffect speed="2000000000" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1e680e69">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/></Skill>
-	
-	
-	<RadialInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@5a8b2408">
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5638da40"/>
-	</RadialInfluenceEffect>
-	</WeaponItem><WeaponItem price="0" name="BOONY" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@9a91f86">
-	
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@57ec539c"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@3a7d218e">
-	<LinearInfluenceEffect speed="2000000000" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1e680e69">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/></Skill>
+		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@374b4f29"/>
+	<Skill name="Staff" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@6ea33e97">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@491dbd75">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/></Skill>
 	
 	
-	<RadialInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@15b1bb50">
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@57ec539c"/>
-	</RadialInfluenceEffect>
-	</WeaponItem><WeaponItem price="0" name="FREEZE" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@1699668a">
-	
-	<FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@570d1ef0"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@3a7d218e">
-	<LinearInfluenceEffect speed="2000000000" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1e680e69">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/></Skill>
-	
-	
-	<AngularInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@62c8c73e">
-	<FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@570d1ef0"/>
-	</AngularInfluenceEffect>
-	</WeaponItem><WeaponItem price="0" name="STAFF" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@7abb9b0c">
-	
-		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@27cb0fe7"/>
-	<Skill name="Staff" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@624c4b8a">
-	<LinearInfluenceEffect speed="2000000000" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@67645e57">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/></Skill>
-	
-	
-	<LinearInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@188e7f70">
-		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@27cb0fe7"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@6e0cd9d8">
+		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@374b4f29"/>
 	</LinearInfluenceEffect>
-	</WeaponItem></ITEMLIST></Inventory>
+	</WeaponItem>
+	<RingItem price="55" name="Speed Ring" isToBeDeleted="false" reference="Model.Item.TakeableItem.RingItem@6e04d12b">
+		<ToggleSpeedCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand@7b6f7aef"/>
+	</RingItem></ITEMLIST></Inventory>
 <ItemHotBar>
 <ITEMLIST>
 </ITEMLIST>
 </ItemHotBar>
+<FRIENDLIST>
+<FRIEND entityReference="Model.Entity.Entity@3a8cfb61"/></FRIENDLIST>
+<TARGETING>
+</TARGETING>
 </Entity></VALUE>
 </LEVELMAP>
 </LEVEL>
 </CURRENTLEVEL>
 <LEVELLIST>
-<LEVEL reference="Model.Level.Level@68bd8ba8">
+<LEVEL reference="Model.Level.Level@e16c89b">
 <LEVELMAP id="TERRAIN">
-	<KEY key="2,5,-7"/>
+	<KEY key="-4,-5,9"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,-5,-2"/>
+	<KEY key="4,5,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,6,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,7,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-7,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-5,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,5,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-5,-3"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-5,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,5,2"/>
+	<KEY key="2,5,-7"/>
 	<VALUE value="GRASS"/>
-
-	<KEY key="5,-5,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,5,0"/>
-	<VALUE value="WATER"/>
 
 	<KEY key="0,5,-5"/>
 	<VALUE value="GRASS"/>
@@ -739,34 +1172,55 @@
 	<KEY key="0,-5,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,7,-7"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="7,-7,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-7,7"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-7,7,0"/>
 	<VALUE value="GRASS"/>
 
+	<KEY key="3,-10,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-10,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,10,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,10,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-10,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-10,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,10,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,10,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,6,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-3,4"/>
+	<VALUE value="GRASS"/>
+
 	<KEY key="-4,3,1"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="-1,-2,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,2,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="3,-2,-1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-3,2,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,-6,4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="3,-6,3"/>
@@ -775,52 +1229,31 @@
 	<KEY key="1,3,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-3,-1"/>
+	<KEY key="2,-6,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,6,-3"/>
+	<KEY key="4,-3,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,6,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,-3,4"/>
+	<KEY key="5,-8,3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,6,-4"/>
+	<KEY key="-5,8,-3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-6,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,-4,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-2,4,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,4,-5"/>
+	<KEY key="-5,4,1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="5,-4,-1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,-4,5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,4,1"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="1,6,-7"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="7,-6,-1"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="-1,-6,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,6,1"/>
+	<KEY key="1,6,-7"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="2,-3,1"/>
@@ -835,46 +1268,16 @@
 	<KEY key="-1,3,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-4,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,-4,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-3,4,-1"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="-1,4,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="5,-6,1"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="1,-6,5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,6,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,6,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="1,0,-1"/>
+	<KEY key="7,-8,1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,0,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,-2,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-1,2,-1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,1,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="3,-1,-2"/>
+	<KEY key="-7,8,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-1,3"/>
@@ -883,40 +1286,34 @@
 	<KEY key="-3,1,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,3,-6"/>
+	<KEY key="2,1,-3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,-3,-3"/>
+	<KEY key="3,-1,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,-3,6"/>
+	<KEY key="-9,5,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-6,3,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="3,2,-5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="5,-2,-3"/>
+	<KEY key="9,-5,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-3,-2,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,2,3"/>
+	<KEY key="3,2,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,0,-3"/>
+	<KEY key="-10,6,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-6,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-3,0,3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,2,-4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="4,-2,-2"/>
+	<KEY key="3,0,-3"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-2,4"/>
@@ -925,22 +1322,16 @@
 	<KEY key="-4,2,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,4,-7"/>
+	<KEY key="2,2,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,-4,-3"/>
+	<KEY key="4,-2,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-3,-4,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,4,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,4,-6"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="6,-4,-2"/>
+	<KEY key="3,4,-7"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,-4,6"/>
@@ -949,31 +1340,28 @@
 	<KEY key="-6,4,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,3,-5"/>
+	<KEY key="2,4,-6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,-3,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-2,-3,5"/>
+	<KEY key="6,-4,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-5,3,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-3,0"/>
+	<KEY key="5,-3,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-1,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,0,0"/>
-	<VALUE value="WATER"/>
+	<VALUE value="GRASS"/>
 
-	<KEY key="4,-4,0"/>
+	<KEY key="-8,8,0"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="1,-1,0"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,1,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="0,-1,1"/>
@@ -982,115 +1370,136 @@
 	<KEY key="-1,1,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,2,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-2,2,0"/>
+	<KEY key="0,1,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="2,-2,0"/>
 	<VALUE value="GRASS"/>
 
+	<KEY key="0,2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,8,-4"/>
+	<VALUE value="GRASS"/>
+
 	<KEY key="0,-2,2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,3,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,4,-4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-4,4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="0,-3,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,1,-2"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="2,0,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,1,1"/>
 	<VALUE value="GRASS"/>
 
+	<KEY key="4,-4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-8,0"/>
+	<VALUE value="GRASS"/>
+
 	<KEY key="-4,4,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,-6,0"/>
+	<KEY key="0,-8,8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-6,6,0"/>
+	<KEY key="0,8,-8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,3,0"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="0,-6,6"/>
+	<KEY key="0,-4,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,6,-6"/>
+	<KEY key="-2,2,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,0,2"/>
+	<KEY key="0,4,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-1,-1"/>
+	<KEY key="1,1,-2"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,-1,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,0,-7"/>
+	<KEY key="-2,0,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,0,7"/>
+	<KEY key="2,0,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,1,-6"/>
+	<KEY key="4,-8,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,-1,-5"/>
+	<KEY key="-2,-8,10"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,-1,6"/>
+	<KEY key="2,8,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-9,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,9,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-3,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,3,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-9,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-9,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,9,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,9,-6"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-6,1,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,0,-6"/>
+	<KEY key="6,-1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-9,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,9,-10"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-6,0,6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,2,-7"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="7,-2,-5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,-2,7"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-7,2,5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="4,1,-5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="5,-1,-4"/>
+	<KEY key="6,0,-6"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,-1,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,1,4"/>
+	<KEY key="4,1,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="5,0,-5"/>
+	<KEY key="-4,1,3"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-3,-1,4"/>
@@ -1099,64 +1508,574 @@
 	<KEY key="3,1,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,-1,-3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-4,1,3"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-5,0,5"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="4,2,-6"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-6,2,4"/>
-	<VALUE value="GRASS"/>
-
 	<KEY key="6,-2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-1,-3"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,-2,6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,0,-4"/>
+	<KEY key="-6,2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-9,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-9,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,9,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,9,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-3,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,3,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-4,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,4,-10"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-4,0,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="4,3,-7"/>
+	<KEY key="4,0,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,-3,-4"/>
+	<KEY key="-4,-4,8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-4,-3,7"/>
+	<KEY key="-8,4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,4,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-4,-4"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-7,3,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,1,-7"/>
+	<KEY key="7,-3,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="7,-1,-6"/>
+	<KEY key="-8,-1,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,1,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-9,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,9,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,0,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,0,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-9,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,9,-9"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-6,-1,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-7,1,6"/>
+	<KEY key="6,1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,-2,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,2,-10"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="5,-7,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-7,5"/>
+	<KEY key="-5,7,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-5,7,-2"/>
+	<KEY key="8,-10,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-10,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,10,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,10,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,5,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-5,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,5,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-10,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,10,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-5,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,5,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-7,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,7,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-7,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,7,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-10,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-10,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,10,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,10,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-7,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,7,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-10,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,10,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-5,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,5,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,5,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-5,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,-1,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,1,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,0,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,0,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-8,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,8,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-8,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,8,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-8,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,8,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-10,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,10,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-8,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,8,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,0,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,0,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-6,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,6,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-6,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,6,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-6,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,6,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-6,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,6,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,7,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-7,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-9,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,9,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,0,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,0,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-2,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,2,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-3,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,3,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,9,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-9,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-1,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,0,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,0,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,4,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-4,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-4,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,4,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,1,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-1,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,0,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,0,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-9,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,9,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-7,5"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-2,7,-5"/>
@@ -1174,40 +2093,22 @@
 	<KEY key="-3,7,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-5,2"/>
+	<KEY key="-9,8,1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-5,3"/>
+	<KEY key="9,-8,-1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,5,-2"/>
+	<KEY key="-1,-7,8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,5,-3"/>
+	<KEY key="-8,7,1"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="1,5,-6"/>
+	<KEY key="1,7,-8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="6,-5,-1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-1,-5,6"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-6,5,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="4,-5,1"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="1,-5,4"/>
-	<VALUE value="GRASS"/>
-
-	<KEY key="-4,5,-1"/>
-	<VALUE value="WATER"/>
-
-	<KEY key="-1,5,-4"/>
+	<KEY key="8,-7,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="6,-7,1"/>
@@ -1224,40 +2125,25 @@
 </LEVELMAP>
 
 <LEVELMAP id="AREAEFFECT">
-	<KEY key="-3,4,-1"/>
+	<KEY key="5,0,-5"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@73545da5" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@490cc2e9"/>
 	</InfiniteAreaEffect></VALUE>
-	<KEY key="-4,3,1"/>
+	<KEY key="-5,0,5"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
-	</InfiniteAreaEffect></VALUE>
-	<KEY key="-4,5,-1"/>
-	<VALUE>
-	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
-	</InfiniteAreaEffect></VALUE>
-	<KEY key="-4,4,0"/>
-	<VALUE>
-	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
-	</InfiniteAreaEffect></VALUE>
-	<KEY key="-3,3,0"/>
-	<VALUE>
-	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@2a0f527e" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@647f2ef0"/>
 	</InfiniteAreaEffect></VALUE>
 	<KEY key="-5,5,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@5c9570f4" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@73a1ea05"/>
 	</InfiniteAreaEffect></VALUE>
-	<KEY key="-5,4,1"/>
+	<KEY key="5,-5,0"/>
 	<VALUE>
 	<InfiniteAreaEffect>
-		<TeleportEntityCommand levelReference="Model.Level.Level@255f5412" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@8f9c6c4"/>
+		<TeleportEntityCommand levelReference="Model.Level.Level@23eddaad" point="0,1,-1" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@3ef8688e"/>
 	</InfiniteAreaEffect></VALUE>
 </LEVELMAP>
 
@@ -1265,94 +2151,64 @@
 </LEVELMAP>
 
 <LEVELMAP id="ITEM">
-	<KEY key="5,-4,-1"/>
-	<VALUE>
-	<ConsumableItem price="0" name="Healing Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@58a226b6">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5cc606c1"/>
-	</ConsumableItem></VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="TRAP">
-	<KEY key="0,-2,2"/>
-	<VALUE>
-	<Trap isVisible="false" isDisarmed="false" trapStrength="10">
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@3e6268f"/>
-	</Trap></VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="OBSTACLE">
-	<KEY key="-5,0,5"/>
-	<VALUE>
-	<Obstacle/>
-	</VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="RIVER">
-	<KEY key="-1,-1,2"/>
-	<VALUE>
-	<River flowRate="1,0,0"/>
-	</VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="MOUNT">
-	<KEY key="0,2,-2"/>
-	<VALUE><Mount orientation="NORTH" speed="10">
-<TERRAINLIST>	
-<TERRAIN value="GRASS"/>	
-<TERRAIN value="WATER"/>
-</TERRAINLIST>
-</Mount></VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="ENTITY">
-	<KEY key="0,1,-1"/>
+	<KEY key="0,0,0"/>
 	<VALUE>
-	<Entity velocity="0,0,0" noiseLevel="5" sightRadius="10" level="0" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="100" maxMana="10" regenRate="100" speed="10" goldAmount="100" maxGold="100" attackPoints="100" attackModifier="1" defensePoints="100" defenseModifier="1" orientation="NORTH" moveable="true" reference="Model.Entity.Entity@328b3c4f">
+	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="2" level="1" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="500" maxMana="500" regenRate="1" speed="113246208" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="summoner" reference="Model.Entity.Entity@b87c984">
 	<WEAPONSKILLS>
-	<Skill name="Bane" accuracy="1" useCost="1" level="0">
-	<AngularInfluenceEffect speed="2000000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@cb1065c">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@60adf905"/>
-	</AngularInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@60adf905"/></Skill>
-	<Skill name="Boon" accuracy="1" useCost="1" level="0">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@6f61e5de">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@6b669d88"/>
-	</LinearInfluenceEffect><AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@6b669d88"/></Skill>
-	<Skill name="Enchant" accuracy="1" useCost="1" level="0">
-	<AngularInfluenceEffect speed="2000000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@5d365a01">
-	<FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@3d990b6c"/>
-	</AngularInfluenceEffect><FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@3d990b6c"/></Skill>
-	<Skill name="Staff" accuracy="1" useCost="1" level="0">
-	<LinearInfluenceEffect speed="2000000000" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@67645e57">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/></Skill>
-	<Skill name="Observe" accuracy="1" useCost="100" level="1">
-	<RadialInfluenceEffect speed="200000000" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@7dda5ee2">
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/>
-	</RadialInfluenceEffect><ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/></Skill>
-	<Skill name="Bargain" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@389935d0">
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d">
-	</BarterCommand>
-	</LinearInfluenceEffect><BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d"/></Skill>
-	<Skill name="Bind Wounds" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@7026b6c5">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/>
-	</LinearInfluenceEffect><AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@6ea33e97" name="Staff" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@491dbd75">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/>
+	</LinearInfluenceEffect>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@487cafc0" name="Bane" accuracy="1" useCost="1" level="1">
+	<AngularInfluenceEffect point="0,0,0" speed="83886080" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@78650b3c">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5a4b0a6"/>
+	</AngularInfluenceEffect>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5a4b0a6"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@694e29d6" name="Boon" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@21f64372">
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@10ebe4d2"/>
+	</LinearInfluenceEffect>
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@10ebe4d2"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@151ff9" name="Enchant" accuracy="1" useCost="1" level="1">
+	<AngularInfluenceEffect point="0,0,0" speed="83886080" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@40072118">
+	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@6086883e"/>
+	</AngularInfluenceEffect>
+	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@6086883e"/></Skill>
 	
 </WEAPONSKILLS>
-<NONWEAPONSKILLS><Skill name="Observe" accuracy="1" useCost="100" level="1">
-	<RadialInfluenceEffect speed="200000000" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@7dda5ee2">
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/>
-	</RadialInfluenceEffect><ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/></Skill>
-	<Skill name="Bargain" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@389935d0">
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d">
+<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@7735ceea" name="Bargain" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@73f8aa8f">
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@3cfa1d56">
 	</BarterCommand>
-	</LinearInfluenceEffect><BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d"/></Skill>
-	<Skill name="Bind Wounds" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@7026b6c5">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/>
-	</LinearInfluenceEffect><AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/></Skill>
+	</LinearInfluenceEffect>
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@3cfa1d56">
+	</BarterCommand></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@5a9a6d63" name="Observe" accuracy="1" useCost="100" level="1">
+	<RadialInfluenceEffect point="0,0,0" speed="83886080" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@458ce430">
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@119f43c7"/>
+	</RadialInfluenceEffect>
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@119f43c7"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@4202ef7f" name="Bind Wounds" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@27853fa9">
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@4bf996a2"/>
+	</LinearInfluenceEffect>
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@4bf996a2"/></Skill>
 	
 </NONWEAPONSKILLS>
 <TERRAINLIST>	
@@ -1361,155 +2217,168 @@
 
 <Equipment>
 </Equipment>
-<Inventory maxSize="15">
+<Inventory maxSize="10">
 <ITEMLIST>
-	<ArmorItem price="0" name="Helmet" isToBeDeleted="false" defense="10" reference="Model.Item.TakeableItem.ArmorItem@2ed32784">
-		<ToggleHealthCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@577ad475"/>
+	<ArmorItem price="23" name="Medium Armor" isToBeDeleted="false" defense="10" reference="Model.Item.TakeableItem.ArmorItem@69f64689">
+		<ToggleHealthCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@29cb10b"/>
 	</ArmorItem>
-	<RingItem price="0" name="Ring" isToBeDeleted="false" reference="Model.Item.TakeableItem.RingItem@122fc0c1">
-		<ToggleSpeedCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand@60b88121"/>
-	</RingItem><WeaponItem price="0" name="ELECTRIFY" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@57e065b5">
+	<ConsumableItem price="2" name="Mana Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@c6aae86">
+		<AddManaCommand amount="50"/>
+	</ConsumableItem>
+	<ConsumableItem price="2" name="Mana Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@b21652f">
+		<AddManaCommand amount="50"/>
+	</ConsumableItem><WeaponItem price="12" name="Staff" damage="8" speed="5" accuracy="10" useCost="10" range="1" reference="Model.Item.TakeableItem.WeaponItem@5038a8cc">
 	
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5638da40"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@3a7d218e">
-	<LinearInfluenceEffect speed="2000000000" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1e680e69">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/></Skill>
-	
-	
-	<RadialInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@5a8b2408">
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5638da40"/>
-	</RadialInfluenceEffect>
-	</WeaponItem><WeaponItem price="0" name="BOONY" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@9a91f86">
-	
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@57ec539c"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@3a7d218e">
-	<LinearInfluenceEffect speed="2000000000" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1e680e69">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/></Skill>
+		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@374b4f29"/>
+	<Skill name="Staff" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@6ea33e97">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@491dbd75">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/></Skill>
 	
 	
-	<RadialInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@15b1bb50">
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@57ec539c"/>
-	</RadialInfluenceEffect>
-	</WeaponItem><WeaponItem price="0" name="FREEZE" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@1699668a">
-	
-	<FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@570d1ef0"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@3a7d218e">
-	<LinearInfluenceEffect speed="2000000000" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1e680e69">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/></Skill>
-	
-	
-	<AngularInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@62c8c73e">
-	<FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@570d1ef0"/>
-	</AngularInfluenceEffect>
-	</WeaponItem><WeaponItem price="0" name="STAFF" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@7abb9b0c">
-	
-		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@27cb0fe7"/>
-	<Skill name="Staff" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@624c4b8a">
-	<LinearInfluenceEffect speed="2000000000" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@67645e57">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/></Skill>
-	
-	
-	<LinearInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@188e7f70">
-		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@27cb0fe7"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@6e0cd9d8">
+		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@374b4f29"/>
 	</LinearInfluenceEffect>
-	</WeaponItem></ITEMLIST></Inventory>
+	</WeaponItem>
+	<RingItem price="55" name="Speed Ring" isToBeDeleted="false" reference="Model.Item.TakeableItem.RingItem@6e04d12b">
+		<ToggleSpeedCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand@7b6f7aef"/>
+	</RingItem></ITEMLIST></Inventory>
 <ItemHotBar>
 <ITEMLIST>
 </ITEMLIST>
 </ItemHotBar>
+<FRIENDLIST>
+<FRIEND entityReference="Model.Entity.Entity@3a8cfb61"/></FRIENDLIST>
+<TARGETING>
+</TARGETING>
 </Entity></VALUE>
 </LEVELMAP>
-</LEVEL><LEVEL reference="Model.Level.Level@255f5412">
+</LEVEL><LEVEL reference="Model.Level.Level@5c9570f4">
 <LEVELMAP id="TERRAIN">
-	<KEY key="2,1,-3"/>
+	<KEY key="-4,-5,9"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-1,-2"/>
+	<KEY key="4,5,-9"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,-1,3"/>
+	<KEY key="-9,6,3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,1,2"/>
+	<KEY key="9,-6,-3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,0,-3"/>
+	<KEY key="-10,7,3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,0,3"/>
+	<KEY key="10,-7,-3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,0,-2"/>
+	<KEY key="-3,-5,8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="1,-1,0"/>
+	<KEY key="-8,5,3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,0,0"/>
+	<KEY key="3,5,-8"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,0,2"/>
+	<KEY key="8,-5,-3"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,1,1"/>
+	<KEY key="-2,-5,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-3,0"/>
+	<KEY key="2,5,-7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,3,0"/>
+	<KEY key="0,-5,5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,1,-1"/>
+	<KEY key="0,5,-5"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-1,1"/>
+	<KEY key="7,-7,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,1,0"/>
+	<KEY key="-7,7,0"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,2,-2"/>
+	<KEY key="3,-10,7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-2,0"/>
+	<KEY key="0,-10,10"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-2,2,0"/>
+	<KEY key="-3,10,-7"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,3,-3"/>
+	<KEY key="0,10,-10"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-3,3"/>
+	<KEY key="6,-10,4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="0,-2,2"/>
+	<KEY key="4,-10,6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="1,1,-2"/>
+	<KEY key="-6,10,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="2,-1,-1"/>
+	<KEY key="-4,10,-6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,-1,2"/>
+	<KEY key="-9,3,6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="1,2,-3"/>
+	<KEY key="9,-3,-6"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="3,-2,-1"/>
+	<KEY key="4,-6,2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-1,-2,3"/>
+	<KEY key="-2,6,-4"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="-3,2,1"/>
+	<KEY key="-3,6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-3,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,3,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-6,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,3,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-6,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-3,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-8,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,8,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-6,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,6,-7"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="2,-3,1"/>
@@ -1524,10 +2393,595 @@
 	<KEY key="-1,3,-2"/>
 	<VALUE value="GRASS"/>
 
-	<KEY key="1,0,-1"/>
+	<KEY key="1,-6,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,6,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-8,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,8,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-1,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,1,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-1,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,5,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-5,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,6,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-6,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,0,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,0,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,2,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-4,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,4,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-4,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,4,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,3,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-3,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,1,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,0,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-1,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-2,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-2,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,8,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,0,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,0,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-8,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,2,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,1,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,8,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-8,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-8,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,8,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-9,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,9,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-3,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,3,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-9,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-9,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,9,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,9,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,1,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-9,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,9,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,0,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,0,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-1,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,1,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,1,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-1,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-9,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-9,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,9,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,9,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-3,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,3,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-4,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,4,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,0,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,0,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-4,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,4,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,3,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-3,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,-1,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,1,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-9,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,9,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,0,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,0,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-9,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,9,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,-2,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,2,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-7,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,7,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-10,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-10,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,10,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,10,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,5,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-5,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,5,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-10,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,10,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-5,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,5,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-7,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,7,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-7,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,7,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-10,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-10,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,10,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,10,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-7,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,7,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-10,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,10,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-5,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,5,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,5,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-5,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,-1,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,1,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,0,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,0,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-8,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,8,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-8,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,8,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-8,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,8,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-10,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,10,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-8,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,8,-7"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="-1,0,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,0,-1"/>
 	<VALUE value="GRASS"/>
 
 	<KEY key="1,-2,1"/>
@@ -1535,9 +2989,3291 @@
 
 	<KEY key="-1,2,-1"/>
 	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-6,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,6,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-6,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,6,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-6,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,6,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,6,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-6,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,7,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-7,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-9,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,9,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,0,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,0,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-2,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,2,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-3,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,3,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,9,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-9,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-1,-4"/>
+	<VALUE value="WATER"/>
+
+	<KEY key="5,0,-5"/>
+	<VALUE value="MOUNTAINS"/>
+
+	<KEY key="-5,0,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,4,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-4,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-4,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,4,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,1,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-1,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,0,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,0,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-9,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,9,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-7,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,7,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-7,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-7,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,7,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,7,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,8,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-8,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-7,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,7,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,7,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-7,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-7,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-7,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,7,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,7,-6"/>
+	<VALUE value="GRASS"/>
 </LEVELMAP>
 
 <LEVELMAP id="AREAEFFECT">
+	<KEY key="-6,8,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,7,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-4,6,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,4,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-6,5,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-8,7,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-6,4,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,5,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-8,6,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,6,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-4,5,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,8,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-4,4,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-6,6,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-8,8,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@16b050ac"/>
+	</InfiniteAreaEffect></VALUE>
+</LEVELMAP>
+
+<LEVELMAP id="INFLUENCEEFFECT">
+</LEVELMAP>
+
+<LEVELMAP id="ITEM">
+</LEVELMAP>
+
+<LEVELMAP id="TRAP">
+</LEVELMAP>
+
+<LEVELMAP id="OBSTACLE">
+	<KEY key="5,-2,-3"/>
+	<VALUE>
+	<Obstacle/>
+	</VALUE>
+</LEVELMAP>
+
+<LEVELMAP id="RIVER">
+	<KEY key="1,2,-3"/>
+	<VALUE>
+	<River flowRate="1,-1,0"/>
+	</VALUE>
+	<KEY key="2,1,-3"/>
+	<VALUE>
+	<River flowRate="1,-1,0"/>
+	</VALUE>
+	<KEY key="3,-1,-2"/>
+	<VALUE>
+	<River flowRate="0,-1,1"/>
+	</VALUE>
+	<KEY key="3,-2,-1"/>
+	<VALUE>
+	<River flowRate="0,-1,1"/>
+	</VALUE>
+	<KEY key="-1,-2,3"/>
+	<VALUE>
+	<River flowRate="-1,1,0"/>
+	</VALUE>
+	<KEY key="-2,-1,3"/>
+	<VALUE>
+	<River flowRate="-1,1,0"/>
+	</VALUE>
+	<KEY key="-3,1,2"/>
+	<VALUE>
+	<River flowRate="0,1,-1"/>
+	</VALUE>
+	<KEY key="3,0,-3"/>
+	<VALUE>
+	<River flowRate="0,-1,1"/>
+	</VALUE>
+	<KEY key="-3,0,3"/>
+	<VALUE>
+	<River flowRate="0,1,-1"/>
+	</VALUE>
+	<KEY key="-2,3,-1"/>
+	<VALUE>
+	<River flowRate="1,0,-1"/>
+	</VALUE>
+	<KEY key="-1,3,-2"/>
+	<VALUE>
+	<River flowRate="1,0,-1"/>
+	</VALUE>
+	<KEY key="2,-3,1"/>
+	<VALUE>
+	<River flowRate="-1,0,1"/>
+	</VALUE>
+	<KEY key="1,-3,2"/>
+	<VALUE>
+	<River flowRate="-1,0,1"/>
+	</VALUE>
+	<KEY key="-3,3,0"/>
+	<VALUE>
+	<River flowRate="1,0,-1"/>
+	</VALUE>
+	<KEY key="0,3,-3"/>
+	<VALUE>
+	<River flowRate="1,-1,0"/>
+	</VALUE>
+	<KEY key="3,-3,0"/>
+	<VALUE>
+	<River flowRate="-1,0,1"/>
+	</VALUE>
+	<KEY key="0,-3,3"/>
+	<VALUE>
+	<River flowRate="-1,1,0"/>
+	</VALUE>
+</LEVELMAP>
+
+<LEVELMAP id="MOUNT">
+	<KEY key="-2,0,2"/>
+	<VALUE><Mount orientation="NORTH" speed="-72613888">
+<TERRAINLIST>	
+<TERRAIN value="GRASS"/>	
+<TERRAIN value="MOUNTAINS"/>	
+<TERRAIN value="WATER"/>
+</TERRAINLIST>
+</Mount></VALUE>
+</LEVELMAP>
+
+<LEVELMAP id="ENTITY">
+</LEVELMAP>
+</LEVEL><LEVEL reference="Model.Level.Level@23eddaad">
+<LEVELMAP id="TERRAIN">
+	<KEY key="-4,-5,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,5,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,6,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,7,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-7,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-5,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,5,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-5,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-5,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,5,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-5,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,5,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-7,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,7,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-10,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-10,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,10,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,10,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-10,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-10,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,10,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,10,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,6,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-3,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,3,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-6,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,3,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-6,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-3,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-8,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,8,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-6,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,6,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-3,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-3,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,3,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,3,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-6,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,6,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-8,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,8,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-1,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,1,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-1,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,5,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-5,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,6,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-6,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,0,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,0,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,2,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-4,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,4,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-4,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,4,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,3,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-3,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,1,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,0,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-1,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-2,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-2,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,2,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,0,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,0,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-8,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,8,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,1,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-8,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,8,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-8,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,8,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-9,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,9,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-3,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,3,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-9,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-9,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,9,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,9,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,1,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-9,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,9,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,0,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,0,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-1,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,1,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,1,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-1,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-9,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-9,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,9,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,9,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-3,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,3,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-4,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,4,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,0,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,0,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-4,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,4,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,3,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-3,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,-1,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,1,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-9,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,9,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,0,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,0,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-9,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,9,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,-2,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,2,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-7,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,7,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-10,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-10,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,10,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,10,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,5,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-5,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,5,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-10,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,10,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-5,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,5,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-7,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,7,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-7,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,7,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-10,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-10,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,10,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,10,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-7,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,7,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-10,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,10,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-5,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,5,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,5,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-5,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,-1,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,1,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,0,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,0,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-8,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,8,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-8,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,8,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-8,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,8,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-10,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,10,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-8,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,8,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,0,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,0,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-6,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,6,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-6,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,6,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-6,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,6,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-6,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,6,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,7,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-7,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-9,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,9,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,0,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,0,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-2,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,2,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-3,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,3,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,9,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-9,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-1,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,0,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,0,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,4,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-4,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-4,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,4,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,1,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-1,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,0,10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,0,-10"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-9,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,9,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-10,2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="10,-2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-7,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,7,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-7,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-7,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,7,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,7,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,8,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-8,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-7,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,7,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,7,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-7,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-7,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-7,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,7,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,7,-6"/>
+	<VALUE value="GRASS"/>
+</LEVELMAP>
+
+<LEVELMAP id="AREAEFFECT">
+	<KEY key="-4,3,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,7,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-4,6,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,4,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,6,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-3,5,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-3,4,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-6,4,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,5,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-4,5,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,3,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-6,7,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-2,1,1"/>
+	<VALUE>
+	<OneShotAreaEffect hasNotFired="true">
+		<LevelUpCommand reference="Model.Command.EntityCommand.NonSettableCommand.LevelUpCommand@56bf9ec6"/>
+	</OneShotAreaEffect></VALUE>
+	<KEY key="2,-1,-1"/>
+	<VALUE>
+	<OneShotAreaEffect hasNotFired="true">
+		<InstaDeathCommand reference="Model.Command.EntityCommand.NonSettableCommand.InstaDeathCommand@56872efc"/>
+	</OneShotAreaEffect></VALUE>
+	<KEY key="0,-3,3"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<AddHealthCommand amount="1" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@422631b0"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="0,3,-3"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<RemoveHealthCommand amount="1" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@8dbdf1e"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-3,3,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,5,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,7,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@1efa89bb"/>
+	</InfiniteAreaEffect></VALUE>
+</LEVELMAP>
+
+<LEVELMAP id="INFLUENCEEFFECT">
+</LEVELMAP>
+
+<LEVELMAP id="ITEM">
+	<KEY key="2,0,-2"/>
+	<VALUE>
+	<ConsumableItem price="0" name="Healing Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@2238396d">
+		<AddHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@4d271318"/>
+	</ConsumableItem></VALUE>
+	<KEY key="-2,0,2"/>
+	<VALUE><WeaponItem price="5" name="Brawler Weapon" damage="5" speed="20" accuracy="10" useCost="10" range="1" reference="Model.Item.TakeableItem.WeaponItem@3eff00bd">
+	
+		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@680a0b53"/>
+	<Skill name="Brawler" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@b9ab46e">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@7e50c9d6">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@386cc449"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@386cc449"/></Skill>
+	
+	
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@840084">
+		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@680a0b53"/>
+	</LinearInfluenceEffect>
+	</WeaponItem></VALUE>
+	<KEY key="-4,0,4"/>
+	<VALUE>
+	<OneShotItem name="YEAH" isToBeDeleted="false" reference="Model.Item.OneShotItem@5ee3ed3e">
+		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@2685914d"/>
+	</OneShotItem></VALUE>
+</LEVELMAP>
+
+<LEVELMAP id="TRAP">
+	<KEY key="-6,0,6"/>
+	<VALUE>
+	<Trap isVisible="false" isDisarmed="false" trapStrength="10">
+		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@78954758"/>
+	</Trap></VALUE>
+</LEVELMAP>
+
+<LEVELMAP id="OBSTACLE">
+</LEVELMAP>
+
+<LEVELMAP id="RIVER">
+</LEVELMAP>
+
+<LEVELMAP id="MOUNT">
+</LEVELMAP>
+
+<LEVELMAP id="ENTITY">
+</LEVELMAP>
+</LEVEL><LEVEL reference="Model.Level.Level@73545da5">
+<LEVELMAP id="TERRAIN">
+	<KEY key="-4,-5,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,5,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,6,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-5,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,5,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-5,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-5,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,5,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-5,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,5,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-7,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,7,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,6,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-3,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,3,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-6,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,3,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-6,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-3,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-8,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,8,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-6,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,6,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-3,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-3,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,3,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,3,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-6,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,6,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-8,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,8,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-1,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,1,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-1,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,5,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-5,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,0,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,0,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,2,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-4,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,4,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-4,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,4,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,3,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-3,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,0,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-1,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-2,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,2,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,8,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-2,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,1,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-8,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,1,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-8,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,8,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,0,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,0,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-9,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,9,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-9,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-9,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,9,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,9,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,1,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,0,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,0,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-1,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,1,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,1,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-1,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-9,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-9,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,9,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,9,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-3,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,3,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,0,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,0,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-4,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,4,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,3,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-3,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,-1,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,1,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-9,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,9,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,0,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,0,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-9,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,9,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-7,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,7,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,5,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-5,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,5,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-5,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,5,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-7,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,7,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-7,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,7,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,9,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,0,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,0,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-8,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,8,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-8,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,8,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-8,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,8,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-8,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,8,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,0,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,0,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-6,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,6,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-6,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,6,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-6,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,6,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,7,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-7,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-9,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,9,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,0,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,0,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-2,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,2,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-3,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,3,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-1,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,0,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,0,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-4,9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,4,-9"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-9,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,9,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-7,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,7,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-7,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-7,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,7,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,7,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-9,8,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="9,-8,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-7,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,7,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,7,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-7,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-7,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-7,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,7,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,7,-6"/>
+	<VALUE value="GRASS"/>
+</LEVELMAP>
+
+<LEVELMAP id="AREAEFFECT">
+	<KEY key="-4,3,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,7,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-4,6,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,4,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,6,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-3,5,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-3,4,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-6,4,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,5,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-4,5,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,3,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-6,7,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-3,3,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,5,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,7,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@58b5f8ee"/>
+	</InfiniteAreaEffect></VALUE>
+</LEVELMAP>
+
+<LEVELMAP id="INFLUENCEEFFECT">
+</LEVELMAP>
+
+<LEVELMAP id="ITEM">
+</LEVELMAP>
+
+<LEVELMAP id="TRAP">
+</LEVELMAP>
+
+<LEVELMAP id="OBSTACLE">
+</LEVELMAP>
+
+<LEVELMAP id="RIVER">
+</LEVELMAP>
+
+<LEVELMAP id="MOUNT">
+</LEVELMAP>
+
+<LEVELMAP id="ENTITY">
+	<KEY key="0,3,-3"/>
+	<VALUE>
+	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="2" level="1" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="500" maxMana="500" regenRate="1" speed="1500000000" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="null" reference="Model.Entity.Entity@2cb194e5">
+	<WEAPONSKILLS>
+	
+</WEAPONSKILLS>
+<NONWEAPONSKILLS>
+</NONWEAPONSKILLS>
+<TERRAINLIST>	
+<TERRAIN value="GRASS"/>
+</TERRAINLIST>
+
+<Equipment>
+</Equipment>
+<Inventory maxSize="10">
+<ITEMLIST></ITEMLIST></Inventory>
+<ItemHotBar>
+<ITEMLIST>
+</ITEMLIST>
+</ItemHotBar>
+<FRIENDLIST>
+</FRIENDLIST>
+<TARGETING>
+<TARGET entityReference="Model.Entity.Entity@b87c984"/></TARGETING>
+</Entity></VALUE>
+	<KEY key="-3,5,-2"/>
+	<VALUE>
+	<Entity velocity="0,0,0" noiseLevel="5" sightRadius="5" level="1" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="500" maxMana="500" regenRate="1" speed="1000000000" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="McNugget" reference="Model.Entity.Entity@3a8cfb61">
+	<WEAPONSKILLS>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@4dd09825" name="One-Handed" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@19fe64db">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@137b8150"/>
+	</LinearInfluenceEffect>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@137b8150"/></Skill>
+	
+</WEAPONSKILLS>
+<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@18463e44" name="Pickpocket" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@4186abe0">
+	<PickPocketCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.PickPocketCommand@360359b6"></PickPocketCommand>
+	</LinearInfluenceEffect>
+	<PickPocketCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.PickPocketCommand@360359b6"></PickPocketCommand></Skill>
+	
+</NONWEAPONSKILLS>
+<TERRAINLIST>	
+<TERRAIN value="GRASS"/>
+</TERRAINLIST>
+
+<Equipment>
+</Equipment>
+<Inventory maxSize="10">
+<ITEMLIST></ITEMLIST></Inventory>
+<ItemHotBar>
+<ITEMLIST>
+</ITEMLIST>
+</ItemHotBar>
+<FRIENDLIST>
+</FRIENDLIST>
+<TARGETING>
+<TARGET entityReference="Model.Entity.Entity@2cb194e5"/></TARGETING>
+</Entity></VALUE>
+</LEVELMAP>
+</LEVEL><LEVEL reference="Model.Level.Level@2a0f527e">
+<LEVELMAP id="TERRAIN">
+	<KEY key="-3,-5,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,5,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-5,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-5,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,5,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-5,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,5,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-7,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,7,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,6,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,6,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-3,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,3,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-6,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,3,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-6,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-3,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-8,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,8,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-6,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,6,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-3,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-3,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,3,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,3,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-6,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,6,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-8,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,8,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-1,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,1,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-1,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,0,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,0,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,2,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-4,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,4,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-4,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,4,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,3,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-3,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,0,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,1,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-1,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,1,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,1,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-2,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,2,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,2,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,8,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-2,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,0,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-8,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,8,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,4,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,1,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-8,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,8,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-1,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,0,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-2,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,2,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,1,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,0,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,0,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-1,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,1,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,1,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,1,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-2,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-1,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-2,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,2,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,2,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-3,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,3,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,0,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,0,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-4,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,4,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,4,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-4,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,3,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-3,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,0,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,0,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,-1,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,1,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-7,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,7,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-5,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,5,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-5,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,5,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-5,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-5,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,5,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,5,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,5,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-5,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,5,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-7,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,7,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-8,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-8,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,8,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,8,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-8,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,8,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-4,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,4,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-4,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,4,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-4,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,4,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-6,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,6,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-8,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,8,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,0,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,0,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-2,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,2,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,-3,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,3,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,2,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-2,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,4,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-4,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-6,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,6,2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,6,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-6,-2"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,-3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-6,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,6,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,-3,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,3,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="0,6,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,3,0"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,0,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,0,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,-2,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,2,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,2,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-2,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,1,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,-1,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="5,0,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-5,0,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,3,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-3,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,-3,7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,3,-7"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,-1,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,1,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-7,1,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="7,-1,-6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="2,-7,5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-2,7,-5"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="4,-7,3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="3,-7,4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-4,7,-3"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-3,7,-4"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,-7,8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-8,7,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,7,-8"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="8,-7,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="6,-7,1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="1,-7,6"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-6,7,-1"/>
+	<VALUE value="GRASS"/>
+
+	<KEY key="-1,7,-6"/>
+	<VALUE value="GRASS"/>
+</LEVELMAP>
+
+<LEVELMAP id="AREAEFFECT">
+	<KEY key="-4,3,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,7,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-4,6,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,4,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,6,1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-3,5,-2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-3,4,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-6,4,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,5,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-4,5,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,3,2"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-6,7,-1"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-3,3,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-5,5,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
+	<KEY key="-7,7,0"/>
+	<VALUE>
+	<InfiniteAreaEffect>
+		<TeleportEntityCommand levelReference="Model.Level.Level@e16c89b" point="0,0,0" reference="Model.Command.EntityCommand.NonSettableCommand.TeleportEntityCommand@5cb12b11"/>
+	</InfiniteAreaEffect></VALUE>
 </LEVELMAP>
 
 <LEVELMAP id="INFLUENCEEFFECT">
@@ -1563,52 +6299,47 @@
 </LEVEL>
 </LEVELLIST>
 <PLAYER>
-	<Entity velocity="0,0,0" noiseLevel="5" sightRadius="10" level="0" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="100" maxMana="10" regenRate="100" speed="10" goldAmount="100" maxGold="100" attackPoints="100" attackModifier="1" defensePoints="100" defenseModifier="1" orientation="NORTH" moveable="true" reference="Model.Entity.Entity@328b3c4f">
+	<Entity velocity="0,0,0" noiseLevel="1" sightRadius="2" level="1" experience="0" experienceToNextLevel="100" currentHealth="100" maxHealth="100" manaPoints="500" maxMana="500" regenRate="1" speed="113246208" goldAmount="10" maxGold="100" attackPoints="1" attackModifier="0" defensePoints="1" defenseModifier="0" orientation="NORTH" moveable="true" name="summoner" reference="Model.Entity.Entity@b87c984">
 	<WEAPONSKILLS>
-	<Skill name="Bane" accuracy="1" useCost="1" level="0">
-	<AngularInfluenceEffect speed="2000000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@cb1065c">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@60adf905"/>
-	</AngularInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@60adf905"/></Skill>
-	<Skill name="Boon" accuracy="1" useCost="1" level="0">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@6f61e5de">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@6b669d88"/>
-	</LinearInfluenceEffect><AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@6b669d88"/></Skill>
-	<Skill name="Enchant" accuracy="1" useCost="1" level="0">
-	<AngularInfluenceEffect speed="2000000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@5d365a01">
-	<FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@3d990b6c"/>
-	</AngularInfluenceEffect><FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@3d990b6c"/></Skill>
-	<Skill name="Staff" accuracy="1" useCost="1" level="0">
-	<LinearInfluenceEffect speed="2000000000" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@67645e57">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/></Skill>
-	<Skill name="Observe" accuracy="1" useCost="100" level="1">
-	<RadialInfluenceEffect speed="200000000" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@7dda5ee2">
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/>
-	</RadialInfluenceEffect><ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/></Skill>
-	<Skill name="Bargain" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@389935d0">
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d">
-	</BarterCommand>
-	</LinearInfluenceEffect><BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d"/></Skill>
-	<Skill name="Bind Wounds" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@7026b6c5">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/>
-	</LinearInfluenceEffect><AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@6ea33e97" name="Staff" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@491dbd75">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/>
+	</LinearInfluenceEffect>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@487cafc0" name="Bane" accuracy="1" useCost="1" level="1">
+	<AngularInfluenceEffect point="0,0,0" speed="83886080" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@78650b3c">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5a4b0a6"/>
+	</AngularInfluenceEffect>
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5a4b0a6"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@694e29d6" name="Boon" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@21f64372">
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@10ebe4d2"/>
+	</LinearInfluenceEffect>
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@10ebe4d2"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@151ff9" name="Enchant" accuracy="1" useCost="1" level="1">
+	<AngularInfluenceEffect point="0,0,0" speed="83886080" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@40072118">
+	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@6086883e"/>
+	</AngularInfluenceEffect>
+	<FreezeEntityCommand amount="400" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@6086883e"/></Skill>
 	
 </WEAPONSKILLS>
-<NONWEAPONSKILLS><Skill name="Observe" accuracy="1" useCost="100" level="1">
-	<RadialInfluenceEffect speed="200000000" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@7dda5ee2">
-	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/>
-	</RadialInfluenceEffect><ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@7d4a4ac8"/></Skill>
-	<Skill name="Bargain" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@389935d0">
-	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d">
+<NONWEAPONSKILLS><Skill reference="Model.Entity.EntityAttributes.Skill@7735ceea" name="Bargain" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@73f8aa8f">
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@3cfa1d56">
 	</BarterCommand>
-	</LinearInfluenceEffect><BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@5f24ce8d"/></Skill>
-	<Skill name="Bind Wounds" accuracy="1" useCost="1" level="1">
-	<LinearInfluenceEffect speed="2000000000" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@7026b6c5">
-		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/>
-	</LinearInfluenceEffect><AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@5f15be03"/></Skill>
+	</LinearInfluenceEffect>
+	<BarterCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.BarterCommand@3cfa1d56">
+	</BarterCommand></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@5a9a6d63" name="Observe" accuracy="1" useCost="100" level="1">
+	<RadialInfluenceEffect point="0,0,0" speed="83886080" range="5" movesRemaining="5" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@458ce430">
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@119f43c7"/>
+	</RadialInfluenceEffect>
+	<ObserveEntityCommand amount="0" reference="Model.Command.EntityCommand.SettableCommand.ObserveEntityCommand@119f43c7"/></Skill>
+	<Skill reference="Model.Entity.EntityAttributes.Skill@4202ef7f" name="Bind Wounds" accuracy="1" useCost="1" level="1">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="0" movesRemaining="0" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@27853fa9">
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@4bf996a2"/>
+	</LinearInfluenceEffect>
+		<AddHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.AddHealthCommand@4bf996a2"/></Skill>
 	
 </NONWEAPONSKILLS>
 <TERRAINLIST>	
@@ -1617,65 +6348,41 @@
 
 <Equipment>
 </Equipment>
-<Inventory maxSize="15">
+<Inventory maxSize="10">
 <ITEMLIST>
-	<ArmorItem price="0" name="Helmet" isToBeDeleted="false" defense="10" reference="Model.Item.TakeableItem.ArmorItem@2ed32784">
-		<ToggleHealthCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@577ad475"/>
+	<ArmorItem price="23" name="Medium Armor" isToBeDeleted="false" defense="10" reference="Model.Item.TakeableItem.ArmorItem@69f64689">
+		<ToggleHealthCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleHealthCommand@29cb10b"/>
 	</ArmorItem>
-	<RingItem price="0" name="Ring" isToBeDeleted="false" reference="Model.Item.TakeableItem.RingItem@122fc0c1">
-		<ToggleSpeedCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand@60b88121"/>
-	</RingItem><WeaponItem price="0" name="ELECTRIFY" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@57e065b5">
+	<ConsumableItem price="2" name="Mana Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@c6aae86">
+		<AddManaCommand amount="50"/>
+	</ConsumableItem>
+	<ConsumableItem price="2" name="Mana Potion" isToBeDeleted="false" reference="Model.Item.TakeableItem.ConsumableItem@b21652f">
+		<AddManaCommand amount="50"/>
+	</ConsumableItem><WeaponItem price="12" name="Staff" damage="8" speed="5" accuracy="10" useCost="10" range="1" reference="Model.Item.TakeableItem.WeaponItem@5038a8cc">
 	
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5638da40"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@3a7d218e">
-	<LinearInfluenceEffect speed="2000000000" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1e680e69">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/></Skill>
-	
-	
-	<RadialInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@5a8b2408">
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@5638da40"/>
-	</RadialInfluenceEffect>
-	</WeaponItem><WeaponItem price="0" name="BOONY" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@9a91f86">
-	
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@57ec539c"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@3a7d218e">
-	<LinearInfluenceEffect speed="2000000000" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1e680e69">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/></Skill>
+		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@374b4f29"/>
+	<Skill name="Staff" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@6ea33e97">
+	<LinearInfluenceEffect point="0,0,0" speed="83886080" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@491dbd75">
+		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/>
+	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@35908791"/></Skill>
 	
 	
-	<RadialInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.RadialInfluenceEffect@15b1bb50">
-		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@57ec539c"/>
-	</RadialInfluenceEffect>
-	</WeaponItem><WeaponItem price="0" name="FREEZE" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@1699668a">
-	
-	<FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@570d1ef0"/>
-	<Skill name="Range" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@3a7d218e">
-	<LinearInfluenceEffect speed="2000000000" range="7" movesRemaining="7" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@1e680e69">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@4a710ddc"/></Skill>
-	
-	
-	<AngularInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.AngularInfluenceEffect@62c8c73e">
-	<FreezeEntityCommand amount="1000" reference="Model.Command.EntityCommand.SettableCommand.FreezeEntityCommand@570d1ef0"/>
-	</AngularInfluenceEffect>
-	</WeaponItem><WeaponItem price="0" name="STAFF" damage="10" speed="10" accuracy="10" useCost="10" range="4" reference="Model.Item.TakeableItem.WeaponItem@7abb9b0c">
-	
-		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@27cb0fe7"/>
-	<Skill name="Staff" accuracy="1" useCost="1" reference="Model.Entity.EntityAttributes.Skill@624c4b8a">
-	<LinearInfluenceEffect speed="2000000000" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@67645e57">
-		<RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/>
-	</LinearInfluenceEffect><RemoveHealthCommand amount="15" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@86de6e8"/></Skill>
-	
-	
-	<LinearInfluenceEffect speed="200000000" range="4" movesRemaining="4" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@188e7f70">
-		<RemoveHealthCommand amount="100" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@27cb0fe7"/>
+	<LinearInfluenceEffect point="0,0,0" speed="44040192" range="1" movesRemaining="1" orientation="NORTH" reference="Model.InfluenceEffect.LinearInfluenceEffect@6e0cd9d8">
+		<RemoveHealthCommand amount="10" reference="Model.Command.EntityCommand.SettableCommand.RemoveHealthCommand@374b4f29"/>
 	</LinearInfluenceEffect>
-	</WeaponItem></ITEMLIST></Inventory>
+	</WeaponItem>
+	<RingItem price="55" name="Speed Ring" isToBeDeleted="false" reference="Model.Item.TakeableItem.RingItem@6e04d12b">
+		<ToggleSpeedCommand amount="10" hasFired="false" reference="Model.Command.EntityCommand.NonSettableCommand.ToggleableCommand.ToggleSpeedCommand@7b6f7aef"/>
+	</RingItem></ITEMLIST></Inventory>
 <ItemHotBar>
 <ITEMLIST>
 </ITEMLIST>
 </ItemHotBar>
+<FRIENDLIST>
+<FRIEND entityReference="Model.Entity.Entity@3a8cfb61"/></FRIENDLIST>
+<TARGETING>
+</TARGETING>
 </Entity></PLAYER>
-</GAMEMODEL>
+<AICONTROLLERS>
+	<AIController levelRef="Model.Level.Level@73545da5" aiState="HostileAI" entityRef="Model.Entity.Entity@2cb194e5" reference="Model.AI.AIController@130f40d6"><PATROLPATH>
+<VECTOR vec="1,0,-1"/></PATROLPATH></AIController><AIController levelRef="Model.Level.Level@73545da5" aiState="GeneralPetState" entityRef="Model.Entity.Entity@3a8cfb61" reference="Model.AI.AIController@67a230fc"></AIController></AICONTROLLERS></GAMEMODEL>

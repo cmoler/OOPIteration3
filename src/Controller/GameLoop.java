@@ -33,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
 import org.xml.sax.SAXException;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
@@ -189,7 +190,6 @@ public class GameLoop {
                 case 2:
                     gameLoader.loadGame("SNEAK.xml");
                     break;
-
             }
         } catch (SAXException e) {
             e.printStackTrace();

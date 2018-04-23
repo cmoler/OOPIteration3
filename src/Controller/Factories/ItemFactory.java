@@ -159,7 +159,7 @@ public class ItemFactory {
     }
 
     public ArmorItem getLightArmor() {
-        ToggleDefenseCommand command = new ToggleDefenseCommand(5);
+        ToggleHealthCommand command = new ToggleHealthCommand(5);
         ArmorItem armorItem = new ArmorItem("Light Armor", command, 5);
         armorItem.setCurrentLevelMessenger(levelMessenger);
 
@@ -173,7 +173,7 @@ public class ItemFactory {
     }
 
     public ArmorItem getMediumArmor() {
-        ToggleDefenseCommand command = new ToggleDefenseCommand(10);
+        ToggleHealthCommand command = new ToggleHealthCommand(10);
         ArmorItem armorItem = new ArmorItem("Medium Armor", command, 10);
         armorItem.setCurrentLevelMessenger(levelMessenger);
 
@@ -181,13 +181,13 @@ public class ItemFactory {
         itemView.setMediumArmor();
 
         armorItem.setObserver(itemView);
-        armorItem.setPrice(20);
+        armorItem.setPrice(23);
 
         return armorItem;
     }
 
     public ArmorItem getHeavyArmor() {
-        ToggleDefenseCommand command = new ToggleDefenseCommand(15);
+        ToggleHealthCommand command = new ToggleHealthCommand(15);
         ArmorItem armorItem = new ArmorItem("Heavy Armor", command, 15);
         armorItem.setCurrentLevelMessenger(levelMessenger);
 
@@ -195,7 +195,7 @@ public class ItemFactory {
         itemView.setHeavyArmor();
 
         armorItem.setObserver(itemView);
-        armorItem.setPrice(30);
+        armorItem.setPrice(37);
 
         return armorItem;
     }
@@ -209,7 +209,7 @@ public class ItemFactory {
         itemView.setSpeedRing();
 
         ringItem.setObserver(itemView);
-        ringItem.setPrice(10);
+        ringItem.setPrice(55);
 
         return ringItem;
 
@@ -224,7 +224,7 @@ public class ItemFactory {
         itemView.setHealthRing();
 
         ringItem.setObserver(itemView);
-        ringItem.setPrice(10);
+        ringItem.setPrice(24);
 
         return ringItem;
     }
