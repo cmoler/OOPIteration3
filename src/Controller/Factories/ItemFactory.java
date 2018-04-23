@@ -32,10 +32,10 @@ public class ItemFactory {
 
     //Instantiates a one handed weapon
     public WeaponItem getOneHandedSword() {
-        RemoveHealthCommand command = new RemoveHealthCommand(10);
+        RemoveHealthCommand command = new RemoveHealthCommand(12);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getOneHandedSkill();
-        WeaponItem oneHandedSword = new WeaponItem("One Handed Sword", command, skill, influenceEffect, 10, 10, 10, 10, 1 );
+        WeaponItem oneHandedSword = new WeaponItem("One Handed Sword", command, skill, influenceEffect, 10, 0330000000l, 10, 60, 1 );
         oneHandedSword.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -49,10 +49,10 @@ public class ItemFactory {
 
     //Instantiates a two handed weapon
     public WeaponItem getTwoHandedSword() {
-        RemoveHealthCommand command = new RemoveHealthCommand(10);
+        RemoveHealthCommand command = new RemoveHealthCommand(20);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getTwoHandedSkill();
-        WeaponItem twoHandedSword = new WeaponItem("Two Handed Sword", command, skill, influenceEffect, 20, 5, 10, 10, 1 );
+        WeaponItem twoHandedSword = new WeaponItem("Two Handed Sword", command, skill, influenceEffect, 20, 0500000000l, 10, 100, 2 );
         twoHandedSword.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -66,10 +66,10 @@ public class ItemFactory {
 
     //Instantiates a brawler weapon
     public WeaponItem getBrawlerWeapon() {
-        RemoveHealthCommand command = new RemoveHealthCommand(10);
+        RemoveHealthCommand command = new RemoveHealthCommand(6);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getBrawlerSkill();
-        WeaponItem brawlerWeapon = new WeaponItem("Brawler Weapon", command, skill, influenceEffect, 5, 20, 10, 10, 1 );
+        WeaponItem brawlerWeapon = new WeaponItem("Brawler Weapon", command, skill, influenceEffect, 5, 0250000000l, 10, 40, 1 );
         brawlerWeapon.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -86,7 +86,7 @@ public class ItemFactory {
         RemoveHealthCommand command = new RemoveHealthCommand(10);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 1, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getStaffSkill();
-        WeaponItem staff1 = new WeaponItem("Staff", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        WeaponItem staff1 = new WeaponItem("Staff", command, skill, influenceEffect, 8, 0250000000l, 10, 25, 1 );
         staff1.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -99,10 +99,10 @@ public class ItemFactory {
     }
 
     public WeaponItem getRangedWeapon(){
-        RemoveHealthCommand command = new RemoveHealthCommand(10);
+        RemoveHealthCommand command = new RemoveHealthCommand(15);
         AngularInfluenceEffect influenceEffect = new AngularInfluenceEffect(command, 10, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getRangeSkill();
-        WeaponItem bow = new WeaponItem("Shotgun Crossbow", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        WeaponItem bow = new WeaponItem("Shotgun Crossbow", command, skill, influenceEffect, 8, 0250000000l, 10, 60, 1 );
         bow.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -116,7 +116,7 @@ public class ItemFactory {
 
     public ConsumableItem getPotion() {
         AddHealthCommand command = new AddHealthCommand(50);
-        ConsumableItem potion = new ConsumableItem("Potion", command);
+        ConsumableItem potion = new ConsumableItem("Health Potion", command);
         potion.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -146,7 +146,7 @@ public class ItemFactory {
         FreezeEntityCommand command = new FreezeEntityCommand(levelMessenger);
         LinearInfluenceEffect influenceEffect = new LinearInfluenceEffect(command, 10, 0250000000l, Orientation.NORTH);
         Skill skill = skillsFactory.getRangeSkill();
-        WeaponItem bow = new WeaponItem("Freeze Bow", command, skill, influenceEffect, 8, 5, 10, 10, 1 );
+        WeaponItem bow = new WeaponItem("Freeze Bow", command, skill, influenceEffect, 8, 0250000000l, 10, 100, 1 );
         bow.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
@@ -159,7 +159,7 @@ public class ItemFactory {
     }
 
     public ArmorItem getLightArmor() {
-        ToggleDefenseCommand command = new ToggleDefenseCommand(5);
+        ToggleHealthCommand command = new ToggleHealthCommand(5);
         ArmorItem armorItem = new ArmorItem("Light Armor", command, 5);
         armorItem.setCurrentLevelMessenger(levelMessenger);
 
@@ -173,35 +173,35 @@ public class ItemFactory {
     }
 
     public ArmorItem getMediumArmor() {
-        ToggleDefenseCommand command = new ToggleDefenseCommand(10);
-        ArmorItem armorItem = new ArmorItem("Medium Armor", command, 10);
+        ToggleHealthCommand command = new ToggleHealthCommand(10);
+        ArmorItem armorItem = new ArmorItem("Medium Armor", command, 11);
         armorItem.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
         itemView.setMediumArmor();
 
         armorItem.setObserver(itemView);
-        armorItem.setPrice(20);
+        armorItem.setPrice(23);
 
         return armorItem;
     }
 
     public ArmorItem getHeavyArmor() {
-        ToggleDefenseCommand command = new ToggleDefenseCommand(15);
-        ArmorItem armorItem = new ArmorItem("Heavy Armor", command, 15);
+        ToggleHealthCommand command = new ToggleHealthCommand(15);
+        ArmorItem armorItem = new ArmorItem("Heavy Armor", command, 16);
         armorItem.setCurrentLevelMessenger(levelMessenger);
 
         ItemView itemView = new ItemView(new Point3D(0, 0, 0));
         itemView.setHeavyArmor();
 
         armorItem.setObserver(itemView);
-        armorItem.setPrice(30);
+        armorItem.setPrice(37);
 
         return armorItem;
     }
 
     public RingItem getSpeedRing() {
-        ToggleSpeedCommand command = new ToggleSpeedCommand(10);
+        ToggleSpeedCommand command = new ToggleSpeedCommand(-0500000000);
         RingItem ringItem = new RingItem("Speed Ring", command);
         ringItem.setCurrentLevelMessenger(levelMessenger);
 
@@ -209,7 +209,7 @@ public class ItemFactory {
         itemView.setSpeedRing();
 
         ringItem.setObserver(itemView);
-        ringItem.setPrice(10);
+        ringItem.setPrice(55);
 
         return ringItem;
 
@@ -224,7 +224,7 @@ public class ItemFactory {
         itemView.setHealthRing();
 
         ringItem.setObserver(itemView);
-        ringItem.setPrice(10);
+        ringItem.setPrice(24);
 
         return ringItem;
     }

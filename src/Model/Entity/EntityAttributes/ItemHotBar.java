@@ -4,6 +4,7 @@ import Controller.Visitor.Visitable;
 import Controller.Visitor.Visitor;
 import Model.Entity.Entity;
 import Model.Item.TakeableItem.TakeableItem;
+import Model.Level.LevelMessenger;
 
 import java.util.HashMap;
 
@@ -50,9 +51,10 @@ public class ItemHotBar implements Visitable {
         }
     }
 
-    public void setStrategies(Entity entity) {
+    public void setStrategies(Entity entity, LevelMessenger levelMessenger) {
         for (TakeableItem item : items) {
             if (item != null) {
+                item.setCurrentLevelMessenger(levelMessenger);
                 item.setDropStrategyEntity(entity);
                 item.setItemStrategyEntity(entity);
             }

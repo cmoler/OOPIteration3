@@ -21,6 +21,7 @@ public class ShopKeeperFactory extends EntityFactory {
 
     public Entity buildEntity(TakeableItem... items) {
         Entity shopKeep = new Entity();
+        shopKeep.setName("billy");
 
         if(items != null) {
             for (int i = 0; i < items.length; ++i) {

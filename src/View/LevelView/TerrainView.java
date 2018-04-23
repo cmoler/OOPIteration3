@@ -28,10 +28,6 @@ public class TerrainView extends LevelViewElement{
 
         sprites = Sprites.getInstance();
 
-
-
-
-
         setSprite(sprites.getTerrainSprite(terrain));
         fogSprite = sprites.getFogSprite();
         blackHex = sprites.getBlackHex();
@@ -48,10 +44,6 @@ public class TerrainView extends LevelViewElement{
     public void notifyViewElement() {
 
     }
-
-
-
-
 
     @Override
     public void render(GraphicsContext gc, Point2D playerPos, Point2D scrollOffset) {

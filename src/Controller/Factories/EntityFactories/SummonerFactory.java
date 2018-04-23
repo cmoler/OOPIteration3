@@ -3,6 +3,7 @@ package Controller.Factories.EntityFactories;
 import Controller.Factories.SkillsFactory;
 import Model.Entity.Entity;
 
+import Model.Entity.EntityAttributes.SightRadius;
 import View.LevelView.EntityView.SummonerView;
 import javafx.geometry.Point3D;
 
@@ -16,6 +17,8 @@ public class SummonerFactory extends EntityFactory {
     @Override
     public Entity buildEntity() {
         Entity summoner = new Entity();
+        summoner.setSpeed(0640000000L);
+        summoner.setSightRadius(new SightRadius(3));
 
         summoner.addWeaponSkills(
                 getSkillsFactory().getStaffSkill(),
@@ -29,6 +32,8 @@ public class SummonerFactory extends EntityFactory {
                 getSkillsFactory().getObserveSkill(),
                 getSkillsFactory().getBindWounds()
         );
+
+        summoner.setName("summoner");
 
         return summoner;
     }

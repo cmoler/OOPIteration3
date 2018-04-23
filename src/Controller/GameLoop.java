@@ -33,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.canvas.GraphicsContext;
 import org.xml.sax.SAXException;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
@@ -189,7 +190,6 @@ public class GameLoop {
                 case 2:
                     gameLoader.loadGame("SNEAK.xml");
                     break;
-
             }
         } catch (SAXException e) {
             e.printStackTrace();
@@ -209,6 +209,7 @@ public class GameLoop {
         } finally {
             renderer.closeMenu();
             gameModel = gameLoader.getGameModel();
+
             ((KeyEventImplementor) controls).createPlayerControlsSet(gameModel.getPlayer(), menuModel);
 
             renderer.setPlayerHUD(new HUDStatsView(gameModel.getPlayer()));
@@ -253,7 +254,7 @@ public class GameLoop {
 
     public void render(GraphicsContext gc){
         if(gameModel != null) {
-            renderer.updateTerrainFog(gameModel.getPlayerPosition(), gameModel.getPlayer().getSight());
+            renderer.updateTerrainFog(gameModel.getCurrentLevel(), gameModel.getPlayerPosition(), gameModel.getPlayer().getSight());
             renderer.render(gc, gameModel.getPlayerPosition(), scrollOffSet);
         }
 

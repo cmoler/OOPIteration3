@@ -13,7 +13,7 @@ public class AreaEffectView extends LevelViewElement {
 
         String workingDir = System.getProperty("user.dir");
 
-        File file = new File(workingDir + "/src/View/Assets/fountain.png");
+        File file = new File(workingDir + "/src/View/Assets/portal.png");
 
         setSprite(new Image(file.toURI().toString()));
     }

@@ -21,12 +21,15 @@ public class MonsterFactory extends EntityFactory {
 
     public Entity buildEntity(TakeableItem... items) {
         Entity monster = new Entity();
+        monster.setName("grok");
 
         if(items != null) {
             for (int i = 0; i < items.length; ++i) {
                 monster.addItemToInventory(items[i]);
             }
         }
+
+        monster.addWeaponSkills(getSkillsFactory().getTwoHandedSkill());
 
         return monster;
     }

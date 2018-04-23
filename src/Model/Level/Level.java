@@ -26,7 +26,6 @@ public class Level {
     private Map<Point3D, Decal> decalLocations;
 
     private List<LevelViewElement> observers;
-    private List<TerrainView> tilesSeenByPlayer;
 
     private MovementHandler movementHandler;
     private InteractionHandler interactionHandler;
@@ -44,7 +43,6 @@ public class Level {
         this.decalLocations = new HashMap<>();
 
         this.observers = new ArrayList<>();
-        this.tilesSeenByPlayer = new ArrayList<>();
 
         this.movementHandler = new MovementHandler(terrainLocations, obstacleLocations, entityLocations,
                 mountLocations, influenceEffectLocations, riverLocations);
@@ -52,8 +50,6 @@ public class Level {
         this.interactionHandler = new InteractionHandler(itemLocations, entityLocations, areaEffectLocations,
                 trapLocations, mountLocations, influenceEffectLocations,
                 riverLocations, observers);
-
-        this.tilesSeenByPlayer = new ArrayList<>();
     }
 
     public Map<Point3D, Terrain> getTerrainMap() {
@@ -225,10 +221,6 @@ public class Level {
 
     public void setObservers(List<LevelViewElement> observers) {
         this.observers = observers;
-    }
-
-    public void setTilesSeenByPlayer(List<TerrainView> tilesSeenByPlayer) {
-        this.tilesSeenByPlayer = tilesSeenByPlayer;
     }
 
     public boolean hasItem(Item item) {

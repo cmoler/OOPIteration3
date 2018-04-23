@@ -23,9 +23,6 @@ public class ItemView extends LevelViewElement{
 
         toRender = true;
         rand = new Random();
-
-
-
     }
 
     @Override
@@ -51,7 +48,7 @@ public class ItemView extends LevelViewElement{
 
     public void setOneHandedSword() {
         String workingDir = System.getProperty("user.dir");
-        int randInt = (rand.nextInt(3))+1;
+        int randInt =1;// (rand.nextInt(3))+1;
         System.out.println(randInt);
         File file = new File(workingDir + "/src/View/Assets/OneHandedSword" + Integer.toString(randInt) + ".png");
 
@@ -59,13 +56,18 @@ public class ItemView extends LevelViewElement{
     }
 
     public void setTwoHandedWeapon() {
+        String workingDir = System.getProperty("user.dir");
+        int randInt = 1;//(rand.nextInt(3))+1;
+        System.out.println(randInt);
+        File file = new File(workingDir + "/src/View/Assets/twoHanded" + Integer.toString(randInt) + ".png");
 
+        setSprite(new Image(file.toURI().toString()));
     }
 
     public void setStaff() {
         String workingDir = System.getProperty("user.dir");
 
-        int randInt = (rand.nextInt(3))+1;
+        int randInt = 1;// (rand.nextInt(3))+1;
         File file = new File(workingDir + "/src/View/Assets/staff" + Integer.toString(randInt) + ".png");
 
         setSprite(new Image(file.toURI().toString()));
@@ -74,7 +76,7 @@ public class ItemView extends LevelViewElement{
     public void setRangedWeapon() {
         String workingDir = System.getProperty("user.dir");
 
-        int randInt = (rand.nextInt(3))+1;
+        int randInt = 1; // (rand.nextInt(3))+1;
         File file = new File(workingDir + "/src/View/Assets/bow" + Integer.toString(randInt) + ".png");
 
         setSprite(new Image(file.toURI().toString()));
@@ -83,7 +85,7 @@ public class ItemView extends LevelViewElement{
     public void setBrawlerWeapon() {
         String workingDir = System.getProperty("user.dir");
 
-        int randInt = (rand.nextInt(2))+1;
+        int randInt = 1;// (rand.nextInt(2))+1;
         File file = new File(workingDir + "/src/View/Assets/glove" + Integer.toString(randInt) + ".png");
 
         setSprite(new Image(file.toURI().toString()));
