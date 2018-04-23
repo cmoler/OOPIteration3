@@ -1,7 +1,4 @@
 out/
 .DS_Store
 .idea
-TESTSAVE.xml
-SMASHER.xml
-SNEAK.xml
-SUMMONER.xml
+*.xml

@@ -374,6 +374,7 @@ public class MapGenerator extends Application {
         level2.addItemTo(new Point3D(2,0,-2), healingPotion);
         level2.addItemTo(new Point3D(-2,0,2), brawler);
         level2.addItemTo(new Point3D(-4,0,4), hurts);
+        level2.addItemTo(new Point3D(-6, 0, 6), interactiveItem);
 
         // Level 2 Traps
         Trap trap = new Trap(new RemoveHealthCommand(100), 10);
